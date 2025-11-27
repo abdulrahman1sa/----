@@ -145,7 +145,7 @@ export default function Home() {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col gap-6 mt-10">
-                  <a href="#services" className="text-lg font-medium hover:text-primary transition-colors" onClick={() => document.querySelector('[data-state=open]')?.dispatchEvent(new Event('keydown', { bubbles: true, cancelable: true, key: 'Escape' }))}>الخدمات</a>
+                  <a href="#services" className="text-lg font-medium hover:text-primary transition-colors" onClick={() => document.querySelector('[data-state=open]')?.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }))}>الخدمات</a>
                   <a href="#process" className="text-lg font-medium hover:text-primary transition-colors">كيف نعمل</a>
                   <a href="#pricing" className="text-lg font-medium hover:text-primary transition-colors">الأسعار</a>
                   <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">الأسئلة الشائعة</a>
