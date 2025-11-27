@@ -45,6 +45,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import logoImage from "@assets/شعار_بديع-removebg-preview_1764208205746.png";
+
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -165,12 +167,13 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans" dir="rtl">
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 glass border-b border-white/10 bg-background/60 backdrop-blur-xl">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="container mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-linear-to-br from-primary to-purple-700 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-primary/25">
-              B
-            </div>
-            <span className="text-2xl font-bold font-heading tracking-tight">BADII | بديع</span>
+            <img 
+              src={logoImage} 
+              alt="BADII Logo" 
+              className="h-16 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+            />
           </div>
           <div className="hidden md:flex gap-8 font-medium text-sm items-center">
             <a href="#services" className="hover:text-primary transition-colors relative group">
@@ -608,8 +611,11 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-center md:text-right">
               <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-xl">B</div>
-                <span className="text-2xl font-bold text-white font-heading">BADII</span>
+                <img 
+                  src={logoImage} 
+                  alt="BADII Logo" 
+                  className="h-12 w-auto object-contain opacity-90"
+                />
               </div>
               <p className="text-gray-500 max-w-xs mx-auto md:mx-0">شريكك الإبداعي الأول في عالم الذكاء الاصطناعي. نصنع الفرق في كل تفصيل.</p>
             </div>
