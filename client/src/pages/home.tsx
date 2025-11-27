@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { 
   Sparkles, 
@@ -71,6 +71,8 @@ const staggerContainer = {
 };
 
 export default function Home() {
+  const [activeCategory, setActiveCategory] = useState("الكل");
+  
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
@@ -114,6 +116,24 @@ export default function Home() {
       
     window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
   };
+
+  const portfolioItems = [
+    { img: portfolio11, category: "أطعمة ومشروبات", title: "حلويات العيد", size: "large" },
+    { img: portfolio10, category: "منتجات", title: "كرسي قيمنق", size: "small" },
+    { img: portfolio9, category: "أطعمة ومشروبات", title: "ماتشا بارد", size: "small" },
+    { img: portfolio8, category: "أطعمة ومشروبات", title: "قهوة بيري", size: "small" },
+    { img: portfolio7, category: "إبداعي", title: "العلا - النمر العربي", size: "small" },
+    { img: portfolio6, category: "أطعمة ومشروبات", title: "بطاطس ذهبية", size: "small" },
+    { img: portfolio5, category: "أطعمة ومشروبات", title: "عسل ومكسرات", size: "small" },
+    { img: portfolio4, category: "أطعمة ومشروبات", title: "تمبورا روبيان", size: "small" },
+    { img: portfolio3, category: "إبداعي", title: "توصيل نينجا", size: "small" },
+    { img: portfolio2, category: "أطعمة ومشروبات", title: "قهوة الطين", size: "small" },
+    { img: portfolio1, category: "منتجات", title: "عطر فاخر", size: "large" },
+  ];
+
+  const filteredPortfolio = activeCategory === "الكل" 
+    ? portfolioItems 
+    : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
@@ -445,43 +465,70 @@ export default function Home() {
       </section>
 
       {/* Portfolio Gallery */}
-      <section className="py-24 overflow-hidden">
+      <section className="py-24 overflow-hidden bg-background relative">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-background to-background -z-10" />
+        
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h2 className="text-4xl font-bold font-heading mb-4">أعمالنا تتحدث عن نفسها</h2>
-            <p className="text-xl text-muted-foreground">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
+            <p className="text-xl text-muted-foreground mb-8">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
+            
+            {/* Filter Bar */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {["الكل", "منتجات", "أطعمة ومشروبات", "إبداعي"].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                    activeCategory === cat 
+                      ? "bg-primary text-white shadow-lg shadow-primary/25 scale-105" 
+                      : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
-            {[
-              portfolio11,
-              portfolio10,
-              portfolio9,
-              portfolio8,
-              portfolio7,
-              portfolio6,
-              portfolio5,
-              portfolio4,
-              portfolio3,
-              portfolio2,
-              portfolio1
-            ].map((img, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className={`relative rounded-xl md:rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i === 0 || i === 7 ? 'col-span-2 md:col-span-2 md:row-span-2 h-64 md:h-[500px]' : 'h-40 md:h-60'}`}
-              >
-                <img src={img} alt="Portfolio" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    <Badge className="bg-white text-black hover:bg-white px-4 py-2 text-base">عرض التفاصيل</Badge>
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredPortfolio.map((item, i) => (
+                <motion.div 
+                  layout
+                  key={item.img} // Using img src as key since it's unique enough here
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ duration: 0.4 }}
+                  className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 ${
+                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 h-[500px]' : 'h-60 md:h-64'
+                  }`}
+                >
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  
+                  {/* Enhanced Hover Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6">
+                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                      <Badge className="mb-2 bg-primary text-white border-none">{item.category}</Badge>
+                      <h3 className="text-white font-bold text-xl mb-1">{item.title}</h3>
+                      <p className="text-gray-300 text-sm flex items-center gap-1">
+                        عرض التفاصيل <ArrowRight size={14} />
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+
+          <div className="mt-12 text-center">
+             <Button variant="outline" className="px-8 py-6 text-lg border-primary/20 hover:bg-primary/5">
+               مشاهدة المزيد من الأعمال
+             </Button>
           </div>
         </div>
       </section>
