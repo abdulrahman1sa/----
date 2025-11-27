@@ -502,8 +502,8 @@ export default function Home() {
                   <h3 className="font-bold text-2xl mb-2 font-heading text-primary">{item.title}</h3>
                   <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
                   <div className="flex justify-between px-8 mt-6 text-xs font-bold uppercase tracking-wider opacity-80">
-                    <span className="text-red-500/70 flex items-center gap-1">📷 قبل</span>
                     <span className="text-primary flex items-center gap-1">✨ بعد</span>
+                    <span className="text-red-500/70 flex items-center gap-1">📷 قبل</span>
                   </div>
                 </div>
               </motion.div>
