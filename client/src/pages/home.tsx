@@ -30,7 +30,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
-import whatsappLogo from "@assets/WhatsApp-Logo.wine_1764281301963.png";
+import whatsappLogo from "@assets/WhatsApp-Logo.wine_1764281415566.png";
 
 // Comparison Images (Uploaded Before vs Generated After)
 import workerBefore from "@assets/worker_before.jpg";
@@ -155,9 +155,10 @@ export default function Home() {
           
           <div className="hidden md:block">
             <Button 
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
+              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 gap-2"
               onClick={() => window.location.href = '#booking'}
             >
+              <img src={whatsappLogo} alt="WhatsApp" className="w-6 h-6 object-contain" />
               ابدأ الآن
             </Button>
           </div>
@@ -211,7 +212,8 @@ export default function Home() {
               نستخدم الذكاء الاصطناعي لإنتاج صور إعلانية مبهرة ومحتوى تسويقي لا يُقاوم، بتكلفة أقل وسرعة أعلى.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
+              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 gap-3">
+                <img src={whatsappLogo} alt="WhatsApp" className="w-8 h-8 object-contain" />
                 اطلب عرض سعر
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 glass hover:bg-white/5">
@@ -978,8 +980,8 @@ export default function Home() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 hover:scale-110 transition-all duration-300 animate-bounce-slow"
       >
-        <div className="relative w-16 h-16 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border-2 border-white/20">
-          <img src={whatsappLogo} alt="WhatsApp" className="w-10 h-10 object-contain invert brightness-0" />
+        <div className="relative w-20 h-20 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border-2 border-white/20 overflow-hidden">
+          <img src={whatsappLogo} alt="WhatsApp" className="w-full h-full object-cover scale-110" />
         </div>
       </a>
     </div>
