@@ -29,13 +29,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
 
-// Comparison Images
-import skincareAfter from "@assets/generated_images/luxury_skincare_product_with_water_splash.png";
-import skincareBefore from "@assets/generated_images/bad_bathroom_skincare_photo.png";
-import carAfter from "@assets/generated_images/cinematic_neon_sports_car.png";
-import carBefore from "@assets/generated_images/dirty_garage_car_photo.png";
-import interiorAfter from "@assets/generated_images/modern_luxury_living_room.png";
-import interiorBefore from "@assets/generated_images/messy_dark_living_room.png";
+// Comparison Images (Uploaded Before vs Generated After)
+import manBefore from "@assets/man_before.jpg";
+import manAfter from "@assets/generated_images/professional_saudi_man_portrait.png";
+
+import coffeeBefore from "@assets/coffee_before.jpg";
+import coffeeAfter from "@assets/generated_images/luxury_iced_coffee_photography.png";
+
+import perfumeBefore from "@assets/perfume_before.jpg";
+import perfumeAfter from "@assets/generated_images/dior_purple_oud_luxury_shot.png";
 
 // Portfolio Images
 import portfolio1 from "@assets/generated_images/abstract_3d_fluid_art.png";
@@ -356,22 +358,22 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
-                before: skincareBefore, 
-                after: skincareAfter,
-                title: "تصوير المنتجات",
-                desc: "من لقطة منزلية إلى إعلان تجاري عالمي"
+                before: manBefore, 
+                after: manAfter,
+                title: "بورتريه احترافي",
+                desc: "تحويل الصور الشخصية إلى لقطات استوديو رسمية"
               },
               { 
-                before: carBefore, 
-                after: carAfter,
-                title: "المعالجة السينمائية",
-                desc: "تحويل العادي إلى مشهد سينمائي مبهر"
+                before: coffeeBefore, 
+                after: coffeeAfter,
+                title: "تصوير الأطعمة والمشروبات",
+                desc: "إظهار جمال المنتج بجودة إعلانية عالية"
               },
               { 
-                before: interiorBefore, 
-                after: interiorAfter,
-                title: "التصميم الداخلي",
-                desc: "إظهار جمال المساحات بأفضل إضاءة"
+                before: perfumeBefore, 
+                after: perfumeAfter,
+                title: "تصوير المنتجات الفاخرة",
+                desc: "إبراز الفخامة والتفاصيل الدقيقة للمنتج"
               }
             ].map((item, i) => (
               <motion.div
@@ -419,9 +421,9 @@ export default function Home() {
               portfolio2,
               portfolio3,
               portfolio4,
-              skincareAfter,
-              carAfter,
-              interiorAfter,
+              manAfter,
+              coffeeAfter,
+              perfumeAfter,
               "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2864&auto=format&fit=crop"
             ].map((img, i) => (
               <motion.div 
