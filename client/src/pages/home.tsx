@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import logo from "@assets/logo.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -43,10 +44,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 glass border-b border-white/10">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl">
-              B
-            </div>
-            <span className="text-2xl font-bold font-heading">BADII | بديع</span>
+            <img src={logo} alt="BADII Logo" className="h-12 w-auto object-contain" />
           </div>
           <div className="hidden md:flex gap-8 font-medium text-sm">
             <a href="#services" className="hover:text-primary transition-colors">الخدمات</a>
@@ -476,8 +474,7 @@ export default function Home() {
       <footer className="bg-black text-gray-400 py-12 border-t border-gray-800">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">B</div>
-            <span className="text-xl font-bold text-white font-heading">BADII</span>
+            <img src={logo} alt="BADII Logo" className="h-16 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all duration-300" />
           </div>
           <p>© 2025 BADII. جميع الحقوق محفوظة.</p>
         </div>
