@@ -115,7 +115,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full z-50 glass border-b border-white/10">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="BADII Logo" className="h-10 md:h-12 w-auto object-contain" />
+            <img src={logo} alt="BADII Logo" className="h-14 md:h-16 w-auto object-contain" />
           </div>
 
           {/* Desktop Menu */}
@@ -810,7 +810,7 @@ export default function Home() {
       <footer className="bg-black text-gray-400 py-12 border-t border-gray-800">
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-6">
-            <img src={logo} alt="BADII Logo" className="h-16 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all duration-300" />
+            <img src={logo} alt="BADII Logo" className="h-24 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all duration-300" />
           </div>
           <div className="mb-8">
             <p className="text-lg mb-2">تواصل معنا</p>
