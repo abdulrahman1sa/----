@@ -24,6 +24,11 @@
     <script type="module" src="/src/main.tsx"></script>
     <!-- Botpress Chatbot -->
     <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/11/27/23/20251127233759-MFMPS4X1.js"></script>
+    <script>
+      window.botpressWebChat.init({
+        configUrl: 'https://files.bpcontent.cloud/2025/11/27/23/20251127233759-MFMPS4X1.json',
+        hostUrl: 'https://cdn.botpress.cloud/webchat/v2.2',
+      });
+    </script>
   </body>
 </html>
