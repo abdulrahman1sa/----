@@ -28,14 +28,20 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
-import perfumeImg from "@assets/generated_images/luxury_perfume_bottle_product_shot.png";
-import burgerImg from "@assets/generated_images/gourmet_cheeseburger_food_photography.png";
-import sneakerImg from "@assets/generated_images/futuristic_neon_sneaker_product_shot.png";
-import watchImg from "@assets/generated_images/luxury_wrist_watch_close_up.png";
 
-import perfumeBefore from "@assets/generated_images/terrible_perfume_photo.png";
-import burgerBefore from "@assets/generated_images/disgusting_burger_photo.png";
-import sneakerBefore from "@assets/generated_images/worn_out_sneaker_photo.png";
+// Comparison Images
+import skincareAfter from "@assets/generated_images/luxury_skincare_product_with_water_splash.png";
+import skincareBefore from "@assets/generated_images/bad_bathroom_skincare_photo.png";
+import carAfter from "@assets/generated_images/cinematic_neon_sports_car.png";
+import carBefore from "@assets/generated_images/dirty_garage_car_photo.png";
+import interiorAfter from "@assets/generated_images/modern_luxury_living_room.png";
+import interiorBefore from "@assets/generated_images/messy_dark_living_room.png";
+
+// Portfolio Images
+import portfolio1 from "@assets/generated_images/abstract_3d_fluid_art.png";
+import portfolio2 from "@assets/generated_images/cyberpunk_streetwear_fashion.png";
+import portfolio3 from "@assets/generated_images/gourmet_raspberry_tart_macro.png";
+import portfolio4 from "@assets/generated_images/futuristic_transparent_smartphone.png";
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
@@ -350,22 +356,22 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
-                before: perfumeBefore, 
-                after: perfumeImg,
+                before: skincareBefore, 
+                after: skincareAfter,
                 title: "تصوير المنتجات",
-                desc: "من صورة عادية إلى لقطة إعلانية فاخرة"
+                desc: "من لقطة منزلية إلى إعلان تجاري عالمي"
               },
               { 
-                before: burgerBefore, 
-                after: burgerImg,
-                title: "تصوير الأطعمة",
-                desc: "نظهر التفاصيل الشهية التي تجذب العملاء"
+                before: carBefore, 
+                after: carAfter,
+                title: "المعالجة السينمائية",
+                desc: "تحويل العادي إلى مشهد سينمائي مبهر"
               },
               { 
-                before: sneakerBefore, 
-                after: sneakerImg,
-                title: "التصاميم الإبداعية",
-                desc: "تحويل المنتجات البسيطة إلى أعمال فنية مستقبلية"
+                before: interiorBefore, 
+                after: interiorAfter,
+                title: "التصميم الداخلي",
+                desc: "إظهار جمال المساحات بأفضل إضاءة"
               }
             ].map((item, i) => (
               <motion.div
@@ -391,6 +397,45 @@ export default function Home() {
                   <div className="flex justify-between px-8 mt-4 text-xs font-bold uppercase tracking-wider">
                     <span className="text-red-400/70">صورة عادية (جوال)</span>
                     <span className="text-primary">احترافية مع AI ✨</span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio Gallery */}
+      <section className="py-24 overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold font-heading mb-4">أعمالنا تتحدث عن نفسها</h2>
+            <p className="text-xl text-muted-foreground">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              portfolio1,
+              portfolio2,
+              portfolio3,
+              portfolio4,
+              skincareAfter,
+              carAfter,
+              interiorAfter,
+              "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2864&auto=format&fit=crop"
+            ].map((img, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i % 3 === 0 ? 'md:col-span-2 md:row-span-2 h-80 md:h-[500px]' : 'h-80 md:h-60'}`}
+              >
+                <img src={img} alt="Portfolio" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                    <Badge className="bg-white text-black hover:bg-white px-4 py-2 text-base">عرض التفاصيل</Badge>
                   </div>
                 </div>
               </motion.div>
