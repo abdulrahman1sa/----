@@ -47,6 +47,8 @@
   --font-heading: 'Cairo', sans-serif;
 
   --animate-blob: blob 7s infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-gradient: gradient 15s ease infinite;
 
   @keyframes blob {
     0% {
@@ -62,96 +64,126 @@
       transform: translate(0px, 0px) scale(1);
     }
   }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes gradient {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 }
 
 :root {
-  /* Light Mode - Electric Blue, White, Black */
-  --background: 0 0% 100%; /* White */
-  --foreground: 0 0% 0%; /* Black */
+  /* Light Mode - Vibrant Blue Theme */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
 
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 0%;
+  --card-foreground: 222 47% 11%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 0%;
+  --popover-foreground: 222 47% 11%;
 
-  --primary: 240 100% 50%; /* Strong Electric Blue */
+  --primary: 217 91% 60%; /* Vibrant Blue */
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 240 20% 96%; /* Very light cool gray */
-  --secondary-foreground: 240 100% 50%;
+  --secondary: 214 32% 91%;
+  --secondary-foreground: 222 47% 11%;
 
-  --muted: 240 10% 96%;
-  --muted-foreground: 240 10% 40%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
 
-  --accent: 240 100% 50%;
+  --accent: 217 91% 60%;
   --accent-foreground: 0 0% 100%;
 
-  --destructive: 0 84.2% 60.2%;
+  --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 240 10% 90%;
-  --input: 240 10% 90%;
-  --ring: 240 100% 50%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 217 91% 60%;
 
-  --radius: 0.75rem;
+  --radius: 1rem;
 }
 
 .dark {
-  /* Dark Mode - Deep Blue/Black, Electric Blue */
-  --background: 240 20% 5%; /* Very dark blue/black */
-  --foreground: 0 0% 100%;
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
 
-  --card: 240 20% 8%;
-  --card-foreground: 0 0% 100%;
+  --card: 222 47% 11%;
+  --card-foreground: 210 40% 98%;
 
-  --popover: 240 20% 5%;
-  --popover-foreground: 0 0% 100%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 98%;
 
-  --primary: 240 100% 50%; /* Electric Blue */
-  --primary-foreground: 0 0% 100%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 210 40% 98%;
 
-  --secondary: 240 20% 15%;
-  --secondary-foreground: 0 0% 100%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
 
-  --muted: 240 20% 15%;
-  --muted-foreground: 240 10% 70%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 215 20% 65%;
 
-  --accent: 240 100% 50%;
-  --accent-foreground: 0 0% 100%;
+  --accent: 216 34% 17%;
+  --accent-foreground: 210 40% 98%;
 
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
 
-  --border: 240 20% 20%;
-  --input: 240 20% 20%;
-  --ring: 240 100% 50%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 217 91% 60%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-family: 'Tajawal', sans-serif;
   }
+  
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Cairo', sans-serif;
   }
 }
 
-/* Custom Utilities for Glassmorphism and Glows */
 @layer utilities {
   .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 dark:bg-black/20 dark:border-white/10;
+    @apply bg-white/80 backdrop-blur-xl border border-white/20 shadow-xl;
+  }
+  
+  .glass-card {
+    @apply bg-white/60 backdrop-blur-md border border-white/40;
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-500 to-indigo-600;
   }
 
-  .blob {
-    @apply absolute rounded-full blur-3xl opacity-30 mix-blend-multiply filter animate-blob;
+  .bg-gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(217 91% 50%) 100%);
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 20px -5px hsl(var(--primary) / 0.3);
+  }
+
+  .shadow-glow-lg {
+    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.4);
   }
 }
