@@ -328,6 +328,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Portfolio Gallery */}
+      <section className="py-24 overflow-hidden">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold font-heading mb-4">أعمالنا تتحدث عن نفسها</h2>
+            <p className="text-xl text-muted-foreground">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?q=80&w=2940&auto=format&fit=crop", // Perfume
+              "https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=2865&auto=format&fit=crop", // Coffee
+              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2940&auto=format&fit=crop", // Sneaker
+              "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2787&auto=format&fit=crop", // Watch
+              "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=2940&auto=format&fit=crop", // Polaroid
+              "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=3015&auto=format&fit=crop", // Cosmetics
+              "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=2940&auto=format&fit=crop", // Coffee Cup
+              "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop"  // Coffee Beans
+            ].map((img, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i % 3 === 0 ? 'md:col-span-2 md:row-span-2 h-80 md:h-[500px]' : 'h-80 md:h-60'}`}
+              >
+                <img src={img} alt="Portfolio" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                    <Badge className="bg-white text-black hover:bg-white px-4 py-2 text-base">عرض التفاصيل</Badge>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-24 bg-secondary/30">
         <div className="container mx-auto px-6">
@@ -657,6 +696,16 @@ export default function Home() {
           <p>© 2025 BADII. جميع الحقوق محفوظة.</p>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href="https://wa.me/966509567267"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 animate-bounce-slow"
+      >
+        <MessageCircle size={32} fill="currentColor" className="text-white" />
+      </a>
     </div>
   );
 }

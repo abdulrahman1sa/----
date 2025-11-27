@@ -154,4 +154,17 @@
   .blob {
     @apply absolute rounded-full blur-3xl opacity-30 mix-blend-multiply filter animate-blob;
   }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
 }
