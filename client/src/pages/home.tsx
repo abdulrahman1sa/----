@@ -34,10 +34,10 @@ import manBefore from "@assets/man_before.jpg";
 import manAfter from "@assets/generated_images/professional_saudi_man_portrait.png";
 
 import coffeeBefore from "@assets/coffee_before.jpg";
-import coffeeAfter from "@assets/generated_images/luxury_iced_coffee_photography.png";
+import coffeeAfter from "@assets/coffee_after_new.png";
 
 import perfumeBefore from "@assets/perfume_before.jpg";
-import perfumeAfter from "@assets/generated_images/dior_purple_oud_luxury_shot.png";
+import perfumeAfter from "@assets/perfume_after_new.png";
 
 // Portfolio Images
 import portfolio1 from "@assets/generated_images/abstract_3d_fluid_art.png";
