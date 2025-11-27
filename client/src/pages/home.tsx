@@ -452,95 +452,59 @@ export default function Home() {
       </section>
 
       {/* Before & After Showcase */}
-      <section className="py-24 overflow-hidden relative bg-secondary/5">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-[0.03] mix-blend-multiply" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -z-10" />
-
-        <div className="container mx-auto px-6 relative z-10">
+      <section className="py-24 overflow-hidden bg-secondary/10">
+        <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-primary/10 text-primary border-none px-6 py-2 text-sm">الفرق مذهل</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">
-              لا نعدل الصور.. <span className="text-primary">نحن نعيد ابتكارها</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              حرك المؤشر لترى كيف تتحول اللقطات العادية إلى أعمال فنية تخطف الأنظار وتضاعف المبيعات.
-            </p>
+            <Badge className="mb-4 bg-primary/10 text-primary border-none">الفرق مذهل</Badge>
+            <h2 className="text-4xl font-bold font-heading mb-4">شاهد الفرق بنفسك</h2>
+            <p className="text-xl text-muted-foreground">اسحب المؤشر لترى كيف نحول الصور العادية إلى تحف فنية</p>
           </div>
           
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
                 before: workerBefore, 
                 after: workerAfter,
                 title: "التعديلات الإبداعية",
-                desc: "دمج الخيال بالواقع لإنتاج محتوى تسويقي فريد",
-                tag: "دمج احترافي"
+                desc: "دمج الخيال بالواقع لإنتاج محتوى تسويقي فريد"
               },
               { 
                 before: coffeeBefore, 
                 after: coffeeAfter,
                 title: "تصوير الأطعمة والمشروبات",
-                desc: "إظهار جمال المنتج بجودة إعلانية عالية",
-                tag: "إضاءة سينمائية"
+                desc: "إظهار جمال المنتج بجودة إعلانية عالية"
               },
               { 
                 before: perfumeBefore, 
                 after: perfumeAfter,
                 title: "تصوير المنتجات الفاخرة",
-                desc: "إبراز الفخامة والتفاصيل الدقيقة للمنتج",
-                tag: "فخامة ووضوح"
+                desc: "إبراز الفخامة والتفاصيل الدقيقة للمنتج"
               }
             ].map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.2, duration: 0.6 }}
+                transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-card rounded-3xl overflow-hidden shadow-2xl border border-white/10 hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2"
+                className="bg-card rounded-2xl overflow-hidden shadow-xl border border-muted/50"
               >
-                {/* Tag Badge */}
-                <div className="absolute top-4 right-4 z-20">
-                  <Badge className="bg-black/50 backdrop-blur-md text-white border-white/20 shadow-lg">
-                    {item.tag}
-                  </Badge>
-                </div>
-
-                <div className="h-[400px] w-full relative">
+                <div className="h-[300px] w-full">
                   <ReactCompareSlider
-                    itemOne={
-                      <div className="w-full h-full relative">
-                        <ReactCompareSliderImage src={item.before} alt="قبل" style={{ objectFit: 'cover', height: '100%' }} />
-                        <div className="absolute bottom-4 right-4 bg-black/60 text-white px-3 py-1 rounded-md text-xs font-bold backdrop-blur-sm">
-                          قبل (تصوير جوال)
-                        </div>
-                      </div>
-                    }
-                    itemTwo={
-                      <div className="w-full h-full relative">
-                        <ReactCompareSliderImage src={item.after} alt="بعد" style={{ objectFit: 'cover', height: '100%' }} />
-                        <div className="absolute bottom-4 left-4 bg-primary/90 text-white px-3 py-1 rounded-md text-xs font-bold backdrop-blur-sm shadow-lg">
-                          بعد (سحر BADII ✨)
-                        </div>
-                      </div>
-                    }
+                    itemOne={<ReactCompareSliderImage src={item.before} alt="صورة عادية" style={{ objectFit: 'contain', backgroundColor: '#f0f0f0' }} />}
+                    itemTwo={<ReactCompareSliderImage src={item.after} alt="صورة احترافية" style={{ objectFit: 'contain', backgroundColor: '#f0f0f0' }} />}
                     className="h-full w-full"
                     position={50}
-                    handle={
-                      <div className="w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center text-primary border-4 border-primary/20 cursor-grab active:cursor-grabbing transition-transform hover:scale-110">
-                        <div className="flex gap-0.5">
-                          <div className="w-0.5 h-4 bg-current/50"></div>
-                          <div className="w-0.5 h-4 bg-current/50"></div>
-                        </div>
-                      </div>
-                    }
+                    style={{ width: '100%', height: '100%' }}
                   />
                 </div>
-                
-                <div className="p-8 text-center bg-gradient-to-b from-card to-secondary/30">
-                  <h3 className="font-bold text-2xl mb-3 font-heading group-hover:text-primary transition-colors">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <div className="p-6 text-center">
+                  <h3 className="font-bold text-xl mb-2 font-heading">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="flex justify-between px-8 mt-4 text-xs font-bold uppercase tracking-wider">
+                    <span className="text-red-400/70">صورة عادية (جوال)</span>
+                    <span className="text-primary">احترافية مع AI ✨</span>
+                  </div>
                 </div>
               </motion.div>
             ))}
