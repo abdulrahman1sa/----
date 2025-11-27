@@ -685,35 +685,55 @@ export default function Home() {
                     </motion.div>
                   )}
 
-                  {/* Step 2: Description */}
+                  {/* Step 2: Description & Mood */}
                   {currentStep === 2 && (
                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                      <h3 className="text-xl font-bold text-center mb-4">حدثنا عن فكرتك</h3>
+                      <h3 className="text-xl font-bold text-center mb-2">كيف تتخيل النتيجة؟</h3>
+                      <p className="text-center text-muted-foreground mb-6">اختر الطابع العام الذي تفضله لمشروعك</p>
                       
-                      {/* Quick Tags */}
-                      <div className="flex flex-wrap justify-center gap-2 mb-4">
-                        {["عصري ✨", "فخم 💎", "مينيماليست ⚪", "شعبي 🪵", "ألوان زاهية 🎨", "داكن 🌑"].map((tag) => (
-                          <Badge 
-                            key={tag}
-                            variant="outline" 
-                            className="cursor-pointer hover:bg-primary hover:text-white px-3 py-1.5 text-sm transition-colors"
-                            onClick={() => updateField('description', formData.description + (formData.description ? " " : "") + tag)}
+                      {/* Visual Mood Selector */}
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                        {[
+                          { id: 'minimalist', label: 'مينيماليست', color: 'bg-gray-100 text-gray-800', border: 'border-gray-200' },
+                          { id: 'luxury', label: 'فاخر وذهبي', color: 'bg-amber-950 text-amber-200', border: 'border-amber-800' },
+                          { id: 'vibrant', label: 'حيوي وملون', color: 'bg-pink-100 text-pink-600', border: 'border-pink-200' },
+                          { id: 'dark', label: 'غامق ودرامي', color: 'bg-slate-900 text-slate-200', border: 'border-slate-700' },
+                          { id: 'nature', label: 'طبيعي وعضوي', color: 'bg-green-50 text-green-700', border: 'border-green-200' },
+                          { id: 'tech', label: 'مستقبلي', color: 'bg-cyan-950 text-cyan-300', border: 'border-cyan-800' },
+                        ].map((mood) => (
+                          <div 
+                            key={mood.id}
+                            onClick={() => updateField('description', formData.description + (formData.description ? " - " : "") + `طابع: ${mood.label}`)}
+                            className={`cursor-pointer p-3 rounded-xl border-2 transition-all hover:scale-105 text-center font-bold text-sm flex items-center justify-center h-16 ${mood.color} ${mood.border} hover:shadow-md`}
                           >
-                            {tag}
-                          </Badge>
+                            {mood.label}
+                          </div>
                         ))}
                       </div>
 
-                      <div className="space-y-4">
-                        <Label className="text-lg">ما الذي يدور في ذهنك؟</Label>
-                        <Textarea 
-                          placeholder="صف لنا الفكرة، الألوان المفضلة، أو أي تفاصيل تساعدنا في فهم رؤيتك..."
-                          className="min-h-[200px] text-lg p-4 bg-background/50 resize-none border-2 focus:border-primary transition-all shadow-inner"
-                          value={formData.description}
-                          onChange={(e) => updateField('description', e.target.value)}
-                        />
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center">
+                          <Label className="text-lg">تفاصيل إضافية</Label>
+                          <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">اختياري</span>
+                        </div>
+                        <div className="relative">
+                          <Textarea 
+                            placeholder="اكتب أي ملاحظات إضافية هنا... (مثال: أريد التركيز على تفاصيل المنتج، الإضاءة تكون خافتة، إلخ)"
+                            className="min-h-[120px] text-lg p-4 bg-background/50 resize-none border-2 focus:border-primary transition-all shadow-inner pr-10"
+                            value={formData.description}
+                            onChange={(e) => updateField('description', e.target.value)}
+                          />
+                          <div className="absolute top-4 left-4 text-muted-foreground opacity-50">
+                            <PenTool size={16} />
+                          </div>
+                        </div>
+                        <p className="text-xs text-center text-muted-foreground mt-2 flex items-center justify-center gap-1">
+                          <ImageIcon size={14} />
+                          يمكنك إرسال صور مراجع (Reference) عبر واتساب لاحقاً
+                        </p>
                       </div>
-                      <div className="flex gap-4 mt-8">
+
+                      <div className="flex gap-4 mt-6">
                         <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
                         <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90" disabled={!formData.description}>التالي</Button>
                       </div>
