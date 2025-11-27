@@ -974,16 +974,22 @@ export default function Home() {
             {/* Starter */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">الباقة الأساسية</CardTitle>
-                <CardDescription>مثالية للمشاريع الصغيرة</CardDescription>
+                <CardTitle className="text-2xl font-heading">باقة البداية</CardTitle>
+                <CardDescription>للانطلاق بقوة في السوق</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">399</span>
+                  <span className="text-4xl font-bold">499</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {["8 صور عالية الجودة (4K)", "مراجعة واحدة مجانية", "تسليم خلال 48 ساعة", "حقوق استخدام تجاري"].map((f, i) => (
+                  {[
+                    "10 صور منتجات احترافية (AI)", 
+                    "تعديل الألوان والإضاءة", 
+                    "إزالة الخلفية أو تغييرها", 
+                    "تسليم خلال 48 ساعة",
+                    "حقوق استخدام تجاري"
+                  ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
                     </li>
@@ -991,7 +997,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('الباقة الأساسية', '399 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة البداية', '499 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
@@ -999,24 +1005,24 @@ export default function Home() {
             <Card className="relative overflow-hidden border-primary shadow-2xl shadow-primary/10 scale-105 z-10 bg-primary/5">
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
               <div className="absolute top-4 left-4">
-                <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر طلباً</Badge>
+                <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر مبيعاً</Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading text-primary">الباقة الاحترافية</CardTitle>
-                <CardDescription>للأعمال المتنامية</CardDescription>
+                <CardTitle className="text-2xl font-heading text-primary">باقة النمو</CardTitle>
+                <CardDescription>للمتاجر والمطاعم النشطة</CardDescription>
                 <div className="mt-4">
-                  <span className="text-5xl font-bold">799</span>
+                  <span className="text-5xl font-bold">999</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "20 صورة عالية الجودة (4K)", 
-                    "3 مراجعات مجانية", 
-                    "تسليم سريع خلال 24 ساعة", 
-                    "كتابة محتوى تسويقي (10 منشورات)",
-                    "استشارة مجانية 30 دقيقة"
+                    "25 صورة منتجات إبداعية (4K)", 
+                    "تصميم 5 بوسترات إعلانية", 
+                    "كتابة محتوى لـ 10 منشورات", 
+                    "تسليم سريع (24 ساعة)", 
+                    "استشارة تسويقية مجانية"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 font-medium">
                       <CheckCircle2 size={18} className="text-primary" /> {f}
@@ -1025,28 +1031,28 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('الباقة الاحترافية', '799 ريال')}>احجز الآن</Button>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة النمو', '999 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
             {/* Elite */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">الباقة الشاملة</CardTitle>
-                <CardDescription>للشركات الكبيرة</CardDescription>
+                <CardTitle className="text-2xl font-heading">باقة التميز</CardTitle>
+                <CardDescription>حلول متكاملة للشركات</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">1,499</span>
+                  <span className="text-4xl font-bold">1,999</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "40 صورة عالية الجودة (4K + 8K)", 
-                    "مراجعات غير محدودة", 
-                    "تسليم express خلال 12 ساعة", 
-                    "خطة محتوى لمدة شهر",
-                    "مدير حساب مخصص"
+                    "50 صورة عالية الجودة (8K)", 
+                    "تصميم هوية بصرية للسوشيال ميديا", 
+                    "خطة محتوى شهرية كاملة", 
+                    "فيديو ترويجي قصير (Reels)",
+                    "مدير حساب خاص + دعم أولوي"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
@@ -1055,7 +1061,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('الباقة الشاملة', '1499 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة التميز', '1999 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
           </div>
