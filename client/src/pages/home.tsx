@@ -175,22 +175,20 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <Badge variant="outline" className="mb-6 px-4 py-2 text-sm border-primary/50 text-primary bg-primary/5 backdrop-blur-sm">
-              ✨ موثوق من 500+ عميل سعيد
+              ✨ شريكك الإبداعي الأول
             </Badge>
             <h1 className="text-4xl md:text-7xl font-bold font-heading mb-6 leading-tight">
-              أطلق العنان لإبداعك مع <span className="text-gradient">BADII</span>
+              حوّل صور منتجاتك إلى مبيعات مع <span className="text-gradient">BADII</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
-              صور احترافية ومحتوى استثنائي بالذكاء الاصطناعي.
-              <br className="hidden md:block" />
-              نحول رؤيتك الإبداعية إلى واقع مذهل.
+              نستخدم الذكاء الاصطناعي لإنتاج صور إعلانية مبهرة ومحتوى تسويقي لا يُقاوم، بتكلفة أقل وسرعة أعلى.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
-                احجز استشارة مجانية
+                اطلب عرض سعر
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 glass hover:bg-white/5">
-                شاهد أعمالنا
+                تصفح أعمالنا
               </Button>
             </div>
           </motion.div>
@@ -243,12 +241,12 @@ export default function Home() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">المشكلة في الأدوات العادية</h2>
+              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6">صورك الحالية لا تعكس جودة منتجك؟</h2>
               <ul className="space-y-4">
                 {[
                   "إضاءة سيئة وألوان باهتة",
-                  "تفاصيل غير واقعية",
-                  "تقلل من قيمة علامتك التجارية"
+                  "تفاصيل غير واقعية ولا تبرز المنتج",
+                  "تقلل من قيمة علامتك التجارية أمام المنافسين"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-lg text-muted-foreground bg-red-500/5 p-4 rounded-xl border border-red-500/10">
                     <div className="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center text-red-500 shrink-0">
@@ -269,9 +267,9 @@ export default function Home() {
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6 text-primary">الحل مع BADII</h2>
               <ul className="space-y-4">
                 {[
-                  "إضاءة احترافية وألوان جذابة",
-                  "تفاصيل دقيقة وواقعية",
-                  "تعزز علامتك التجارية وترفع مبيعاتك"
+                  "إضاءة سينمائية وألوان تجذب العين",
+                  "إظهار منتجك بأفضل صورة ممكنة",
+                  "زيادة ثقة العملاء ومضاعفة المبيعات"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-3 text-lg font-medium bg-green-500/5 p-4 rounded-xl border border-green-500/10">
                     <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 shrink-0">
@@ -298,21 +296,21 @@ export default function Home() {
             {[
               {
                 icon: <Camera className="w-10 h-10 text-purple-500" />,
-                title: "توليد الصور الاحترافية",
-                desc: "صور فائقة الجودة لمنتجاتك وخدماتك. من تصوير الأطعمة الشهية إلى صور المنتجات التجارية المثالية.",
-                features: ["صور منتجات بخلفيات احترافية", "جودة 4K وصيغ متعددة"]
+                title: "تصوير منتجات بالذكاء الاصطناعي",
+                desc: "نحول صور الجوال العادية إلى لقطات إعلانية عالمية. مناسب للمطاعم، المقاهي، والمتاجر الإلكترونية.",
+                features: ["خلفيات احترافية تناسب هويتك", "دقة عالية 4K للطباعة والنشر"]
               },
               {
                 icon: <PenTool className="w-10 h-10 text-blue-500" />,
-                title: "كتابة المحتوى التسويقي",
-                desc: "محتوى مقنع ومؤثر يتحدث بصوت علامتك التجارية ويجذب جمهورك المستهدف.",
-                features: ["محتوى سوشال ميديا إبداعي", "أوصاف منتجات جذابة"]
+                title: "صياغة محتوى يبيع",
+                desc: "لا نكتب مجرد نصوص، بل نكتب كلمات تقنع عميلك بالشراء وتبرز مميزات منتجك بأسلوب جذاب.",
+                features: ["كابشن لمنصات التواصل الاجتماعي", "وصف منتجات متوافق مع SEO"]
               },
               {
                 icon: <Palette className="w-10 h-10 text-pink-500" />,
-                title: "التصاميم الإبداعية",
-                desc: "تصاميم مبتكرة تجمع بين الجمال والفعالية لتحقيق أهدافك التسويقية.",
-                features: ["بوسترات وإعلانات رقمية", "تصاميم قصص وريلز"]
+                title: "هوية بصرية متكاملة",
+                desc: "نصمم لك هوية بصرية تليق بعلامتك التجارية، من البوسترات الإعلانية إلى تصاميم الستوري والريلز.",
+                features: ["تصاميم إعلانية جذابة", "توحيد هوية حسابك على انستقرام"]
               }
             ].map((service, i) => (
               <motion.div
@@ -361,10 +359,10 @@ export default function Home() {
             <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30" />
             
             {[
-              { step: "01", title: "شاركنا رؤيتك", desc: "تواصل معنا عبر واتساب وأخبرنا عن مشروعك." },
-              { step: "02", title: "نصمم الحل", desc: "نقترح عليك الباقة المناسبة ونناقش التفاصيل." },
-              { step: "03", title: "نبدع ونطور", desc: "فريقنا يبدأ العمل باستخدام أحدث التقنيات." },
-              { step: "04", title: "نسلم ونتابع", desc: "تستلم مشروعك في الوقت المحدد مع الدعم." }
+              { step: "01", title: "أرسل صورك", desc: "أرسل لنا صور منتجاتك (حتى لو كانت بالجوال) مع وصف بسيط للفكرة." },
+              { step: "02", title: "السحر يبدأ", desc: "نستخدم أدواتنا المتقدمة لتحويل صورك وتصميم المحتوى المناسب." },
+              { step: "03", title: "راجع واعتمد", desc: "نرسل لك النماذج الأولية. نعدل حتى تكون راضياً تماماً." },
+              { step: "04", title: "استلم وانشر", desc: "تستلم ملفاتك بجودة عالية جاهزة للنشر ومضاعفة مبيعاتك." }
             ].map((item, i) => (
               <motion.div 
                 key={i}
@@ -813,6 +811,12 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-6">
             <img src={logo} alt="BADII Logo" className="h-16 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all duration-300" />
+          </div>
+          <div className="mb-8">
+            <p className="text-lg mb-2">تواصل معنا</p>
+            <a href="mailto:hello@badii.cloud" className="text-2xl font-bold text-white hover:text-primary transition-colors">
+              hello@badii.cloud
+            </a>
           </div>
           <p>© 2025 BADII. جميع الحقوق محفوظة.</p>
         </div>
