@@ -373,7 +373,7 @@ export default function Home() {
                           <Check size={14} className={service.bgClass === 'bg-primary' ? 'text-primary' : 'text-black'} />
                         </div>
                         {f}
-                      </div>
+                      </li>
                     ))}
                   </ul>
 
