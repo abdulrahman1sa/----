@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { 
   Sparkles, 
   Zap, 
@@ -10,7 +11,8 @@ import {
   ArrowRight,
   MessageCircle,
   Image as ImageIcon,
-  Star
+  Star,
+  Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +23,10 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
 
 const fadeInUp = {
@@ -38,6 +44,43 @@ const staggerContainer = {
 };
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    name: "",
+    type: "",
+    service: "",
+    description: ""
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (name: string, value: string) => {
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleBookingSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const message = `*طلب حجز جديد من الموقع* 🚀%0A%0A` +
+      `👤 *الاسم/الجهة:* ${formData.name}%0A` +
+      `🏢 *نوع النشاط:* ${formData.type}%0A` +
+      `🛠 *الخدمة المطلوبة:* ${formData.service}%0A` +
+      `📝 *التفاصيل:* ${formData.description}%0A%0A` +
+      `أرغب في مناقشة التفاصيل والبدء في أقرب وقت.`;
+      
+    window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+  };
+
+  const handlePackageClick = (pkgName: string, price: string) => {
+    const message = `*استفسار عن باقة* 💎%0A%0A` +
+      `مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.%0A` +
+      `ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
+      
+    window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
       {/* Navbar */}
@@ -52,7 +95,10 @@ export default function Home() {
             <a href="#pricing" className="hover:text-primary transition-colors">الأسعار</a>
             <a href="#faq" className="hover:text-primary transition-colors">الأسئلة الشائعة</a>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
+            onClick={() => window.location.href = '#booking'}
+          >
             ابدأ الآن
           </Button>
         </div>
@@ -82,7 +128,7 @@ export default function Home() {
               نحول رؤيتك الإبداعية إلى واقع مذهل.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
+              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
                 احجز استشارة مجانية
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 glass hover:bg-white/5">
@@ -334,8 +380,139 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Booking Form Section */}
+      <section id="booking" className="py-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-background to-secondary/20 -z-10" />
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Badge className="mb-6 bg-primary/10 text-primary hover:bg-primary/20 border-none px-4 py-1 text-base">
+                ابدأ الآن 🚀
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 leading-tight">
+                دعنا نحول فكرتك إلى <br />
+                <span className="text-gradient">واقع مذهل</span>
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                املأ النموذج البسيط وسنقوم بتحضير عرض مخصص يناسب احتياجاتك التجارية. نحن نفهم لغة الأعمال ونقدر وقتك.
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                    <MessageCircle size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">استشارة مجانية</h3>
+                    <p className="text-muted-foreground">نناقش أهدافك ونقترح الحلول الأنسب لعلامتك التجارية.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
+                    <Zap size={24} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-2">تنفيذ سريع واحترافي</h3>
+                    <p className="text-muted-foreground">نلتزم بالمواعيد ونضمن جودة تليق بسمعة نشاطك التجاري.</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-heading">طلب عرض سعر / استشارة</CardTitle>
+                  <CardDescription>أدخل تفاصيل مشروعك وسنتواصل معك فوراً</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleBookingSubmit} className="space-y-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">الاسم أو اسم الجهة</Label>
+                      <Input 
+                        id="name" 
+                        name="name"
+                        placeholder="مثال: شركة الأفق، مطعم الذواقة..." 
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="bg-background/50 h-12"
+                      />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="type">نوع النشاط</Label>
+                        <Select onValueChange={(v) => handleSelectChange("type", v)}>
+                          <SelectTrigger className="h-12 bg-background/50">
+                            <SelectValue placeholder="اختر المجال" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="مطعم/كافيه">مطعم / كافيه</SelectItem>
+                            <SelectItem value="متجر إلكتروني">متجر إلكتروني</SelectItem>
+                            <SelectItem value="عقارات">عقارات / هندسة</SelectItem>
+                            <SelectItem value="خدمات">خدمات / استشارات</SelectItem>
+                            <SelectItem value="شخصي">مشروع شخصي</SelectItem>
+                            <SelectItem value="آخر">آخر</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="service">الخدمة المطلوبة</Label>
+                        <Select onValueChange={(v) => handleSelectChange("service", v)}>
+                          <SelectTrigger className="h-12 bg-background/50">
+                            <SelectValue placeholder="اختر الخدمة" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="تصوير منتجات">تصوير منتجات (AI)</SelectItem>
+                            <SelectItem value="صناعة محتوى">صناعة محتوى وتسويق</SelectItem>
+                            <SelectItem value="تصميم هوية">تصميم هوية وشعارات</SelectItem>
+                            <SelectItem value="باقة شاملة">باقة شاملة</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="description">تفاصيل الطلب (اختياري)</Label>
+                      <Textarea 
+                        id="description" 
+                        name="description"
+                        placeholder="أخبرنا المزيد عن مشروعك، ما الذي تتخيله؟" 
+                        value={formData.description}
+                        onChange={handleInputChange}
+                        className="bg-background/50 min-h-[120px]"
+                      />
+                    </div>
+
+                    <Button type="submit" className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:scale-[1.02]">
+                      <Send className="ml-2 w-5 h-5" />
+                      إرسال الطلب عبر واتساب
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground mt-4">
+                      سيتم توجيهك إلى واتساب لإرسال التفاصيل مباشرة لفريقنا
+                    </p>
+                  </form>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
-      <section id="pricing" className="py-24">
+      <section id="pricing" className="py-24 bg-secondary/20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-heading mb-4">باقات مصممة لتناسب احتياجاتك</h2>
@@ -344,7 +521,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
             {/* Starter */}
-            <Card className="relative overflow-hidden border-muted">
+            <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading">الباقة الأساسية</CardTitle>
                 <CardDescription>مثالية للمشاريع الصغيرة</CardDescription>
@@ -363,7 +540,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline">احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('الباقة الأساسية', '399 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
@@ -397,12 +574,12 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6">احجز الآن</Button>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('الباقة الاحترافية', '799 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
             {/* Elite */}
-            <Card className="relative overflow-hidden border-muted">
+            <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
                 <CardTitle className="text-2xl font-heading">الباقة الشاملة</CardTitle>
                 <CardDescription>للشركات الكبيرة</CardDescription>
@@ -427,7 +604,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline">احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('الباقة الشاملة', '1499 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
           </div>
@@ -464,7 +641,7 @@ export default function Home() {
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
             لا تضيع المزيد من الوقت في البحث. دعنا نساعدك في إنشاء محتوى احترافي يميز علامتك التجارية.
           </p>
-          <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105">
+          <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966509567267', '_blank')}>
             <MessageCircle className="ml-2" />
             تحدث معنا عبر واتساب
           </Button>
