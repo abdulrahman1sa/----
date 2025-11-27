@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Sparkles, 
@@ -10,7 +11,8 @@ import {
   ArrowRight,
   MessageCircle,
   Image as ImageIcon,
-  Star
+  Star,
+  Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,6 +23,24 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -28,13 +48,113 @@ const fadeInUp = {
   transition: { duration: 0.5 }
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
+function ProjectRequestForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    serviceType: "",
+    projectGoal: "",
+    budget: "",
+    timeline: ""
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const message = `
+مرحباً، أرغب في بدء مشروع جديد مع BADII:
+
+👤 الاسم: ${formData.name}
+🛠 نوع الخدمة: ${formData.serviceType}
+🎯 هدف المشروع: ${formData.projectGoal}
+💰 الميزانية المتوقعة: ${formData.budget}
+⏱ موعد التسليم المفضل: ${formData.timeline}
+
+أرجو مراجعة طلبي والرد علي. شكراً!
+    `.trim();
+    
+    const whatsappUrl = `https://wa.me/966509567267?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6 py-4 text-right" dir="rtl">
+      <div className="space-y-2">
+        <Label htmlFor="name" className="text-base font-medium">الاسم الكريم / اسم الشركة</Label>
+        <Input 
+          id="name" 
+          placeholder="أدخل اسمك أو اسم شركتك" 
+          className="h-12 text-right"
+          required
+          value={formData.name}
+          onChange={(e) => setFormData({...formData, name: e.target.value})}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="service" className="text-base font-medium">نوع الخدمة المطلوبة</Label>
+        <Select required onValueChange={(val) => setFormData({...formData, serviceType: val})}>
+          <SelectTrigger id="service" className="h-12 text-right flex-row-reverse">
+            <SelectValue placeholder="اختر نوع الخدمة" />
+          </SelectTrigger>
+          <SelectContent dir="rtl">
+            <SelectItem value="تصوير منتجات احترافي">📸 تصوير منتجات احترافي</SelectItem>
+            <SelectItem value="كتابة محتوى تسويقي">✍️ كتابة محتوى تسويقي</SelectItem>
+            <SelectItem value="تصميم هوية بصرية وشعارات">🎨 تصميم هوية بصرية وشعارات</SelectItem>
+            <SelectItem value="تصاميم سوشال ميديا">📱 تصاميم سوشال ميديا</SelectItem>
+            <SelectItem value="باقة متكاملة (تصوير + محتوى + تصميم)">🚀 باقة متكاملة (تصوير + محتوى + تصميم)</SelectItem>
+            <SelectItem value="أخرى">✨ أخرى</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="goal" className="text-base font-medium">تفاصيل المشروع / الهدف منه</Label>
+        <Textarea 
+          id="goal" 
+          placeholder="أخبرنا المزيد عن مشروعك.. مثلاً: أحتاج صور لمنتجات قهوة لمتجري الإلكتروني لزيادة المبيعات" 
+          className="min-h-[100px] text-right resize-none"
+          required
+          value={formData.projectGoal}
+          onChange={(e) => setFormData({...formData, projectGoal: e.target.value})}
+        />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="budget" className="text-base font-medium">الميزانية المتوقعة</Label>
+          <Select required onValueChange={(val) => setFormData({...formData, budget: val})}>
+            <SelectTrigger id="budget" className="h-12 text-right flex-row-reverse">
+              <SelectValue placeholder="الميزانية" />
+            </SelectTrigger>
+            <SelectContent dir="rtl">
+              <SelectItem value="أقل من 500 ريال">أقل من 500 ريال</SelectItem>
+              <SelectItem value="500 - 1500 ريال">500 - 1,500 ريال</SelectItem>
+              <SelectItem value="1500 - 3000 ريال">1,500 - 3,000 ريال</SelectItem>
+              <SelectItem value="أكثر من 3000 ريال">أكثر من 3,000 ريال</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="timeline" className="text-base font-medium">موعد التسليم</Label>
+          <Select required onValueChange={(val) => setFormData({...formData, timeline: val})}>
+            <SelectTrigger id="timeline" className="h-12 text-right flex-row-reverse">
+              <SelectValue placeholder="الموعد" />
+            </SelectTrigger>
+            <SelectContent dir="rtl">
+              <SelectItem value="مستعجل (24 ساعة)">⚡️ مستعجل (24 ساعة)</SelectItem>
+              <SelectItem value="عادي (2-3 أيام)">📅 عادي (2-3 أيام)</SelectItem>
+              <SelectItem value="مرن (أسبوع)">🧘‍♂️ مرن (أسبوع)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      <Button type="submit" className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 mt-4">
+        إرسال الطلب عبر واتساب <Send className="mr-2 h-5 w-5" />
+      </Button>
+    </form>
+  );
+}
 
 export default function Home() {
   return (
@@ -54,9 +174,22 @@ export default function Home() {
             <a href="#pricing" className="hover:text-primary transition-colors">الأسعار</a>
             <a href="#faq" className="hover:text-primary transition-colors">الأسئلة الشائعة</a>
           </div>
-          <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
-            ابدأ الآن
-          </Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
+                ابدأ الآن
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20">
+              <DialogHeader className="text-right space-y-4">
+                <DialogTitle className="text-2xl font-bold font-heading text-primary">ابدأ مشروعك الإبداعي</DialogTitle>
+                <DialogDescription className="text-base">
+                  املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
+                </DialogDescription>
+              </DialogHeader>
+              <ProjectRequestForm />
+            </DialogContent>
+          </Dialog>
         </div>
       </nav>
 
@@ -84,9 +217,23 @@ export default function Home() {
               نحول رؤيتك الإبداعية إلى واقع مذهل.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
-                احجز استشارة مجانية
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
+                    احجز استشارة مجانية
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20">
+                  <DialogHeader className="text-right space-y-4">
+                    <DialogTitle className="text-2xl font-bold font-heading text-primary">احجز استشارة مجانية</DialogTitle>
+                    <DialogDescription className="text-base">
+                      املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <ProjectRequestForm />
+                </DialogContent>
+              </Dialog>
+              
               <Button size="lg" variant="outline" className="text-lg px-8 py-6 glass hover:bg-white/5">
                 شاهد أعمالنا
               </Button>
@@ -365,7 +512,20 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline">احجز الآن</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full" variant="outline">احجز الآن</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20">
+                    <DialogHeader className="text-right space-y-4">
+                      <DialogTitle className="text-2xl font-bold font-heading text-primary">طلب الباقة الأساسية</DialogTitle>
+                      <DialogDescription className="text-base">
+                        املأ النموذج التالي لتأكيد حجز الباقة.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ProjectRequestForm />
+                  </DialogContent>
+                </Dialog>
               </CardFooter>
             </Card>
 
@@ -399,7 +559,20 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6">احجز الآن</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6">احجز الآن</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20">
+                    <DialogHeader className="text-right space-y-4">
+                      <DialogTitle className="text-2xl font-bold font-heading text-primary">طلب الباقة الاحترافية</DialogTitle>
+                      <DialogDescription className="text-base">
+                        املأ النموذج التالي لتأكيد حجز الباقة.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ProjectRequestForm />
+                  </DialogContent>
+                </Dialog>
               </CardFooter>
             </Card>
 
@@ -429,7 +602,20 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline">احجز الآن</Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full" variant="outline">احجز الآن</Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20">
+                    <DialogHeader className="text-right space-y-4">
+                      <DialogTitle className="text-2xl font-bold font-heading text-primary">طلب الباقة الشاملة</DialogTitle>
+                      <DialogDescription className="text-base">
+                        املأ النموذج التالي لتأكيد حجز الباقة.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <ProjectRequestForm />
+                  </DialogContent>
+                </Dialog>
               </CardFooter>
             </Card>
           </div>
@@ -466,10 +652,24 @@ export default function Home() {
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
             لا تضيع المزيد من الوقت في البحث. دعنا نساعدك في إنشاء محتوى احترافي يميز علامتك التجارية.
           </p>
-          <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105">
-            <MessageCircle className="ml-2" />
-            تحدث معنا عبر واتساب
-          </Button>
+          
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105">
+                <MessageCircle className="ml-2" />
+                تحدث معنا وابدأ مشروعك
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20 text-foreground">
+              <DialogHeader className="text-right space-y-4">
+                <DialogTitle className="text-2xl font-bold font-heading text-primary">ابدأ مشروعك الآن</DialogTitle>
+                <DialogDescription className="text-base">
+                  املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
+                </DialogDescription>
+              </DialogHeader>
+              <ProjectRequestForm />
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
 
