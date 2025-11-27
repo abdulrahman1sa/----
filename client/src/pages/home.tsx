@@ -30,8 +30,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import logo from "@assets/logo.png";
 
 // Comparison Images (Uploaded Before vs Generated After)
-import manBefore from "@assets/man_before.jpg";
-import manAfter from "@assets/generated_images/professional_saudi_man_portrait.png";
+import workerBefore from "@assets/worker_before.jpg";
+import workerAfter from "@assets/worker_after.png";
 
 import coffeeBefore from "@assets/coffee_before.jpg";
 import coffeeAfter from "@assets/coffee_after_new.png";
@@ -358,10 +358,10 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
-                before: manBefore, 
-                after: manAfter,
-                title: "بورتريه احترافي",
-                desc: "تحويل الصور الشخصية إلى لقطات استوديو رسمية"
+                before: workerBefore, 
+                after: workerAfter,
+                title: "التعديلات الإبداعية",
+                desc: "دمج الخيال بالواقع لإنتاج محتوى تسويقي فريد"
               },
               { 
                 before: coffeeBefore, 
@@ -421,7 +421,7 @@ export default function Home() {
               portfolio2,
               portfolio3,
               portfolio4,
-              manAfter,
+              workerAfter,
               coffeeAfter,
               perfumeAfter,
               "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2864&auto=format&fit=crop"
