@@ -104,7 +104,6 @@ export default function Home() {
   const projectTypes = [
     { id: 'products', label: 'تصوير منتجات', icon: <Camera size={24} /> },
     { id: 'content', label: 'كتابة محتوى', icon: <PenTool size={24} /> },
-    { id: 'branding', label: 'هوية بصرية', icon: <Palette size={24} /> },
     { id: 'full', label: 'باكج كامل', icon: <Crown size={24} /> },
   ];
 
@@ -299,7 +298,7 @@ export default function Home() {
             <p className="text-xl text-muted-foreground">ماذا نقدم لك لتحقيق أهدافك الإبداعية</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
                 icon: <Camera className="w-10 h-10 text-purple-500" />,
@@ -312,12 +311,6 @@ export default function Home() {
                 title: "صياغة محتوى يبيع",
                 desc: "لا نكتب مجرد نصوص، بل نكتب كلمات تقنع عميلك بالشراء وتبرز مميزات منتجك بأسلوب جذاب.",
                 features: ["كابشن لمنصات التواصل الاجتماعي", "وصف منتجات متوافق مع SEO"]
-              },
-              {
-                icon: <Palette className="w-10 h-10 text-pink-500" />,
-                title: "هوية بصرية متكاملة",
-                desc: "نصمم لك هوية بصرية تليق بعلامتك التجارية، من البوسترات الإعلانية إلى تصاميم الستوري والريلز.",
-                features: ["تصاميم إعلانية جذابة", "توحيد هوية حسابك على انستقرام"]
               }
             ].map((service, i) => (
               <motion.div
@@ -619,21 +612,21 @@ export default function Home() {
                   {currentStep === 1 && (
                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
                       <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-3 gap-4">
                         {projectTypes.map((type) => (
                           <div 
                             key={type.id}
                             onClick={() => { updateField('projectType', type.label); nextStep(); }}
                             className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${
                               formData.projectType === type.label 
-                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" 
+                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20" 
                                 : "border-muted hover:border-primary/50 bg-background/50"
                             }`}
                           >
-                            <div className={`p-4 rounded-full ${formData.projectType === type.label ? "bg-primary text-white" : "bg-muted text-muted-foreground"}`}>
+                            <div className={`p-4 rounded-full transition-colors duration-300 ${formData.projectType === type.label ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" : "bg-muted text-muted-foreground group-hover:text-primary"}`}>
                               {type.icon}
                             </div>
-                            <span className="font-bold">{type.label}</span>
+                            <span className="font-bold text-lg">{type.label}</span>
                           </div>
                         ))}
                       </div>
@@ -668,15 +661,22 @@ export default function Home() {
                       <div className="space-y-4">
                         <Label className="text-lg">الميزانية المتوقعة</Label>
                         <div className="grid grid-cols-3 gap-3">
-                          {['اقتصادية', 'متوسطة', 'مفتوحة'].map((b) => (
+                          {[
+                            { label: 'اقتصادية', icon: '💰' }, 
+                            { label: 'متوسطة', icon: '⚖️' }, 
+                            { label: 'مفتوحة', icon: '💎' }
+                          ].map((b) => (
                             <div 
-                              key={b}
-                              onClick={() => updateField('budget', b)}
-                              className={`cursor-pointer py-4 px-2 text-center rounded-xl border-2 transition-all ${
-                                formData.budget === b ? "border-primary bg-primary/5 font-bold text-primary" : "border-muted hover:border-primary/30"
+                              key={b.label}
+                              onClick={() => updateField('budget', b.label)}
+                              className={`cursor-pointer py-6 px-2 text-center rounded-xl border-2 transition-all hover:scale-105 ${
+                                formData.budget === b.label 
+                                  ? "border-primary bg-primary/5 font-bold text-primary shadow-md ring-1 ring-primary/20" 
+                                  : "border-muted hover:border-primary/30 bg-background/50"
                               }`}
                             >
-                              {b}
+                              <div className="text-2xl mb-2">{b.icon}</div>
+                              {b.label}
                             </div>
                           ))}
                         </div>
