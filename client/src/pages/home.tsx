@@ -39,6 +39,9 @@ import coffeeAfter from "@assets/coffee_after_new.png";
 import perfumeBefore from "@assets/perfume_before.jpg";
 import perfumeAfter from "@assets/perfume_after_new.png";
 
+import kyanBefore from "@assets/kyan_before.jpg";
+import kyanAfter from "@assets/kyan_duck_after.png";
+
 // Portfolio Images
 import portfolio1 from "@assets/generated_images/abstract_3d_fluid_art.png";
 import portfolio2 from "@assets/generated_images/cyberpunk_streetwear_fashion.png";
@@ -370,10 +373,10 @@ export default function Home() {
                 desc: "إظهار جمال المنتج بجودة إعلانية عالية"
               },
               { 
-                before: perfumeBefore, 
-                after: perfumeAfter,
-                title: "تصوير المنتجات الفاخرة",
-                desc: "إبراز الفخامة والتفاصيل الدقيقة للمنتج"
+                before: kyanBefore, 
+                after: kyanAfter,
+                title: "شخصيات العلامة التجارية",
+                desc: "تحويل الموظفين إلى شخصيات كرتونية تفاعلية"
               }
             ].map((item, i) => (
               <motion.div
