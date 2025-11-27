@@ -45,7 +45,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import logoImage from "@assets/شعار_بديع-removebg-preview_1764208205746.png";
+import logoImage from "@assets/شعار بديع_1764208396947.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -87,7 +87,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         <Input 
           id="name" 
           placeholder="أدخل اسمك أو اسم شركتك" 
-          className="h-12 text-right bg-white/50"
+          className="h-12 text-right bg-white/50 border-black/10 focus:border-primary"
           required
           value={formData.name}
           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -97,7 +97,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
       <div className="space-y-2">
         <Label htmlFor="service" className="text-base font-medium">نوع الخدمة المطلوبة</Label>
         <Select required value={formData.serviceType} onValueChange={(val) => setFormData({...formData, serviceType: val})}>
-          <SelectTrigger id="service" className="h-12 text-right flex-row-reverse bg-white/50">
+          <SelectTrigger id="service" className="h-12 text-right flex-row-reverse bg-white/50 border-black/10 focus:border-primary">
             <SelectValue placeholder="اختر نوع الخدمة" />
           </SelectTrigger>
           <SelectContent dir="rtl">
@@ -117,7 +117,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         <Textarea 
           id="goal" 
           placeholder="أخبرنا المزيد عن مشروعك.. مثلاً: أحتاج صور لمنتجات قهوة لمتجري الإلكتروني لزيادة المبيعات" 
-          className="min-h-[100px] text-right resize-none bg-white/50"
+          className="min-h-[100px] text-right resize-none bg-white/50 border-black/10 focus:border-primary"
           required
           value={formData.projectGoal}
           onChange={(e) => setFormData({...formData, projectGoal: e.target.value})}
@@ -128,7 +128,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         <div className="space-y-2">
           <Label htmlFor="budget" className="text-base font-medium">الميزانية المتوقعة</Label>
           <Select required onValueChange={(val) => setFormData({...formData, budget: val})}>
-            <SelectTrigger id="budget" className="h-12 text-right flex-row-reverse bg-white/50">
+            <SelectTrigger id="budget" className="h-12 text-right flex-row-reverse bg-white/50 border-black/10 focus:border-primary">
               <SelectValue placeholder="الميزانية" />
             </SelectTrigger>
             <SelectContent dir="rtl">
@@ -143,7 +143,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         <div className="space-y-2">
           <Label htmlFor="timeline" className="text-base font-medium">موعد التسليم</Label>
           <Select required onValueChange={(val) => setFormData({...formData, timeline: val})}>
-            <SelectTrigger id="timeline" className="h-12 text-right flex-row-reverse bg-white/50">
+            <SelectTrigger id="timeline" className="h-12 text-right flex-row-reverse bg-white/50 border-black/10 focus:border-primary">
               <SelectValue placeholder="الموعد" />
             </SelectTrigger>
             <SelectContent dir="rtl">
@@ -155,7 +155,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         </div>
       </div>
 
-      <Button type="submit" className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 mt-4 shadow-lg shadow-primary/20 transition-all hover:scale-[1.02]">
+      <Button type="submit" className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 text-white mt-4 shadow-lg shadow-primary/20 transition-all hover:scale-[1.02]">
         إرسال الطلب عبر واتساب <Send className="mr-2 h-5 w-5" />
       </Button>
     </form>
@@ -166,16 +166,16 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans" dir="rtl">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass border-b border-white/10 bg-background/60 backdrop-blur-xl">
+      <nav className="fixed top-0 w-full z-50 glass border-b border-black/5 bg-white/80 backdrop-blur-xl">
         <div className="container mx-auto px-6 py-3 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img 
               src={logoImage} 
               alt="BADII Logo" 
-              className="h-16 w-auto object-contain drop-shadow-md hover:scale-105 transition-transform duration-300"
+              className="h-14 w-auto object-contain drop-shadow-sm hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <div className="hidden md:flex gap-8 font-medium text-sm items-center">
+          <div className="hidden md:flex gap-8 font-medium text-sm items-center text-black">
             <a href="#services" className="hover:text-primary transition-colors relative group">
               الخدمات
               <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
@@ -199,14 +199,14 @@ export default function Home() {
                 ابدأ الآن
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-2xl border-white/20 p-0 overflow-hidden gap-0">
-               <div className="bg-primary/10 p-6 border-b border-white/10">
+            <DialogContent className="sm:max-w-[500px] bg-white backdrop-blur-2xl border-black/5 p-0 overflow-hidden gap-0">
+               <div className="bg-primary/5 p-6 border-b border-black/5">
                 <DialogHeader className="text-right space-y-2">
                   <DialogTitle className="text-2xl font-bold font-heading text-primary flex items-center gap-2">
                     <Sparkles className="w-6 h-6" />
                     ابدأ مشروعك الإبداعي
                   </DialogTitle>
-                  <DialogDescription className="text-base text-foreground/80">
+                  <DialogDescription className="text-base text-gray-600">
                     املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
                   </DialogDescription>
                 </DialogHeader>
@@ -220,10 +220,12 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.07]" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px] -z-10 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[120px] -z-10 animate-pulse" style={{ animationDelay: "2s" }} />
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.02]" />
+        
+        {/* Abstract Shapes - Blue & Black */}
+        <div className="absolute top-[-10%] right-[-10%] w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px] -z-10" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-blue-100 rounded-full blur-[100px] -z-10" />
 
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -244,27 +246,27 @@ export default function Home() {
               <span className="text-sm font-medium">موثوق من 500+ عميل سعيد</span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-8 leading-[1.1] tracking-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-8 leading-[1.1] tracking-tight text-black">
               أطلق العنان لإبداعك <br />
-              مع <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-purple-500 to-blue-600 animate-gradient-x">BADII</span>
+              مع <span className="text-primary">BADII</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed">
               نحول رؤيتك الإبداعية إلى واقع مذهل باستخدام أحدث تقنيات الذكاء الاصطناعي.
-              <span className="block mt-2 text-foreground/80">صور احترافية. محتوى استثنائي. نتائج حقيقية.</span>
+              <span className="block mt-2 text-black font-medium">صور احترافية. محتوى استثنائي. نتائج حقيقية.</span>
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="h-14 text-lg px-10 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 hover:-translate-y-1">
+                  <Button size="lg" className="h-14 text-lg px-10 bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 hover:-translate-y-1">
                     احجز استشارة مجانية
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-2xl border-white/20 p-0 overflow-hidden">
-                  <div className="bg-primary/10 p-6 border-b border-white/10">
+                <DialogContent className="sm:max-w-[500px] bg-white backdrop-blur-2xl border-black/5 p-0 overflow-hidden">
+                  <div className="bg-primary/5 p-6 border-b border-black/5">
                     <DialogHeader className="text-right space-y-2">
                       <DialogTitle className="text-2xl font-bold font-heading text-primary">احجز استشارة مجانية</DialogTitle>
-                      <DialogDescription className="text-base">
+                      <DialogDescription className="text-base text-gray-600">
                         املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
                       </DialogDescription>
                     </DialogHeader>
@@ -275,74 +277,74 @@ export default function Home() {
                 </DialogContent>
               </Dialog>
               
-              <Button size="lg" variant="outline" className="h-14 text-lg px-10 rounded-full border-2 hover:bg-secondary/50 backdrop-blur-sm transition-all hover:scale-105">
+              <Button size="lg" variant="outline" className="h-14 text-lg px-10 rounded-full border-2 border-black/10 text-black hover:bg-black hover:text-white transition-all hover:scale-105">
                 شاهد أعمالنا <ArrowRight className="mr-2 w-5 h-5" />
               </Button>
             </div>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats - Monochrome/Blue */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 max-w-5xl mx-auto"
           >
-            <div className="group p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-primary/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-md">
-              <div className="w-14 h-14 mx-auto bg-green-500/10 rounded-2xl flex items-center justify-center mb-4 text-green-500 group-hover:scale-110 transition-transform duration-300">
+            <div className="group p-8 rounded-3xl bg-white border border-black/5 shadow-sm hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+              <div className="w-14 h-14 mx-auto bg-black/5 rounded-2xl flex items-center justify-center mb-4 text-black group-hover:bg-primary group-hover:text-white transition-all duration-300">
                 <Zap size={28} />
               </div>
               <h3 className="text-xl font-bold mb-2 font-heading">سرعة خيالية</h3>
-              <p className="text-muted-foreground text-sm">تسليم المشاريع خلال ساعات معدودة بجودة عالية</p>
+              <p className="text-gray-500 text-sm">تسليم المشاريع خلال ساعات معدودة بجودة عالية</p>
             </div>
 
-            <div className="group p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-primary/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-md">
-              <div className="w-14 h-14 mx-auto bg-purple-500/10 rounded-2xl flex items-center justify-center mb-4 text-purple-500 group-hover:scale-110 transition-transform duration-300">
+            <div className="group p-8 rounded-3xl bg-white border border-black/5 shadow-sm hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+              <div className="w-14 h-14 mx-auto bg-primary/10 rounded-2xl flex items-center justify-center mb-4 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                 <Sparkles size={28} />
               </div>
               <h3 className="text-xl font-bold mb-2 font-heading">أسعار تنافسية</h3>
-              <p className="text-muted-foreground text-sm">باقات مرنة تناسب جميع الميزانيات والاحتياجات</p>
+              <p className="text-gray-500 text-sm">باقات مرنة تناسب جميع الميزانيات والاحتياجات</p>
             </div>
 
-            <div className="group p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-primary/20 hover:bg-white/10 transition-all duration-300 backdrop-blur-md">
-              <div className="w-14 h-14 mx-auto bg-blue-500/10 rounded-2xl flex items-center justify-center mb-4 text-blue-500 group-hover:scale-110 transition-transform duration-300">
+            <div className="group p-8 rounded-3xl bg-white border border-black/5 shadow-sm hover:border-primary/20 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300">
+              <div className="w-14 h-14 mx-auto bg-black/5 rounded-2xl flex items-center justify-center mb-4 text-black group-hover:bg-primary group-hover:text-white transition-all duration-300">
                 <Crown size={28} />
               </div>
               <h3 className="text-xl font-bold mb-2 font-heading">جودة احترافية</h3>
-              <p className="text-muted-foreground text-sm">نتائج مبهرة تضاهي كبرى الاستوديوهات العالمية</p>
+              <p className="text-gray-500 text-sm">نتائج مبهرة تضاهي كبرى الاستوديوهات العالمية</p>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Services */}
-      <section id="services" className="py-24 relative">
+      <section id="services" className="py-24 relative bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <Badge variant="secondary" className="mb-4 font-bold text-primary bg-primary/10 hover:bg-primary/20">خدماتنا</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">حلول إبداعية متكاملة</h2>
-            <p className="text-xl text-muted-foreground">كل ما تحتاجه لتعزيز حضور علامتك التجارية في مكان واحد</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-black">حلول إبداعية متكاملة</h2>
+            <p className="text-xl text-gray-600">كل ما تحتاجه لتعزيز حضور علامتك التجارية في مكان واحد</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: <Camera className="w-8 h-8 text-white" />,
-                color: "bg-purple-500",
+                bgClass: "bg-black",
                 title: "توليد الصور الاحترافية",
                 desc: "صور فائقة الجودة لمنتجاتك. من تصوير الأطعمة الشهية إلى صور المنتجات التجارية المثالية.",
                 features: ["صور منتجات بخلفيات احترافية", "جودة 4K وصيغ متعددة", "تناسب جميع المنصات"]
               },
               {
                 icon: <PenTool className="w-8 h-8 text-white" />,
-                color: "bg-blue-500",
+                bgClass: "bg-primary",
                 title: "كتابة المحتوى التسويقي",
                 desc: "محتوى مقنع ومؤثر يتحدث بصوت علامتك التجارية ويجذب جمهورك المستهدف.",
                 features: ["محتوى سوشال ميديا إبداعي", "أوصاف منتجات جذابة", "نصوص إعلانية مقنعة"]
               },
               {
                 icon: <Palette className="w-8 h-8 text-white" />,
-                color: "bg-pink-500",
+                bgClass: "bg-black",
                 title: "التصاميم الإبداعية",
                 desc: "تصاميم مبتكرة تجمع بين الجمال والفعالية لتحقيق أهدافك التسويقية.",
                 features: ["بوسترات وإعلانات رقمية", "تصاميم قصص وريلز", "هوية بصرية متكاملة"]
@@ -356,26 +358,26 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="group h-full"
               >
-                <div className="relative h-full bg-card/50 backdrop-blur-sm border border-muted rounded-3xl p-8 hover:bg-card hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500">
-                  <div className={`w-16 h-16 rounded-2xl ${service.color} flex items-center justify-center shadow-lg mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                <div className="relative h-full bg-white border border-black/5 rounded-3xl p-8 hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-2">
+                  <div className={`w-16 h-16 rounded-2xl ${service.bgClass} flex items-center justify-center shadow-lg mb-8 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                     {service.icon}
                   </div>
                   
-                  <h3 className="text-2xl font-bold font-heading mb-4">{service.title}</h3>
-                  <p className="text-muted-foreground mb-8 leading-relaxed">{service.desc}</p>
+                  <h3 className="text-2xl font-bold font-heading mb-4 text-black">{service.title}</h3>
+                  <p className="text-gray-500 mb-8 leading-relaxed">{service.desc}</p>
                   
                   <ul className="space-y-4 mb-8">
                     {service.features.map((f, j) => (
-                      <li key={j} className="flex items-center gap-3 text-sm font-medium text-foreground/80">
-                        <div className={`w-6 h-6 rounded-full ${service.color} bg-opacity-20 flex items-center justify-center shrink-0`}>
-                          <Check size={14} className={service.color.replace('bg-', 'text-')} />
+                      <li key={j} className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                        <div className={`w-6 h-6 rounded-full ${service.bgClass} bg-opacity-10 flex items-center justify-center shrink-0`}>
+                          <Check size={14} className={service.bgClass === 'bg-primary' ? 'text-primary' : 'text-black'} />
                         </div>
                         {f}
-                      </li>
+                      </div>
                     ))}
                   </ul>
 
-                  <Button variant="ghost" className="w-full group-hover:bg-primary/5 group-hover:text-primary justify-between">
+                  <Button variant="ghost" className="w-full group-hover:bg-primary/5 group-hover:text-primary justify-between text-black">
                     اطلب الخدمة <ArrowRight className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
                   </Button>
                 </div>
@@ -386,93 +388,85 @@ export default function Home() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-24 bg-secondary/30 relative overflow-hidden">
-        {/* Background Blobs */}
-        <div className="absolute top-0 right-0 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-
+      <section id="pricing" className="py-24 bg-white relative overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-20">
             <Badge variant="secondary" className="mb-4 font-bold text-primary bg-primary/10">الأسعار</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">باقات تناسب طموحك</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">شفافية تامة في الأسعار. اختر الباقة التي تناسب حجم عملك وابدأ فوراً</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-black">باقات تناسب طموحك</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">شفافية تامة في الأسعار. اختر الباقة التي تناسب حجم عملك وابدأ فوراً</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 items-start max-w-7xl mx-auto">
             {/* Starter */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-white/40 rounded-[2rem] blur-xl transition-all opacity-0 group-hover:opacity-100" />
-              <Card className="relative h-full border-muted/60 bg-white/50 backdrop-blur-xl rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                <CardHeader className="p-8 pb-0">
-                  <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center mb-6 text-gray-600">
-                    <Rocket size={24} />
-                  </div>
-                  <CardTitle className="text-2xl font-bold font-heading">الباقة الأساسية</CardTitle>
-                  <CardDescription className="text-base mt-2">للمشاريع الناشئة والتجربة</CardDescription>
-                </CardHeader>
-                <CardContent className="p-8">
-                  <div className="flex items-baseline gap-1 mb-8">
-                    <span className="text-5xl font-bold tracking-tight">399</span>
-                    <span className="text-xl text-muted-foreground font-medium">ريال</span>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      "8 صور عالية الجودة (4K)", 
-                      "مراجعة واحدة مجانية", 
-                      "تسليم خلال 48 ساعة", 
-                      "حقوق استخدام تجاري",
-                      "صيغ متعددة (PNG, JPG)"
-                    ].map((f, i) => (
-                      <div key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80">
-                        <Check className="w-5 h-5 text-green-500 shrink-0" />
-                        {f}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-8 pt-0">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className="w-full h-12 text-base rounded-xl bg-gray-900 hover:bg-gray-800 text-white transition-all shadow-lg hover:shadow-xl">
-                        اختر الباقة
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-2xl p-0 overflow-hidden">
-                      <div className="bg-gray-100 p-6 border-b">
-                         <DialogHeader className="text-right">
-                          <DialogTitle className="text-2xl font-bold text-gray-900">طلب الباقة الأساسية</DialogTitle>
-                        </DialogHeader>
-                      </div>
-                      <div className="p-6">
-                        <ProjectRequestForm packageName="الباقة الأساسية (Starter)" />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </CardFooter>
-              </Card>
-            </div>
+            <Card className="relative h-full border-black/10 bg-white shadow-sm rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <CardHeader className="p-8 pb-0">
+                <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center mb-6 text-black">
+                  <Rocket size={24} />
+                </div>
+                <CardTitle className="text-2xl font-bold font-heading text-black">الباقة الأساسية</CardTitle>
+                <CardDescription className="text-base mt-2 text-gray-500">للمشاريع الناشئة والتجربة</CardDescription>
+              </CardHeader>
+              <CardContent className="p-8">
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-5xl font-bold tracking-tight text-black">399</span>
+                  <span className="text-xl text-gray-500 font-medium">ريال</span>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "8 صور عالية الجودة (4K)", 
+                    "مراجعة واحدة مجانية", 
+                    "تسليم خلال 48 ساعة", 
+                    "حقوق استخدام تجاري",
+                    "صيغ متعددة (PNG, JPG)"
+                  ].map((f, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                      <Check className="w-5 h-5 text-primary shrink-0" />
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="p-8 pt-0">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full h-12 text-base rounded-xl bg-black hover:bg-black/80 text-white transition-all shadow-lg hover:shadow-xl">
+                      اختر الباقة
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px] bg-white p-0 overflow-hidden">
+                    <div className="bg-gray-50 p-6 border-b border-black/5">
+                       <DialogHeader className="text-right">
+                        <DialogTitle className="text-2xl font-bold text-black">طلب الباقة الأساسية</DialogTitle>
+                      </DialogHeader>
+                    </div>
+                    <div className="p-6">
+                      <ProjectRequestForm packageName="الباقة الأساسية (Starter)" />
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </CardFooter>
+            </Card>
 
             {/* Pro - Featured */}
             <div className="relative group -mt-4 md:-mt-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-purple-600 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-500" />
-              <Card className="relative h-full border-0 bg-gray-900 text-white rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ring-2 ring-white/10">
-                <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-primary via-purple-500 to-blue-500" />
+              <div className="absolute inset-0 bg-primary rounded-[2rem] blur-xl opacity-20 group-hover:opacity-30 transition-all duration-500" />
+              <Card className="relative h-full border-0 bg-primary text-white rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ring-2 ring-primary/50">
                 <div className="absolute top-6 left-6">
-                   <span className="bg-gradient-to-r from-primary to-purple-600 text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
+                   <span className="bg-white text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg">
                      الأكثر طلباً
                    </span>
                 </div>
                 <CardHeader className="p-10 pb-0">
-                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-primary border border-white/10">
+                  <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-white border border-white/20">
                     <ShieldCheck size={30} />
                   </div>
                   <CardTitle className="text-3xl font-bold font-heading">الباقة الاحترافية</CardTitle>
-                  <CardDescription className="text-gray-400 text-lg mt-2">للنمو المتسارع والاحترافية</CardDescription>
+                  <CardDescription className="text-blue-100 text-lg mt-2">للنمو المتسارع والاحترافية</CardDescription>
                 </CardHeader>
                 <CardContent className="p-10">
                   <div className="flex items-baseline gap-1 mb-10">
                     <span className="text-6xl font-bold tracking-tight">799</span>
-                    <span className="text-2xl text-gray-400 font-medium">ريال</span>
+                    <span className="text-2xl text-blue-200 font-medium">ريال</span>
                   </div>
                   <div className="space-y-5">
                     {[
@@ -483,8 +477,8 @@ export default function Home() {
                       "كابشنز وهاشتاقات احترافية",
                       "استشارة تسويقية (30 دقيقة)"
                     ].map((f, i) => (
-                      <div key={i} className="flex items-center gap-3 text-base font-medium">
-                        <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0">
+                      <div key={i} className="flex items-center gap-3 text-base font-medium text-blue-50">
+                        <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center shrink-0">
                           <Check className="w-3.5 h-3.5 text-white" />
                         </div>
                         {f}
@@ -495,14 +489,14 @@ export default function Home() {
                 <CardFooter className="p-10 pt-0">
                   <Dialog>
                     <DialogTrigger asChild>
-                      <Button className="w-full h-14 text-lg rounded-xl bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white border-none transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:scale-[1.02]">
+                      <Button className="w-full h-14 text-lg rounded-xl bg-white hover:bg-gray-50 text-primary border-none transition-all shadow-lg shadow-black/10 hover:scale-[1.02]">
                         اختر الباقة الاحترافية
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px] bg-gray-900/95 backdrop-blur-2xl border-white/10 p-0 overflow-hidden text-white">
-                       <div className="bg-white/5 p-6 border-b border-white/10">
+                    <DialogContent className="sm:max-w-[500px] bg-white p-0 overflow-hidden text-black">
+                       <div className="bg-primary/5 p-6 border-b border-black/5">
                          <DialogHeader className="text-right">
-                          <DialogTitle className="text-2xl font-bold text-white">طلب الباقة الاحترافية</DialogTitle>
+                          <DialogTitle className="text-2xl font-bold text-primary">طلب الباقة الاحترافية</DialogTitle>
                         </DialogHeader>
                        </div>
                        <div className="p-6">
@@ -515,58 +509,55 @@ export default function Home() {
             </div>
 
             {/* Elite */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-white/40 rounded-[2rem] blur-xl transition-all opacity-0 group-hover:opacity-100" />
-              <Card className="relative h-full border-muted/60 bg-white/50 backdrop-blur-xl rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                <CardHeader className="p-8 pb-0">
-                  <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center mb-6 text-amber-600">
-                    <Gem size={24} />
-                  </div>
-                  <CardTitle className="text-2xl font-bold font-heading">الباقة الشاملة</CardTitle>
-                  <CardDescription className="text-base mt-2">للشركات والعلامات الكبرى</CardDescription>
-                </CardHeader>
-                <CardContent className="p-8">
-                  <div className="flex items-baseline gap-1 mb-8">
-                    <span className="text-5xl font-bold tracking-tight">1,499</span>
-                    <span className="text-xl text-muted-foreground font-medium">ريال</span>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      "40 صورة فائقة الجودة (8K)", 
-                      "مراجعات غير محدودة", 
-                      "تسليم فوري (12 ساعة)", 
-                      "خطة محتوى شهرية كاملة",
-                      "مدير حساب خاص",
-                      "دعم فني VIP على مدار الساعة"
-                    ].map((f, i) => (
-                      <div key={i} className="flex items-center gap-3 text-sm font-medium text-foreground/80">
-                        <Check className="w-5 h-5 text-green-500 shrink-0" />
-                        {f}
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="p-8 pt-0">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className="w-full h-12 text-base rounded-xl bg-white border-2 border-gray-200 hover:border-primary/50 hover:text-primary hover:bg-primary/5 transition-all">
-                        تواصل للطلب
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-2xl p-0 overflow-hidden">
-                       <div className="bg-amber-500/10 p-6 border-b border-amber-500/20">
-                         <DialogHeader className="text-right">
-                          <DialogTitle className="text-2xl font-bold text-amber-700">طلب الباقة الشاملة</DialogTitle>
-                        </DialogHeader>
-                       </div>
-                       <div className="p-6">
-                        <ProjectRequestForm packageName="الباقة الشاملة (Elite)" />
-                       </div>
-                    </DialogContent>
-                  </Dialog>
-                </CardFooter>
-              </Card>
-            </div>
+            <Card className="relative h-full border-black/10 bg-white shadow-sm rounded-[2rem] overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+              <CardHeader className="p-8 pb-0">
+                <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center mb-6 text-black">
+                  <Gem size={24} />
+                </div>
+                <CardTitle className="text-2xl font-bold font-heading text-black">الباقة الشاملة</CardTitle>
+                <CardDescription className="text-base mt-2 text-gray-500">للشركات والعلامات الكبرى</CardDescription>
+              </CardHeader>
+              <CardContent className="p-8">
+                <div className="flex items-baseline gap-1 mb-8">
+                  <span className="text-5xl font-bold tracking-tight text-black">1,499</span>
+                  <span className="text-xl text-muted-foreground font-medium">ريال</span>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    "40 صورة فائقة الجودة (8K)", 
+                    "مراجعات غير محدودة", 
+                    "تسليم فوري (12 ساعة)", 
+                    "خطة محتوى شهرية كاملة",
+                    "مدير حساب خاص",
+                    "دعم فني VIP على مدار الساعة"
+                  ].map((f, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700">
+                      <Check className="w-5 h-5 text-primary shrink-0" />
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+              <CardFooter className="p-8 pt-0">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button className="w-full h-12 text-base rounded-xl bg-white border-2 border-gray-200 hover:border-primary hover:text-primary hover:bg-primary/5 transition-all text-black">
+                      تواصل للطلب
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px] bg-white p-0 overflow-hidden">
+                     <div className="bg-gray-50 p-6 border-b border-black/5">
+                       <DialogHeader className="text-right">
+                        <DialogTitle className="text-2xl font-bold text-black">طلب الباقة الشاملة</DialogTitle>
+                      </DialogHeader>
+                     </div>
+                     <div className="p-6">
+                      <ProjectRequestForm packageName="الباقة الشاملة (Elite)" />
+                     </div>
+                  </DialogContent>
+                </Dialog>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </section>
@@ -584,16 +575,16 @@ export default function Home() {
           
           <Dialog>
             <DialogTrigger asChild>
-              <Button size="lg" className="bg-white text-black hover:bg-gray-100 text-xl px-12 py-8 rounded-full shadow-2xl shadow-white/10 transition-transform hover:scale-105 font-bold">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white text-xl px-12 py-8 rounded-full shadow-2xl shadow-primary/20 transition-transform hover:scale-105 font-bold">
                 <MessageCircle className="ml-3 w-6 h-6" />
                 ابدأ مشروعك الآن
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] bg-background/95 backdrop-blur-xl border-primary/20 text-foreground">
-              <div className="bg-primary/10 p-6 border-b border-white/10">
+            <DialogContent className="sm:max-w-[500px] bg-white backdrop-blur-xl border-black/10 text-foreground">
+              <div className="bg-primary/5 p-6 border-b border-black/5">
                 <DialogHeader className="text-right space-y-2">
                   <DialogTitle className="text-2xl font-bold font-heading text-primary">ابدأ مشروعك الآن</DialogTitle>
-                  <DialogDescription className="text-base">
+                  <DialogDescription className="text-base text-gray-600">
                     املأ النموذج التالي لنفهم احتياجاتك بدقة ونقدم لك العرض الأنسب.
                   </DialogDescription>
                 </DialogHeader>
