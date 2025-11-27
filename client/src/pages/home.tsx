@@ -40,7 +40,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import logoImage from "@assets/شعار بديع_1764208396947.png";
+import logoImage from "@assets/شعار_بديع-removebg-preview_1764209956253.png";
 
 function ProjectRequestForm({ packageName }: { packageName?: string }) {
   const [formData, setFormData] = useState({
@@ -168,11 +168,14 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <img 
-              src={logoImage} 
-              alt="BADII Logo" 
-              className="h-14 w-auto object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
-            />
+            <div className="relative group">
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <img 
+                src={logoImage} 
+                alt="BADII Logo" 
+                className="relative h-16 w-auto object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
+              />
+            </div>
           </motion.div>
 
           <div className="hidden md:flex gap-8 font-medium text-sm items-center">
@@ -677,7 +680,10 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
-              <img src={logoImage} alt="BADII Logo" className="h-14 mb-6 opacity-90" />
+              <div className="relative inline-block mb-6">
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-2xl blur-md"></div>
+                <img src={logoImage} alt="BADII Logo" className="relative h-16 w-auto object-contain drop-shadow-xl" />
+              </div>
               <p className="text-gray-500 leading-relaxed">
                 شريكك الإبداعي الأول في عالم الذكاء الاصطناعي. نصنع الفرق في كل تفصيل.
               </p>
