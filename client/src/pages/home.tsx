@@ -292,65 +292,73 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop')] bg-cover bg-center opacity-[0.02]" />
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">كل منتج عظيم خلفه قصة أعظم</h2>
+            <p className="text-xl text-muted-foreground">الفرق بين "منتج جيد" و "منتج لا يُقاوم" هو طريقة السرد.. كيف تروي قصتك؟</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
+            {/* The Struggle */}
             <motion.div 
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="relative"
+              className="relative group"
             >
-              <div className="absolute -left-10 -top-10 w-40 h-40 bg-red-500/10 rounded-full blur-3xl -z-10" />
-              <Badge className="mb-6 bg-red-100 text-red-600 border-none px-4 py-1 text-sm">الواقع المؤلم</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6 leading-tight">
-                منتجك رائع.. <br />
-                <span className="text-muted-foreground">لكن هل يراه أحد؟</span>
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                تخيل أن يمر عميلك بمنتجك، يلقي نظرة سريعة، ثم يواصل التمرير. 
-                ليس لأن منتجك سيء، بل لأن الصورة لم تروِ له القصة. لم تخبره كيف ستتغير حياته بامتلاكه.
-                الصور الباهتة تقتل المبيعات، والفرص الضائعة لا تعود.
-              </p>
-              
-              <div className="flex flex-col gap-4 border-r-2 border-red-200 pr-6">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 shrink-0 text-sm font-bold">1</div>
-                  <p className="text-sm text-muted-foreground">انطباع أول ضعيف يقلل الثقة</p>
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
+              <div className="h-full bg-card/50 backdrop-blur-sm border border-red-100/50 p-8 md:p-10 rounded-3xl hover:border-red-200/50 transition-all duration-500">
+                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 mb-6 shadow-inner">
+                  <span className="text-2xl">📉</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500 shrink-0 text-sm font-bold">2</div>
-                  <p className="text-sm text-muted-foreground">صرف ميزانية إعلانية بلا نتائج</p>
+                <h3 className="text-2xl font-bold font-heading mb-4 text-red-900/80">الواقع الصامت</h3>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  منتجك ذو جودة عالية، وتعبت في تصنيعه واختياره. لكنك تضعه أمام العميل بصورة "عادية". 
+                  العميل يمر عليه مرور الكرام، لا يشعر بقيمته، ولا يتخيل كيف سيغير حياته. 
+                  <br /><span className="font-bold text-red-500/80">النتيجة؟</span> مجهود ضائع ومبيعات أقل من الطموح.
+                </p>
+                <div className="space-y-3">
+                  {["انطباع أول باهت", "حرق ميزانية الإعلانات", "منافسة شرسة بلا تميز"].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 text-muted-foreground/80">
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
             </motion.div>
 
+            {/* The Transformation */}
             <motion.div 
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={fadeInUp}
-              className="relative bg-card p-8 md:p-12 rounded-3xl shadow-2xl border border-primary/10"
+              className="relative group"
             >
-              <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-green-500/10 rounded-full blur-3xl -z-10" />
-              <Badge className="mb-6 bg-green-100 text-green-600 border-none px-4 py-1 text-sm">الحلم يتحقق</Badge>
-              <h2 className="text-3xl md:text-4xl font-bold font-heading mb-6 leading-tight text-primary">
-                اصنع الرغبة.. <br />
-                <span className="text-foreground">قبل البيع</span>
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                نحن لا نلتقط صوراً، نحن نصنع مشاعر. 
-                نجعل العميل يتوقف، يتأمل، ويتخيل المنتج في يده. 
-                باستخدام الذكاء الاصطناعي، نضع منتجك في السياق الذي يستحقه، ليصبح الخيار الأول والأجمل.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-green-50/50 p-4 rounded-2xl border border-green-100 text-center">
-                  <h4 className="font-bold text-2xl text-green-600 mb-1">+300%</h4>
-                  <p className="text-xs text-muted-foreground">تفاعل العملاء</p>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
+              <div className="h-full bg-card border-2 border-primary/10 p-8 md:p-10 rounded-3xl shadow-2xl shadow-primary/5 hover:border-primary/30 transition-all duration-500 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -z-10" />
+                
+                <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 shadow-inner">
+                  <span className="text-2xl">🚀</span>
                 </div>
-                <div className="bg-green-50/50 p-4 rounded-2xl border border-green-100 text-center">
-                  <h4 className="font-bold text-2xl text-green-600 mb-1">x2</h4>
-                  <p className="text-xs text-muted-foreground">معدل المبيعات</p>
+                <h3 className="text-2xl font-bold font-heading mb-4 text-primary">قصة النجاح مع BADII</h3>
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  نحن لا نلتقط صورة، بل نخلق "حالة". نضع منتجك في السياق الذي يجعله البطل.
+                  نجعل العميل يشعر بطعم القهوة قبل أن يطلبها، ويشم رائحة العطر من خلف الشاشة.
+                  <br /><span className="font-bold text-primary">النتيجة؟</span> رغبة لا تُقاوم وقرار شراء فوري.
+                </p>
+                
+                <div className="grid grid-cols-2 gap-4 mt-8">
+                  <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
+                    <h4 className="font-bold text-2xl text-primary mb-1">+300%</h4>
+                    <p className="text-xs text-muted-foreground font-medium">تفاعل العملاء</p>
+                  </div>
+                  <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
+                    <h4 className="font-bold text-2xl text-primary mb-1">x2</h4>
+                    <p className="text-xs text-muted-foreground font-medium">معدل المبيعات</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
