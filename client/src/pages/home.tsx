@@ -595,14 +595,19 @@ export default function Home() {
                   <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
                   
                   {/* Progress Steps */}
-                  <div className="flex justify-center gap-2 mt-6">
+                  <div className="flex justify-center gap-2 mt-6 relative">
+                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-muted -z-10"></div>
                     {[1, 2, 3, 4].map((step) => (
                       <div 
                         key={step}
-                        className={`h-2 rounded-full transition-all duration-500 ${
-                          step <= currentStep ? "w-12 bg-primary" : "w-4 bg-muted"
+                        className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-500 border-2 ${
+                          step <= currentStep 
+                            ? "bg-primary border-primary text-white scale-110 shadow-lg shadow-primary/30" 
+                            : "bg-background border-muted text-muted-foreground"
                         }`}
-                      />
+                      >
+                        {step < currentStep ? <CheckCircle2 size={16} /> : <span className="text-xs font-bold">{step}</span>}
+                      </div>
                     ))}
                   </div>
                 </CardHeader>
@@ -637,11 +642,26 @@ export default function Home() {
                   {currentStep === 2 && (
                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
                       <h3 className="text-xl font-bold text-center mb-4">حدثنا عن فكرتك</h3>
+                      
+                      {/* Quick Tags */}
+                      <div className="flex flex-wrap justify-center gap-2 mb-4">
+                        {["عصري ✨", "فخم 💎", "مينيماليست ⚪", "شعبي 🪵", "ألوان زاهية 🎨", "داكن 🌑"].map((tag) => (
+                          <Badge 
+                            key={tag}
+                            variant="outline" 
+                            className="cursor-pointer hover:bg-primary hover:text-white px-3 py-1.5 text-sm transition-colors"
+                            onClick={() => updateField('description', formData.description + (formData.description ? " " : "") + tag)}
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+
                       <div className="space-y-4">
                         <Label className="text-lg">ما الذي يدور في ذهنك؟</Label>
                         <Textarea 
                           placeholder="صف لنا الفكرة، الألوان المفضلة، أو أي تفاصيل تساعدنا في فهم رؤيتك..."
-                          className="min-h-[200px] text-lg p-4 bg-background/50 resize-none border-2 focus:border-primary transition-all"
+                          className="min-h-[200px] text-lg p-4 bg-background/50 resize-none border-2 focus:border-primary transition-all shadow-inner"
                           value={formData.description}
                           onChange={(e) => updateField('description', e.target.value)}
                         />
@@ -732,9 +752,13 @@ export default function Home() {
 
                       <div className="flex gap-4 mt-8">
                         <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
-                        <Button onClick={handleFinalSubmit} className="flex-1 h-12 text-lg bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20 animate-pulse" disabled={!formData.name || !formData.phone}>
+                        <Button 
+                          onClick={handleFinalSubmit} 
+                          className="flex-1 h-12 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/30 animate-pulse hover:animate-none transform hover:scale-105 transition-all duration-300" 
+                          disabled={!formData.name || !formData.phone}
+                        >
                           <Send className="ml-2 w-5 h-5" />
-                          إرسال عبر واتساب
+                          إرسال الآن عبر واتساب
                         </Button>
                       </div>
                     </motion.div>
