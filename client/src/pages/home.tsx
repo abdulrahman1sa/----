@@ -456,8 +456,8 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-none">الفرق مذهل</Badge>
-            <h2 className="text-4xl font-bold font-heading mb-4">شاهد الفرق بنفسك</h2>
-            <p className="text-xl text-muted-foreground">اسحب المؤشر لترى كيف نحول الصور العادية إلى تحف فنية</p>
+            <h2 className="text-4xl font-bold font-heading mb-4">لا تصدق الكلمات.. صدق عينيك</h2>
+            <p className="text-xl text-muted-foreground">انقل المؤشر لترى كيف نحول الصور العادية إلى مغناطيس للمبيعات</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -465,20 +465,20 @@ export default function Home() {
               { 
                 before: workerBefore, 
                 after: workerAfter,
-                title: "التعديلات الإبداعية",
-                desc: "دمج الخيال بالواقع لإنتاج محتوى تسويقي فريد"
+                title: "إبداع بلا حدود",
+                desc: "نحول الأفكار المجنونة إلى واقع بصري يخطف الأنظار"
               },
               { 
                 before: coffeeBefore, 
                 after: coffeeAfter,
-                title: "تصوير الأطعمة والمشروبات",
-                desc: "إظهار جمال المنتج بجودة إعلانية عالية"
+                title: "لذة تراها العين",
+                desc: "نجعل منتجك يبدو شهياً لدرجة أن العميل سيشعر بطعمه"
               },
               { 
                 before: perfumeBefore, 
                 after: perfumeAfter,
-                title: "تصوير المنتجات الفاخرة",
-                desc: "إبراز الفخامة والتفاصيل الدقيقة للمنتج"
+                title: "فخامة تليق ببراندك",
+                desc: "نبرز أدق التفاصيل التي تعكس قيمة وجودة منتجك الحقيقية"
               }
             ].map((item, i) => (
               <motion.div
@@ -487,7 +487,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-card rounded-2xl overflow-hidden shadow-xl border border-muted/50"
+                className="bg-card rounded-2xl overflow-hidden shadow-xl border border-muted/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300"
               >
                 <div className="h-[300px] w-full">
                   <ReactCompareSlider
@@ -499,11 +499,11 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="font-bold text-xl mb-2 font-heading">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  <div className="flex justify-between px-8 mt-4 text-xs font-bold uppercase tracking-wider">
-                    <span className="text-red-400/70">صورة عادية (جوال)</span>
-                    <span className="text-primary">احترافية مع AI ✨</span>
+                  <h3 className="font-bold text-2xl mb-2 font-heading text-primary">{item.title}</h3>
+                  <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <div className="flex justify-between px-8 mt-6 text-xs font-bold uppercase tracking-wider opacity-80">
+                    <span className="text-red-500/70 flex items-center gap-1">📷 قبل</span>
+                    <span className="text-primary flex items-center gap-1">✨ بعد</span>
                   </div>
                 </div>
               </motion.div>
