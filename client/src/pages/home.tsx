@@ -63,12 +63,13 @@ export default function Home() {
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    const message = `*طلب حجز جديد من الموقع* 🚀%0A%0A` +
-      `👤 *الاسم/الجهة:* ${formData.name}%0A` +
-      `🏢 *نوع النشاط:* ${formData.type}%0A` +
-      `🛠 *الخدمة المطلوبة:* ${formData.service}%0A` +
-      `📝 *التفاصيل:* ${formData.description}%0A%0A` +
-      `أرغب في مناقشة التفاصيل والبدء في أقرب وقت.`;
+    const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:%0A%0A` +
+      `👤 الاسم: ${formData.name}%0A` +
+      `🛠 نوع الخدمة: ${formData.service}%0A` +
+      `🎯 هدف المشروع: ${formData.description}%0A` +
+      `💰 الميزانية المتوقعة: حسب الباقة المختارة%0A` +
+      `⏱ موعد التسليم المفضل: في أقرب وقت%0A%0A` +
+      `أرجو مراجعة طلبي والرد علي. شكراً!`;
       
     window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
   };
@@ -475,10 +476,10 @@ export default function Home() {
                             <SelectValue placeholder="اختر الخدمة" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="تصوير منتجات">تصوير منتجات (AI)</SelectItem>
-                            <SelectItem value="صناعة محتوى">صناعة محتوى وتسويق</SelectItem>
-                            <SelectItem value="تصميم هوية">تصميم هوية وشعارات</SelectItem>
-                            <SelectItem value="باقة شاملة">باقة شاملة</SelectItem>
+                            <SelectItem value="توليد صور منتجات">توليد صور منتجات (AI)</SelectItem>
+                            <SelectItem value="صناعة محتوى وتسويق">صناعة محتوى وتسويق</SelectItem>
+                            <SelectItem value="تصميم صور إعلانية">تصميم صور إعلانية</SelectItem>
+                            <SelectItem value="باقة شاملة">باقة شاملة (صور + محتوى)</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
