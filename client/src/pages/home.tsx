@@ -491,8 +491,8 @@ export default function Home() {
               >
                 <div className="h-[300px] w-full">
                   <ReactCompareSlider
-                    itemOne={<ReactCompareSliderImage src={item.before} alt="صورة عادية" style={{ objectFit: 'contain', backgroundColor: '#f0f0f0' }} />}
-                    itemTwo={<ReactCompareSliderImage src={item.after} alt="صورة احترافية" style={{ objectFit: 'contain', backgroundColor: '#f0f0f0' }} />}
+                    itemOne={<ReactCompareSliderImage src={item.before} alt="صورة عادية" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
+                    itemTwo={<ReactCompareSliderImage src={item.after} alt="صورة احترافية" style={{ objectFit: 'cover', objectPosition: 'top' }} />}
                     className="h-full w-full"
                     position={50}
                     style={{ width: '100%', height: '100%' }}
