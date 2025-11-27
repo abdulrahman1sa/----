@@ -179,21 +179,18 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass-dark border-b border-neon">
+      <nav className="fixed top-0 w-full z-50 bg-card border-b-2 border-neon">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3"
           >
-            <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-neon rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-500"></div>
-              <img 
-                src={logoImage} 
-                alt="BADII Logo" 
-                className="relative h-16 w-auto object-contain drop-shadow-2xl hover:scale-110 transition-all duration-300 cursor-pointer"
-              />
-            </div>
+            <img 
+              src={logoImage} 
+              alt="BADII Logo" 
+              className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-200 cursor-pointer"
+            />
           </motion.div>
 
           <div className="hidden md:flex gap-8 font-medium text-sm items-center">
@@ -214,12 +211,12 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-primary hover:shadow-neon text-background font-bold px-8 rounded-full transition-all hover:scale-105">
+              <Button className="bg-gradient-primary hover:opacity-90 text-background font-bold px-8 rounded-lg transition-all">
                 ابدأ الآن
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[550px] glass border-neon p-0 overflow-hidden">
-              <div className="glass-card p-8 border-b border-neon/30">
+            <DialogContent className="sm:max-w-[550px] bg-card border-2 border-neon p-0 overflow-hidden">
+              <div className="bg-card p-8 border-b-2 border-neon/30">
                 <DialogHeader className="text-right space-y-3">
                   <DialogTitle className="text-3xl font-bold text-gradient flex items-center gap-3">
                     <Sparkles className="w-7 h-7 text-primary" />
@@ -257,12 +254,9 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-3 mb-8 px-6 py-3 rounded-full glass border-neon backdrop-blur-sm shadow-neon"
+                className="inline-flex items-center gap-3 mb-8 px-6 py-3 rounded-xl bg-card border-2 border-primary/40"
               >
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary shadow-neon"></span>
-                </span>
+                <span className="flex h-3 w-3 rounded-full bg-primary"></span>
                 <span className="text-sm font-bold text-primary">موثوق من 500+ عميل سعيد 🎉</span>
               </motion.div>
 
@@ -284,14 +278,14 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <DialogTrigger asChild>
                     <Button 
                       size="lg" 
-                      className="h-16 text-lg px-12 bg-gradient-primary hover:shadow-neon-lg rounded-full transition-all hover:scale-105 font-bold text-background shadow-neon"
+                      className="h-16 text-lg px-12 bg-gradient-primary hover:opacity-90 rounded-xl transition-all font-bold text-background"
                     >
                       <Rocket className="ml-3 w-6 h-6" />
                       احجز استشارة مجانية
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[550px] glass border-neon p-0 overflow-hidden">
-                    <div className="glass-card p-8 border-b border-neon/30">
+                  <DialogContent className="sm:max-w-[550px] bg-card border-2 border-neon p-0 overflow-hidden">
+                    <div className="bg-card p-8 border-b-2 border-neon/30">
                       <DialogHeader className="text-right space-y-3">
                         <DialogTitle className="text-3xl font-bold text-gradient">احجز استشارة مجانية</DialogTitle>
                         <DialogDescription className="text-base text-neutral">
@@ -308,7 +302,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="h-16 text-lg px-12 rounded-full border-2 border-neon text-primary hover:bg-primary hover:text-background transition-all hover:scale-105 font-bold shadow-lg backdrop-blur-sm"
+                  className="h-16 text-lg px-12 rounded-xl border-2 border-primary text-primary hover:bg-primary hover:text-background transition-all font-bold"
                 >
                   <Star className="ml-3 w-6 h-6" />
                   شاهد أعمالنا
@@ -332,13 +326,10 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 + i * 0.1 }}
-                    className="group p-8 rounded-3xl glass-card glass-hover hover:shadow-neon transition-all duration-300 cursor-pointer"
+                    className="group p-8 rounded-2xl card-flat card-flat-hover transition-all duration-200 cursor-pointer"
                   >
-                    <div className="relative w-20 h-20 mx-auto mb-5">
-                      <div className="absolute inset-0 bg-gradient-neon rounded-3xl blur-md opacity-40 group-hover:opacity-70 transition-opacity"></div>
-                      <div className="relative glass-card w-full h-full rounded-3xl flex items-center justify-center border-2 border-primary/30 group-hover:border-primary/60 group-hover:scale-110 transition-all duration-500">
-                        <stat.icon className="w-9 h-9 text-primary drop-shadow-[0_0_8px_rgba(57,255,20,0.6)]" />
-                      </div>
+                    <div className="w-20 h-20 mx-auto mb-5 bg-primary/10 rounded-2xl border-2 border-primary/40 flex items-center justify-center group-hover:border-primary transition-colors">
+                      <stat.icon className="w-9 h-9 text-primary" strokeWidth={2} />
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-bright">{stat.title}</h3>
                     <p className="text-neutral font-medium">{stat.desc}</p>
@@ -394,13 +385,10 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon transition-all duration-500 hover:-translate-y-3 rounded-3xl overflow-hidden">
+                <Card className="h-full card-flat card-flat-hover transition-all duration-200 rounded-2xl overflow-hidden">
                   <CardHeader className="p-8">
-                    <div className="relative w-24 h-24 mb-6">
-                      <div className="absolute inset-0 bg-gradient-neon rounded-[1.5rem] blur-xl opacity-40 group-hover:opacity-70 transition-opacity"></div>
-                      <div className="relative glass w-full h-full rounded-[1.5rem] flex items-center justify-center border border-primary/40 group-hover:border-primary/70 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500">
-                        <service.icon className="w-12 h-12 text-primary drop-shadow-[0_0_12px_rgba(57,255,20,0.8)]" strokeWidth={1.5} />
-                      </div>
+                    <div className="w-24 h-24 mb-6 bg-gradient-neon rounded-2xl flex items-center justify-center">
+                      <service.icon className="w-12 h-12 text-background" strokeWidth={2} />
                     </div>
                     <CardTitle className="text-2xl font-bold mb-3 text-bright">{service.title}</CardTitle>
                     <CardDescription className="text-base text-neutral leading-relaxed">
@@ -411,11 +399,8 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     <ul className="space-y-4">
                       {service.features.map((f, j) => (
                         <li key={j} className="flex items-center gap-3">
-                          <div className="relative w-7 h-7 shrink-0">
-                            <div className="absolute inset-0 bg-primary/30 rounded-full blur-sm"></div>
-                            <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
-                              <Check className="w-4 h-4 text-primary" strokeWidth={3} />
-                            </div>
+                          <div className="w-6 h-6 shrink-0 bg-primary/20 rounded-full border-2 border-primary/50 flex items-center justify-center">
+                            <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
                           </div>
                           <span className="font-semibold text-neutral">{f}</span>
                         </li>
@@ -426,15 +411,15 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     <Dialog>
                       <DialogTrigger asChild>
                         <Button 
-                          variant="ghost" 
-                          className="w-full h-12 font-bold text-primary hover:bg-primary/10 group-hover:bg-primary group-hover:text-background transition-all rounded-xl border border-neon/30"
+                          variant="outline" 
+                          className="w-full h-12 font-bold text-primary border-2 border-primary/40 hover:bg-primary hover:text-background transition-all rounded-lg"
                         >
                           اطلب الخدمة
-                          <ArrowRight className="mr-2 w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+                          <ArrowRight className="mr-2 w-5 h-5" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[550px] glass border-neon p-0">
-                        <div className="glass-card p-8 border-b border-neon/30">
+                      <DialogContent className="sm:max-w-[550px] bg-card border-2 border-neon p-0">
+                        <div className="bg-card p-8 border-b-2 border-neon/30">
                           <DialogHeader className="text-right space-y-3">
                             <DialogTitle className="text-3xl font-bold text-gradient">اطلب {service.title}</DialogTitle>
                             <DialogDescription className="text-base text-neutral">
@@ -482,13 +467,10 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
+              <Card className="h-full card-flat card-flat-hover rounded-2xl transition-all duration-200">
                 <CardHeader className="p-8">
-                  <div className="relative w-16 h-16 mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-secondary to-primary rounded-2xl blur-lg opacity-50"></div>
-                    <div className="relative glass-card w-full h-full rounded-2xl flex items-center justify-center border border-primary/40 shadow-neon">
-                      <Rocket className="w-7 h-7 text-primary drop-shadow-[0_0_10px_rgba(57,255,20,0.7)]" strokeWidth={2} />
-                    </div>
+                  <div className="w-16 h-16 mb-6 bg-gradient-to-br from-secondary to-primary rounded-2xl flex items-center justify-center">
+                    <Rocket className="w-7 h-7 text-background" strokeWidth={2} />
                   </div>
                   <CardTitle className="text-2xl font-bold text-bright">الباقة الأساسية</CardTitle>
                   <CardDescription className="text-base mt-2 text-neutral">للمشاريع الناشئة</CardDescription>
@@ -501,11 +483,8 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <ul className="space-y-4">
                     {["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <div className="relative w-6 h-6 shrink-0">
-                          <div className="absolute inset-0 bg-primary/30 rounded-full blur-[2px]"></div>
-                          <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
-                            <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
-                          </div>
+                        <div className="w-6 h-6 shrink-0 bg-primary/20 rounded-full border-2 border-primary/50 flex items-center justify-center">
+                          <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
                         </div>
                         <span className="font-semibold text-neutral">{f}</span>
                       </li>
@@ -519,7 +498,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                       "399",
                       ["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"]
                     )}
-                    className="w-full h-14 bg-gradient-to-br from-secondary to-primary hover:shadow-neon rounded-xl font-bold text-lg text-background"
+                    className="w-full h-14 bg-gradient-to-br from-secondary to-primary hover:opacity-90 rounded-lg font-bold text-lg text-background"
                   >
                     اختر الباقة
                   </Button>
@@ -534,57 +513,48 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               viewport={{ once: true }}
               className="md:-mt-8"
             >
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-neon rounded-3xl blur-lg opacity-75 glow-neon"></div>
-                <Card className="relative h-full border-0 bg-gradient-neon text-background shadow-neon-lg rounded-3xl overflow-hidden">
-                  <div className="absolute top-6 left-6">
-                    <Badge className="bg-background text-primary font-bold px-4 py-1.5 text-sm border-neon/50">
-                      🔥 الأكثر طلباً
-                    </Badge>
+              <Card className="h-full border-0 bg-gradient-neon text-background rounded-2xl overflow-hidden">
+                <div className="absolute top-6 left-6">
+                  <Badge className="bg-card text-primary font-bold px-4 py-1.5 text-sm border-2 border-primary/50">
+                    🔥 الأكثر طلباً
+                  </Badge>
+                </div>
+                <CardHeader className="p-10">
+                  <div className="w-18 h-18 mb-6 bg-background/20 rounded-2xl flex items-center justify-center border-2 border-background/30">
+                    <ShieldCheck className="w-9 h-9 text-background" strokeWidth={2} />
                   </div>
-                  <CardHeader className="p-10">
-                    <div className="relative w-18 h-18 mb-6">
-                      <div className="absolute inset-0 bg-background/40 rounded-2xl blur-md"></div>
-                      <div className="relative w-full h-full bg-background/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-background/30">
-                        <ShieldCheck className="w-9 h-9 text-background drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" strokeWidth={2} />
-                      </div>
-                    </div>
-                    <CardTitle className="text-3xl font-extrabold text-background">الباقة الاحترافية</CardTitle>
-                    <CardDescription className="text-background/80 text-lg mt-2">للنمو المتسارع</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-10 pt-0">
-                    <div className="mb-10">
-                      <span className="text-6xl font-extrabold text-background">799</span>
-                      <span className="text-2xl text-background/80 font-bold mr-2">ريال</span>
-                    </div>
-                    <ul className="space-y-5">
-                      {["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"].map((f, i) => (
-                        <li key={i} className="flex items-center gap-3">
-                          <div className="relative w-7 h-7 shrink-0">
-                            <div className="absolute inset-0 bg-background/30 rounded-full blur-[3px]"></div>
-                            <div className="relative w-full h-full bg-background/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-background/30">
-                              <Check className="w-4 h-4 text-background" strokeWidth={3} />
-                            </div>
-                          </div>
-                          <span className="font-bold text-background">{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                  <CardFooter className="p-10">
-                    <Button 
-                      onClick={() => sendPackageToWhatsApp(
-                        "الباقة الاحترافية (Pro)",
-                        "799",
-                        ["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"]
-                      )}
-                      className="w-full h-16 bg-background text-primary hover:bg-background/90 rounded-xl font-extrabold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105"
-                    >
-                      اختر الباقة الاحترافية
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
+                  <CardTitle className="text-3xl font-extrabold text-background">الباقة الاحترافية</CardTitle>
+                  <CardDescription className="text-background/80 text-lg mt-2">للنمو المتسارع</CardDescription>
+                </CardHeader>
+                <CardContent className="p-10 pt-0">
+                  <div className="mb-10">
+                    <span className="text-6xl font-extrabold text-background">799</span>
+                    <span className="text-2xl text-background/80 font-bold mr-2">ريال</span>
+                  </div>
+                  <ul className="space-y-5">
+                    {["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"].map((f, i) => (
+                      <li key={i} className="flex items-center gap-3">
+                        <div className="w-7 h-7 shrink-0 bg-background/30 rounded-full border-2 border-background/40 flex items-center justify-center">
+                          <Check className="w-4 h-4 text-background" strokeWidth={3} />
+                        </div>
+                        <span className="font-bold text-background">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter className="p-10">
+                  <Button 
+                    onClick={() => sendPackageToWhatsApp(
+                      "الباقة الاحترافية (Pro)",
+                      "799",
+                      ["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"]
+                    )}
+                    className="w-full h-16 bg-background text-primary hover:opacity-90 rounded-lg font-extrabold text-lg transition-all"
+                  >
+                    اختر الباقة الاحترافية
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
 
             {/* Elite */}
@@ -593,13 +563,10 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
+              <Card className="h-full card-flat card-flat-hover rounded-2xl transition-all duration-200">
                 <CardHeader className="p-8">
-                  <div className="relative w-16 h-16 mb-6">
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent to-primary rounded-2xl blur-lg opacity-50"></div>
-                    <div className="relative glass-card w-full h-full rounded-2xl flex items-center justify-center border border-primary/40 shadow-neon">
-                      <Gem className="w-7 h-7 text-primary drop-shadow-[0_0_10px_rgba(57,255,20,0.7)]" strokeWidth={2} />
-                    </div>
+                  <div className="w-16 h-16 mb-6 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center">
+                    <Gem className="w-7 h-7 text-background" strokeWidth={2} />
                   </div>
                   <CardTitle className="text-2xl font-bold text-bright">الباقة الشاملة</CardTitle>
                   <CardDescription className="text-base mt-2 text-neutral">للشركات الكبرى</CardDescription>
@@ -612,11 +579,8 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <ul className="space-y-4">
                     {["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <div className="relative w-6 h-6 shrink-0">
-                          <div className="absolute inset-0 bg-primary/30 rounded-full blur-[2px]"></div>
-                          <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
-                            <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
-                          </div>
+                        <div className="w-6 h-6 shrink-0 bg-primary/20 rounded-full border-2 border-primary/50 flex items-center justify-center">
+                          <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
                         </div>
                         <span className="font-semibold text-neutral">{f}</span>
                       </li>
@@ -631,7 +595,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                       ["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"]
                     )}
                     variant="outline" 
-                    className="w-full h-14 border-2 border-neon text-primary hover:bg-primary hover:text-background rounded-xl font-bold text-lg transition-all"
+                    className="w-full h-14 border-2 border-primary text-primary hover:bg-primary hover:text-background rounded-lg font-bold text-lg transition-all"
                   >
                     اختر الباقة
                   </Button>
@@ -665,13 +629,13 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="h-20 bg-gradient-neon text-background hover:shadow-neon-lg text-xl px-16 rounded-full shadow-neon transition-all hover:scale-110 font-extrabold">
+                  <Button size="lg" className="h-20 bg-gradient-neon text-background hover:opacity-90 text-xl px-16 rounded-xl transition-all font-extrabold">
                     <MessageCircle className="ml-3 w-7 h-7" />
                     ابدأ مشروعك الآن
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[550px] glass border-neon p-0">
-                  <div className="glass-card p-8 border-b border-neon/30">
+                <DialogContent className="sm:max-w-[550px] bg-card border-2 border-neon p-0">
+                  <div className="bg-card p-8 border-b-2 border-neon/30">
                     <DialogHeader className="text-right space-y-3">
                       <DialogTitle className="text-3xl font-bold text-gradient">ابدأ مشروعك الآن</DialogTitle>
                       <DialogDescription className="text-base text-neutral">
@@ -688,7 +652,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="h-20 border-2 border-neon text-primary hover:bg-primary hover:text-background text-xl px-16 rounded-full backdrop-blur-sm font-bold"
+                className="h-20 border-2 border-primary text-primary hover:bg-primary hover:text-background text-xl px-16 rounded-xl font-bold"
               >
                 <Phone className="ml-3 w-7 h-7" />
                 تواصل معنا

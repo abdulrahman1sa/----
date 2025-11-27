@@ -45,78 +45,44 @@
 
   --font-sans: 'Tajawal', sans-serif;
   --font-heading: 'Cairo', sans-serif;
-
-  --animate-blob: blob 7s infinite;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-glow: glow 3s ease-in-out infinite;
-
-  @keyframes blob {
-    0%, 100% {
-      transform: translate(0px, 0px) scale(1);
-    }
-    33% {
-      transform: translate(30px, -50px) scale(1.1);
-    }
-    66% {
-      transform: translate(-20px, 20px) scale(0.9);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(57, 255, 20, 0.3), 0 0 40px rgba(57, 255, 20, 0.1);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(57, 255, 20, 0.6), 0 0 80px rgba(57, 255, 20, 0.2);
-    }
-  }
 }
 
 :root {
-  /* Neon Green & Charcoal Theme - من الصورة المرجعية */
-  --background: 210 20% 3%; /* #050607 */
-  --foreground: 120 50% 96%; /* #F5FFF3 */
+  /* Neon Green & Dark Theme - 2D Flat Style */
+  --background: 210 20% 8%; /* #0F1214 */
+  --foreground: 120 50% 98%; /* #F9FFF8 */
 
-  --card: 210 20% 5%; /* #0D1010 */
-  --card-foreground: 120 50% 96%;
+  --card: 210 20% 12%; /* #171B1E */
+  --card-foreground: 120 50% 98%;
 
-  --popover: 210 20% 5%;
-  --popover-foreground: 120 50% 96%;
+  --popover: 210 20% 10%;
+  --popover-foreground: 120 50% 98%;
 
   --primary: 111 100% 54%; /* Neon Lime #39FF14 */
-  --primary-foreground: 210 20% 3%;
+  --primary-foreground: 210 20% 8%;
 
   --secondary: 155 94% 33%; /* Deep Emerald #0FB05F */
-  --secondary-foreground: 120 50% 96%;
+  --secondary-foreground: 120 50% 98%;
 
-  --muted: 210 20% 8%;
-  --muted-foreground: 120 10% 80%; /* #CED9CC */
+  --muted: 210 20% 15%;
+  --muted-foreground: 120 10% 75%; /* #D5E0D3 */
 
   --accent: 136 100% 72%; /* Electric Mint #73FF9B */
-  --accent-foreground: 210 20% 3%;
+  --accent-foreground: 210 20% 8%;
 
   --destructive: 0 84% 60%;
-  --destructive-foreground: 120 50% 96%;
+  --destructive-foreground: 120 50% 98%;
 
-  --border: 210 20% 15%;
-  --input: 210 20% 12%;
+  --border: 210 20% 20%;
+  --input: 210 20% 15%;
   --ring: 111 100% 54%;
 
-  --radius: 1rem;
+  --radius: 0.75rem;
 }
 
 .dark {
-  --background: 210 20% 3%;
-  --foreground: 120 50% 96%;
+  --background: 210 20% 8%;
+  --foreground: 120 50% 98%;
 }
 
 @layer base {
@@ -127,7 +93,6 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-family: 'Tajawal', sans-serif;
-    background: linear-gradient(135deg, #050607 0%, #0D1010 100%);
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -136,50 +101,24 @@
 }
 
 @layer utilities {
-  /* Glassmorphism Effects */
-  .glass {
-    background: rgba(13, 16, 16, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(57, 255, 20, 0.15);
-    box-shadow: 
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
-      0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-  
-  .glass-dark {
-    background: rgba(5, 6, 7, 0.8);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(57, 255, 20, 0.2);
-    box-shadow: 
-      inset 0 1px 0 0 rgba(57, 255, 20, 0.08),
-      0 8px 32px rgba(0, 0, 0, 0.5);
+  /* Flat 2D Design */
+  .card-flat {
+    background: hsl(var(--card));
+    border: 2px solid rgba(57, 255, 20, 0.2);
   }
 
-  .glass-card {
-    background: rgba(13, 16, 16, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(57, 255, 20, 0.1);
-    box-shadow: 
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.03),
-      0 4px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  .glass-hover:hover {
-    background: rgba(13, 16, 16, 0.7);
-    border-color: rgba(57, 255, 20, 0.3);
-    box-shadow: 
-      inset 0 1px 0 0 rgba(57, 255, 20, 0.1),
-      0 8px 32px rgba(57, 255, 20, 0.15);
+  .card-flat-hover:hover {
+    background: hsl(var(--card));
+    border-color: rgba(57, 255, 20, 0.4);
+    transform: translateY(-4px);
   }
   
-  /* Neon Effects */
+  /* Text Gradient */
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-secondary;
   }
 
+  /* Background Gradients */
   .bg-gradient-primary {
     background: linear-gradient(135deg, #39FF14 0%, #0FB05F 100%);
   }
@@ -188,34 +127,21 @@
     background: linear-gradient(135deg, #39FF14 0%, #73FF9B 50%, #0FB05F 100%);
   }
 
-  .shadow-neon {
-    box-shadow: 
-      0 0 20px rgba(57, 255, 20, 0.3),
-      0 0 40px rgba(57, 255, 20, 0.15),
-      0 4px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .shadow-neon-lg {
-    box-shadow: 
-      0 0 30px rgba(57, 255, 20, 0.4),
-      0 0 60px rgba(57, 255, 20, 0.2),
-      0 8px 32px rgba(0, 0, 0, 0.4);
-  }
-
+  /* Simple Border */
   .border-neon {
-    border-color: rgba(57, 255, 20, 0.4);
+    border-color: rgba(57, 255, 20, 0.3);
   }
 
-  .glow-neon {
-    animation: glow 3s ease-in-out infinite;
+  .border-neon-bright {
+    border-color: rgba(57, 255, 20, 0.6);
   }
 
   /* Text Colors */
   .text-neutral {
-    color: #CED9CC;
+    color: #D5E0D3;
   }
 
   .text-bright {
-    color: #F5FFF3;
+    color: #F9FFF8;
   }
 }
