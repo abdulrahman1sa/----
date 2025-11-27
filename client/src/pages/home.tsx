@@ -1037,7 +1037,7 @@ export default function Home() {
                 <ul className="space-y-3">
                   {[
                     "25 صورة منتجات إبداعية (4K)", 
-                    "تصميم 5 بوسترات إعلانية", 
+                    "تصميم فيديو ريلز (Reels) إبداعي", 
                     "كتابة محتوى لـ 10 منشورات", 
                     "تسليم سريع (24 ساعة)", 
                     "استشارة تسويقية مجانية"
@@ -1066,11 +1066,11 @@ export default function Home() {
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "50 صورة عالية الجودة (8K)", 
-                    "تصميم هوية بصرية للسوشيال ميديا", 
+                    "50 صورة عالية الجودة (4K)", 
+                    "تصميم 3 فيديوهات ريلز (Reels)", 
                     "خطة محتوى شهرية كاملة", 
-                    "فيديو ترويجي قصير (Reels)",
-                    "مدير حساب خاص + دعم أولوي"
+                    "كتابة وصف (Caption) للمنشورات",
+                    "دعم فني أولوي"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
