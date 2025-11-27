@@ -30,6 +30,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
+import whatsappLogo from "@assets/WhatsApp-Logo.wine_1764281301963.png";
 
 // Comparison Images (Uploaded Before vs Generated After)
 import workerBefore from "@assets/worker_before.jpg";
@@ -949,7 +950,7 @@ export default function Home() {
             لا تضيع المزيد من الوقت في البحث. دعنا نساعدك في إنشاء محتوى احترافي يميز علامتك التجارية.
           </p>
           <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966509567267', '_blank')}>
-            <MessageCircle className="ml-2" />
+            <img src={whatsappLogo} alt="WhatsApp" className="w-8 h-8 ml-2 object-contain" />
             تحدث معنا عبر واتساب
           </Button>
         </div>
@@ -975,9 +976,11 @@ export default function Home() {
         href="https://wa.me/966509567267"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 animate-bounce-slow"
+        className="fixed bottom-6 right-6 z-50 hover:scale-110 transition-all duration-300 animate-bounce-slow"
       >
-        <MessageCircle size={32} fill="currentColor" className="text-white" />
+        <div className="relative w-16 h-16 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border-2 border-white/20">
+          <img src={whatsappLogo} alt="WhatsApp" className="w-10 h-10 object-contain invert brightness-0" />
+        </div>
       </a>
     </div>
   );
