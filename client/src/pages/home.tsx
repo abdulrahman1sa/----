@@ -33,9 +33,9 @@ import burgerImg from "@assets/generated_images/gourmet_cheeseburger_food_photog
 import sneakerImg from "@assets/generated_images/futuristic_neon_sneaker_product_shot.png";
 import watchImg from "@assets/generated_images/luxury_wrist_watch_close_up.png";
 
-import perfumeBefore from "@assets/generated_images/amateur_perfume_bottle_photo.png";
-import burgerBefore from "@assets/generated_images/bad_burger_photo.png";
-import sneakerBefore from "@assets/generated_images/dirty_sneaker_photo.png";
+import perfumeBefore from "@assets/generated_images/terrible_perfume_photo.png";
+import burgerBefore from "@assets/generated_images/disgusting_burger_photo.png";
+import sneakerBefore from "@assets/generated_images/worn_out_sneaker_photo.png";
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
@@ -378,10 +378,11 @@ export default function Home() {
               >
                 <div className="h-[300px] w-full">
                   <ReactCompareSlider
-                    itemOne={<ReactCompareSliderImage src={item.before} alt="Before" />}
-                    itemTwo={<ReactCompareSliderImage src={item.after} alt="After" />}
+                    itemOne={<ReactCompareSliderImage src={item.before} alt="صورة عادية" />}
+                    itemTwo={<ReactCompareSliderImage src={item.after} alt="صورة احترافية" />}
                     className="h-full w-full object-cover"
                     position={50}
+                    style={{ width: '100%', height: '100%' }}
                   />
                 </div>
                 <div className="p-6 text-center">
