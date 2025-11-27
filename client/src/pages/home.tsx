@@ -28,6 +28,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
+import perfumeImg from "@assets/generated_images/luxury_perfume_bottle_product_shot.png";
+import burgerImg from "@assets/generated_images/gourmet_cheeseburger_food_photography.png";
+import sneakerImg from "@assets/generated_images/futuristic_neon_sneaker_product_shot.png";
+import watchImg from "@assets/generated_images/luxury_wrist_watch_close_up.png";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -338,10 +342,10 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?q=80&w=2940&auto=format&fit=crop", // Perfume
-              "https://images.unsplash.com/photo-1563636619-e9143da7973b?q=80&w=2865&auto=format&fit=crop", // Coffee
-              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2940&auto=format&fit=crop", // Sneaker
-              "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=2787&auto=format&fit=crop", // Watch
+              perfumeImg, // Perfume (Generated)
+              burgerImg, // Burger (Generated)
+              sneakerImg, // Sneaker (Generated)
+              watchImg, // Watch (Generated)
               "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=2940&auto=format&fit=crop", // Polaroid
               "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=3015&auto=format&fit=crop", // Cosmetics
               "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=2940&auto=format&fit=crop", // Coffee Cup
