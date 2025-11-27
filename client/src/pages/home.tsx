@@ -13,7 +13,8 @@ import {
   Image as ImageIcon,
   Star,
   Send,
-  Menu
+  Menu,
+  Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -367,54 +368,73 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section id="services" className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">خدماتنا المتكاملة</h2>
-            <p className="text-xl text-muted-foreground">ماذا نقدم لك لتحقيق أهدافك الإبداعية</p>
+      <section id="services" className="py-24 relative bg-background">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">خدماتنا</Badge>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">حلول بصرية تصنع الفارق</h2>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              نقدم لك باقة متكاملة من الخدمات الإبداعية المصممة خصيصاً لتعزيز حضورك الرقمي ومضاعفة مبيعاتك
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <Camera className="w-10 h-10 text-purple-500" />,
+                icon: <Camera className="w-12 h-12 text-white" />,
+                color: "bg-purple-500",
                 title: "تصوير منتجات بالذكاء الاصطناعي",
-                desc: "نحول صور الجوال العادية إلى لقطات إعلانية عالمية. مناسب للمطاعم، المقاهي، والمتاجر الإلكترونية.",
-                features: ["خلفيات احترافية تناسب هويتك", "دقة عالية 4K للطباعة والنشر"]
+                desc: "وداعاً لجلسات التصوير المكلفة. نحول صور الجوال البسيطة إلى لقطات إعلانية مذهلة بدقة 4K تناسب أرقى العلامات التجارية.",
+                features: ["خلفيات مخصصة لا نهائية", "إضاءة سينمائية واقعية", "توفير 90% من تكلفة التصوير التقليدي"]
               },
               {
-                icon: <PenTool className="w-10 h-10 text-blue-500" />,
-                title: "صياغة محتوى يبيع",
-                desc: "لا نكتب مجرد نصوص، بل نكتب كلمات تقنع عميلك بالشراء وتبرز مميزات منتجك بأسلوب جذاب.",
-                features: ["كابشن لمنصات التواصل الاجتماعي", "وصف منتجات متوافق مع SEO"]
+                icon: <PenTool className="w-12 h-12 text-white" />,
+                color: "bg-blue-500",
+                title: "صناعة محتوى إبداعي",
+                desc: "الصورة تجذب، والكلمة تبيع. نكتب لك نصوصاً إعلانية ساحرة تخاطب مشاعر عميلك وتقنعه باتخاذ قرار الشراء فوراً.",
+                features: ["كابشن منصات التواصل", "وصف منتجات متوافق مع SEO", "سيناريوهات ريلز قصيرة"]
+              },
+              {
+                icon: <Video className="w-12 h-12 text-white" />,
+                color: "bg-pink-500",
+                title: "فيديو ريلز (Reels)",
+                desc: "المستقبل للفيديو القصير. نصمم لك مقاطع ريلز حيوية وجذابة تجعل منتجك 'تريند' وتزيد من وصولك وتفاعل جمهورك.",
+                features: ["تحريك احترافي للصور", "مونتاج ومؤثرات بصرية", "موسيقى مرخصة وتناسب الهوية"]
               }
             ].map((service, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
+                className="group relative h-full"
               >
-                <Card className="h-full hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 border-muted bg-card/50 backdrop-blur-sm">
-                  <CardHeader>
-                    <div className="mb-4 bg-background w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm border">
-                      {service.icon}
-                    </div>
-                    <CardTitle className="text-2xl mb-2">{service.title}</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">{service.desc}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((f, j) => (
-                        <li key={j} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />
+                
+                <div className="h-full border border-white/5 bg-card/30 backdrop-blur-sm p-8 rounded-[2rem] flex flex-col transition-colors hover:border-primary/20 hover:bg-card/50">
+                  <div className={`${service.color} w-20 h-20 rounded-2xl rotate-3 flex items-center justify-center mb-8 shadow-xl shadow-current/30 transform transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
+                    {service.icon}
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold font-heading mb-4">{service.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">
+                    {service.desc}
+                  </p>
+                  
+                  <ul className="space-y-4 mt-auto pt-6 border-t border-white/5">
+                    {service.features.map((f, j) => (
+                      <li key={j} className="flex items-start gap-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+                        <div className={`w-5 h-5 rounded-full ${service.color}/20 flex items-center justify-center shrink-0 mt-0.5`}>
+                          <CheckCircle2 size={12} className={service.color.replace('bg-', 'text-')} />
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </motion.div>
             ))}
           </div>
