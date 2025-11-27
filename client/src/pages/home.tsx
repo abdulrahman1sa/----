@@ -387,9 +387,9 @@ export default function Home() {
                 <div className="p-6 text-center">
                   <h3 className="font-bold text-xl mb-2 font-heading">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
-                  <div className="flex justify-center gap-8 mt-4 text-xs font-bold uppercase tracking-wider opacity-50">
-                    <span>قبل</span>
-                    <span>بعد</span>
+                  <div className="flex justify-between px-8 mt-4 text-xs font-bold uppercase tracking-wider">
+                    <span className="text-red-400/70">صورة عادية (جوال)</span>
+                    <span className="text-primary">احترافية مع AI ✨</span>
                   </div>
                 </div>
               </motion.div>
