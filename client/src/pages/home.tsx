@@ -144,26 +144,38 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass border-b border-white/10">
+      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-primary/5 shadow-sm">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <img src={logo} alt="BADII Logo" className="h-14 md:h-16 w-auto object-contain" />
+            <img src={logo} alt="BADII Logo" className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform duration-300" />
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 font-medium text-sm">
-            <a href="#services" className="hover:text-primary transition-colors">الخدمات</a>
-            <a href="#process" className="hover:text-primary transition-colors">كيف نعمل</a>
-            <a href="#pricing" className="hover:text-primary transition-colors">الأسعار</a>
-            <a href="#faq" className="hover:text-primary transition-colors">الأسئلة الشائعة</a>
+          <div className="hidden md:flex gap-8 font-bold text-sm items-center">
+            <a href="#services" className="hover:text-primary transition-colors relative group">
+              الخدمات
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#process" className="hover:text-primary transition-colors relative group">
+              كيف نعمل
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#pricing" className="hover:text-primary transition-colors relative group">
+              الأسعار
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </a>
+            <a href="#faq" className="hover:text-primary transition-colors relative group">
+              الأسئلة الشائعة
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </a>
           </div>
           
           <div className="hidden md:block">
             <Button 
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20"
+              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 rounded-full px-8"
               onClick={() => window.location.href = '#booking'}
             >
-              ابدأ الآن
+              ابدأ الآن 🚀
             </Button>
           </div>
 
@@ -195,10 +207,20 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03] dark:opacity-[0.07]" />
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] -z-10" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] -z-10" />
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
+        
+        {/* Animated Background Blobs */}
+        <motion.div 
+          animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" 
+        />
+        <motion.div 
+          animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] -z-10" 
+        />
 
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -206,20 +228,22 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 px-4 py-2 text-sm border-primary/50 text-primary bg-primary/5 backdrop-blur-sm">
-              ✨ شريكك الإبداعي الأول
+            <Badge variant="outline" className="mb-6 px-6 py-2 text-sm border-primary/30 text-primary bg-primary/5 backdrop-blur-sm rounded-full">
+              ✨ شريكك الإبداعي الأول في عالم الذكاء الاصطناعي
             </Badge>
-            <h1 className="text-4xl md:text-7xl font-bold font-heading mb-6 leading-tight">
-              حوّل صور منتجاتك إلى مبيعات مع <span className="text-gradient">BADII</span>
+            <h1 className="text-5xl md:text-7xl font-bold font-heading mb-8 leading-tight">
+              حوّل صور منتجاتك إلى <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">مبيعات حقيقية</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 leading-relaxed">
-              نستخدم الذكاء الاصطناعي لإنتاج صور إعلانية مبهرة ومحتوى تسويقي لا يُقاوم، بتكلفة أقل وسرعة أعلى.
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
+              نبتكر محتوى بصرياً مذهلاً باستخدام أحدث تقنيات الذكاء الاصطناعي. 
+              جودة سينمائية، سرعة فائقة، وتكلفة تناسب طموحك.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25">
-                اطلب عرض سعر
+              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105">
+                ابدأ مشروعك الآن <ArrowRight className="mr-2" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-6 glass hover:bg-white/5">
+              <Button size="lg" variant="outline" className="text-lg px-10 py-7 border-2 rounded-full hover:bg-secondary transition-all">
                 تصفح أعمالنا
               </Button>
             </div>
@@ -836,47 +860,57 @@ export default function Home() {
                       <h3 className="text-xl font-bold text-center mb-8">الميزانية والوقت</h3>
                       
                       <div className="space-y-4">
-                        <Label className="text-lg">الميزانية المتوقعة</Label>
-                        <div className="grid grid-cols-3 gap-3">
+                        <Label className="text-base font-bold">الميزانية المتوقعة</Label>
+                        <div className="grid grid-cols-3 gap-4">
                           {[
-                            { label: 'اقتصادية', icon: '💰' }, 
-                            { label: 'متوسطة', icon: '⚖️' }, 
-                            { label: 'مفتوحة', icon: '💎' }
+                            { id: 'اقتصادية', label: 'اقتصادية', icon: '💰', desc: 'مناسبة للبدايات' }, 
+                            { id: 'متوسطة', label: 'متوسطة', icon: '⚖️', desc: 'أفضل قيمة' }, 
+                            { id: 'مفتوحة', label: 'مفتوحة', icon: '💎', desc: 'أعلى جودة' }
                           ].map((b) => (
                             <div 
-                              key={b.label}
-                              onClick={() => updateField('budget', b.label)}
-                              className={`cursor-pointer py-6 px-2 text-center rounded-xl border-2 transition-all hover:scale-105 ${
-                                formData.budget === b.label 
-                                  ? "border-primary bg-primary/5 font-bold text-primary shadow-md ring-1 ring-primary/20" 
+                              key={b.id}
+                              onClick={() => updateField('budget', b.id)}
+                              className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 text-center flex flex-col items-center gap-2 ${
+                                formData.budget === b.id 
+                                  ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg" 
                                   : "border-muted hover:border-primary/30 bg-background/50"
                               }`}
                             >
-                              <div className="text-2xl mb-2">{b.icon}</div>
-                              {b.label}
+                              <div className="text-3xl mb-1">{b.icon}</div>
+                              <div className="font-bold">{b.label}</div>
+                              <div className="text-xs text-muted-foreground">{b.desc}</div>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       <div className="space-y-4">
-                        <Label className="text-lg">موعد التسليم المفضل</Label>
-                        <Select onValueChange={(v) => updateField('timeline', v)} value={formData.timeline}>
-                          <SelectTrigger className="h-14 text-lg bg-background/50">
-                            <SelectValue placeholder="اختر الموعد المناسب" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="عاجل جداً (24 ساعة)">⚡️ عاجل جداً (24 ساعة)</SelectItem>
-                            <SelectItem value="خلال أسبوع">📅 خلال أسبوع</SelectItem>
-                            <SelectItem value="خلال شهر">🗓 خلال شهر</SelectItem>
-                            <SelectItem value="غير محدد">⏳ غير محدد</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Label className="text-base font-bold">موعد التسليم المفضل</Label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { id: 'عاجل جداً (24 ساعة)', label: '⚡️ عاجل (24 ساعة)' },
+                            { id: 'خلال أسبوع', label: '📅 خلال أسبوع' },
+                            { id: 'خلال شهر', label: '🗓 خلال شهر' },
+                            { id: 'غير محدد', label: '⏳ غير محدد' },
+                          ].map((t) => (
+                            <div 
+                              key={t.id}
+                              onClick={() => updateField('timeline', t.id)}
+                              className={`cursor-pointer p-3 rounded-lg border text-center font-medium transition-all ${
+                                formData.timeline === t.id 
+                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20" 
+                                  : "border-muted hover:border-primary/30 bg-background/50"
+                              }`}
+                            >
+                              {t.label}
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
-                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90" disabled={!formData.budget || !formData.timeline}>التالي</Button>
+                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
+                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.budget || !formData.timeline}>التالي</Button>
                       </div>
                     </motion.div>
                   )}
