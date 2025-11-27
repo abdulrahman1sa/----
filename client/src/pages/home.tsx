@@ -741,21 +741,24 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Visual Mood Selector (Simplified) */}
+                      {/* Visual Mood Selector (Refined) */}
                       <div className="space-y-3">
                          <Label className="text-base font-bold">الطابع البصري المفضل</Label>
-                         <div className="grid grid-cols-4 gap-2">
+                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                           {[
-                             { id: 'minimal', label: 'بسيط', color: 'bg-gray-100' },
-                             { id: 'luxury', label: 'فاخر', color: 'bg-amber-100' },
-                             { id: 'vibrant', label: 'حيوي', color: 'bg-pink-100' },
-                             { id: 'dark', label: 'داكن', color: 'bg-slate-800 text-white' },
+                             { id: 'minimal', label: 'بسيط (Minimal)', color: 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-700', icon: <Sparkles size={16} /> },
+                             { id: 'luxury', label: 'فاخر (Luxury)', color: 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800', icon: <Crown size={16} /> },
+                             { id: 'vibrant', label: 'حيوي (Vibrant)', color: 'bg-pink-50 hover:bg-pink-100 border-pink-200 text-pink-700', icon: <Palette size={16} /> },
+                             { id: 'dark', label: 'داكن (Dark)', color: 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-200', icon: <Zap size={16} /> },
                           ].map((m) => (
                             <div 
                               key={m.id}
                               onClick={() => updateField('description', formData.description + (formData.description ? " - " : "") + `طابع: ${m.label}`)}
-                              className={`cursor-pointer p-2 rounded-lg border text-center text-xs font-bold transition-transform hover:scale-105 ${m.color}`}
+                              className={`cursor-pointer p-3 rounded-xl border-2 text-center font-bold text-sm transition-all hover:scale-105 hover:shadow-md flex flex-col items-center justify-center gap-2 h-24 ${m.color}`}
                             >
+                              <div className="p-1.5 rounded-full bg-white/20 backdrop-blur-sm">
+                                {m.icon}
+                              </div>
                               {m.label}
                             </div>
                           ))}
