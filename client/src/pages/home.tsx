@@ -1089,19 +1089,40 @@ export default function Home() {
       {/* FAQ */}
       <section id="faq" className="py-24 bg-secondary/30">
         <div className="container mx-auto px-6 max-w-3xl">
-          <h2 className="text-4xl font-bold font-heading text-center mb-12">أسئلة شائعة</h2>
-          <Accordion type="single" collapsible className="w-full">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold font-heading mb-4">الأسئلة الشائعة</h2>
+            <p className="text-xl text-muted-foreground">كل ما تحتاج معرفته عن خدماتنا</p>
+          </div>
+          
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {[
-              "ما هو الذكاء الاصطناعي وكيف تستخدمونه؟",
-              "هل الصور ملكي بالكامل؟",
-              "كم تستغرق عملية التسليم؟",
-              "ماذا لو لم تعجبني النتيجة؟",
-              "هل تقدمون خدمات تعديل الصور القديمة؟"
-            ].map((q, i) => (
-              <AccordionItem key={i} value={`item-${i}`}>
-                <AccordionTrigger className="text-right text-lg font-medium">{q}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-base leading-relaxed">
-                  نعم، نحن نستخدم أحدث التقنيات لضمان أفضل النتائج لعملائنا. تواصل معنا لمزيد من التفاصيل حول هذا الموضوع.
+              {
+                q: "ما هي تقنية الذكاء الاصطناعي التي تستخدمونها؟",
+                a: "نستخدم أحدث نماذج التوليد البصري (Generative AI) المتخصصة في دمج المنتجات بواقعية تامة. نقوم بتدريب نماذج خاصة لكل عميل لضمان الحفاظ على هوية المنتج وتفاصيله الدقيقة."
+              },
+              {
+                q: "هل الصور المولدة بالذكاء الاصطناعي ملكي بالكامل؟",
+                a: "نعم، بمجرد استلامك للصور النهائية ودفع قيمتها، تنتقل ملكيتها الفكرية والتجارية لك بالكامل. يمكنك استخدامها في إعلاناتك، موقعك، ومطبوعاتك دون أي قيود."
+              },
+              {
+                q: "كيف أضمن أن المنتج سيظهر بشكله الحقيقي؟",
+                a: "هذا هو تخصصنا! نطلب منك صوراً واضحة للمنتج من عدة زوايا، ونستخدم تقنيات دمج متقدمة تحافظ على شكل المنتج الأصلي 100% بينما نغير الخلفية والإضاءة والجو العام فقط."
+              },
+              {
+                q: "هل يمكنكم تعديل الصور بعد التسليم؟",
+                a: "بالتأكيد. جميع باقاتنا تشمل جولات مراجعة مجانية (تختلف حسب الباقة). هدفنا النهائي هو رضاك التام عن النتيجة قبل اعتمادها."
+              },
+              {
+                q: "هل تقدمون خدمات تصوير فيديو؟",
+                a: "نحن متخصصون في إنشاء فيديوهات قصيرة (Reels) باستخدام التحريك والمؤثرات البصرية المتقدمة، ولكننا لا نقوم بالتصوير الميداني التقليدي. نعتمد على المواد التي ترسلها لنا لنصنع منها محتوى مبهراً."
+              }
+            ].map((item, i) => (
+              <AccordionItem key={i} value={`item-${i}`} className="border border-muted bg-card rounded-xl px-4 shadow-sm hover:shadow-md transition-all duration-300">
+                <AccordionTrigger className="text-right text-lg font-bold py-6 hover:no-underline hover:text-primary transition-colors">
+                  {item.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground text-base leading-loose pb-6">
+                  {item.a}
                 </AccordionContent>
               </AccordionItem>
             ))}
