@@ -80,7 +80,9 @@ export default function Home() {
     projectType: "",
     description: "",
     budget: "",
-    timeline: ""
+    timeline: "",
+    audience: "",
+    goal: ""
   });
 
   const nextStep = () => setCurrentStep(prev => prev + 1);
@@ -95,7 +97,9 @@ export default function Home() {
       `👤 الاسم: ${formData.name}%0A` +
       `📱 الجوال: ${formData.phone}%0A` +
       `🛠 نوع المشروع: ${formData.projectType}%0A` +
-      `🎯 التفاصيل: ${formData.description}%0A` +
+      `👥 الجمهور المستهدف: ${formData.audience}%0A` +
+      `🎯 الهدف الرئيسي: ${formData.goal}%0A` +
+      `🎨 تفاصيل الرؤية: ${formData.description}%0A` +
       `💰 الميزانية: ${formData.budget}%0A` +
       `⏱ الموعد: ${formData.timeline}%0A%0A` +
       `أرجو مراجعة طلبي والرد علي. شكراً!`;
@@ -685,57 +689,93 @@ export default function Home() {
                     </motion.div>
                   )}
 
-                  {/* Step 2: Description & Mood */}
+                  {/* Step 2: Project Details & Understanding */}
                   {currentStep === 2 && (
                     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                      <h3 className="text-xl font-bold text-center mb-2">رؤية المشروع</h3>
-                      <p className="text-center text-muted-foreground mb-6">ساعدنا في فهم ذوقك الفني واختياراتك المفضلة</p>
+                      <h3 className="text-xl font-bold text-center mb-2">لنفهم مشروعك أكثر</h3>
+                      <p className="text-center text-muted-foreground mb-6">ساعدنا في التعرف على جمهورك وأهدافك لتقديم الأفضل</p>
                       
-                      {/* Refined Visual Mood Selector */}
-                      <div className="grid grid-cols-2 gap-3 mb-6">
-                        {[
-                          { id: 'minimalist', label: 'بسيط وعصري (Minimalist)', icon: <Sparkles size={18} /> },
-                          { id: 'luxury', label: 'فاخر وملكي (Luxury)', icon: <Crown size={18} /> },
-                          { id: 'vibrant', label: 'حيوي وملون (Vibrant)', icon: <Palette size={18} /> },
-                          { id: 'dark', label: 'داكن ودرامي (Dark Mode)', icon: <Zap size={18} /> },
-                        ].map((mood) => (
-                          <div 
-                            key={mood.id}
-                            onClick={() => updateField('description', formData.description + (formData.description ? " - " : "") + `طابع: ${mood.label}`)}
-                            className="cursor-pointer p-4 rounded-xl border-2 border-muted bg-background/50 hover:border-primary hover:bg-primary/5 hover:text-primary transition-all duration-300 flex items-center gap-3 group"
-                          >
-                            <div className="p-2 rounded-lg bg-secondary group-hover:bg-primary group-hover:text-white transition-colors">
-                              {mood.icon}
-                            </div>
-                            <span className="font-bold text-sm">{mood.label}</span>
-                          </div>
-                        ))}
+                      {/* Audience Selection */}
+                      <div className="space-y-3">
+                        <Label className="text-base font-bold">من هو جمهورك المستهدف؟</Label>
+                        <div className="flex flex-wrap gap-2">
+                          {["شباب وجيل Z", "عائلات", "نخبة (VIP)", "شركات (B2B)", "نساء", "أطفال", "عام"].map((aud) => (
+                            <Badge 
+                              key={aud}
+                              variant="outline" 
+                              className={`cursor-pointer px-4 py-2 text-sm border-2 transition-all ${
+                                formData.audience.includes(aud) 
+                                  ? "bg-primary text-white border-primary shadow-md" 
+                                  : "hover:border-primary/50 bg-background"
+                              }`}
+                              onClick={() => updateField('audience', aud)} // For simple single select, or toggle logic for multi
+                            >
+                              {aud}
+                            </Badge>
+                          ))}
+                        </div>
                       </div>
 
+                      {/* Goal Selection */}
                       <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <Label className="text-lg font-bold">تفاصيل إضافية</Label>
+                        <Label className="text-base font-bold">ما هو هدفك الرئيسي؟</Label>
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { id: 'sales', label: 'زيادة المبيعات 📈' },
+                            { id: 'brand', label: 'الوعي بالعلامة التجارية 🌟' },
+                            { id: 'launch', label: 'إطلاق منتج جديد 🚀' },
+                            { id: 'content', label: 'تحسين مظهر الحساب ✨' },
+                          ].map((g) => (
+                            <div 
+                              key={g.id}
+                              onClick={() => updateField('goal', g.label)}
+                              className={`cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${
+                                formData.goal === g.label 
+                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20" 
+                                  : "border-muted hover:border-primary/30 bg-background/50"
+                              }`}
+                            >
+                              {g.label}
+                            </div>
+                          ))}
                         </div>
-                        <div className="relative group">
-                          <Textarea 
-                            placeholder="اكتب أي تفاصيل أخرى تساعدنا في فهم فكرتك... (مثال: الألوان المفضلة، الجمهور المستهدف، مراجع تعجبك)"
-                            className="min-h-[140px] text-lg p-4 pl-12 bg-background/50 resize-none border-2 border-muted group-hover:border-primary/50 focus:border-primary transition-all shadow-sm rounded-xl"
-                            value={formData.description}
-                            onChange={(e) => updateField('description', e.target.value)}
-                          />
-                          <div className="absolute top-4 left-4 text-muted-foreground group-hover:text-primary transition-colors">
-                            <PenTool size={20} />
-                          </div>
-                        </div>
-                        <p className="text-xs text-center text-muted-foreground mt-2 flex items-center justify-center gap-1">
-                          <ImageIcon size={14} />
-                          يمكنك إرسال صور مراجع (Reference) عبر واتساب لاحقاً
-                        </p>
+                      </div>
+
+                      {/* Visual Mood Selector (Simplified) */}
+                      <div className="space-y-3">
+                         <Label className="text-base font-bold">الطابع البصري المفضل</Label>
+                         <div className="grid grid-cols-4 gap-2">
+                          {[
+                             { id: 'minimal', label: 'بسيط', color: 'bg-gray-100' },
+                             { id: 'luxury', label: 'فاخر', color: 'bg-amber-100' },
+                             { id: 'vibrant', label: 'حيوي', color: 'bg-pink-100' },
+                             { id: 'dark', label: 'داكن', color: 'bg-slate-800 text-white' },
+                          ].map((m) => (
+                            <div 
+                              key={m.id}
+                              onClick={() => updateField('description', formData.description + (formData.description ? " - " : "") + `طابع: ${m.label}`)}
+                              className={`cursor-pointer p-2 rounded-lg border text-center text-xs font-bold transition-transform hover:scale-105 ${m.color}`}
+                            >
+                              {m.label}
+                            </div>
+                          ))}
+                         </div>
+                      </div>
+
+                      {/* Additional Details */}
+                      <div className="space-y-2">
+                        <Label className="text-base font-bold">ملاحظات إضافية</Label>
+                        <Textarea 
+                          placeholder="أي تفاصيل أخرى تود إخبارنا بها..."
+                          className="min-h-[80px] bg-background/50 resize-none border-muted focus:border-primary"
+                          value={formData.description}
+                          onChange={(e) => updateField('description', e.target.value)}
+                        />
                       </div>
 
                       <div className="flex gap-4 mt-6">
                         <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.description}>التالي</Button>
+                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal}>التالي</Button>
                       </div>
                     </motion.div>
                   )}
