@@ -72,11 +72,11 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-right" dir="rtl">
       <div className="space-y-2.5">
-        <Label htmlFor="name" className="text-sm font-semibold text-gray-700">الاسم الكريم / اسم الشركة</Label>
+        <Label htmlFor="name" className="text-sm font-semibold text-neutral">الاسم الكريم / اسم الشركة</Label>
         <Input 
           id="name" 
           placeholder="أدخل اسمك أو اسم شركتك" 
-          className="h-12 text-right border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          className="h-12 text-right bg-card border-neon/30 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-bright"
           required
           value={formData.name}
           onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -84,12 +84,12 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
       </div>
 
       <div className="space-y-2.5">
-        <Label htmlFor="service" className="text-sm font-semibold text-gray-700">نوع الخدمة المطلوبة</Label>
+        <Label htmlFor="service" className="text-sm font-semibold text-neutral">نوع الخدمة المطلوبة</Label>
         <Select required value={formData.serviceType} onValueChange={(val) => setFormData({...formData, serviceType: val})}>
-          <SelectTrigger id="service" className="h-12 text-right flex-row-reverse border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20">
+          <SelectTrigger id="service" className="h-12 text-right flex-row-reverse bg-card border-neon/30 focus:border-primary text-bright">
             <SelectValue placeholder="اختر نوع الخدمة" />
           </SelectTrigger>
-          <SelectContent dir="rtl">
+          <SelectContent dir="rtl" className="bg-card border-neon/30">
             <SelectItem value="الباقة الأساسية (Starter)">📦 الباقة الأساسية</SelectItem>
             <SelectItem value="الباقة الاحترافية (Pro)">🚀 الباقة الاحترافية</SelectItem>
             <SelectItem value="الباقة الشاملة (Elite)">💎 الباقة الشاملة</SelectItem>
@@ -101,11 +101,11 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
       </div>
 
       <div className="space-y-2.5">
-        <Label htmlFor="goal" className="text-sm font-semibold text-gray-700">تفاصيل المشروع</Label>
+        <Label htmlFor="goal" className="text-sm font-semibold text-neutral">تفاصيل المشروع</Label>
         <Textarea 
           id="goal" 
           placeholder="أخبرنا المزيد عن مشروعك..." 
-          className="min-h-[120px] text-right resize-none border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          className="min-h-[120px] text-right resize-none bg-card border-neon/30 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all text-bright"
           required
           value={formData.projectGoal}
           onChange={(e) => setFormData({...formData, projectGoal: e.target.value})}
@@ -114,12 +114,12 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2.5">
-          <Label htmlFor="budget" className="text-sm font-semibold text-gray-700">الميزانية</Label>
+          <Label htmlFor="budget" className="text-sm font-semibold text-neutral">الميزانية</Label>
           <Select required onValueChange={(val) => setFormData({...formData, budget: val})}>
-            <SelectTrigger id="budget" className="h-12 text-right flex-row-reverse border-gray-200 focus:border-primary">
+            <SelectTrigger id="budget" className="h-12 text-right flex-row-reverse bg-card border-neon/30 focus:border-primary text-bright">
               <SelectValue placeholder="اختر الميزانية" />
             </SelectTrigger>
-            <SelectContent dir="rtl">
+            <SelectContent dir="rtl" className="bg-card border-neon/30">
               <SelectItem value="أقل من 500 ريال">أقل من 500 ر.س</SelectItem>
               <SelectItem value="500 - 1500 ريال">500 - 1,500 ر.س</SelectItem>
               <SelectItem value="1500 - 3000 ريال">1,500 - 3,000 ر.س</SelectItem>
@@ -129,12 +129,12 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
         </div>
 
         <div className="space-y-2.5">
-          <Label htmlFor="timeline" className="text-sm font-semibold text-gray-700">موعد التسليم</Label>
+          <Label htmlFor="timeline" className="text-sm font-semibold text-neutral">موعد التسليم</Label>
           <Select required onValueChange={(val) => setFormData({...formData, timeline: val})}>
-            <SelectTrigger id="timeline" className="h-12 text-right flex-row-reverse border-gray-200 focus:border-primary">
+            <SelectTrigger id="timeline" className="h-12 text-right flex-row-reverse bg-card border-neon/30 focus:border-primary text-bright">
               <SelectValue placeholder="اختر الموعد" />
             </SelectTrigger>
-            <SelectContent dir="rtl">
+            <SelectContent dir="rtl" className="bg-card border-neon/30">
               <SelectItem value="مستعجل (24 ساعة)">⚡️ مستعجل (24 ساعة)</SelectItem>
               <SelectItem value="عادي (2-3 أيام)">📅 عادي (2-3 أيام)</SelectItem>
               <SelectItem value="مرن (أسبوع)">🧘‍♂️ مرن (أسبوع)</SelectItem>
@@ -145,7 +145,7 @@ function ProjectRequestForm({ packageName }: { packageName?: string }) {
 
       <Button 
         type="submit" 
-        className="w-full h-14 text-base font-bold bg-gradient-primary hover:shadow-glow-lg transition-all duration-300 mt-6"
+        className="w-full h-14 text-base font-bold bg-gradient-primary hover:shadow-neon-lg transition-all duration-300 mt-6 text-background"
       >
         <Send className="ml-2 h-5 w-5" />
         إرسال الطلب عبر واتساب
@@ -177,9 +177,9 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-white text-foreground overflow-x-hidden" dir="rtl">
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 glass border-b border-white/20">
+      <nav className="fixed top-0 w-full z-50 glass-dark border-b border-neon">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
@@ -187,7 +187,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             className="flex items-center gap-3"
           >
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+              <div className="absolute -inset-2 bg-gradient-neon rounded-2xl blur-lg opacity-0 group-hover:opacity-60 transition-all duration-500"></div>
               <img 
                 src={logoImage} 
                 alt="BADII Logo" 
@@ -204,7 +204,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 href={`#${item}`}
-                className="text-gray-700 hover:text-primary transition-colors relative group font-semibold"
+                className="text-neutral hover:text-primary transition-colors relative group font-semibold"
               >
                 {item}
                 <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
@@ -214,18 +214,18 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
 
           <Dialog>
             <DialogTrigger asChild>
-              <Button className="bg-gradient-primary hover:shadow-glow text-white font-bold px-8 rounded-full transition-all hover:scale-105">
+              <Button className="bg-gradient-primary hover:shadow-neon text-background font-bold px-8 rounded-full transition-all hover:scale-105">
                 ابدأ الآن
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[550px] bg-white/95 backdrop-blur-2xl border-white/20 p-0 overflow-hidden">
-              <div className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 p-8 border-b">
+            <DialogContent className="sm:max-w-[550px] glass border-neon p-0 overflow-hidden">
+              <div className="glass-card p-8 border-b border-neon/30">
                 <DialogHeader className="text-right space-y-3">
-                  <DialogTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600 flex items-center gap-3">
+                  <DialogTitle className="text-3xl font-bold text-gradient flex items-center gap-3">
                     <Sparkles className="w-7 h-7 text-primary" />
                     ابدأ مشروعك الإبداعي
                   </DialogTitle>
-                  <DialogDescription className="text-base text-gray-600">
+                  <DialogDescription className="text-base text-neutral">
                     املأ النموذج وسنتواصل معك فوراً عبر واتساب
                   </DialogDescription>
                 </DialogHeader>
@@ -242,8 +242,8 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
       <section className="relative pt-32 pb-24 lg:pt-40 lg:pb-32 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/20 to-blue-500/20 rounded-full blur-3xl opacity-60 animate-pulse" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-blue-400/20 to-indigo-500/20 rounded-full blur-3xl opacity-50" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-3xl opacity-60 glow-neon" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-accent/20 to-primary/20 rounded-full blur-3xl opacity-50" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
@@ -257,24 +257,24 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-3 mb-8 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 border border-primary/20 backdrop-blur-sm shadow-lg"
+                className="inline-flex items-center gap-3 mb-8 px-6 py-3 rounded-full glass border-neon backdrop-blur-sm shadow-neon"
               >
                 <span className="relative flex h-3 w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary shadow-glow"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-primary shadow-neon"></span>
                 </span>
                 <span className="text-sm font-bold text-primary">موثوق من 500+ عميل سعيد 🎉</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8 leading-[1.1] tracking-tight">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold mb-8 leading-[1.1] tracking-tight text-bright">
                 أطلق العنان <span className="text-gradient">لإبداعك</span>
                 <br />
                 <span className="text-gradient">مع بديع</span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
+              <p className="text-xl md:text-2xl text-neutral max-w-3xl mx-auto mb-12 leading-relaxed font-medium">
                 نحول رؤيتك الإبداعية إلى واقع مذهل باستخدام أحدث تقنيات الذكاء الاصطناعي
-                <span className="block mt-3 text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-700">
+                <span className="block mt-3 text-2xl md:text-3xl font-bold text-gradient">
                   ✨ صور احترافية • محتوى استثنائي • نتائج حقيقية
                 </span>
               </p>
@@ -284,17 +284,17 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <DialogTrigger asChild>
                     <Button 
                       size="lg" 
-                      className="h-16 text-lg px-12 bg-gradient-primary hover:shadow-glow-lg rounded-full transition-all hover:scale-105 font-bold text-white shadow-xl"
+                      className="h-16 text-lg px-12 bg-gradient-primary hover:shadow-neon-lg rounded-full transition-all hover:scale-105 font-bold text-background shadow-neon"
                     >
                       <Rocket className="ml-3 w-6 h-6" />
                       احجز استشارة مجانية
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[550px] bg-white/95 backdrop-blur-2xl p-0 overflow-hidden">
-                    <div className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 p-8 border-b">
+                  <DialogContent className="sm:max-w-[550px] glass border-neon p-0 overflow-hidden">
+                    <div className="glass-card p-8 border-b border-neon/30">
                       <DialogHeader className="text-right space-y-3">
                         <DialogTitle className="text-3xl font-bold text-gradient">احجز استشارة مجانية</DialogTitle>
-                        <DialogDescription className="text-base text-gray-600">
+                        <DialogDescription className="text-base text-neutral">
                           املأ النموذج وسنتواصل معك فوراً
                         </DialogDescription>
                       </DialogHeader>
@@ -308,7 +308,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="h-16 text-lg px-12 rounded-full border-2 border-primary/30 text-primary hover:bg-primary hover:text-white transition-all hover:scale-105 font-bold shadow-lg"
+                  className="h-16 text-lg px-12 rounded-full border-2 border-neon text-primary hover:bg-primary hover:text-background transition-all hover:scale-105 font-bold shadow-lg backdrop-blur-sm"
                 >
                   <Star className="ml-3 w-6 h-6" />
                   شاهد أعمالنا
@@ -323,22 +323,22 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
               >
                 {[
-                  { icon: Zap, title: "سرعة خيالية", desc: "تسليم خلال 24 ساعة", color: "from-yellow-500 to-orange-500" },
-                  { icon: Sparkles, title: "أسعار تنافسية", desc: "باقات تناسب الجميع", color: "from-primary to-blue-600" },
-                  { icon: Crown, title: "جودة عالمية", desc: "احترافية في كل تفصيل", color: "from-purple-500 to-pink-500" }
+                  { icon: Zap, title: "سرعة خيالية", desc: "تسليم خلال 24 ساعة" },
+                  { icon: Sparkles, title: "أسعار تنافسية", desc: "باقات تناسب الجميع" },
+                  { icon: Crown, title: "جودة عالمية", desc: "احترافية في كل تفصيل" }
                 ].map((stat, i) => (
                   <motion.div
                     key={i}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 + i * 0.1 }}
-                    className="group p-8 rounded-3xl bg-white/80 backdrop-blur-md border border-white/40 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="group p-8 rounded-3xl glass-card glass-hover hover:shadow-neon transition-all duration-300 cursor-pointer"
                   >
-                    <div className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform`}>
-                      <stat.icon className="w-8 h-8 text-white" />
+                    <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-neon flex items-center justify-center mb-5 shadow-neon group-hover:scale-110 transition-transform">
+                      <stat.icon className="w-8 h-8 text-background" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2">{stat.title}</h3>
-                    <p className="text-gray-600 font-medium">{stat.desc}</p>
+                    <h3 className="text-xl font-bold mb-2 text-bright">{stat.title}</h3>
+                    <p className="text-neutral font-medium">{stat.desc}</p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -348,16 +348,16 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
       </section>
 
       {/* Services Section */}
-      <section id="الخدمات" className="py-24 bg-white relative">
+      <section id="الخدمات" className="py-24 bg-card/30 relative">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <Badge className="mb-4 font-bold text-primary bg-primary/10 hover:bg-primary/20 px-6 py-2 text-base">
+            <Badge className="mb-4 font-bold text-primary bg-primary/10 hover:bg-primary/20 px-6 py-2 text-base border-neon/50">
               خدماتنا
             </Badge>
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 text-gradient">
               حلول إبداعية متكاملة
             </h2>
-            <p className="text-xl text-gray-600 font-medium">
+            <p className="text-xl text-neutral font-medium">
               كل ما تحتاجه لتعزيز حضور علامتك التجارية
             </p>
           </div>
@@ -366,21 +366,18 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             {[
               {
                 icon: Camera,
-                gradient: "from-purple-500 to-pink-500",
                 title: "تصوير احترافي",
                 desc: "صور فائقة الجودة تُبرز منتجاتك بأفضل صورة",
                 features: ["صور 4K عالية الدقة", "خلفيات احترافية متنوعة", "تنسيق لجميع المنصات"]
               },
               {
                 icon: PenTool,
-                gradient: "from-primary to-blue-600",
                 title: "محتوى تسويقي",
                 desc: "كلمات مؤثرة تجذب جمهورك وتزيد مبيعاتك",
                 features: ["منشورات جذابة", "أوصاف منتجات مقنعة", "نصوص إعلانية محترفة"]
               },
               {
                 icon: Palette,
-                gradient: "from-orange-500 to-red-500",
                 title: "تصاميم إبداعية",
                 desc: "تصاميم عصرية تعكس هوية علامتك التجارية",
                 features: ["بوسترات وإعلانات", "تصاميم سوشال ميديا", "هوية بصرية كاملة"]
@@ -394,13 +391,13 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                 viewport={{ once: true }}
                 className="group"
               >
-                <Card className="h-full border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-3 bg-white rounded-3xl overflow-hidden">
+                <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon transition-all duration-500 hover:-translate-y-3 rounded-3xl overflow-hidden">
                   <CardHeader className="p-8">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${service.gradient} flex items-center justify-center shadow-xl mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                      <service.icon className="w-10 h-10 text-white" />
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-neon flex items-center justify-center shadow-neon mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                      <service.icon className="w-10 h-10 text-background" />
                     </div>
-                    <CardTitle className="text-2xl font-bold mb-3">{service.title}</CardTitle>
-                    <CardDescription className="text-base text-gray-600 leading-relaxed">
+                    <CardTitle className="text-2xl font-bold mb-3 text-bright">{service.title}</CardTitle>
+                    <CardDescription className="text-base text-neutral leading-relaxed">
                       {service.desc}
                     </CardDescription>
                   </CardHeader>
@@ -408,10 +405,10 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     <ul className="space-y-4">
                       {service.features.map((f, j) => (
                         <li key={j} className="flex items-center gap-3">
-                          <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${service.gradient} flex items-center justify-center shrink-0`}>
-                            <Check className="w-3.5 h-3.5 text-white" />
+                          <div className="w-6 h-6 rounded-full bg-gradient-neon flex items-center justify-center shrink-0">
+                            <Check className="w-3.5 h-3.5 text-background" />
                           </div>
-                          <span className="font-semibold text-gray-700">{f}</span>
+                          <span className="font-semibold text-neutral">{f}</span>
                         </li>
                       ))}
                     </ul>
@@ -421,17 +418,17 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                       <DialogTrigger asChild>
                         <Button 
                           variant="ghost" 
-                          className="w-full h-12 font-bold text-primary hover:bg-primary/10 group-hover:bg-primary group-hover:text-white transition-all rounded-xl"
+                          className="w-full h-12 font-bold text-primary hover:bg-primary/10 group-hover:bg-primary group-hover:text-background transition-all rounded-xl border border-neon/30"
                         >
                           اطلب الخدمة
                           <ArrowRight className="mr-2 w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[550px] bg-white/95 backdrop-blur-2xl p-0">
-                        <div className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 p-8 border-b">
+                      <DialogContent className="sm:max-w-[550px] glass border-neon p-0">
+                        <div className="glass-card p-8 border-b border-neon/30">
                           <DialogHeader className="text-right space-y-3">
                             <DialogTitle className="text-3xl font-bold text-gradient">اطلب {service.title}</DialogTitle>
-                            <DialogDescription className="text-base">
+                            <DialogDescription className="text-base text-neutral">
                               املأ النموذج وسنتواصل معك فوراً
                             </DialogDescription>
                           </DialogHeader>
@@ -450,21 +447,21 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
       </section>
 
       {/* Pricing Section */}
-      <section id="الأسعار" className="py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-white relative overflow-hidden">
+      <section id="الأسعار" className="py-24 bg-background relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <Badge className="mb-4 font-bold text-primary bg-primary/10 px-6 py-2 text-base">
+            <Badge className="mb-4 font-bold text-primary bg-primary/10 px-6 py-2 text-base border-neon/50">
               الأسعار
             </Badge>
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 text-gradient">
               باقات تناسب طموحك
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto font-medium">
+            <p className="text-xl text-neutral max-w-2xl mx-auto font-medium">
               شفافية تامة في الأسعار • ابدأ اليوم بثقة
             </p>
           </div>
@@ -476,24 +473,24 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full border-2 bg-white shadow-lg hover:shadow-2xl rounded-3xl transition-all duration-300 hover:-translate-y-2">
+              <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
                 <CardHeader className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-gray-500 to-gray-700 rounded-2xl flex items-center justify-center mb-6">
-                    <Rocket className="w-7 h-7 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-secondary to-primary rounded-2xl flex items-center justify-center mb-6 shadow-neon">
+                    <Rocket className="w-7 h-7 text-background" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">الباقة الأساسية</CardTitle>
-                  <CardDescription className="text-base mt-2">للمشاريع الناشئة</CardDescription>
+                  <CardTitle className="text-2xl font-bold text-bright">الباقة الأساسية</CardTitle>
+                  <CardDescription className="text-base mt-2 text-neutral">للمشاريع الناشئة</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-0">
                   <div className="mb-8">
-                    <span className="text-5xl font-extrabold">399</span>
-                    <span className="text-xl text-gray-500 font-bold mr-2">ريال</span>
+                    <span className="text-5xl font-extrabold text-primary">399</span>
+                    <span className="text-xl text-neutral font-bold mr-2">ريال</span>
                   </div>
                   <ul className="space-y-4">
                     {["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 text-green-500" />
-                        <span className="font-semibold text-gray-700">{f}</span>
+                        <Check className="w-5 h-5 text-primary" />
+                        <span className="font-semibold text-neutral">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -505,7 +502,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                       "399",
                       ["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"]
                     )}
-                    className="w-full h-14 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-lg"
+                    className="w-full h-14 bg-gradient-to-br from-secondary to-primary hover:shadow-neon rounded-xl font-bold text-lg text-background"
                   >
                     اختر الباقة
                   </Button>
@@ -521,32 +518,32 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               className="md:-mt-8"
             >
               <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-3xl blur-lg opacity-75 group-hover:opacity-100 transition duration-1000"></div>
-                <Card className="relative h-full border-0 bg-gradient-to-br from-primary to-blue-600 text-white shadow-2xl rounded-3xl overflow-hidden">
+                <div className="absolute -inset-1 bg-gradient-neon rounded-3xl blur-lg opacity-75 glow-neon"></div>
+                <Card className="relative h-full border-0 bg-gradient-neon text-background shadow-neon-lg rounded-3xl overflow-hidden">
                   <div className="absolute top-6 left-6">
-                    <Badge className="bg-white text-primary font-bold px-4 py-1.5 text-sm">
+                    <Badge className="bg-background text-primary font-bold px-4 py-1.5 text-sm border-neon/50">
                       🔥 الأكثر طلباً
                     </Badge>
                   </div>
                   <CardHeader className="p-10">
-                    <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-white/30">
-                      <ShieldCheck className="w-8 h-8 text-white" />
+                    <div className="w-16 h-16 bg-background/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-background/30">
+                      <ShieldCheck className="w-8 h-8 text-background" />
                     </div>
-                    <CardTitle className="text-3xl font-extrabold">الباقة الاحترافية</CardTitle>
-                    <CardDescription className="text-blue-100 text-lg mt-2">للنمو المتسارع</CardDescription>
+                    <CardTitle className="text-3xl font-extrabold text-background">الباقة الاحترافية</CardTitle>
+                    <CardDescription className="text-background/80 text-lg mt-2">للنمو المتسارع</CardDescription>
                   </CardHeader>
                   <CardContent className="p-10 pt-0">
                     <div className="mb-10">
-                      <span className="text-6xl font-extrabold">799</span>
-                      <span className="text-2xl text-blue-100 font-bold mr-2">ريال</span>
+                      <span className="text-6xl font-extrabold text-background">799</span>
+                      <span className="text-2xl text-background/80 font-bold mr-2">ريال</span>
                     </div>
                     <ul className="space-y-5">
                       {["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"].map((f, i) => (
                         <li key={i} className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                            <Check className="w-4 h-4 text-white" />
+                          <div className="w-6 h-6 rounded-full bg-background/20 backdrop-blur-sm flex items-center justify-center">
+                            <Check className="w-4 h-4 text-background" />
                           </div>
-                          <span className="font-bold text-white">{f}</span>
+                          <span className="font-bold text-background">{f}</span>
                         </li>
                       ))}
                     </ul>
@@ -558,7 +555,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                         "799",
                         ["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"]
                       )}
-                      className="w-full h-16 bg-white text-primary hover:bg-gray-50 rounded-xl font-extrabold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                      className="w-full h-16 bg-background text-primary hover:bg-background/90 rounded-xl font-extrabold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105"
                     >
                       اختر الباقة الاحترافية
                     </Button>
@@ -573,24 +570,24 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <Card className="h-full border-2 bg-white shadow-lg hover:shadow-2xl rounded-3xl transition-all duration-300 hover:-translate-y-2">
+              <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
                 <CardHeader className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6">
-                    <Gem className="w-7 h-7 text-white" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mb-6 shadow-neon">
+                    <Gem className="w-7 h-7 text-background" />
                   </div>
-                  <CardTitle className="text-2xl font-bold">الباقة الشاملة</CardTitle>
-                  <CardDescription className="text-base mt-2">للشركات الكبرى</CardDescription>
+                  <CardTitle className="text-2xl font-bold text-bright">الباقة الشاملة</CardTitle>
+                  <CardDescription className="text-base mt-2 text-neutral">للشركات الكبرى</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8 pt-0">
                   <div className="mb-8">
-                    <span className="text-5xl font-extrabold">1,499</span>
-                    <span className="text-xl text-gray-500 font-bold mr-2">ريال</span>
+                    <span className="text-5xl font-extrabold text-primary">1,499</span>
+                    <span className="text-xl text-neutral font-bold mr-2">ريال</span>
                   </div>
                   <ul className="space-y-4">
                     {["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 text-green-500" />
-                        <span className="font-semibold text-gray-700">{f}</span>
+                        <Check className="w-5 h-5 text-primary" />
+                        <span className="font-semibold text-neutral">{f}</span>
                       </li>
                     ))}
                   </ul>
@@ -603,7 +600,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                       ["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"]
                     )}
                     variant="outline" 
-                    className="w-full h-14 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-xl font-bold text-lg transition-all"
+                    className="w-full h-14 border-2 border-neon text-primary hover:bg-primary hover:text-background rounded-xl font-bold text-lg transition-all"
                   >
                     اختر الباقة
                   </Button>
@@ -615,10 +612,9 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 bg-gradient-to-r from-gray-900 via-blue-900 to-black text-white text-center relative overflow-hidden">
+      <section className="py-32 bg-background text-bright text-center relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2832')] bg-cover bg-center opacity-10" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-secondary/10" />
         </div>
         
         <div className="container mx-auto px-6 relative z-10">
@@ -629,25 +625,25 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             className="max-w-4xl mx-auto"
           >
             <h2 className="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
-              جاهز لتبدأ <span className="text-gradient from-blue-400 to-cyan-400">قصتك</span>؟
+              جاهز لتبدأ <span className="text-gradient">قصتك</span>؟
             </h2>
-            <p className="text-xl md:text-2xl opacity-90 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
+            <p className="text-xl md:text-2xl text-neutral mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
               انضم إلى 500+ عميل سعيد واجعل علامتك التجارية تتألق
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button size="lg" className="h-20 bg-white text-gray-900 hover:bg-gray-100 text-xl px-16 rounded-full shadow-2xl transition-all hover:scale-110 font-extrabold">
+                  <Button size="lg" className="h-20 bg-gradient-neon text-background hover:shadow-neon-lg text-xl px-16 rounded-full shadow-neon transition-all hover:scale-110 font-extrabold">
                     <MessageCircle className="ml-3 w-7 h-7" />
                     ابدأ مشروعك الآن
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[550px] bg-white/95 p-0">
-                  <div className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 p-8 border-b">
+                <DialogContent className="sm:max-w-[550px] glass border-neon p-0">
+                  <div className="glass-card p-8 border-b border-neon/30">
                     <DialogHeader className="text-right space-y-3">
                       <DialogTitle className="text-3xl font-bold text-gradient">ابدأ مشروعك الآن</DialogTitle>
-                      <DialogDescription className="text-base">
+                      <DialogDescription className="text-base text-neutral">
                         املأ النموذج وسنتواصل معك فوراً
                       </DialogDescription>
                     </DialogHeader>
@@ -661,7 +657,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="h-20 border-2 border-white/30 text-white hover:bg-white/10 text-xl px-16 rounded-full backdrop-blur-sm font-bold"
+                className="h-20 border-2 border-neon text-primary hover:bg-primary hover:text-background text-xl px-16 rounded-full backdrop-blur-sm font-bold"
               >
                 <Phone className="ml-3 w-7 h-7" />
                 تواصل معنا
@@ -672,21 +668,21 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-gray-400 py-16 border-t border-gray-800">
+      <footer className="bg-card text-neutral py-16 border-t border-neon/30">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-3 gap-12 mb-12">
             <div>
               <div className="relative inline-block mb-6">
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 to-blue-500/10 rounded-2xl blur-md"></div>
+                <div className="absolute -inset-2 bg-gradient-neon rounded-2xl blur-md opacity-30"></div>
                 <img src={logoImage} alt="BADII Logo" className="relative h-16 w-auto object-contain drop-shadow-xl" />
               </div>
-              <p className="text-gray-500 leading-relaxed">
+              <p className="text-neutral leading-relaxed">
                 شريكك الإبداعي الأول في عالم الذكاء الاصطناعي. نصنع الفرق في كل تفصيل.
               </p>
             </div>
             
             <div>
-              <h3 className="text-white font-bold text-lg mb-6">روابط سريعة</h3>
+              <h3 className="text-bright font-bold text-lg mb-6">روابط سريعة</h3>
               <ul className="space-y-3">
                 {['الرئيسية', 'الخدمات', 'الأسعار', 'من نحن'].map((link) => (
                   <li key={link}>
@@ -699,7 +695,7 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             </div>
 
             <div>
-              <h3 className="text-white font-bold text-lg mb-6">تواصل معنا</h3>
+              <h3 className="text-bright font-bold text-lg mb-6">تواصل معنا</h3>
               <ul className="space-y-4">
                 <li className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-primary" />
@@ -713,9 +709,9 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             </div>
           </div>
           
-          <div className="border-t border-gray-800 pt-8 text-center">
-            <p className="text-gray-600">
-              © 2025 BADII. جميع الحقوق محفوظة • صُنع بـ <span className="text-red-500">❤</span> في السعودية
+          <div className="border-t border-neon/30 pt-8 text-center">
+            <p className="text-neutral">
+              © 2025 BADII. جميع الحقوق محفوظة • صُنع بـ <span className="text-primary">❤</span> في السعودية
             </p>
           </div>
         </div>
