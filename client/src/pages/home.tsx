@@ -334,8 +334,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     transition={{ delay: 0.5 + i * 0.1 }}
                     className="group p-8 rounded-3xl glass-card glass-hover hover:shadow-neon transition-all duration-300 cursor-pointer"
                   >
-                    <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-neon flex items-center justify-center mb-5 shadow-neon group-hover:scale-110 transition-transform">
-                      <stat.icon className="w-8 h-8 text-background" />
+                    <div className="relative w-20 h-20 mx-auto mb-5">
+                      <div className="absolute inset-0 bg-gradient-neon rounded-3xl blur-md opacity-40 group-hover:opacity-70 transition-opacity"></div>
+                      <div className="relative glass-card w-full h-full rounded-3xl flex items-center justify-center border-2 border-primary/30 group-hover:border-primary/60 group-hover:scale-110 transition-all duration-500">
+                        <stat.icon className="w-9 h-9 text-primary drop-shadow-[0_0_8px_rgba(57,255,20,0.6)]" />
+                      </div>
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-bright">{stat.title}</h3>
                     <p className="text-neutral font-medium">{stat.desc}</p>
@@ -393,8 +396,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
               >
                 <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon transition-all duration-500 hover:-translate-y-3 rounded-3xl overflow-hidden">
                   <CardHeader className="p-8">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-neon flex items-center justify-center shadow-neon mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                      <service.icon className="w-10 h-10 text-background" />
+                    <div className="relative w-24 h-24 mb-6">
+                      <div className="absolute inset-0 bg-gradient-neon rounded-[1.5rem] blur-xl opacity-40 group-hover:opacity-70 transition-opacity"></div>
+                      <div className="relative glass w-full h-full rounded-[1.5rem] flex items-center justify-center border border-primary/40 group-hover:border-primary/70 group-hover:scale-105 group-hover:rotate-3 transition-all duration-500">
+                        <service.icon className="w-12 h-12 text-primary drop-shadow-[0_0_12px_rgba(57,255,20,0.8)]" strokeWidth={1.5} />
+                      </div>
                     </div>
                     <CardTitle className="text-2xl font-bold mb-3 text-bright">{service.title}</CardTitle>
                     <CardDescription className="text-base text-neutral leading-relaxed">
@@ -405,8 +411,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     <ul className="space-y-4">
                       {service.features.map((f, j) => (
                         <li key={j} className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-gradient-neon flex items-center justify-center shrink-0">
-                            <Check className="w-3.5 h-3.5 text-background" />
+                          <div className="relative w-7 h-7 shrink-0">
+                            <div className="absolute inset-0 bg-primary/30 rounded-full blur-sm"></div>
+                            <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
+                              <Check className="w-4 h-4 text-primary" strokeWidth={3} />
+                            </div>
                           </div>
                           <span className="font-semibold text-neutral">{f}</span>
                         </li>
@@ -475,8 +484,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             >
               <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
                 <CardHeader className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-secondary to-primary rounded-2xl flex items-center justify-center mb-6 shadow-neon">
-                    <Rocket className="w-7 h-7 text-background" />
+                  <div className="relative w-16 h-16 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-secondary to-primary rounded-2xl blur-lg opacity-50"></div>
+                    <div className="relative glass-card w-full h-full rounded-2xl flex items-center justify-center border border-primary/40 shadow-neon">
+                      <Rocket className="w-7 h-7 text-primary drop-shadow-[0_0_10px_rgba(57,255,20,0.7)]" strokeWidth={2} />
+                    </div>
                   </div>
                   <CardTitle className="text-2xl font-bold text-bright">الباقة الأساسية</CardTitle>
                   <CardDescription className="text-base mt-2 text-neutral">للمشاريع الناشئة</CardDescription>
@@ -489,7 +501,12 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <ul className="space-y-4">
                     {["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 text-primary" />
+                        <div className="relative w-6 h-6 shrink-0">
+                          <div className="absolute inset-0 bg-primary/30 rounded-full blur-[2px]"></div>
+                          <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
+                            <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+                          </div>
+                        </div>
                         <span className="font-semibold text-neutral">{f}</span>
                       </li>
                     ))}
@@ -526,8 +543,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     </Badge>
                   </div>
                   <CardHeader className="p-10">
-                    <div className="w-16 h-16 bg-background/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 border border-background/30">
-                      <ShieldCheck className="w-8 h-8 text-background" />
+                    <div className="relative w-18 h-18 mb-6">
+                      <div className="absolute inset-0 bg-background/40 rounded-2xl blur-md"></div>
+                      <div className="relative w-full h-full bg-background/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-background/30">
+                        <ShieldCheck className="w-9 h-9 text-background drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]" strokeWidth={2} />
+                      </div>
                     </div>
                     <CardTitle className="text-3xl font-extrabold text-background">الباقة الاحترافية</CardTitle>
                     <CardDescription className="text-background/80 text-lg mt-2">للنمو المتسارع</CardDescription>
@@ -540,8 +560,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                     <ul className="space-y-5">
                       {["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"].map((f, i) => (
                         <li key={i} className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-background/20 backdrop-blur-sm flex items-center justify-center">
-                            <Check className="w-4 h-4 text-background" />
+                          <div className="relative w-7 h-7 shrink-0">
+                            <div className="absolute inset-0 bg-background/30 rounded-full blur-[3px]"></div>
+                            <div className="relative w-full h-full bg-background/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-background/30">
+                              <Check className="w-4 h-4 text-background" strokeWidth={3} />
+                            </div>
                           </div>
                           <span className="font-bold text-background">{f}</span>
                         </li>
@@ -572,8 +595,11 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
             >
               <Card className="h-full border-neon/20 glass-card glass-hover hover:shadow-neon rounded-3xl transition-all duration-300 hover:-translate-y-2">
                 <CardHeader className="p-8">
-                  <div className="w-14 h-14 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mb-6 shadow-neon">
-                    <Gem className="w-7 h-7 text-background" />
+                  <div className="relative w-16 h-16 mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent to-primary rounded-2xl blur-lg opacity-50"></div>
+                    <div className="relative glass-card w-full h-full rounded-2xl flex items-center justify-center border border-primary/40 shadow-neon">
+                      <Gem className="w-7 h-7 text-primary drop-shadow-[0_0_10px_rgba(57,255,20,0.7)]" strokeWidth={2} />
+                    </div>
                   </div>
                   <CardTitle className="text-2xl font-bold text-bright">الباقة الشاملة</CardTitle>
                   <CardDescription className="text-base mt-2 text-neutral">للشركات الكبرى</CardDescription>
@@ -586,7 +612,12 @@ ${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
                   <ul className="space-y-4">
                     {["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"].map((f, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check className="w-5 h-5 text-primary" />
+                        <div className="relative w-6 h-6 shrink-0">
+                          <div className="absolute inset-0 bg-primary/30 rounded-full blur-[2px]"></div>
+                          <div className="relative glass-card w-full h-full rounded-full flex items-center justify-center border border-primary/40">
+                            <Check className="w-3.5 h-3.5 text-primary" strokeWidth={3} />
+                          </div>
+                        </div>
                         <span className="font-semibold text-neutral">{f}</span>
                       </li>
                     ))}
