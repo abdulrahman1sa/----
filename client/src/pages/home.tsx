@@ -40,10 +40,17 @@ import perfumeBefore from "@assets/perfume_before.jpg";
 import perfumeAfter from "@assets/perfume_after_new.png";
 
 // Portfolio Images
-import portfolio1 from "@assets/generated_images/abstract_3d_fluid_art.png";
-import portfolio2 from "@assets/generated_images/cyberpunk_streetwear_fashion.png";
-import portfolio3 from "@assets/generated_images/gourmet_raspberry_tart_macro.png";
-import portfolio4 from "@assets/generated_images/futuristic_transparent_smartphone.png";
+import portfolio1 from "@assets/portfolio_perfume_match.jpg";
+import portfolio2 from "@assets/portfolio_coffee_mud.jpg";
+import portfolio3 from "@assets/portfolio_ninja_delivery.jpg";
+import portfolio4 from "@assets/portfolio_shrimp_tempura.jpg";
+import portfolio5 from "@assets/portfolio_honey_nuts.jpg";
+import portfolio6 from "@assets/portfolio_golden_fries.jpg";
+import portfolio7 from "@assets/portfolio_leopard_alula.jpg";
+import portfolio8 from "@assets/portfolio_coffee_berry.jpg";
+import portfolio9 from "@assets/portfolio_matcha.jpg";
+import portfolio10 from "@assets/portfolio_gaming_chair.jpg";
+import portfolio11 from "@assets/portfolio_eid_sweets.jpg";
 
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
@@ -417,14 +424,17 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              portfolio1,
-              portfolio2,
-              portfolio3,
+              portfolio11,
+              portfolio10,
+              portfolio9,
+              portfolio8,
+              portfolio7,
+              portfolio6,
+              portfolio5,
               portfolio4,
-              workerAfter,
-              coffeeAfter,
-              perfumeAfter,
-              "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2864&auto=format&fit=crop"
+              portfolio3,
+              portfolio2,
+              portfolio1
             ].map((img, i) => (
               <motion.div 
                 key={i}
@@ -432,7 +442,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i % 3 === 0 ? 'md:col-span-2 md:row-span-2 h-80 md:h-[500px]' : 'h-80 md:h-60'}`}
+                className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i === 0 || i === 7 ? 'md:col-span-2 md:row-span-2 h-80 md:h-[500px]' : 'h-80 md:h-60'}`}
               >
                 <img src={img} alt="Portfolio" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
