@@ -980,9 +980,7 @@ export default function Home() {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 hover:scale-110 transition-all duration-300 animate-bounce-slow"
       >
-        <div className="relative w-20 h-20 rounded-full bg-green-500 flex items-center justify-center shadow-2xl border-2 border-white/20 overflow-hidden">
-          <img src={whatsappLogo} alt="WhatsApp" className="w-full h-full object-cover scale-110" />
-        </div>
+        <img src={whatsappLogo} alt="WhatsApp" className="w-20 h-20 drop-shadow-2xl" />
       </a>
     </div>
   );
