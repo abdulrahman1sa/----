@@ -71,35 +71,42 @@ const staggerContainer = {
 };
 
 export default function Home() {
+  const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     name: "",
-    type: "",
-    service: "",
-    description: ""
+    phone: "",
+    projectType: "",
+    description: "",
+    budget: "",
+    timeline: ""
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const nextStep = () => setCurrentStep(prev => prev + 1);
+  const prevStep = () => setCurrentStep(prev => prev - 1);
+
+  const updateField = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSelectChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleBookingSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  const handleFinalSubmit = () => {
     const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:%0A%0A` +
       `👤 الاسم: ${formData.name}%0A` +
-      `🛠 نوع الخدمة: ${formData.service}%0A` +
-      `🎯 هدف المشروع: ${formData.description}%0A` +
-      `💰 الميزانية المتوقعة: حسب الباقة المختارة%0A` +
-      `⏱ موعد التسليم المفضل: في أقرب وقت%0A%0A` +
+      `📱 الجوال: ${formData.phone}%0A` +
+      `🛠 نوع المشروع: ${formData.projectType}%0A` +
+      `🎯 التفاصيل: ${formData.description}%0A` +
+      `💰 الميزانية: ${formData.budget}%0A` +
+      `⏱ الموعد: ${formData.timeline}%0A%0A` +
       `أرجو مراجعة طلبي والرد علي. شكراً!`;
       
     window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
   };
+
+  const projectTypes = [
+    { id: 'products', label: 'تصوير منتجات', icon: <Camera size={24} /> },
+    { id: 'content', label: 'كتابة محتوى', icon: <PenTool size={24} /> },
+    { id: 'branding', label: 'هوية بصرية', icon: <Palette size={24} /> },
+    { id: 'full', label: 'باكج كامل', icon: <Crown size={24} /> },
+  ];
 
   const handlePackageClick = (pkgName: string, price: string) => {
     const message = `*استفسار عن باقة* 💎%0A%0A` +
@@ -589,80 +596,150 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl">
-                <CardHeader>
-                  <CardTitle className="text-2xl font-heading">طلب عرض سعر / استشارة</CardTitle>
-                  <CardDescription>أدخل تفاصيل مشروعك وسنتواصل معك فوراً</CardDescription>
+              <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl overflow-hidden">
+                <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
+                  <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
+                  <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
+                  
+                  {/* Progress Steps */}
+                  <div className="flex justify-center gap-2 mt-6">
+                    {[1, 2, 3, 4].map((step) => (
+                      <div 
+                        key={step}
+                        className={`h-2 rounded-full transition-all duration-500 ${
+                          step <= currentStep ? "w-12 bg-primary" : "w-4 bg-muted"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleBookingSubmit} className="space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">الاسم أو اسم الجهة</Label>
-                      <Input 
-                        id="name" 
-                        name="name"
-                        placeholder="مثال: شركة الأفق، مطعم الذواقة..." 
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="bg-background/50 h-12"
-                      />
-                    </div>
+                <CardContent className="p-8 min-h-[400px] flex flex-col justify-between">
+                  
+                  {/* Step 1: Project Type */}
+                  {currentStep === 1 && (
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                      <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        {projectTypes.map((type) => (
+                          <div 
+                            key={type.id}
+                            onClick={() => { updateField('projectType', type.label); nextStep(); }}
+                            className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${
+                              formData.projectType === type.label 
+                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10" 
+                                : "border-muted hover:border-primary/50 bg-background/50"
+                            }`}
+                          >
+                            <div className={`p-4 rounded-full ${formData.projectType === type.label ? "bg-primary text-white" : "bg-muted text-muted-foreground"}`}>
+                              {type.icon}
+                            </div>
+                            <span className="font-bold">{type.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="type">نوع النشاط</Label>
-                        <Select onValueChange={(v) => handleSelectChange("type", v)}>
-                          <SelectTrigger className="h-12 bg-background/50">
-                            <SelectValue placeholder="اختر المجال" />
+                  {/* Step 2: Description */}
+                  {currentStep === 2 && (
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                      <h3 className="text-xl font-bold text-center mb-4">حدثنا عن فكرتك</h3>
+                      <div className="space-y-4">
+                        <Label className="text-lg">ما الذي يدور في ذهنك؟</Label>
+                        <Textarea 
+                          placeholder="صف لنا الفكرة، الألوان المفضلة، أو أي تفاصيل تساعدنا في فهم رؤيتك..."
+                          className="min-h-[200px] text-lg p-4 bg-background/50 resize-none border-2 focus:border-primary transition-all"
+                          value={formData.description}
+                          onChange={(e) => updateField('description', e.target.value)}
+                        />
+                      </div>
+                      <div className="flex gap-4 mt-8">
+                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
+                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90" disabled={!formData.description}>التالي</Button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Step 3: Budget & Timeline */}
+                  {currentStep === 3 && (
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+                      <h3 className="text-xl font-bold text-center mb-8">الميزانية والوقت</h3>
+                      
+                      <div className="space-y-4">
+                        <Label className="text-lg">الميزانية المتوقعة</Label>
+                        <div className="grid grid-cols-3 gap-3">
+                          {['اقتصادية', 'متوسطة', 'مفتوحة'].map((b) => (
+                            <div 
+                              key={b}
+                              onClick={() => updateField('budget', b)}
+                              className={`cursor-pointer py-4 px-2 text-center rounded-xl border-2 transition-all ${
+                                formData.budget === b ? "border-primary bg-primary/5 font-bold text-primary" : "border-muted hover:border-primary/30"
+                              }`}
+                            >
+                              {b}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <Label className="text-lg">موعد التسليم المفضل</Label>
+                        <Select onValueChange={(v) => updateField('timeline', v)} value={formData.timeline}>
+                          <SelectTrigger className="h-14 text-lg bg-background/50">
+                            <SelectValue placeholder="اختر الموعد المناسب" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="مطعم/كافيه">مطعم / كافيه</SelectItem>
-                            <SelectItem value="متجر إلكتروني">متجر إلكتروني</SelectItem>
-                            <SelectItem value="عقارات">عقارات / هندسة</SelectItem>
-                            <SelectItem value="خدمات">خدمات / استشارات</SelectItem>
-                            <SelectItem value="شخصي">مشروع شخصي</SelectItem>
-                            <SelectItem value="آخر">آخر</SelectItem>
+                            <SelectItem value="عاجل جداً (24 ساعة)">⚡️ عاجل جداً (24 ساعة)</SelectItem>
+                            <SelectItem value="خلال أسبوع">📅 خلال أسبوع</SelectItem>
+                            <SelectItem value="خلال شهر">🗓 خلال شهر</SelectItem>
+                            <SelectItem value="غير محدد">⏳ غير محدد</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
-                      <div className="space-y-2">
-                        <Label htmlFor="service">الخدمة المطلوبة</Label>
-                        <Select onValueChange={(v) => handleSelectChange("service", v)}>
-                          <SelectTrigger className="h-12 bg-background/50">
-                            <SelectValue placeholder="اختر الخدمة" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="توليد صور منتجات">توليد صور منتجات (AI)</SelectItem>
-                            <SelectItem value="صناعة محتوى وتسويق">صناعة محتوى وتسويق</SelectItem>
-                            <SelectItem value="تصميم صور إعلانية">تصميم صور إعلانية</SelectItem>
-                            <SelectItem value="باقة شاملة">باقة شاملة (صور + محتوى)</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="flex gap-4 mt-8">
+                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
+                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90" disabled={!formData.budget || !formData.timeline}>التالي</Button>
                       </div>
-                    </div>
+                    </motion.div>
+                  )}
 
-                    <div className="space-y-2">
-                      <Label htmlFor="description">تفاصيل الطلب (اختياري)</Label>
-                      <Textarea 
-                        id="description" 
-                        name="description"
-                        placeholder="أخبرنا المزيد عن مشروعك، ما الذي تتخيله؟" 
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        className="bg-background/50 min-h-[120px]"
-                      />
-                    </div>
+                  {/* Step 4: Contact Info */}
+                  {currentStep === 4 && (
+                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                      <h3 className="text-xl font-bold text-center mb-8">كيف نتواصل معك؟</h3>
+                      
+                      <div className="space-y-6">
+                        <div className="space-y-2">
+                          <Label className="text-lg">الاسم الكريم</Label>
+                          <Input 
+                            placeholder="أدخل اسمك" 
+                            className="h-14 text-lg bg-background/50"
+                            value={formData.name}
+                            onChange={(e) => updateField('name', e.target.value)}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-lg">رقم الجوال (واتساب)</Label>
+                          <Input 
+                            placeholder="05xxxxxxxx" 
+                            className="h-14 text-lg bg-background/50"
+                            value={formData.phone}
+                            onChange={(e) => updateField('phone', e.target.value)}
+                          />
+                        </div>
+                      </div>
 
-                    <Button type="submit" className="w-full h-14 text-lg font-bold bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:scale-[1.02]">
-                      <Send className="ml-2 w-5 h-5" />
-                      إرسال الطلب عبر واتساب
-                    </Button>
-                    <p className="text-xs text-center text-muted-foreground mt-4">
-                      سيتم توجيهك إلى واتساب لإرسال التفاصيل مباشرة لفريقنا
-                    </p>
-                  </form>
+                      <div className="flex gap-4 mt-8">
+                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
+                        <Button onClick={handleFinalSubmit} className="flex-1 h-12 text-lg bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-500/20 animate-pulse" disabled={!formData.name || !formData.phone}>
+                          <Send className="ml-2 w-5 h-5" />
+                          إرسال عبر واتساب
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
+
                 </CardContent>
               </Card>
             </motion.div>
