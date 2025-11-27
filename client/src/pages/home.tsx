@@ -33,6 +33,12 @@ import burgerImg from "@assets/generated_images/gourmet_cheeseburger_food_photog
 import sneakerImg from "@assets/generated_images/futuristic_neon_sneaker_product_shot.png";
 import watchImg from "@assets/generated_images/luxury_wrist_watch_close_up.png";
 
+import perfumeBefore from "@assets/generated_images/amateur_perfume_bottle_photo.png";
+import burgerBefore from "@assets/generated_images/bad_burger_photo.png";
+import sneakerBefore from "@assets/generated_images/dirty_sneaker_photo.png";
+
+import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
+
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -332,37 +338,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfolio Gallery */}
-      <section className="py-24 overflow-hidden">
+      {/* Before & After Showcase */}
+      <section className="py-24 overflow-hidden bg-secondary/10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">أعمالنا تتحدث عن نفسها</h2>
-            <p className="text-xl text-muted-foreground">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
+            <Badge className="mb-4 bg-primary/10 text-primary border-none">الفرق مذهل</Badge>
+            <h2 className="text-4xl font-bold font-heading mb-4">شاهد الفرق بنفسك</h2>
+            <p className="text-xl text-muted-foreground">اسحب المؤشر لترى كيف نحول الصور العادية إلى تحف فنية</p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
-              perfumeImg, // Perfume (Generated)
-              burgerImg, // Burger (Generated)
-              sneakerImg, // Sneaker (Generated)
-              watchImg, // Watch (Generated)
-              "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=2940&auto=format&fit=crop", // Polaroid
-              "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=3015&auto=format&fit=crop", // Cosmetics
-              "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?q=80&w=2940&auto=format&fit=crop", // Coffee Cup
-              "https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=2940&auto=format&fit=crop"  // Coffee Beans
-            ].map((img, i) => (
-              <motion.div 
+              { 
+                before: perfumeBefore, 
+                after: perfumeImg,
+                title: "تصوير المنتجات",
+                desc: "من صورة عادية إلى لقطة إعلانية فاخرة"
+              },
+              { 
+                before: burgerBefore, 
+                after: burgerImg,
+                title: "تصوير الأطعمة",
+                desc: "نظهر التفاصيل الشهية التي تجذب العملاء"
+              },
+              { 
+                before: sneakerBefore, 
+                after: sneakerImg,
+                title: "التصاميم الإبداعية",
+                desc: "تحويل المنتجات البسيطة إلى أعمال فنية مستقبلية"
+              }
+            ].map((item, i) => (
+              <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-lg ${i % 3 === 0 ? 'md:col-span-2 md:row-span-2 h-80 md:h-[500px]' : 'h-80 md:h-60'}`}
+                className="bg-card rounded-2xl overflow-hidden shadow-xl border border-muted/50"
               >
-                <img src={img} alt="Portfolio" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    <Badge className="bg-white text-black hover:bg-white px-4 py-2 text-base">عرض التفاصيل</Badge>
+                <div className="h-[300px] w-full">
+                  <ReactCompareSlider
+                    itemOne={<ReactCompareSliderImage src={item.before} alt="Before" />}
+                    itemTwo={<ReactCompareSliderImage src={item.after} alt="After" />}
+                    className="h-full w-full object-cover"
+                    position={50}
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="font-bold text-xl mb-2 font-heading">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">{item.desc}</p>
+                  <div className="flex justify-center gap-8 mt-4 text-xs font-bold uppercase tracking-wider opacity-50">
+                    <span>قبل</span>
+                    <span>بعد</span>
                   </div>
                 </div>
               </motion.div>
