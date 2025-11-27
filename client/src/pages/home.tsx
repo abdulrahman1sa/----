@@ -82,7 +82,8 @@ export default function Home() {
     budget: "",
     timeline: "",
     audience: "",
-    goal: ""
+    goal: "",
+    mood: ""
   });
 
   const nextStep = () => setCurrentStep(prev => prev + 1);
@@ -99,7 +100,8 @@ export default function Home() {
       `🛠 نوع المشروع: ${formData.projectType}%0A` +
       `👥 الجمهور المستهدف: ${formData.audience}%0A` +
       `🎯 الهدف الرئيسي: ${formData.goal}%0A` +
-      `🎨 تفاصيل الرؤية: ${formData.description}%0A` +
+      `🎨 الطابع البصري: ${formData.mood}%0A` +
+      `📝 تفاصيل إضافية: ${formData.description}%0A` +
       `💰 الميزانية: ${formData.budget}%0A` +
       `⏱ الموعد: ${formData.timeline}%0A%0A` +
       `أرجو مراجعة طلبي والرد علي. شكراً!`;
@@ -741,25 +743,70 @@ export default function Home() {
                         </div>
                       </div>
 
-                      {/* Visual Mood Selector (Refined) */}
-                      <div className="space-y-3">
-                         <Label className="text-base font-bold">الطابع البصري المفضل</Label>
-                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                      {/* Visual Mood Selector (Redesigned) */}
+                      <div className="space-y-4">
+                         <Label className="text-base font-bold flex items-center gap-2">
+                           <Palette size={18} className="text-primary" />
+                           الطابع البصري المفضل
+                         </Label>
+                         <div className="grid grid-cols-2 gap-4">
                           {[
-                             { id: 'minimal', label: 'بسيط (Minimal)', color: 'bg-gray-50 hover:bg-gray-100 border-gray-200 text-gray-700', icon: <Sparkles size={16} /> },
-                             { id: 'luxury', label: 'فاخر (Luxury)', color: 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800', icon: <Crown size={16} /> },
-                             { id: 'vibrant', label: 'حيوي (Vibrant)', color: 'bg-pink-50 hover:bg-pink-100 border-pink-200 text-pink-700', icon: <Palette size={16} /> },
-                             { id: 'dark', label: 'داكن (Dark)', color: 'bg-slate-900 hover:bg-slate-800 border-slate-700 text-slate-200', icon: <Zap size={16} /> },
+                             { 
+                               id: 'minimal', 
+                               label: 'بسيط (Minimal)', 
+                               desc: 'نظيف، مساحات بيضاء، عصري',
+                               gradient: 'from-gray-50 to-gray-100', 
+                               border: 'group-hover:border-gray-400',
+                               icon: <Sparkles size={20} className="text-gray-600" />
+                             },
+                             { 
+                               id: 'luxury', 
+                               label: 'فاخر (Luxury)', 
+                               desc: 'ذهبي، أسود، أنيق وراقي',
+                               gradient: 'from-amber-50 to-amber-100', 
+                               border: 'group-hover:border-amber-400',
+                               icon: <Crown size={20} className="text-amber-700" />
+                             },
+                             { 
+                               id: 'vibrant', 
+                               label: 'حيوي (Vibrant)', 
+                               desc: 'ألوان زاهية، طاقة، مرح',
+                               gradient: 'from-pink-50 to-rose-100', 
+                               border: 'group-hover:border-pink-400',
+                               icon: <Zap size={20} className="text-pink-600" />
+                             },
+                             { 
+                               id: 'dark', 
+                               label: 'داكن (Dark)', 
+                               desc: 'غامق، درامي، سينمائي',
+                               gradient: 'from-slate-800 to-slate-900 text-white', 
+                               border: 'group-hover:border-slate-500',
+                               icon: <ImageIcon size={20} className="text-slate-300" />
+                             },
                           ].map((m) => (
                             <div 
                               key={m.id}
-                              onClick={() => updateField('description', formData.description + (formData.description ? " - " : "") + `طابع: ${m.label}`)}
-                              className={`cursor-pointer p-3 rounded-xl border-2 text-center font-bold text-sm transition-all hover:scale-105 hover:shadow-md flex flex-col items-center justify-center gap-2 h-24 ${m.color}`}
+                              onClick={() => updateField('mood', m.label)}
+                              className={`group cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between ${
+                                formData.mood === m.label 
+                                  ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]` 
+                                  : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
+                              }`}
                             >
-                              <div className="p-1.5 rounded-full bg-white/20 backdrop-blur-sm">
-                                {m.icon}
+                              <div className="flex justify-between items-start">
+                                <div className={`p-2 rounded-full bg-white/20 backdrop-blur-md ${formData.mood === m.label ? 'scale-110' : ''} transition-transform`}>
+                                  {m.icon}
+                                </div>
+                                {formData.mood === m.label && (
+                                  <div className="bg-primary text-white rounded-full p-1 shadow-sm">
+                                    <CheckCircle2 size={14} />
+                                  </div>
+                                )}
                               </div>
-                              {m.label}
+                              <div>
+                                <h4 className="font-bold text-sm mb-0.5">{m.label}</h4>
+                                <p className="text-[10px] opacity-70 font-medium">{m.desc}</p>
+                              </div>
                             </div>
                           ))}
                          </div>
@@ -778,7 +825,7 @@ export default function Home() {
 
                       <div className="flex gap-4 mt-6">
                         <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal}>التالي</Button>
+                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal || !formData.mood}>التالي</Button>
                       </div>
                     </motion.div>
                   )}
