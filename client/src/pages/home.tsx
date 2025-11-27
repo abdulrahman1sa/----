@@ -158,6 +158,24 @@ export default function Home() {
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
+  const sendPackageToWhatsApp = (packageName: string, price: string, features: string[]) => {
+    const message = `
+مرحباً فريق BADII 👋
+
+أرغب في طلب *${packageName}*
+
+💰 السعر: ${price} ريال
+
+📋 *مميزات الباقة:*
+${features.map((f, i) => `${i + 1}. ${f}`).join('\n')}
+
+أرجو التواصل معي لمناقشة التفاصيل وبدء المشروع. شكراً!
+    `.trim();
+    
+    const whatsappUrl = `https://wa.me/966509567267?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-white text-foreground overflow-x-hidden" dir="rtl">
       {/* Navbar */}
@@ -481,23 +499,16 @@ export default function Home() {
                   </ul>
                 </CardContent>
                 <CardFooter className="p-8">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button className="w-full h-14 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-lg">
-                        اختر الباقة
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[550px] bg-white/95 p-0">
-                      <div className="bg-gray-100 p-8 border-b">
-                        <DialogHeader className="text-right">
-                          <DialogTitle className="text-3xl font-bold">طلب الباقة الأساسية</DialogTitle>
-                        </DialogHeader>
-                      </div>
-                      <div className="p-8">
-                        <ProjectRequestForm packageName="الباقة الأساسية (Starter)" />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Button 
+                    onClick={() => sendPackageToWhatsApp(
+                      "الباقة الأساسية (Starter)",
+                      "399",
+                      ["8 صور 4K", "مراجعة مجانية", "تسليم 48 ساعة", "حقوق تجارية", "صيغ متعددة"]
+                    )}
+                    className="w-full h-14 bg-gray-900 hover:bg-gray-800 rounded-xl font-bold text-lg"
+                  >
+                    اختر الباقة
+                  </Button>
                 </CardFooter>
               </Card>
             </motion.div>
@@ -541,23 +552,16 @@ export default function Home() {
                     </ul>
                   </CardContent>
                   <CardFooter className="p-10">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button className="w-full h-16 bg-white text-primary hover:bg-gray-50 rounded-xl font-extrabold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105">
-                          اختر الباقة الاحترافية
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[550px] bg-white/95 p-0">
-                        <div className="bg-gradient-to-r from-primary/10 via-blue-500/10 to-primary/10 p-8 border-b">
-                          <DialogHeader className="text-right">
-                            <DialogTitle className="text-3xl font-bold text-gradient">طلب الباقة الاحترافية</DialogTitle>
-                          </DialogHeader>
-                        </div>
-                        <div className="p-8">
-                          <ProjectRequestForm packageName="الباقة الاحترافية (Pro)" />
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                    <Button 
+                      onClick={() => sendPackageToWhatsApp(
+                        "الباقة الاحترافية (Pro)",
+                        "799",
+                        ["20 صورة 4K", "3 مراجعات", "تسليم 24 ساعة", "10 منشورات", "استشارة 30 دقيقة", "كابشنز احترافية"]
+                      )}
+                      className="w-full h-16 bg-white text-primary hover:bg-gray-50 rounded-xl font-extrabold text-lg shadow-xl hover:shadow-2xl transition-all hover:scale-105"
+                    >
+                      اختر الباقة الاحترافية
+                    </Button>
                   </CardFooter>
                 </Card>
               </div>
@@ -592,25 +596,17 @@ export default function Home() {
                   </ul>
                 </CardContent>
                 <CardFooter className="p-8">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="w-full h-14 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-xl font-bold text-lg transition-all">
-                        تواصل للطلب
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[550px] bg-white/95 p-0">
-                      <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 p-8 border-b">
-                        <DialogHeader className="text-right">
-                          <DialogTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-600 to-orange-600">
-                            طلب الباقة الشاملة
-                          </DialogTitle>
-                        </DialogHeader>
-                      </div>
-                      <div className="p-8">
-                        <ProjectRequestForm packageName="الباقة الشاملة (Elite)" />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                  <Button 
+                    onClick={() => sendPackageToWhatsApp(
+                      "الباقة الشاملة (Elite)",
+                      "1,499",
+                      ["40 صورة 8K", "مراجعات لا محدودة", "تسليم 12 ساعة", "خطة محتوى شهرية", "مدير حساب VIP", "دعم 24/7"]
+                    )}
+                    variant="outline" 
+                    className="w-full h-14 border-2 border-primary text-primary hover:bg-primary hover:text-white rounded-xl font-bold text-lg transition-all"
+                  >
+                    اختر الباقة
+                  </Button>
                 </CardFooter>
               </Card>
             </motion.div>
