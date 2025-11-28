@@ -91,8 +91,15 @@ export default function Home() {
     mood: ""
   });
 
-  const nextStep = () => setCurrentStep(prev => prev + 1);
-  const prevStep = () => setCurrentStep(prev => prev - 1);
+  const nextStep = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setCurrentStep(prev => prev + 1);
+  };
+
+  const prevStep = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setCurrentStep(prev => prev - 1);
+  };
 
   const updateField = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -939,8 +946,8 @@ export default function Home() {
                       </div>
 
                       <div className="flex gap-4 mt-6">
-                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal || !formData.mood}>التالي</Button>
+                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
+                        <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal || !formData.mood}>التالي</Button>
                       </div>
                     </motion.div>
                   )}
@@ -1000,8 +1007,8 @@ export default function Home() {
                       </div>
 
                       <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.budget || !formData.timeline}>التالي</Button>
+                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
+                        <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.budget || !formData.timeline}>التالي</Button>
                       </div>
                     </motion.div>
                   )}
@@ -1033,9 +1040,10 @@ export default function Home() {
                       </div>
 
                       <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={prevStep} className="flex-1 h-12 text-lg">رجوع</Button>
+                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg">رجوع</Button>
                         <Button 
                           onClick={handleFinalSubmit} 
+                          type="button" 
                           className="flex-1 h-12 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/30 animate-pulse hover:animate-none transform hover:scale-105 transition-all duration-300" 
                           disabled={!formData.name || !formData.phone}
                         >
