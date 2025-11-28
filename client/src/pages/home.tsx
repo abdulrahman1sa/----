@@ -39,8 +39,8 @@ import workerAfter from "@assets/2_1764338122710.png";
 import coffeeBefore from "@assets/4_1764338127591.png";
 import coffeeAfter from "@assets/1_1764338115865.png";
 
-import perfumeBefore from "@assets/perfume_before.jpg";
-import perfumeAfter from "@assets/perfume_after_new.png";
+import perfumeBefore from "@assets/5_1764338633790.png";
+import perfumeAfter from "@assets/6_1764338636072.png";
 
 // Portfolio Images
 import portfolio1 from "@assets/portfolio_perfume_match.jpg";
