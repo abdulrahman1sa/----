@@ -33,11 +33,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import logo from "@assets/logo.png";
 
 // Comparison Images (Uploaded Before vs Generated After)
-import workerBefore from "@assets/worker_before.jpg";
-import workerAfter from "@assets/worker_after.png";
+import workerBefore from "@assets/3_1764338125289.png";
+import workerAfter from "@assets/2_1764338122710.png";
 
-import coffeeBefore from "@assets/coffee_before.jpg";
-import coffeeAfter from "@assets/coffee_after_new.png";
+import coffeeBefore from "@assets/4_1764338127591.png";
+import coffeeAfter from "@assets/1_1764338115865.png";
 
 import perfumeBefore from "@assets/perfume_before.jpg";
 import perfumeAfter from "@assets/perfume_after_new.png";
