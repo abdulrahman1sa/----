@@ -80,44 +80,48 @@
     <script type="module" src="/src/main.tsx"></script>
     
     <!-- Botpress Chatbot Script -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
     <script>
-      window.botpress.on("webchat:ready", () => {
-        const webchatDiv = document.getElementById("webchat");
-        if (webchatDiv) {
-           webchatDiv.classList.add('active');
-        }
-        window.botpress.open();
-      });
-      
-      window.botpress.init({
-        "botId": "ed424138-b606-4130-af94-90b98578d742",
-        "configuration": {
-          "version": "v2",
-          "botName": "مساعد بديع الذكي",
-          "botDescription": "أنا هنا لمساعدتك في تحويل صورك إلى قصص 🚀",
-          "website": {},
-          "email": {},
-          "phone": {},
-          "termsOfService": {},
-          "privacyPolicy": {},
-          "color": "#7c3aed", /* Violet to match AI theme */
-          "variant": "solid",
-          "headerVariant": "glass",
-          "themeMode": "light",
-          "fontFamily": "Tajawal", /* Match site font */
-          "radius": 16,
-          "feedbackEnabled": false,
-          "footer": "مدعوم بالذكاء الاصطناعي ⚡",
-          "soundEnabled": true,
-          "proactiveMessageEnabled": true,
-          "proactiveBubbleMessage": "مرحباً! كيف يمكنني مساعدتك اليوم؟ 👋",
-          "proactiveBubbleTriggerType": "afterDelay",
-          "proactiveBubbleDelayTime": 5
-        },
-        "clientId": "1cee07fe-2958-479e-9245-fb3976b14205",
-        "selector": "#webchat"
-      });
+      function initBotpress() {
+        if (!window.botpress) return;
+
+        window.botpress.on("webchat:ready", () => {
+          const webchatDiv = document.getElementById("webchat");
+          if (webchatDiv) {
+             webchatDiv.classList.add('active');
+          }
+          window.botpress.open();
+        });
+        
+        window.botpress.init({
+          "botId": "ed424138-b606-4130-af94-90b98578d742",
+          "configuration": {
+            "version": "v2",
+            "botName": "مساعد بديع الذكي",
+            "botDescription": "أنا هنا لمساعدتك في تحويل صورك إلى قصص 🚀",
+            "website": {},
+            "email": {},
+            "phone": {},
+            "termsOfService": {},
+            "privacyPolicy": {},
+            "color": "#7c3aed",
+            "variant": "solid",
+            "headerVariant": "glass",
+            "themeMode": "light",
+            "fontFamily": "Tajawal",
+            "radius": 16,
+            "feedbackEnabled": false,
+            "footer": "مدعوم بالذكاء الاصطناعي ⚡",
+            "soundEnabled": true,
+            "proactiveMessageEnabled": true,
+            "proactiveBubbleMessage": "مرحباً! كيف يمكنني مساعدتك اليوم؟ 👋",
+            "proactiveBubbleTriggerType": "afterDelay",
+            "proactiveBubbleDelayTime": 5
+          },
+          "clientId": "1cee07fe-2958-479e-9245-fb3976b14205",
+          "selector": "#webchat"
+        });
+      }
     </script>
+    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" onload="initBotpress()"></script>
   </body>
 </html>
