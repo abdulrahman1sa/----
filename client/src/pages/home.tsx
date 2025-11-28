@@ -234,14 +234,14 @@ export default function Home() {
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold font-heading mb-8 leading-tight">
               حوّل صور منتجاتك إلى <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">مبيعات حقيقية</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">مبيعات حقيقية</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
               نبتكر محتوى بصرياً مذهلاً باستخدام أحدث تقنيات الذكاء الاصطناعي. 
               جودة سينمائية، سرعة فائقة، وتكلفة تناسب طموحك.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105">
+              <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 text-primary-foreground">
                 ابدأ مشروعك الآن <ArrowRight className="mr-2" />
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-10 py-7 border-2 rounded-full hover:bg-secondary transition-all">
@@ -259,7 +259,7 @@ export default function Home() {
           >
             <Card className="glass border-none shadow-lg">
               <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mb-4 text-green-500">
+                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
                   <Zap size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-1">سريع</h3>
@@ -268,7 +268,7 @@ export default function Home() {
             </Card>
             <Card className="glass border-none shadow-lg">
               <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center mb-4 text-purple-500">
+                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
                   <Sparkles size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-1">أسعار</h3>
@@ -277,7 +277,7 @@ export default function Home() {
             </Card>
             <Card className="glass border-none shadow-lg">
               <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-blue-500/10 rounded-full flex items-center justify-center mb-4 text-blue-500">
+                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
                   <Crown size={24} />
                 </div>
                 <h3 className="text-xl font-bold mb-1">احترافي</h3>
@@ -384,21 +384,21 @@ export default function Home() {
             {[
               {
                 icon: <Camera className="w-12 h-12 text-white" />,
-                color: "bg-purple-500",
+                color: "bg-zinc-900",
                 title: "تصوير منتجات بالذكاء الاصطناعي",
                 desc: "وداعاً لجلسات التصوير المكلفة. نحول صور الجوال البسيطة إلى لقطات إعلانية مذهلة بدقة 4K تناسب أرقى العلامات التجارية.",
                 features: ["خلفيات مخصصة لا نهائية", "إضاءة سينمائية واقعية", "توفير 90% من تكلفة التصوير التقليدي"]
               },
               {
                 icon: <PenTool className="w-12 h-12 text-white" />,
-                color: "bg-blue-500",
+                color: "bg-zinc-800",
                 title: "صناعة محتوى إبداعي",
                 desc: "الصورة تجذب، والكلمة تبيع. نكتب لك نصوصاً إعلانية ساحرة تخاطب مشاعر عميلك وتقنعه باتخاذ قرار الشراء فوراً.",
                 features: ["كابشن منصات التواصل", "وصف منتجات متوافق مع SEO", "سيناريوهات ريلز قصيرة"]
               },
               {
                 icon: <Video className="w-12 h-12 text-white" />,
-                color: "bg-pink-500",
+                color: "bg-zinc-700",
                 title: "فيديو ريلز (Reels)",
                 desc: "المستقبل للفيديو القصير. نصمم لك مقاطع ريلز حيوية وجذابة تجعل منتجك 'تريند' وتزيد من وصولك وتفاعل جمهورك.",
                 features: ["تحريك احترافي للصور", "مونتاج ومؤثرات بصرية", "موسيقى مرخصة وتناسب الهوية"]
