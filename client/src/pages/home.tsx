@@ -581,7 +581,7 @@ export default function Home() {
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
                   className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 ${
-                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 h-[500px]' : 'h-60 md:h-64'
+                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 h-[300px] md:h-[500px]' : 'h-60 md:h-64'
                   }`}
                 >
                   <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
