@@ -224,7 +224,7 @@ export default function Home() {
         <motion.div 
           animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] -z-10" 
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
         />
 
         <div className="container mx-auto px-6 text-center relative z-10">
@@ -731,7 +731,7 @@ export default function Home() {
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-primary shrink-0">
                     <MessageCircle size={24} />
                   </div>
                   <div>
@@ -740,7 +740,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-primary shrink-0">
                     <Zap size={24} />
                   </div>
                   <div>
