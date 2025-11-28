@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { 
   Sparkles, 
   Zap, 
@@ -78,7 +78,21 @@ const staggerContainer = {
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("الكل");
   
+  const bookingFormRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
+
+  useEffect(() => {
+    // Scroll to top of booking form on step change if not in view
+    if (bookingFormRef.current) {
+      const rect = bookingFormRef.current.getBoundingClientRect();
+      const isInView = rect.top >= 0 && rect.bottom <= window.innerHeight;
+      
+      if (!isInView) {
+        bookingFormRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [currentStep]);
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -764,8 +778,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl overflow-hidden">
-                <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
+              <div ref={bookingFormRef}>
+                <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl overflow-hidden min-h-[600px]">
+                  <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
                   <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
                   <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
                   
@@ -786,7 +801,7 @@ export default function Home() {
                     ))}
                   </div>
                 </CardHeader>
-                <CardContent className="p-8 min-h-[400px] flex flex-col justify-between">
+                <CardContent className="p-8 flex flex-col justify-between">
                   
                   {/* Step 1: Project Type */}
                   {currentStep === 1 && (
