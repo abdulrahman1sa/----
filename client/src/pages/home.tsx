@@ -14,7 +14,11 @@ import {
   Star,
   Send,
   Menu,
-  Video
+  Video,
+  UploadCloud,
+  Wand2,
+  Share2,
+  FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -442,39 +446,80 @@ export default function Home() {
       </section>
 
       {/* Process */}
-      <section id="process" className="py-24 bg-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      <section id="process" className="py-32 bg-zinc-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-zinc-950 to-zinc-950" />
         
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">رحلتك مع BADII في 4 خطوات</h2>
-            <p className="text-xl text-gray-400">عملية بسيطة وسهلة من البداية إلى النهاية</p>
+          <div className="text-center mb-24 max-w-3xl mx-auto">
+            <Badge variant="outline" className="mb-6 border-white/10 text-white/60 px-4 py-1">كيف نعمل؟</Badge>
+            <h2 className="text-4xl md:text-6xl font-bold font-heading mb-6 tracking-tight">رحلتك مع <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">BADII</span></h2>
+            <p className="text-xl text-zinc-400 leading-relaxed">
+              نحول التعقيد إلى بساطة. 4 خطوات فقط تفصلك عن المحتوى الذي تحلم به.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8 relative">
-            <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30" />
+          <div className="relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent -translate-y-1/2 z-0" />
             
-            {[
-              { step: "01", title: "أرسل صورك", desc: "أرسل لنا صور منتجاتك (حتى لو كانت بالجوال) مع وصف بسيط للفكرة." },
-              { step: "02", title: "السحر يبدأ", desc: "نستخدم أدواتنا المتقدمة لتحويل صورك وتصميم المحتوى المناسب." },
-              { step: "03", title: "راجع واعتمد", desc: "نرسل لك النماذج الأولية. نعدل حتى تكون راضياً تماماً." },
-              { step: "04", title: "استلم وانشر", desc: "تستلم ملفاتك بجودة عالية جاهزة للنشر ومضاعفة مبيعاتك." }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="relative text-center"
-              >
-                <div className="w-24 h-24 mx-auto bg-gray-900 rounded-full border-4 border-gray-800 flex items-center justify-center text-3xl font-bold text-primary mb-6 relative z-10 shadow-2xl shadow-primary/10">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed px-4">{item.desc}</p>
-              </motion.div>
-            ))}
+            <div className="grid md:grid-cols-4 gap-12 relative z-10">
+              {[
+                { 
+                  step: "01", 
+                  icon: <UploadCloud className="w-8 h-8" />, 
+                  title: "أرسل صورك", 
+                  desc: "ارفع صور منتجاتك (حتى لو من الجوال). لا تحتاج لاستوديو.",
+                  delay: 0
+                },
+                { 
+                  step: "02", 
+                  icon: <Wand2 className="w-8 h-8" />, 
+                  title: "سحر الذكاء", 
+                  desc: "تقنياتنا تعالج الصور وتضيف الخلفيات والإضاءة السينمائية.",
+                  delay: 0.2
+                },
+                { 
+                  step: "03", 
+                  icon: <FileCheck className="w-8 h-8" />, 
+                  title: "راجع واعتمد", 
+                  desc: "نرسل لك النتائج. نعدل حتى تصل لمرحلة الانبهار التام.",
+                  delay: 0.4
+                },
+                { 
+                  step: "04", 
+                  icon: <Share2 className="w-8 h-8" />, 
+                  title: "استلم وانشر", 
+                  desc: "ملفات عالية الدقة جاهزة لتكتسح بها منصات التواصل.",
+                  delay: 0.6
+                }
+              ].map((item, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: item.delay, duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="group relative"
+                >
+                  <div className="bg-zinc-900/80 backdrop-blur-md border border-white/5 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 hover:bg-zinc-900 shadow-2xl hover:shadow-white/5 text-center h-full flex flex-col items-center">
+                    
+                    {/* Step Number Badge */}
+                    <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-zinc-950 border border-zinc-800 text-zinc-500 font-mono text-sm px-3 py-1 rounded-full">
+                      STEP {item.step}
+                    </div>
+
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-white/10">
+                      {item.icon}
+                    </div>
+                    
+                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors">{item.title}</h3>
+                    <p className="text-zinc-400 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
