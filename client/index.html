@@ -23,30 +23,49 @@
     <style>
       #webchat {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 400px;
+        bottom: 24px;
+        right: 24px;
+        width: 380px;
         height: 600px;
-        z-index: 1000;
-        border-radius: 12px;
+        z-index: 9999;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-        display: none; /* Initially hidden until ready */
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 10px 20px rgba(0,0,0,0.1);
+        display: none; /* Initially hidden */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: bottom right;
+        transform: scale(0.95);
+        opacity: 0;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
       }
+      
+      #webchat.active {
+        display: block;
+        transform: scale(1);
+        opacity: 1;
+      }
+
       @media (max-width: 600px) {
         #webchat {
-          width: 90%;
+          width: 90%; /* Responsive width */
           right: 5%;
-          height: 80vh;
+          left: 5%;
+          bottom: 20px;
+          height: 75vh;
+          border-radius: 16px;
         }
       }
+      
       #webchat .bpWebchat {
         position: unset;
         width: 100%;
         height: 100%;
         max-height: 100%;
         max-width: 100%;
+        background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent bg */
       }
+      
       #webchat .bpFab {
         display: none;
       }
@@ -66,7 +85,7 @@
       window.botpress.on("webchat:ready", () => {
         const webchatDiv = document.getElementById("webchat");
         if (webchatDiv) {
-           webchatDiv.style.display = "block";
+           webchatDiv.classList.add('active');
         }
         window.botpress.open();
       });
@@ -75,26 +94,26 @@
         "botId": "ed424138-b606-4130-af94-90b98578d742",
         "configuration": {
           "version": "v2",
-          "botName": "Brand Support Agent",
-          "botDescription": "",
+          "botName": "مساعد بديع الذكي",
+          "botDescription": "أنا هنا لمساعدتك في تحويل صورك إلى قصص 🚀",
           "website": {},
           "email": {},
           "phone": {},
           "termsOfService": {},
           "privacyPolicy": {},
-          "color": "#3276EA",
+          "color": "#7c3aed", /* Violet to match AI theme */
           "variant": "solid",
           "headerVariant": "glass",
           "themeMode": "light",
-          "fontFamily": "inter",
-          "radius": 4,
+          "fontFamily": "Tajawal", /* Match site font */
+          "radius": 16,
           "feedbackEnabled": false,
-          "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-          "soundEnabled": false,
-          "proactiveMessageEnabled": false,
-          "proactiveBubbleMessage": "Hi! 👋 Need help?",
+          "footer": "مدعوم بالذكاء الاصطناعي ⚡",
+          "soundEnabled": true,
+          "proactiveMessageEnabled": true,
+          "proactiveBubbleMessage": "مرحباً! كيف يمكنني مساعدتك اليوم؟ 👋",
           "proactiveBubbleTriggerType": "afterDelay",
-          "proactiveBubbleDelayTime": 10
+          "proactiveBubbleDelayTime": 5
         },
         "clientId": "1cee07fe-2958-479e-9245-fb3976b14205",
         "selector": "#webchat"
