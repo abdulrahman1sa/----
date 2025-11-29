@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { 
   Sparkles, 
   Zap, 
@@ -119,20 +120,39 @@ export default function Home() {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleFinalSubmit = () => {
-    const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:%0A%0A` +
-      `👤 الاسم: ${formData.name}%0A` +
-      `📱 الجوال: ${formData.phone}%0A` +
-      `🛠 نوع المشروع: ${formData.projectType}%0A` +
-      `👥 الجمهور المستهدف: ${formData.audience}%0A` +
-      `🎯 الهدف الرئيسي: ${formData.goal}%0A` +
-      `🎨 الطابع البصري: ${formData.mood}%0A` +
-      `📝 تفاصيل إضافية: ${formData.description}%0A` +
-      `💰 الميزانية: ${formData.budget}%0A` +
-      `⏱ الموعد: ${formData.timeline}%0A%0A` +
-      `أرجو مراجعة طلبي والرد علي. شكراً!`;
+  const createBookingMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to create booking');
+      return response.json();
+    },
+  });
+
+  const handleFinalSubmit = async () => {
+    try {
+      await createBookingMutation.mutateAsync(formData);
       
-    window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+      const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:%0A%0A` +
+        `👤 الاسم: ${formData.name}%0A` +
+        `📱 الجوال: ${formData.phone}%0A` +
+        `🛠 نوع المشروع: ${formData.projectType}%0A` +
+        `👥 الجمهور المستهدف: ${formData.audience}%0A` +
+        `🎯 الهدف الرئيسي: ${formData.goal}%0A` +
+        `🎨 الطابع البصري: ${formData.mood}%0A` +
+        `📝 تفاصيل إضافية: ${formData.description}%0A` +
+        `💰 الميزانية: ${formData.budget}%0A` +
+        `⏱ الموعد: ${formData.timeline}%0A%0A` +
+        `أرجو مراجعة طلبي والرد علي. شكراً!`;
+        
+      window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+    } catch (error) {
+      console.error('Failed to save booking:', error);
+      alert('حدث خطأ أثناء حفظ الطلب. يرجى المحاولة مرة أخرى.');
+    }
   };
 
   const projectTypes = [
