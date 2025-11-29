@@ -35,10 +35,6 @@ externalPort = 3001
 localPort = 37655
 externalPort = 3000
 
-[[ports]]
-localPort = 39823
-externalPort = 5000
-
 [env]
 PORT = "5000"
 
@@ -65,4 +61,3 @@ waitForPort = 5000
 
 [agent]
 mockupState = "FULLSTACK"
-integrations = ["javascript_database:1.0.0"]
