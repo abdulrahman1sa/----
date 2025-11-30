@@ -5,7 +5,6 @@ import { Lock, Sparkles, ArrowLeft } from "lucide-react";
 import logo from "@assets/logo.png";
 
 const ACCESS_CODE = ["K", "F", "O"];
-const STORAGE_KEY = "badii_access_granted";
 
 function FloatingParticles() {
   const particles = useMemo(() => 
@@ -53,17 +52,12 @@ interface AccessGateProps {
 }
 
 export default function AccessGate({ children }: AccessGateProps) {
-  const [isGranted, setIsGranted] = useState<boolean | null>(null);
+  const [isGranted, setIsGranted] = useState(false);
   const [digits, setDigits] = useState<string[]>(["", "", ""]);
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    setIsGranted(stored === "true");
-  }, []);
 
   const triggerHaptic = useCallback((type: 'success' | 'error' | 'tap') => {
     if ('vibrate' in navigator) {
@@ -144,7 +138,6 @@ export default function AccessGate({ children }: AccessGateProps) {
           clearInterval(interval);
           setIsUnlocking(true);
           setTimeout(() => {
-            localStorage.setItem(STORAGE_KEY, "true");
             setIsGranted(true);
           }, 800);
         }
@@ -164,19 +157,6 @@ export default function AccessGate({ children }: AccessGateProps) {
     e.preventDefault();
     validateCode(digits);
   };
-
-  if (isGranted === null) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-        >
-          <Sparkles className="w-8 h-8 text-primary" />
-        </motion.div>
-      </div>
-    );
-  }
 
   return (
     <>
