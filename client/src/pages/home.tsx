@@ -397,33 +397,42 @@ export default function Home() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-4xl mx-auto"
           >
-            <Card className="glass border-none shadow-lg">
-              <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
-                  <Zap size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-1">سريع</h3>
-                <p className="text-muted-foreground">خلال ساعات</p>
-              </CardContent>
-            </Card>
-            <Card className="glass border-none shadow-lg">
-              <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
-                  <Sparkles size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-1">أسعار</h3>
-                <p className="text-muted-foreground">تنافسية جداً</p>
-              </CardContent>
-            </Card>
-            <Card className="glass border-none shadow-lg">
-              <CardContent className="flex flex-col items-center p-6">
-                <div className="w-12 h-12 bg-zinc-500/10 rounded-full flex items-center justify-center mb-4 text-zinc-700 dark:text-zinc-300">
-                  <Crown size={24} />
-                </div>
-                <h3 className="text-xl font-bold mb-1">احترافي</h3>
-                <p className="text-muted-foreground">100% جودة</p>
-              </CardContent>
-            </Card>
+            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Card className="relative glass glass-hover border-none rounded-2xl">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
+                    <Zap size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">سريع</h3>
+                  <p className="text-muted-foreground">خلال ساعات</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Card className="relative glass glass-hover border-none rounded-2xl">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
+                    <Sparkles size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">أسعار</h3>
+                  <p className="text-muted-foreground">تنافسية جداً</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
+              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <Card className="relative glass glass-hover border-none rounded-2xl">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
+                    <Crown size={24} />
+                  </div>
+                  <h3 className="text-xl font-bold mb-1">احترافي</h3>
+                  <p className="text-muted-foreground">100% جودة</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -554,7 +563,7 @@ export default function Home() {
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />
                 
-                <div className="h-full border border-white/5 bg-card/30 backdrop-blur-sm p-8 rounded-[2rem] flex flex-col transition-colors hover:border-primary/20 hover:bg-card/50">
+                <div className="h-full border border-white/[0.12] bg-white/[0.06] backdrop-blur-2xl p-8 rounded-[2rem] flex flex-col transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.1] hover:shadow-xl hover:shadow-primary/5 shadow-lg shadow-black/5">
                   <div className={`${service.color} w-20 h-20 rounded-2xl rotate-3 flex items-center justify-center mb-8 shadow-xl shadow-current/30 transform transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     {service.icon}
                   </div>
@@ -637,7 +646,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className="bg-zinc-900/80 backdrop-blur-md border border-white/5 rounded-3xl p-8 hover:border-white/20 transition-all duration-500 hover:bg-zinc-900 shadow-2xl hover:shadow-white/5 text-center h-full flex flex-col items-center">
+                  <div className="bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 hover:bg-white/[0.1] shadow-xl shadow-black/10 hover:shadow-primary/10 text-center h-full flex flex-col items-center">
                     
                     {/* Step Number Badge */}
                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-zinc-950 border border-zinc-800 text-zinc-500 font-mono text-sm px-3 py-1 rounded-full">
@@ -866,8 +875,8 @@ export default function Home() {
               </p>
               
               <div className="space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-primary shrink-0">
+                <div className="flex items-start gap-4 group">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10">
                     <MessageCircle size={24} />
                   </div>
                   <div>
@@ -875,8 +884,8 @@ export default function Home() {
                     <p className="text-muted-foreground">نناقش أهدافك ونقترح الحلول الأنسب لعلامتك التجارية.</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-primary shrink-0">
+                <div className="flex items-start gap-4 group">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10">
                     <Zap size={24} />
                   </div>
                   <div>
@@ -894,7 +903,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div ref={bookingFormRef}>
-                <Card className="border-muted/50 shadow-2xl shadow-primary/5 bg-card/80 backdrop-blur-xl overflow-hidden min-h-[600px]">
+                <Card className="border-white/[0.15] shadow-2xl shadow-primary/10 bg-white/[0.08] backdrop-blur-2xl overflow-hidden min-h-[600px] hover:border-primary/30 transition-all duration-300">
                   <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
                   <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
                   <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>

@@ -229,13 +229,17 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center hover:border-primary/30 transition-all"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group relative"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="w-6 h-6 text-primary" />
+                  <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-6 text-center shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                      <item.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="font-bold font-heading text-lg mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
                   </div>
-                  <h3 className="font-bold font-heading text-lg mb-2">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -275,9 +279,9 @@ export default function About() {
                     <item.icon className="w-6 h-6 text-white" />
                   </div>
                   
-                  <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all">
+                  <div className="bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-6 shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
                     <div className="flex items-center gap-3 mb-3 md:hidden">
-                      <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
                         <item.icon className="w-5 h-5 text-white" />
                       </div>
                       <h3 className="text-xl font-bold font-heading">{item.title}</h3>
@@ -303,17 +307,21 @@ export default function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8"
+                whileHover={{ scale: 1.02 }}
+                className="group relative"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Eye className="w-6 h-6 text-primary" />
+                <div className="absolute inset-0 bg-primary/15 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-8 shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Eye className="w-7 h-7 text-primary" />
+                    </div>
+                    <h2 className="text-2xl font-bold font-heading">رؤيتنا</h2>
                   </div>
-                  <h2 className="text-2xl font-bold font-heading">رؤيتنا</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    أن نكون الشريك الإبداعي الأول لكل صاحب مشروع يريد أن يروي قصة منتجه بطريقة تلمس القلوب وتحرك المبيعات.
+                  </p>
                 </div>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  أن نكون الشريك الإبداعي الأول لكل صاحب مشروع يريد أن يروي قصة منتجه بطريقة تلمس القلوب وتحرك المبيعات.
-                </p>
               </motion.div>
 
               <motion.div
@@ -321,17 +329,21 @@ export default function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4 }}
-                className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8"
+                whileHover={{ scale: 1.02 }}
+                className="group relative"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                    <Target className="w-6 h-6 text-primary" />
+                <div className="absolute inset-0 bg-primary/15 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-8 shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Target className="w-7 h-7 text-primary" />
+                    </div>
+                    <h2 className="text-2xl font-bold font-heading">مهمتنا</h2>
                   </div>
-                  <h2 className="text-2xl font-bold font-heading">مهمتنا</h2>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    تمكين أصحاب المشاريع من المنافسة بمحتوى بصري عالي الجودة دون الحاجة لميزانيات ضخمة أو خبرة تقنية.
+                  </p>
                 </div>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  تمكين أصحاب المشاريع من المنافسة بمحتوى بصري عالي الجودة دون الحاجة لميزانيات ضخمة أو خبرة تقنية.
-                </p>
               </motion.div>
             </div>
           </div>
@@ -360,15 +372,19 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 hover:border-primary/30 transition-all"
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="group relative"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-4">
-                    <value.icon className="w-6 h-6 text-primary" />
+                  <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-6 shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300 h-full">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <value.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-bold font-heading mb-2">
+                      {value.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{value.description}</p>
                   </div>
-                  <h3 className="text-lg font-bold font-heading mb-2">
-                    {value.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{value.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -384,18 +400,21 @@ export default function About() {
               transition={{ duration: 0.4 }}
               className="max-w-3xl mx-auto"
             >
-              <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 text-center">
-                <Quote className="w-10 h-10 text-primary/40 mx-auto mb-6 rotate-180" />
-                <p className="text-xl md:text-2xl font-heading leading-relaxed mb-8 text-foreground/90">
-                  "نحن لا نصنع صوراً فقط... نحن نروي قصصاً تُحرّك المشاعر وتصنع المبيعات"
-                </p>
-                <div className="flex items-center justify-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">
-                    ب
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold font-heading">فريق بديع</div>
-                    <div className="text-muted-foreground text-sm">الشريك الإبداعي</div>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-primary/10 rounded-3xl blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+                <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-3xl p-8 md:p-12 text-center shadow-2xl shadow-black/10 hover:border-primary/30 transition-all duration-300">
+                  <Quote className="w-12 h-12 text-primary/50 mx-auto mb-6 rotate-180" />
+                  <p className="text-xl md:text-2xl font-heading leading-relaxed mb-8 text-foreground/90">
+                    "نحن لا نصنع صوراً فقط... نحن نروي قصصاً تُحرّك المشاعر وتصنع المبيعات"
+                  </p>
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-primary/30">
+                      ب
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold font-heading text-lg">فريق بديع</div>
+                      <div className="text-muted-foreground text-sm">الشريك الإبداعي</div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -154,7 +154,31 @@
 /* Custom Utilities for Glassmorphism and Glows */
 @layer utilities {
   .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 dark:bg-black/20 dark:border-white/10;
+    @apply bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] shadow-xl shadow-black/5 dark:bg-white/[0.06] dark:border-white/[0.12];
+  }
+  
+  .glass-hover {
+    @apply hover:border-primary/40 hover:shadow-primary/10 hover:bg-white/[0.12] transition-all duration-300;
+  }
+  
+  .glass-glow {
+    @apply relative;
+  }
+  
+  .glass-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: hsl(var(--primary) / 0.1);
+    filter: blur(12px);
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: -1;
+  }
+  
+  .glass-glow:hover::before {
+    opacity: 1;
   }
   
   .text-gradient {
