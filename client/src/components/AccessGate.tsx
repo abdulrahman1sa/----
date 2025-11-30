@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Lock, Sparkles, ArrowLeft } from "lucide-react";
@@ -6,6 +6,47 @@ import logo from "@assets/logo.png";
 
 const ACCESS_CODE = ["K", "F", "O"];
 const STORAGE_KEY = "badii_access_granted";
+
+function FloatingParticles() {
+  const particles = useMemo(() => 
+    Array.from({ length: 20 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      delay: Math.random() * 5,
+      duration: 8 + Math.random() * 10,
+      size: 2 + Math.random() * 4,
+      opacity: 0.1 + Math.random() * 0.3,
+    })), []
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((particle) => (
+        <motion.div
+          key={particle.id}
+          className="absolute rounded-full bg-primary"
+          style={{
+            left: `${particle.x}%`,
+            width: particle.size,
+            height: particle.size,
+            opacity: particle.opacity,
+          }}
+          initial={{ bottom: -20, opacity: 0 }}
+          animate={{ 
+            bottom: "110%", 
+            opacity: [0, particle.opacity, particle.opacity, 0],
+          }}
+          transition={{
+            duration: particle.duration,
+            delay: particle.delay,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 interface AccessGateProps {
   children: React.ReactNode;
@@ -159,6 +200,8 @@ export default function AccessGate({ children }: AccessGateProps) {
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
               className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px]" 
             />
+            
+            <FloatingParticles />
 
             <div className="relative min-h-screen flex flex-col items-center justify-center px-6">
               <motion.div
@@ -171,13 +214,26 @@ export default function AccessGate({ children }: AccessGateProps) {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="mb-8"
+                  className="mb-8 relative"
                 >
-                  <img 
-                    src={logo} 
-                    alt="BADII" 
-                    className="h-20 md:h-28 w-auto mx-auto mb-6"
-                  />
+                  <div className="relative inline-block">
+                    <img 
+                      src={logo} 
+                      alt="BADII" 
+                      className="h-20 md:h-28 w-auto mx-auto mb-6"
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
+                      initial={{ x: "-200%" }}
+                      animate={{ x: "200%" }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatDelay: 4,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </div>
                 </motion.div>
 
                 <motion.div
