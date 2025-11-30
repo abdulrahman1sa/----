@@ -82,8 +82,16 @@ export default function Home() {
   const bookingFormRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
 
+  const isFirstRender = useRef(true);
+  
   useEffect(() => {
-    // Scroll to top of booking form on step change if not in view
+    // Skip scroll on initial page load
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
+    // Scroll to booking form only when step changes (not on page load)
     if (bookingFormRef.current) {
       const rect = bookingFormRef.current.getBoundingClientRect();
       const isInView = rect.top >= 0 && rect.bottom <= window.innerHeight;
@@ -229,23 +237,57 @@ export default function Home() {
           <div className="md:hidden">
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col gap-6 mt-10">
-                  <a href="#services" className="text-lg font-medium hover:text-primary transition-colors" onClick={() => document.querySelector('[data-state=open]')?.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }))}>الخدمات</a>
-                  <a href="#process" className="text-lg font-medium hover:text-primary transition-colors">كيف نعمل</a>
-                  <a href="#pricing" className="text-lg font-medium hover:text-primary transition-colors">الأسعار</a>
-                  <a href="#faq" className="text-lg font-medium hover:text-primary transition-colors">الأسئلة الشائعة</a>
-                  <Button 
-                    className="bg-primary hover:bg-primary/90 text-white w-full mt-4"
-                    onClick={() => window.location.href = '#booking'}
-                  >
-                    ابدأ الآن
-                  </Button>
-                </nav>
+              <SheetContent side="right" className="w-[85vw] max-w-[320px] bg-background/95 backdrop-blur-lg border-r-0 p-0">
+                <div className="flex flex-col h-full">
+                  <div className="p-6 border-b border-muted">
+                    <img src={logo} alt="BADII Logo" className="h-12 w-auto" />
+                  </div>
+                  <nav className="flex flex-col gap-2 p-4 flex-1">
+                    {[
+                      { href: "#services", label: "الخدمات", icon: "🎨" },
+                      { href: "#process", label: "كيف نعمل", icon: "⚡" },
+                      { href: "#portfolio", label: "أعمالنا", icon: "📸" },
+                      { href: "#pricing", label: "الأسعار", icon: "💎" },
+                      { href: "#faq", label: "الأسئلة الشائعة", icon: "❓" },
+                    ].map((item) => (
+                      <a 
+                        key={item.href}
+                        href={item.href} 
+                        className="flex items-center gap-4 text-lg font-medium hover:text-primary hover:bg-primary/10 transition-all p-4 rounded-xl"
+                        onClick={(e) => {
+                          const sheet = document.querySelector('[data-state="open"]');
+                          if (sheet) {
+                            sheet.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }));
+                          }
+                        }}
+                      >
+                        <span className="text-xl">{item.icon}</span>
+                        {item.label}
+                      </a>
+                    ))}
+                  </nav>
+                  <div className="p-6 border-t border-muted">
+                    <Button 
+                      className="bg-primary hover:bg-primary/90 text-white w-full py-6 text-lg rounded-xl shadow-lg shadow-primary/20"
+                      onClick={() => {
+                        window.location.href = '#booking';
+                        const sheet = document.querySelector('[data-state="open"]');
+                        if (sheet) {
+                          sheet.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }));
+                        }
+                      }}
+                    >
+                      🚀 ابدأ الآن
+                    </Button>
+                    <p className="text-center text-sm text-muted-foreground mt-4">
+                      تواصل معنا: hello@badii.cloud
+                    </p>
+                  </div>
+                </div>
               </SheetContent>
             </Sheet>
           </div>
@@ -1106,24 +1148,24 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
-            {/* Starter */}
+            {/* باقة الانطلاق */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">باقة البداية</CardTitle>
-                <CardDescription>للانطلاق بقوة في السوق</CardDescription>
+                <CardTitle className="text-2xl font-heading">🟢 باقة الانطلاق</CardTitle>
+                <CardDescription>التجربة، الأساسيات، المشاريع الفردية</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">499</span>
+                  <span className="text-4xl font-bold">299</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "10 صور منتجات احترافية (AI)", 
-                    "تعديل الألوان والإضاءة", 
-                    "إزالة الخلفية أو تغييرها", 
-                    "تسليم خلال 48 ساعة",
-                    "حقوق استخدام تجاري"
+                    "10 تصاميم صور احترافية بالـ AI (4K)", 
+                    "10 أوصاف احترافية قصيرة", 
+                    "خطة محتوى أساسية مقترحة", 
+                    "تسليم خلال 72 ساعة",
+                    "حقوق استخدام تجاري كامل"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
@@ -1132,19 +1174,19 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة البداية', '499 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الانطلاق', '299 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
-            {/* Pro */}
+            {/* باقة النمو الذكي */}
             <Card className="relative overflow-hidden border-primary shadow-2xl shadow-primary/10 scale-105 z-10 bg-primary/5">
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
               <div className="absolute top-4 left-4">
-                <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر مبيعاً</Badge>
+                <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر طلباً</Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading text-primary">باقة النمو</CardTitle>
-                <CardDescription>للمتاجر والمطاعم النشطة</CardDescription>
+                <CardTitle className="text-2xl font-heading text-primary">🌟 باقة النمو الذكي</CardTitle>
+                <CardDescription>النمو السريع، الشركات المتوسطة، الحملات المركزة</CardDescription>
                 <div className="mt-4">
                   <span className="text-5xl font-bold">999</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
@@ -1153,11 +1195,12 @@ export default function Home() {
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "25 صورة منتجات إبداعية (4K)", 
-                    "تصميم فيديو ريلز (Reels) إبداعي", 
-                    "كتابة محتوى لـ 10 منشورات", 
-                    "تسليم سريع (24 ساعة)", 
-                    "استشارة تسويقية مجانية"
+                    "30 تصميماً إبداعياً بالـ AI (4K)", 
+                    "25 وصفاً متكاملاً للمنشورات", 
+                    "تحليل SEO + 5 كلمات مفتاحية قوية",
+                    "خطة محتوى نصف شهرية (15 يوم)", 
+                    "تسليم سريع (24-48 ساعة) - أولوية",
+                    "استشارة تسويقية سريعة (AI Analysis)"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 font-medium">
                       <CheckCircle2 size={18} className="text-primary" /> {f}
@@ -1166,28 +1209,32 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة النمو', '999 ريال')}>احجز الآن</Button>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة النمو الذكي', '999 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
 
-            {/* Elite */}
+            {/* باقة الريادة الاستراتيجية */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
+              <div className="absolute top-4 left-4">
+                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 border-none">القيمة الأعلى</Badge>
+              </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">باقة التميز</CardTitle>
-                <CardDescription>حلول متكاملة للشركات</CardDescription>
+                <CardTitle className="text-2xl font-heading">🏆 باقة الريادة</CardTitle>
+                <CardDescription>الاستدامة، العلامات التجارية الكبيرة، الرؤية الشهرية</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">1,999</span>
+                  <span className="text-4xl font-bold">1,799</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "50 صورة عالية الجودة (4K)", 
-                    "تصميم 3 فيديوهات ريلز (Reels)", 
-                    "خطة محتوى شهرية كاملة", 
-                    "كتابة وصف (Caption) للمنشورات",
-                    "دعم فني أولوي"
+                    "30 تصميماً + 2 بنر إعلاني (AI)", 
+                    "خطة محتوى كاملة (30 منشور)",
+                    "3 فيديوهات قصيرة (Reels/Shorts)", 
+                    "تحليل SEO متقدم للمحتوى بالكامل",
+                    "أولوية قصوى في التسليم",
+                    "استشارة شهرية مفصلة (AI + Human)"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
@@ -1196,7 +1243,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة التميز', '1999 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الريادة الاستراتيجية', '1,799 ريال')}>احجز الآن</Button>
               </CardFooter>
             </Card>
           </div>
