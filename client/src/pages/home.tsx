@@ -1,6 +1,7 @@
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { Link } from "wouter";
 import { 
   Sparkles, 
   Zap, 
@@ -259,10 +260,10 @@ export default function Home() {
               الأسعار
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
             </a>
-            <a href="#faq" className="hover:text-primary transition-colors relative group">
-              الأسئلة الشائعة
+            <Link href="/about" className="hover:text-primary transition-colors relative group">
+              من نحن
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </a>
+            </Link>
           </div>
           
           <div className="hidden md:block">
@@ -293,7 +294,6 @@ export default function Home() {
                       { href: "#process", label: "كيف نعمل", icon: "⚡" },
                       { href: "#portfolio", label: "أعمالنا", icon: "📸" },
                       { href: "#pricing", label: "الأسعار", icon: "💎" },
-                      { href: "#faq", label: "الأسئلة الشائعة", icon: "❓" },
                     ].map((item) => (
                       <a 
                         key={item.href}
@@ -310,6 +310,13 @@ export default function Home() {
                         {item.label}
                       </a>
                     ))}
+                    <Link 
+                      href="/about"
+                      className="flex items-center gap-4 text-lg font-medium hover:text-primary hover:bg-primary/10 transition-all p-4 rounded-xl"
+                    >
+                      <span className="text-xl">👥</span>
+                      من نحن
+                    </Link>
                   </nav>
                   <div className="p-6 border-t border-muted">
                     <Button 
