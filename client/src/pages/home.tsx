@@ -260,6 +260,10 @@ export default function Home() {
               الأسعار
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
             </a>
+            <a href="#faq" className="hover:text-primary transition-colors relative group">
+              الأسئلة الشائعة
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+            </a>
             <Link href="/about" className="hover:text-primary transition-colors relative group">
               من نحن
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
@@ -294,6 +298,7 @@ export default function Home() {
                       { href: "#process", label: "كيف نعمل", icon: "⚡" },
                       { href: "#portfolio", label: "أعمالنا", icon: "📸" },
                       { href: "#pricing", label: "الأسعار", icon: "💎" },
+                      { href: "#faq", label: "الأسئلة الشائعة", icon: "❓" },
                     ].map((item) => (
                       <a 
                         key={item.href}
