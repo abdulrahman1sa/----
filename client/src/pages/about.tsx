@@ -119,26 +119,22 @@ export default function About() {
     {
       icon: Sparkles,
       title: "الإبداع",
-      description: "نبتكر حلولاً فريدة تميز عملاءنا",
-      gradient: "from-violet-500 to-purple-600"
+      description: "نبتكر حلولاً فريدة تميز عملاءنا"
     },
     {
       icon: Rocket,
       title: "السرعة", 
-      description: "نسلّم المشاريع بسرعة استثنائية",
-      gradient: "from-blue-500 to-cyan-500"
+      description: "نسلّم المشاريع بسرعة استثنائية"
     },
     {
       icon: Heart,
       title: "الشغف",
-      description: "نتعامل مع كل مشروع كأنه مشروعنا",
-      gradient: "from-pink-500 to-rose-500"
+      description: "نتعامل مع كل مشروع كأنه مشروعنا"
     },
     {
       icon: TrendingUp,
       title: "النتائج",
-      description: "نركز على تحقيق أهداف عملائنا",
-      gradient: "from-amber-500 to-orange-500"
+      description: "نركز على تحقيق أهداف عملائنا"
     }
   ];
 
@@ -149,12 +145,12 @@ export default function About() {
       <motion.div 
         animate={{ scale: [1, 1.2, 1], x: [0, 50, 0] }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="fixed top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-primary/20 via-violet-500/10 to-transparent rounded-full blur-[150px] -z-10" 
+        className="fixed top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] -z-10" 
       />
       <motion.div 
         animate={{ scale: [1, 1.3, 1], x: [0, -30, 0] }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-zinc-500/10 via-primary/5 to-transparent rounded-full blur-[120px] -z-10" 
+        className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
       />
 
       <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-white/5">
@@ -197,9 +193,9 @@ export default function About() {
                 </motion.div>
                 
                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold font-heading mb-8 leading-tight">
-                  نحول <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary via-violet-400 to-primary">الرؤية</span>
+                  نحول <span className="text-primary">الرؤية</span>
                   <br />
-                  إلى <span className="text-transparent bg-clip-text bg-gradient-to-l from-primary via-violet-400 to-primary">واقع</span>
+                  إلى <span className="text-primary">واقع</span>
                 </h1>
                 
                 <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -222,7 +218,7 @@ export default function About() {
                     whileHover={{ scale: 1.05, y: -5 }}
                     className="relative group"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-violet-500/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
                     <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 text-center hover:border-primary/30 transition-all">
                       <stat.icon className="w-6 h-6 text-primary mx-auto mb-3 opacity-60" />
                       <div className="text-3xl md:text-4xl font-bold font-heading text-primary mb-1">
@@ -270,7 +266,7 @@ export default function About() {
             </motion.div>
 
             <div className="max-w-4xl mx-auto relative">
-              <div className="absolute right-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary/50 via-primary to-primary/50 hidden md:block" />
+              <div className="absolute right-8 top-0 bottom-0 w-px bg-primary/30 hidden md:block" />
               
               {timeline.map((item, index) => (
                 <motion.div
@@ -281,7 +277,7 @@ export default function About() {
                   transition={{ delay: index * 0.2 }}
                   className="relative mb-12 md:mr-20"
                 >
-                  <div className="absolute right-0 top-0 w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center shadow-lg shadow-primary/30 hidden md:flex">
+                  <div className="absolute right-0 top-0 w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/30 hidden md:flex">
                     <item.icon className="w-8 h-8 text-white" />
                   </div>
                   
@@ -290,8 +286,8 @@ export default function About() {
                     className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 md:p-10 hover:border-primary/30 transition-all group"
                   >
                     <div className="flex items-center gap-4 mb-4 md:hidden">
-                      <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                        <item.icon className="w-6 h-6 text-primary" />
+                      <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
+                        <item.icon className="w-6 h-6 text-white" />
                       </div>
                       <h3 className="text-2xl font-bold font-heading">{item.title}</h3>
                     </div>
@@ -317,7 +313,7 @@ export default function About() {
                 viewport={{ once: true }}
               >
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-violet-500/10 rounded-3xl blur-2xl" />
+                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl" />
                   <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10">
                     <div className="flex items-center gap-4 mb-8">
                       <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center">
@@ -338,7 +334,7 @@ export default function About() {
                 viewport={{ once: true }}
               >
                 <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-br from-violet-500/20 to-primary/10 rounded-3xl blur-2xl" />
+                  <div className="absolute -inset-4 bg-primary/10 rounded-3xl blur-2xl" />
                   <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10">
                     <div className="flex items-center gap-4 mb-8">
                       <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center">
@@ -382,10 +378,10 @@ export default function About() {
                   className="group"
                 >
                   <div className="relative h-full">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} rounded-3xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity`} />
+                    <div className="absolute inset-0 bg-primary/20 rounded-3xl opacity-0 group-hover:opacity-100 blur-xl transition-opacity" />
                     <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full hover:border-primary/30 transition-all">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${value.gradient} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
-                        <value.icon className="w-7 h-7 text-white" />
+                      <div className="w-14 h-14 rounded-2xl bg-primary/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <value.icon className="w-7 h-7 text-primary" />
                       </div>
                       <h3 className="text-xl font-bold font-heading mb-3 group-hover:text-primary transition-colors">
                         {value.title}
@@ -408,14 +404,14 @@ export default function About() {
               className="max-w-4xl mx-auto"
             >
               <div className="relative">
-                <div className="absolute -inset-6 bg-gradient-to-br from-primary/30 via-violet-500/20 to-primary/10 rounded-[40px] blur-3xl" />
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-[32px] p-10 md:p-16 text-center">
+                <div className="absolute -inset-6 bg-primary/20 rounded-[40px] blur-3xl" />
+                <div className="relative bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[32px] p-10 md:p-16 text-center">
                   <Quote className="w-12 h-12 text-primary/40 mx-auto mb-8 rotate-180" />
                   <p className="text-2xl md:text-3xl font-heading leading-relaxed mb-10 text-foreground/90">
                     "نحن لا نصنع صوراً فقط... نحن نروي قصصاً تُحرّك المشاعر وتصنع المبيعات"
                   </p>
                   <div className="flex items-center justify-center gap-4">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center text-white font-bold text-xl">
+                    <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
                       ب
                     </div>
                     <div className="text-right">
@@ -441,7 +437,7 @@ export default function About() {
             >
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
-                className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-violet-600 flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-primary/30"
+                className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center mx-auto mb-10 shadow-2xl shadow-primary/30"
               >
                 <Users className="w-10 h-10 text-white" />
               </motion.div>
@@ -456,7 +452,7 @@ export default function About() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                   <Link href="/#booking">
-                    <Button size="lg" className="bg-gradient-to-l from-primary to-violet-600 hover:opacity-90 rounded-2xl gap-3 px-8 py-7 text-lg shadow-xl shadow-primary/30">
+                    <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-2xl gap-3 px-8 py-7 text-lg shadow-xl shadow-primary/30">
                       <Sparkles className="w-5 h-5" />
                       احجز استشارة مجانية
                     </Button>
