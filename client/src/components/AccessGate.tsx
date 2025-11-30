@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Lock, Sparkles, ArrowLeft } from "lucide-react";
 import logo from "@assets/logo.png";
 
-const ACCESS_CODE = "KFO";
+const ACCESS_CODE = ["K", "F", "O"];
 const STORAGE_KEY = "badii_access_granted";
 
 interface AccessGateProps {
@@ -14,31 +13,115 @@ interface AccessGateProps {
 
 export default function AccessGate({ children }: AccessGateProps) {
   const [isGranted, setIsGranted] = useState<boolean | null>(null);
-  const [code, setCode] = useState("");
+  const [digits, setDigits] = useState<string[]>(["", "", ""]);
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
+  const [successIndex, setSuccessIndex] = useState<number>(-1);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     setIsGranted(stored === "true");
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const triggerHaptic = useCallback((type: 'success' | 'error' | 'tap') => {
+    if ('vibrate' in navigator) {
+      switch (type) {
+        case 'success':
+          navigator.vibrate([50, 50, 50, 50, 100]);
+          break;
+        case 'error':
+          navigator.vibrate([100, 50, 100]);
+          break;
+        case 'tap':
+          navigator.vibrate(10);
+          break;
+      }
+    }
+  }, []);
+
+  const handleInputChange = (index: number, value: string) => {
+    const char = value.toUpperCase().slice(-1);
     
-    if (code.toUpperCase() === ACCESS_CODE) {
-      setIsUnlocking(true);
+    if (char && !/^[A-Z]$/.test(char)) return;
+    
+    triggerHaptic('tap');
+    
+    const newDigits = [...digits];
+    newDigits[index] = char;
+    setDigits(newDigits);
+    
+    if (char && index < 2) {
+      inputRefs.current[index + 1]?.focus();
+    }
+    
+    if (char && index === 2) {
+      const fullCode = [...newDigits.slice(0, 2), char];
+      setTimeout(() => validateCode(fullCode), 100);
+    }
+  };
+
+  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
+    if (e.key === 'Backspace' && !digits[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+    if (e.key === 'Enter') {
+      validateCode(digits);
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData('text').toUpperCase().slice(0, 3);
+    const chars = pastedData.split('').filter(c => /^[A-Z]$/.test(c));
+    
+    const newDigits = ["", "", ""];
+    chars.forEach((char, i) => {
+      if (i < 3) newDigits[i] = char;
+    });
+    setDigits(newDigits);
+    
+    if (chars.length === 3) {
+      setTimeout(() => validateCode(newDigits), 100);
+    } else {
+      inputRefs.current[chars.length]?.focus();
+    }
+  };
+
+  const validateCode = (codeDigits: string[]) => {
+    const isCorrect = codeDigits.every((d, i) => d === ACCESS_CODE[i]);
+    
+    if (isCorrect) {
       setError(false);
+      triggerHaptic('success');
       
-      setTimeout(() => {
-        localStorage.setItem(STORAGE_KEY, "true");
-        setIsGranted(true);
-      }, 1500);
+      let idx = 0;
+      const interval = setInterval(() => {
+        setSuccessIndex(idx);
+        idx++;
+        if (idx > 3) {
+          clearInterval(interval);
+          setIsUnlocking(true);
+          setTimeout(() => {
+            localStorage.setItem(STORAGE_KEY, "true");
+            setIsGranted(true);
+          }, 800);
+        }
+      }, 150);
     } else {
       setError(true);
-      setCode("");
-      setTimeout(() => setError(false), 2000);
+      triggerHaptic('error');
+      setDigits(["", "", ""]);
+      inputRefs.current[0]?.focus();
+      setTimeout(() => {
+        setError(false);
+      }, 1500);
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    validateCode(digits);
   };
 
   if (isGranted === null) {
@@ -125,26 +208,73 @@ export default function AccessGate({ children }: AccessGateProps) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
                   onSubmit={handleSubmit}
-                  className="space-y-4"
+                  className="space-y-6"
                 >
                   <div className="relative">
-                    <Input
-                      type="text"
-                      value={code}
-                      onChange={(e) => setCode(e.target.value.toUpperCase())}
-                      placeholder="أدخل الكود هنا"
-                      className={`text-center text-2xl font-bold tracking-[0.5em] h-16 bg-background/50 backdrop-blur-sm border-2 transition-all duration-300 ${
-                        error 
-                          ? "border-red-500 bg-red-500/10 animate-shake" 
-                          : isUnlocking 
-                            ? "border-green-500 bg-green-500/10" 
-                            : "border-muted hover:border-primary/50 focus:border-primary"
-                      }`}
-                      maxLength={10}
-                      disabled={isUnlocking}
-                      autoFocus
-                      data-testid="input-access-code"
-                    />
+                    <div className="flex justify-center gap-3 md:gap-4 direction-ltr" dir="ltr">
+                      {[0, 1, 2].map((index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.9 + index * 0.1 }}
+                          className="relative"
+                        >
+                          <input
+                            ref={(el) => { inputRefs.current[index] = el; }}
+                            type="text"
+                            inputMode="text"
+                            autoComplete="off"
+                            value={digits[index]}
+                            onChange={(e) => handleInputChange(index, e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(index, e)}
+                            onPaste={index === 0 ? handlePaste : undefined}
+                            disabled={isUnlocking}
+                            autoFocus={index === 0}
+                            className={`
+                              w-16 h-20 md:w-20 md:h-24 
+                              text-center text-3xl md:text-4xl font-bold 
+                              bg-background/50 backdrop-blur-sm 
+                              border-2 rounded-2xl
+                              outline-none
+                              transition-all duration-300
+                              ${error 
+                                ? "border-red-500 bg-red-500/10 animate-shake" 
+                                : successIndex >= index
+                                  ? "border-green-500 bg-green-500/10 shadow-lg shadow-green-500/20" 
+                                  : digits[index]
+                                    ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
+                                    : "border-muted hover:border-primary/50 focus:border-primary focus:shadow-lg focus:shadow-primary/10"
+                              }
+                            `}
+                            data-testid={`input-code-${index}`}
+                          />
+                          
+                          {successIndex >= index && (
+                            <motion.div
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                            >
+                              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </motion.div>
+                          )}
+                          
+                          {digits[index] && successIndex < 0 && !error && (
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              className="absolute inset-0 rounded-2xl pointer-events-none"
+                              style={{
+                                background: "radial-gradient(circle at center, hsl(var(--primary) / 0.1) 0%, transparent 70%)"
+                              }}
+                            />
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
                     
                     <AnimatePresence>
                       {error && (
@@ -152,7 +282,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0 }}
-                          className="absolute -bottom-8 inset-x-0 text-red-500 text-sm"
+                          className="absolute -bottom-8 inset-x-0 text-red-500 text-sm font-medium"
                         >
                           الكود غير صحيح، حاول مرة أخرى
                         </motion.p>
@@ -160,33 +290,38 @@ export default function AccessGate({ children }: AccessGateProps) {
                     </AnimatePresence>
                   </div>
 
-                  <Button
-                    type="submit"
-                    size="lg"
-                    disabled={!code || isUnlocking}
-                    className={`w-full h-14 text-lg rounded-xl transition-all duration-300 ${
-                      isUnlocking 
-                        ? "bg-green-500 hover:bg-green-500" 
-                        : "bg-primary hover:bg-primary/90"
-                    }`}
-                    data-testid="button-submit-code"
+                  <motion.div
+                    animate={successIndex >= 3 ? { scale: [1, 1.05, 1] } : {}}
+                    transition={{ duration: 0.3 }}
                   >
-                    {isUnlocking ? (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="flex items-center gap-2"
-                      >
-                        <Sparkles className="w-5 h-5" />
-                        <span>جارٍ الدخول...</span>
-                      </motion.div>
-                    ) : (
-                      <span className="flex items-center gap-2">
-                        <ArrowLeft className="w-5 h-5" />
-                        دخول
-                      </span>
-                    )}
-                  </Button>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={digits.some(d => !d) || isUnlocking}
+                      className={`w-full h-14 text-lg rounded-xl transition-all duration-300 ${
+                        isUnlocking || successIndex >= 3
+                          ? "bg-green-500 hover:bg-green-500 shadow-lg shadow-green-500/30" 
+                          : "bg-primary hover:bg-primary/90"
+                      }`}
+                      data-testid="button-submit-code"
+                    >
+                      {isUnlocking ? (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="flex items-center gap-2"
+                        >
+                          <Sparkles className="w-5 h-5" />
+                          <span>جارٍ الدخول...</span>
+                        </motion.div>
+                      ) : (
+                        <span className="flex items-center gap-2">
+                          <ArrowLeft className="w-5 h-5" />
+                          دخول
+                        </span>
+                      )}
+                    </Button>
+                  </motion.div>
                 </motion.form>
 
                 <motion.p
