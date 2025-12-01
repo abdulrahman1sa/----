@@ -6,16 +6,43 @@ import logo from "@assets/logo.png";
 
 const ACCESS_CODE = ["K", "F", "O"];
 
-function FloatingParticles() {
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  
+  return isMobile;
+}
+
+function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+  
+  return reduced;
+}
+
+function FloatingParticles({ count = 10 }: { count?: number }) {
   const particles = useMemo(() => 
-    Array.from({ length: 20 }, (_, i) => ({
+    Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
-      delay: Math.random() * 5,
-      duration: 10 + Math.random() * 15,
-      size: 1 + Math.random() * 3,
-      opacity: 0.1 + Math.random() * 0.2,
-    })), []
+      delay: Math.random() * 8,
+      duration: 15 + Math.random() * 10,
+      size: 2 + Math.random() * 2,
+      opacity: 0.15 + Math.random() * 0.15,
+    })), [count]
   );
 
   return (
@@ -30,11 +57,8 @@ function FloatingParticles() {
             height: particle.size,
             opacity: particle.opacity,
           }}
-          initial={{ bottom: -20, opacity: 0 }}
-          animate={{ 
-            bottom: "110%", 
-            opacity: [0, particle.opacity, particle.opacity, 0],
-          }}
+          initial={{ y: '100vh' }}
+          animate={{ y: '-10vh' }}
           transition={{
             duration: particle.duration,
             delay: particle.delay,
@@ -47,34 +71,56 @@ function FloatingParticles() {
   );
 }
 
-function LogoGlowTransition({ onComplete }: { onComplete: () => void }) {
+function LogoGlowTransition({ onComplete, isMobile, reducedMotion }: { 
+  onComplete: () => void; 
+  isMobile: boolean;
+  reducedMotion: boolean;
+}) {
   const [phase, setPhase] = useState<'appear' | 'glow' | 'ripple' | 'reveal'>('appear');
 
+  const ringCount = isMobile ? 3 : 5;
   const rings = useMemo(() => 
-    Array.from({ length: 6 }, (_, i) => ({
+    Array.from({ length: ringCount }, (_, i) => ({
       id: i,
-      delay: i * 0.15,
-      duration: 0.8,
-    })), []
+      delay: i * 0.12,
+    })), [ringCount]
   );
 
   useEffect(() => {
+    if (reducedMotion) {
+      setTimeout(() => onComplete(), 800);
+      return;
+    }
+    
     const timers = [
-      setTimeout(() => setPhase('glow'), 600),
-      setTimeout(() => setPhase('ripple'), 1400),
-      setTimeout(() => setPhase('reveal'), 2400),
-      setTimeout(() => onComplete(), 3000),
+      setTimeout(() => setPhase('glow'), 500),
+      setTimeout(() => setPhase('ripple'), 1200),
+      setTimeout(() => setPhase('reveal'), 2000),
+      setTimeout(() => onComplete(), 2500),
     ];
     
     return () => timers.forEach(clearTimeout);
-  }, [onComplete]);
+  }, [onComplete, reducedMotion]);
+
+  if (reducedMotion) {
+    return (
+      <motion.div 
+        className="fixed inset-0 z-[200] bg-black flex items-center justify-center"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <img src={logo} alt="BADII" className="h-24 w-auto" />
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div 
       className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }}
     >
       <div className="relative flex items-center justify-center">
         <motion.div
@@ -82,116 +128,81 @@ function LogoGlowTransition({ onComplete }: { onComplete: () => void }) {
           animate={
             phase === 'appear' ? { scale: 1, opacity: 1 } :
             phase === 'glow' ? { scale: 1, opacity: 1 } :
-            phase === 'ripple' ? { scale: 1.1, opacity: 1 } :
-            { scale: 0.8, opacity: 0 }
+            phase === 'ripple' ? { scale: 1.05, opacity: 1 } :
+            { scale: 0.9, opacity: 0 }
           }
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative z-10"
         >
           <motion.div
-            animate={phase === 'glow' || phase === 'ripple' ? {
-              boxShadow: [
-                "0 0 0px rgba(255, 255, 255, 0)",
-                "0 0 60px rgba(255, 255, 255, 0.8)",
-                "0 0 120px rgba(255, 255, 255, 0.6)",
-                "0 0 60px rgba(255, 255, 255, 0.8)",
+            animate={phase === 'glow' ? {
+              filter: [
+                "drop-shadow(0 0 10px rgba(255,255,255,0.3))",
+                "drop-shadow(0 0 40px rgba(255,255,255,0.6))",
+                "drop-shadow(0 0 10px rgba(255,255,255,0.3))",
               ]
             } : {}}
-            transition={{ duration: 1.2, repeat: phase === 'glow' ? Infinity : 0 }}
-            className="rounded-full p-8"
+            transition={{ duration: 0.8, repeat: phase === 'glow' ? 1 : 0 }}
+            className="p-4"
           >
             <img 
               src={logo} 
               alt="BADII" 
-              className="h-28 md:h-36 w-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+              className="h-24 md:h-32 w-auto"
             />
           </motion.div>
-
-          {phase === 'glow' && (
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: [0, 0.3, 0],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{
-                background: "radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)"
-              }}
-            />
-          )}
         </motion.div>
 
         {(phase === 'ripple' || phase === 'reveal') && rings.map((ring) => (
           <motion.div
             key={ring.id}
-            className="absolute rounded-full border-2 border-white/40"
-            initial={{ 
-              width: 100, 
-              height: 100, 
-              opacity: 0.8,
-            }}
-            animate={{ 
-              width: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 2.5 : 2000,
-              height: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 2.5 : 2000,
-              opacity: 0,
-              borderWidth: 20,
-            }}
-            transition={{ 
-              duration: ring.duration + 0.5,
-              delay: ring.delay,
-              ease: "easeOut"
-            }}
+            className="absolute rounded-full border border-white/30"
             style={{
+              width: 80,
+              height: 80,
               left: '50%',
               top: '50%',
-              transform: 'translate(-50%, -50%)',
+              marginLeft: -40,
+              marginTop: -40,
+            }}
+            initial={{ scale: 1, opacity: 0.6 }}
+            animate={{ 
+              scale: 25,
+              opacity: 0,
+            }}
+            transition={{ 
+              duration: 0.7,
+              delay: ring.delay,
+              ease: "easeOut"
             }}
           />
         ))}
 
         {phase === 'reveal' && (
           <motion.div
-            className="absolute inset-0 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-          >
-            <motion.div
-              className="absolute rounded-full bg-white"
-              initial={{ 
-                width: 50, 
-                height: 50,
-                left: '50%',
-                top: '50%',
-                x: '-50%',
-                y: '-50%',
-                opacity: 1
-              }}
-              animate={{ 
-                width: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 3 : 3000,
-                height: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 3 : 3000,
-                opacity: 1
-              }}
-              transition={{ 
-                duration: 0.6,
-                ease: "easeIn"
-              }}
-            />
-          </motion.div>
+            className="absolute rounded-full bg-white"
+            style={{
+              width: 60,
+              height: 60,
+              left: '50%',
+              top: '50%',
+              marginLeft: -30,
+              marginTop: -30,
+            }}
+            initial={{ scale: 1, opacity: 1 }}
+            animate={{ scale: 50, opacity: 1 }}
+            transition={{ duration: 0.4, ease: "easeIn" }}
+          />
         )}
       </div>
 
       <motion.p
-        className="absolute bottom-16 text-white/50 text-sm font-medium tracking-wider"
+        className="absolute bottom-12 text-white/40 text-sm"
         initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: phase === 'glow' || phase === 'ripple' ? 1 : 0 
-        }}
-        transition={{ duration: 0.3 }}
+        animate={{ opacity: phase === 'glow' ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
       >
-        {phase === 'ripple' ? 'مرحباً بك...' : 'جارٍ التحقق...'}
+        جارٍ التحقق...
       </motion.p>
     </motion.div>
   );
@@ -209,6 +220,9 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const [showTransition, setShowTransition] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  
+  const isMobile = useIsMobile();
+  const reducedMotion = useReducedMotion();
 
   const triggerHaptic = useCallback((type: 'success' | 'error' | 'tap') => {
     if ('vibrate' in navigator) {
@@ -290,7 +304,7 @@ export default function AccessGate({ children }: AccessGateProps) {
           setIsUnlocking(true);
           setShowTransition(true);
         }
-      }, 120);
+      }, 100);
     } else {
       setError(true);
       triggerHaptic('error');
@@ -319,47 +333,49 @@ export default function AccessGate({ children }: AccessGateProps) {
   return (
     <>
       <AnimatePresence>
-        {showTransition && <LogoGlowTransition onComplete={handleTransitionComplete} />}
+        {showTransition && (
+          <LogoGlowTransition 
+            onComplete={handleTransitionComplete} 
+            isMobile={isMobile}
+            reducedMotion={reducedMotion}
+          />
+        )}
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/[0.015] rounded-full blur-[150px]" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-white/[0.015] rounded-full blur-[120px]" 
-        />
+        {!isMobile && (
+          <>
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[80px]" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/[0.02] rounded-full blur-[60px]" />
+          </>
+        )}
         
-        <FloatingParticles />
+        {!reducedMotion && <FloatingParticles count={isMobile ? 6 : 12} />}
 
         <div className="relative min-h-screen flex flex-col items-center justify-center px-6 py-12">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.4 }}
             className="text-center w-full max-w-sm"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="mb-8"
             >
               <img 
                 src={logo} 
                 alt="BADII" 
-                className="h-20 md:h-24 w-auto mx-auto drop-shadow-[0_0_40px_rgba(255,255,255,0.3)]"
+                className="h-20 md:h-24 w-auto mx-auto"
               />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.2 }}
               className="mb-8"
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs mb-5">
@@ -379,22 +395,16 @@ export default function AccessGate({ children }: AccessGateProps) {
             </motion.div>
 
             <motion.form
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.3 }}
               onSubmit={handleSubmit}
               className="space-y-6"
             >
               <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6">
                 <div className="flex justify-center gap-3" dir="ltr">
                   {[0, 1, 2].map((index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.6 + index * 0.08 }}
-                      className="relative"
-                    >
+                    <div key={index} className="relative">
                       <input
                         ref={(el) => { inputRefs.current[index] = el; }}
                         type="text"
@@ -415,7 +425,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                           transition-all duration-200
                           text-white
                           ${error 
-                            ? "border-red-500/70 bg-red-500/10 animate-shake text-red-400" 
+                            ? "border-red-500/70 bg-red-500/10 text-red-400" 
                             : successIndex >= index
                               ? "border-white bg-white/20" 
                               : digits[index]
@@ -427,32 +437,21 @@ export default function AccessGate({ children }: AccessGateProps) {
                       />
                       
                       {successIndex >= index && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full flex items-center justify-center"
-                        >
+                        <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full flex items-center justify-center">
                           <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
-                        </motion.div>
+                        </div>
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
                 
-                <AnimatePresence>
-                  {error && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="mt-4 text-red-400 text-xs font-medium text-center"
-                    >
-                      الكود غير صحيح
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                {error && (
+                  <p className="mt-4 text-red-400 text-xs font-medium text-center">
+                    الكود غير صحيح
+                  </p>
+                )}
               </div>
 
               <Button
@@ -464,12 +463,7 @@ export default function AccessGate({ children }: AccessGateProps) {
               >
                 {isUnlocking ? (
                   <span className="flex items-center gap-2">
-                    <motion.span
-                      animate={{ opacity: [1, 0.3, 1] }}
-                      transition={{ duration: 0.4, repeat: Infinity }}
-                    >
-                      <Terminal className="w-5 h-5" />
-                    </motion.span>
+                    <Terminal className="w-5 h-5 animate-pulse" />
                     جارٍ الدخول...
                   </span>
                 ) : (
@@ -484,7 +478,7 @@ export default function AccessGate({ children }: AccessGateProps) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 0.5 }}
               className="mt-8"
             >
               <p className="text-xs text-white/25 mb-2">ليس لديك كود؟</p>
@@ -499,14 +493,9 @@ export default function AccessGate({ children }: AccessGateProps) {
             </motion.div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="absolute bottom-6 left-0 right-0 text-center"
-          >
+          <div className="absolute bottom-6 left-0 right-0 text-center">
             <p className="text-white/50 text-sm font-medium">hello@badii.cloud</p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </>
