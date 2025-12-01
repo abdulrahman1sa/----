@@ -311,7 +311,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                     <img 
                       src={logo} 
                       alt="BADII" 
-                      className="h-24 md:h-32 w-auto mx-auto mb-6 relative z-10 drop-shadow-2xl brightness-0 invert"
+                      className="h-24 md:h-32 w-auto mx-auto mb-6 relative z-10 drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
                     />
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
