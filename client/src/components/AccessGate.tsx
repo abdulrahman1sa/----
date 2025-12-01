@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Lock, ArrowLeft, Crown, Terminal } from "lucide-react";
@@ -47,79 +47,157 @@ function FloatingParticles() {
   );
 }
 
-function GlitchTransition({ onComplete }: { onComplete: () => void }) {
-  const lines = useMemo(() => 
-    Array.from({ length: 25 }, (_, i) => ({
-      id: i,
-      y: (i / 25) * 100,
-      delay: Math.random() * 0.2,
-      width: 60 + Math.random() * 40,
-    })), []
-  );
+function CreativeParticlesTransition({ onComplete }: { onComplete: () => void }) {
+  const [phase, setPhase] = useState<'gather' | 'form' | 'scatter'>('gather');
+  
+  const particles = useMemo(() => {
+    const points: { id: number; startX: number; startY: number; targetX: number; targetY: number; size: number; delay: number }[] = [];
+    
+    const text = "بديع";
+    const letterSpacing = 80;
+    const startX = 50 - (text.length * letterSpacing) / 2 / 4;
+    
+    const letterPatterns: { [key: string]: number[][] } = {
+      'ب': [
+        [0, 0], [1, 0], [2, 0], [3, 0],
+        [3, 1], [3, 2],
+        [0, 2], [1, 2], [2, 2],
+        [1.5, 3.5]
+      ],
+      'د': [
+        [0, 0], [1, 0], [2, 0],
+        [2, 1], [2, 2],
+        [0, 2], [1, 2]
+      ],
+      'ي': [
+        [0, 0], [1, 0], [2, 0], [3, 0],
+        [0, 1], [3, 1],
+        [0, 2], [1, 2], [2, 2], [3, 2],
+        [1, 3.5], [2, 3.5]
+      ],
+      'ع': [
+        [1, 0], [2, 0],
+        [0, 1], [2, 1],
+        [0, 2], [1, 2], [2, 2]
+      ]
+    };
+
+    let id = 0;
+    const scale = 12;
+    const baseY = 45;
+
+    text.split('').forEach((char, charIndex) => {
+      const pattern = letterPatterns[char] || [];
+      const offsetX = startX + (text.length - 1 - charIndex) * letterSpacing / 4;
+      
+      pattern.forEach(([px, py]) => {
+        for (let i = 0; i < 3; i++) {
+          points.push({
+            id: id++,
+            startX: Math.random() * 100,
+            startY: Math.random() * 100,
+            targetX: offsetX + px * scale / 4 + (Math.random() - 0.5) * 2,
+            targetY: baseY + py * scale / 4 + (Math.random() - 0.5) * 2,
+            size: 3 + Math.random() * 4,
+            delay: Math.random() * 0.3,
+          });
+        }
+      });
+    });
+
+    for (let i = 0; i < 50; i++) {
+      points.push({
+        id: id++,
+        startX: Math.random() * 100,
+        startY: Math.random() * 100,
+        targetX: 30 + Math.random() * 40,
+        targetY: 40 + Math.random() * 20,
+        size: 2 + Math.random() * 3,
+        delay: Math.random() * 0.5,
+      });
+    }
+
+    return points;
+  }, []);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => setPhase('form'), 800);
+    const timer2 = setTimeout(() => setPhase('scatter'), 2200);
+    const timer3 = setTimeout(() => onComplete(), 3000);
+    
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, [onComplete]);
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[200] bg-black"
+      className="fixed inset-0 z-[200] bg-black overflow-hidden"
       initial={{ opacity: 1 }}
-      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      onAnimationComplete={() => {
-        setTimeout(onComplete, 800);
-      }}
+      transition={{ duration: 0.5 }}
     >
-      {lines.map((line) => (
+      {particles.map((particle) => (
         <motion.div
-          key={line.id}
-          className="absolute left-0 h-[3px] bg-white"
-          style={{ top: `${line.y}%` }}
-          initial={{ width: 0, x: 0 }}
-          animate={{ 
-            width: [`${line.width}%`, "100%", "100%", 0],
-            x: [0, 0, 0, "100%"],
-            opacity: [1, 1, 0.8, 0]
+          key={particle.id}
+          className="absolute rounded-full bg-white"
+          style={{
+            width: particle.size,
+            height: particle.size,
           }}
-          transition={{ 
-            duration: 0.6, 
-            delay: line.delay,
-            ease: "easeInOut"
+          initial={{
+            left: `${particle.startX}%`,
+            top: `${particle.startY}%`,
+            opacity: 0,
+            scale: 0,
+          }}
+          animate={
+            phase === 'gather' ? {
+              left: `${particle.startX}%`,
+              top: `${particle.startY}%`,
+              opacity: 1,
+              scale: 1,
+            } : phase === 'form' ? {
+              left: `${particle.targetX}%`,
+              top: `${particle.targetY}%`,
+              opacity: 1,
+              scale: 1,
+            } : {
+              left: `${50 + (Math.random() - 0.5) * 200}%`,
+              top: `${50 + (Math.random() - 0.5) * 200}%`,
+              opacity: 0,
+              scale: 2,
+            }
+          }
+          transition={{
+            duration: phase === 'scatter' ? 0.8 : 0.6,
+            delay: particle.delay,
+            ease: phase === 'form' ? "easeOut" : "easeIn",
           }}
         />
       ))}
-      
-      <motion.div
-        className="absolute inset-0 bg-white"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0, 1, 1, 0] }}
-        transition={{ duration: 0.6, times: [0, 0.4, 0.5, 0.6, 1] }}
-      />
-      
-      <motion.div
-        className="absolute inset-0 flex items-center justify-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 1, 1, 0] }}
-        transition={{ duration: 0.6, times: [0, 0.2, 0.7, 1] }}
-      >
-        <motion.div
-          animate={{ 
-            x: [-3, 3, -3, 0],
-            opacity: [1, 0.5, 1, 0.8]
-          }}
-          transition={{ duration: 0.08, repeat: 6 }}
-          className="text-black text-3xl md:text-5xl font-mono font-bold tracking-[0.3em]"
-        >
-          ACCESS GRANTED
-        </motion.div>
-      </motion.div>
 
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.02) 2px, rgba(255,255,255,0.02) 4px)"
-        }}
-        animate={{ y: [0, 4] }}
-        transition={{ duration: 0.08, repeat: Infinity }}
-      />
+      {phase === 'form' && (
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.3, 0] }}
+          transition={{ duration: 1.5, delay: 0.3 }}
+        >
+          <div className="w-64 h-64 rounded-full bg-white/10 blur-3xl" />
+        </motion.div>
+      )}
+
+      {phase === 'scatter' && (
+        <motion.div
+          className="absolute inset-0 bg-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 1] }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        />
+      )}
     </motion.div>
   );
 }
@@ -134,7 +212,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
-  const [showGlitch, setShowGlitch] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const triggerHaptic = useCallback((type: 'success' | 'error' | 'tap') => {
@@ -215,7 +293,7 @@ export default function AccessGate({ children }: AccessGateProps) {
         if (idx > 3) {
           clearInterval(interval);
           setIsUnlocking(true);
-          setShowGlitch(true);
+          setShowTransition(true);
         }
       }, 120);
     } else {
@@ -234,10 +312,10 @@ export default function AccessGate({ children }: AccessGateProps) {
     validateCode(digits);
   };
 
-  const handleGlitchComplete = () => {
-    setShowGlitch(false);
+  const handleTransitionComplete = useCallback(() => {
+    setShowTransition(false);
     setIsGranted(true);
-  };
+  }, []);
 
   if (isGranted) {
     return <>{children}</>;
@@ -246,7 +324,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   return (
     <>
       <AnimatePresence>
-        {showGlitch && <GlitchTransition onComplete={handleGlitchComplete} />}
+        {showTransition && <CreativeParticlesTransition onComplete={handleTransitionComplete} />}
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
