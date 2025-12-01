@@ -1,20 +1,20 @@
 import { useState, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Lock, Sparkles, ArrowLeft, Crown, Star } from "lucide-react";
+import { Lock, ArrowLeft, Crown, Terminal } from "lucide-react";
 import logo from "@assets/logo.png";
 
 const ACCESS_CODE = ["K", "F", "O"];
 
 function FloatingParticles() {
   const particles = useMemo(() => 
-    Array.from({ length: 30 }, (_, i) => ({
+    Array.from({ length: 25 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       delay: Math.random() * 5,
       duration: 8 + Math.random() * 12,
-      size: 2 + Math.random() * 6,
-      opacity: 0.1 + Math.random() * 0.4,
+      size: 2 + Math.random() * 4,
+      opacity: 0.05 + Math.random() * 0.15,
     })), []
   );
 
@@ -23,7 +23,7 @@ function FloatingParticles() {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute rounded-full bg-primary"
+          className="absolute rounded-full bg-white"
           style={{
             left: `${particle.x}%`,
             width: particle.size,
@@ -53,86 +53,92 @@ function GeometricShapes() {
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        className="absolute -top-20 -right-20 w-80 h-80 border border-primary/10 rounded-full"
+        className="absolute -top-20 -right-20 w-80 h-80 border border-white/5 rounded-full"
       />
       <motion.div
         animate={{ rotate: -360 }}
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
-        className="absolute -bottom-40 -left-40 w-96 h-96 border border-primary/5 rounded-full"
+        className="absolute -bottom-40 -left-40 w-96 h-96 border border-white/3 rounded-full"
       />
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/4 -left-20 w-60 h-60 border border-zinc-500/10 rounded-full"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 right-1/4 w-4 h-4 bg-primary/30 rounded-full blur-sm"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-32 left-1/3 w-3 h-3 bg-primary/40 rounded-full blur-sm"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute top-1/2 right-20 w-5 h-5 bg-zinc-400/20 rounded-full blur-sm"
+        className="absolute top-1/4 -left-20 w-60 h-60 border border-white/5 rounded-full"
       />
     </div>
   );
 }
 
-function SuccessExplosion() {
-  const stars = useMemo(() => 
-    Array.from({ length: 20 }, (_, i) => ({
+function GlitchTransition() {
+  const lines = useMemo(() => 
+    Array.from({ length: 30 }, (_, i) => ({
       id: i,
-      angle: (i / 20) * 360,
-      distance: 100 + Math.random() * 150,
+      y: (i / 30) * 100,
       delay: Math.random() * 0.3,
-      size: 8 + Math.random() * 16,
-      duration: 0.8 + Math.random() * 0.4,
+      width: 50 + Math.random() * 50,
     })), []
   );
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-50">
-      {stars.map((star) => (
+    <motion.div 
+      className="fixed inset-0 z-[200] pointer-events-none bg-black"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {lines.map((line) => (
         <motion.div
-          key={star.id}
-          initial={{ 
-            scale: 0, 
-            x: 0, 
-            y: 0,
-            opacity: 1 
-          }}
+          key={line.id}
+          className="absolute left-0 h-[4px] bg-white"
+          style={{ top: `${line.y}%` }}
+          initial={{ width: 0, x: 0 }}
           animate={{ 
-            scale: [0, 1.5, 0],
-            x: Math.cos(star.angle * Math.PI / 180) * star.distance,
-            y: Math.sin(star.angle * Math.PI / 180) * star.distance,
-            opacity: [1, 1, 0]
+            width: [`${line.width}%`, "100%", "100%", 0],
+            x: [0, 0, 0, "100%"],
+            opacity: [1, 1, 0.8, 0]
           }}
           transition={{ 
-            duration: star.duration, 
-            delay: star.delay,
-            ease: "easeOut"
+            duration: 0.8, 
+            delay: line.delay,
+            ease: "easeInOut"
           }}
-          className="absolute"
-        >
-          <Star 
-            className="text-primary fill-primary" 
-            style={{ width: star.size, height: star.size }}
-          />
-        </motion.div>
+        />
       ))}
+      
       <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0, 3, 4], opacity: [0.8, 0.4, 0] }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute w-32 h-32 rounded-full bg-primary/30 blur-xl"
+        className="absolute inset-0 bg-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0, 1, 1, 0] }}
+        transition={{ duration: 0.8, times: [0, 0.4, 0.5, 0.6, 1] }}
       />
-    </div>
+      
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 1, 1, 0] }}
+        transition={{ duration: 0.8, times: [0, 0.3, 0.7, 1] }}
+      >
+        <motion.div
+          animate={{ 
+            x: [-2, 2, -2, 0],
+            opacity: [1, 0.5, 1, 0.8]
+          }}
+          transition={{ duration: 0.1, repeat: 5 }}
+          className="text-black text-4xl font-mono font-bold tracking-widest"
+        >
+          ACCESS GRANTED
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)"
+        }}
+        animate={{ y: [0, 4] }}
+        transition={{ duration: 0.1, repeat: Infinity }}
+      />
+    </motion.div>
   );
 }
 
@@ -146,7 +152,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [error, setError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
-  const [showExplosion, setShowExplosion] = useState(false);
+  const [showGlitch, setShowGlitch] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const triggerHaptic = useCallback((type: 'success' | 'error' | 'tap') => {
@@ -226,11 +232,11 @@ export default function AccessGate({ children }: AccessGateProps) {
         idx++;
         if (idx > 3) {
           clearInterval(interval);
-          setShowExplosion(true);
+          setShowGlitch(true);
           setIsUnlocking(true);
           setTimeout(() => {
             setIsGranted(true);
-          }, 1200);
+          }, 1000);
         }
       }, 150);
     } else {
@@ -252,35 +258,30 @@ export default function AccessGate({ children }: AccessGateProps) {
   return (
     <>
       <AnimatePresence>
+        {showGlitch && <GlitchTransition />}
+      </AnimatePresence>
+
+      <AnimatePresence>
         {!isGranted && (
           <motion.div
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            transition={{ duration: 1, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] bg-background overflow-hidden"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[100] bg-black overflow-hidden"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-            
             <motion.div 
               animate={{ scale: [1, 1.2, 1], x: [0, 50, 0] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/15 rounded-full blur-[180px]" 
+              className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/[0.02] rounded-full blur-[180px]" 
             />
             <motion.div 
               animate={{ scale: [1, 1.3, 1], x: [0, -30, 0] }}
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-zinc-500/10 rounded-full blur-[150px]" 
-            />
-            <motion.div 
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px]" 
+              className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-white/[0.02] rounded-full blur-[150px]" 
             />
             
             <GeometricShapes />
             <FloatingParticles />
-            
-            {showExplosion && <SuccessExplosion />}
 
             <div className="relative min-h-screen flex flex-col items-center justify-center px-6">
               <motion.div
@@ -299,9 +300,9 @@ export default function AccessGate({ children }: AccessGateProps) {
                     <motion.div
                       animate={{ 
                         boxShadow: [
-                          "0 0 20px rgba(139, 92, 246, 0.3)",
-                          "0 0 60px rgba(139, 92, 246, 0.5)",
-                          "0 0 20px rgba(139, 92, 246, 0.3)"
+                          "0 0 20px rgba(255, 255, 255, 0.1)",
+                          "0 0 60px rgba(255, 255, 255, 0.2)",
+                          "0 0 20px rgba(255, 255, 255, 0.1)"
                         ]
                       }}
                       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -310,10 +311,10 @@ export default function AccessGate({ children }: AccessGateProps) {
                     <img 
                       src={logo} 
                       alt="BADII" 
-                      className="h-24 md:h-32 w-auto mx-auto mb-6 relative z-10 drop-shadow-2xl"
+                      className="h-24 md:h-32 w-auto mx-auto mb-6 relative z-10 drop-shadow-2xl brightness-0 invert"
                     />
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
                       initial={{ x: "-200%" }}
                       animate={{ x: "200%" }}
                       transition={{
@@ -336,30 +337,24 @@ export default function AccessGate({ children }: AccessGateProps) {
                     initial={{ scale: 0.9 }}
                     animate={{ scale: 1 }}
                     transition={{ delay: 0.7 }}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] text-primary text-sm mb-6 shadow-xl shadow-black/5"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.05] backdrop-blur-2xl border border-white/[0.1] text-white text-sm mb-6 shadow-xl"
                   >
                     <Crown className="w-4 h-4" />
                     <span className="font-medium">دخول VIP حصري</span>
                     <Lock className="w-4 h-4" />
                   </motion.div>
                   
-                  <h1 className="text-4xl md:text-5xl font-bold font-heading mb-5 leading-tight">
-                    <span className="text-foreground">مرحباً بك في</span>
-                    <motion.span 
-                      animate={{ 
-                        backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
-                      }}
-                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                      className="block text-transparent bg-clip-text bg-gradient-to-r from-primary via-violet-400 to-primary bg-[length:200%_auto]"
-                    >
+                  <h1 className="text-4xl md:text-5xl font-bold font-heading mb-5 leading-tight text-white">
+                    <span>مرحباً بك في</span>
+                    <span className="block text-white/80">
                       عالم بديع
-                    </motion.span>
+                    </span>
                   </h1>
                   
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-white/50 text-lg leading-relaxed">
                     أدخل كود الدخول الخاص بك للوصول
                     <br />
-                    <span className="text-primary/70 text-sm">للأعضاء المميزين فقط ✨</span>
+                    <span className="text-white/30 text-sm">للأعضاء المميزين فقط</span>
                   </p>
                 </motion.div>
 
@@ -371,13 +366,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                   className="space-y-8"
                 >
                   <div className="relative">
-                    <motion.div 
-                      className="absolute inset-0 bg-primary/10 rounded-3xl blur-2xl -z-10"
-                      animate={{ opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    
-                    <div className="bg-white/[0.06] backdrop-blur-2xl border border-white/[0.12] rounded-3xl p-8 shadow-2xl shadow-black/10">
+                    <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-3xl p-8 shadow-2xl">
                       <div className="flex justify-center gap-4 md:gap-5 direction-ltr" dir="ltr">
                         {[0, 1, 2].map((index) => (
                           <motion.div
@@ -388,7 +377,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                             className="relative group"
                           >
                             <motion.div
-                              className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                              className="absolute inset-0 bg-white/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                             />
                             <input
                               ref={(el) => { inputRefs.current[index] = el; }}
@@ -405,17 +394,18 @@ export default function AccessGate({ children }: AccessGateProps) {
                                 relative
                                 w-18 h-22 md:w-22 md:h-26 
                                 text-center text-4xl md:text-5xl font-bold 
-                                bg-white/[0.08] backdrop-blur-xl
+                                bg-white/[0.05] backdrop-blur-xl
                                 border-2 rounded-2xl
                                 outline-none
                                 transition-all duration-300
+                                text-white
                                 ${error 
                                   ? "border-red-500 bg-red-500/10 animate-shake text-red-400" 
                                   : successIndex >= index
-                                    ? "border-green-500 bg-green-500/15 shadow-lg shadow-green-500/30 text-green-400" 
+                                    ? "border-white bg-white/20 shadow-lg shadow-white/20" 
                                     : digits[index]
-                                      ? "border-primary bg-primary/10 shadow-lg shadow-primary/20 text-primary"
-                                      : "border-white/20 hover:border-primary/50 focus:border-primary focus:shadow-lg focus:shadow-primary/20 focus:bg-primary/5"
+                                      ? "border-white/50 bg-white/10 shadow-lg shadow-white/10"
+                                      : "border-white/10 hover:border-white/30 focus:border-white/50 focus:shadow-lg focus:shadow-white/10 focus:bg-white/5"
                                 }
                               `}
                               style={{ width: '72px', height: '88px' }}
@@ -426,9 +416,9 @@ export default function AccessGate({ children }: AccessGateProps) {
                               <motion.div
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
-                                className="absolute -top-2 -right-2 w-7 h-7 bg-green-500 rounded-full flex items-center justify-center shadow-lg shadow-green-500/50"
+                                className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-lg shadow-white/30"
                               >
-                                <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                 </svg>
                               </motion.div>
@@ -445,7 +435,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                             exit={{ opacity: 0 }}
                             className="mt-4 text-red-400 text-sm font-medium text-center"
                           >
-                            ❌ الكود غير صحيح، حاول مرة أخرى
+                            الكود غير صحيح، حاول مرة أخرى
                           </motion.p>
                         )}
                       </AnimatePresence>
@@ -462,8 +452,8 @@ export default function AccessGate({ children }: AccessGateProps) {
                       disabled={digits.some(d => !d) || isUnlocking}
                       className={`w-full h-16 text-xl font-bold rounded-2xl transition-all duration-500 ${
                         isUnlocking || successIndex >= 3
-                          ? "bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-500 hover:to-emerald-500 shadow-2xl shadow-green-500/40" 
-                          : "bg-gradient-to-r from-primary to-violet-500 hover:from-primary/90 hover:to-violet-500/90 shadow-xl shadow-primary/30"
+                          ? "bg-white text-black hover:bg-white shadow-2xl shadow-white/30" 
+                          : "bg-white text-black hover:bg-white/90 shadow-xl shadow-white/20"
                       }`}
                       data-testid="button-submit-code"
                     >
@@ -474,10 +464,10 @@ export default function AccessGate({ children }: AccessGateProps) {
                           className="flex items-center gap-3"
                         >
                           <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                            animate={{ opacity: [1, 0.3, 1] }}
+                            transition={{ duration: 0.5, repeat: Infinity }}
                           >
-                            <Sparkles className="w-6 h-6" />
+                            <Terminal className="w-6 h-6" />
                           </motion.div>
                           <span>جارٍ الدخول...</span>
                         </motion.div>
@@ -497,17 +487,16 @@ export default function AccessGate({ children }: AccessGateProps) {
                   transition={{ delay: 1.2 }}
                   className="mt-10"
                 >
-                  <p className="text-sm text-muted-foreground mb-3">
+                  <p className="text-sm text-white/30 mb-3">
                     ليس لديك كود؟
                   </p>
                   <a 
                     href="https://wa.me/966509567267?text=مرحباً، أريد الحصول على كود الدخول لموقع BADII"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.06] backdrop-blur-xl border border-white/[0.12] rounded-full text-primary hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 text-sm font-medium"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-full text-white hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-sm font-medium"
                   >
                     <span>تواصل معنا عبر واتساب</span>
-                    <span>💬</span>
                   </a>
                 </motion.div>
               </motion.div>
@@ -518,7 +507,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                 transition={{ delay: 1.4 }}
                 className="absolute bottom-8 text-center"
               >
-                <p className="text-sm text-muted-foreground/60">hello@badii.cloud</p>
+                <p className="text-sm text-white/20">hello@badii.cloud</p>
               </motion.div>
             </div>
           </motion.div>
