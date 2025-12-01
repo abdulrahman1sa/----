@@ -47,157 +47,114 @@ function FloatingParticles() {
   );
 }
 
-function CreativeParticlesTransition({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState<'gather' | 'form' | 'scatter'>('gather');
-  
-  const particles = useMemo(() => {
-    const points: { id: number; startX: number; startY: number; targetX: number; targetY: number; size: number; delay: number }[] = [];
-    
-    const text = "بديع";
-    const letterSpacing = 80;
-    const startX = 50 - (text.length * letterSpacing) / 2 / 4;
-    
-    const letterPatterns: { [key: string]: number[][] } = {
-      'ب': [
-        [0, 0], [1, 0], [2, 0], [3, 0],
-        [3, 1], [3, 2],
-        [0, 2], [1, 2], [2, 2],
-        [1.5, 3.5]
-      ],
-      'د': [
-        [0, 0], [1, 0], [2, 0],
-        [2, 1], [2, 2],
-        [0, 2], [1, 2]
-      ],
-      'ي': [
-        [0, 0], [1, 0], [2, 0], [3, 0],
-        [0, 1], [3, 1],
-        [0, 2], [1, 2], [2, 2], [3, 2],
-        [1, 3.5], [2, 3.5]
-      ],
-      'ع': [
-        [1, 0], [2, 0],
-        [0, 1], [2, 1],
-        [0, 2], [1, 2], [2, 2]
-      ]
-    };
-
-    let id = 0;
-    const scale = 12;
-    const baseY = 45;
-
-    text.split('').forEach((char, charIndex) => {
-      const pattern = letterPatterns[char] || [];
-      const offsetX = startX + (text.length - 1 - charIndex) * letterSpacing / 4;
-      
-      pattern.forEach(([px, py]) => {
-        for (let i = 0; i < 3; i++) {
-          points.push({
-            id: id++,
-            startX: Math.random() * 100,
-            startY: Math.random() * 100,
-            targetX: offsetX + px * scale / 4 + (Math.random() - 0.5) * 2,
-            targetY: baseY + py * scale / 4 + (Math.random() - 0.5) * 2,
-            size: 3 + Math.random() * 4,
-            delay: Math.random() * 0.3,
-          });
-        }
-      });
-    });
-
-    for (let i = 0; i < 50; i++) {
-      points.push({
-        id: id++,
-        startX: Math.random() * 100,
-        startY: Math.random() * 100,
-        targetX: 30 + Math.random() * 40,
-        targetY: 40 + Math.random() * 20,
-        size: 2 + Math.random() * 3,
-        delay: Math.random() * 0.5,
-      });
-    }
-
-    return points;
-  }, []);
+function EraserTransition({ onComplete }: { onComplete: () => void }) {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setPhase('form'), 800);
-    const timer2 = setTimeout(() => setPhase('scatter'), 2200);
-    const timer3 = setTimeout(() => onComplete(), 3000);
+    const duration = 1200;
+    const startTime = Date.now();
     
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const newProgress = Math.min(elapsed / duration, 1);
+      setProgress(newProgress);
+      
+      if (newProgress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setTimeout(onComplete, 200);
+      }
     };
+    
+    requestAnimationFrame(animate);
   }, [onComplete]);
+
+  const eraserX = progress * 120 - 10;
+  const eraserY = 50 + Math.sin(progress * Math.PI * 2) * 5;
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[200] bg-black overflow-hidden"
+      className="fixed inset-0 z-[200] pointer-events-none"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.3 }}
     >
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full bg-white"
-          style={{
-            width: particle.size,
-            height: particle.size,
-          }}
-          initial={{
-            left: `${particle.startX}%`,
-            top: `${particle.startY}%`,
-            opacity: 0,
-            scale: 0,
-          }}
-          animate={
-            phase === 'gather' ? {
-              left: `${particle.startX}%`,
-              top: `${particle.startY}%`,
-              opacity: 1,
-              scale: 1,
-            } : phase === 'form' ? {
-              left: `${particle.targetX}%`,
-              top: `${particle.targetY}%`,
-              opacity: 1,
-              scale: 1,
-            } : {
-              left: `${50 + (Math.random() - 0.5) * 200}%`,
-              top: `${50 + (Math.random() - 0.5) * 200}%`,
-              opacity: 0,
-              scale: 2,
-            }
-          }
-          transition={{
-            duration: phase === 'scatter' ? 0.8 : 0.6,
-            delay: particle.delay,
-            ease: phase === 'form' ? "easeOut" : "easeIn",
-          }}
-        />
-      ))}
+      <div 
+        className="absolute inset-0 bg-black"
+        style={{
+          clipPath: `polygon(
+            ${Math.max(0, eraserX - 5)}% 0%, 
+            100% 0%, 
+            100% 100%, 
+            ${Math.max(0, eraserX - 5)}% 100%,
+            ${Math.max(0, eraserX - 15)}% 50%
+          )`,
+          transition: 'clip-path 0.05s linear'
+        }}
+      />
 
-      {phase === 'form' && (
-        <motion.div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.3, 0] }}
-          transition={{ duration: 1.5, delay: 0.3 }}
-        >
-          <div className="w-64 h-64 rounded-full bg-white/10 blur-3xl" />
-        </motion.div>
-      )}
+      <motion.div
+        className="absolute"
+        style={{
+          left: `${eraserX}%`,
+          top: `${eraserY}%`,
+          transform: 'translate(-50%, -50%)',
+        }}
+        animate={{
+          rotate: [0, -5, 5, -3, 0],
+        }}
+        transition={{
+          duration: 0.3,
+          repeat: Infinity,
+        }}
+      >
+        <div className="relative">
+          <div 
+            className="w-16 h-24 md:w-20 md:h-28 rounded-lg bg-gradient-to-b from-pink-300 to-pink-400 shadow-2xl"
+            style={{
+              transform: 'rotate(-15deg)',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.3)'
+            }}
+          >
+            <div className="absolute bottom-0 left-0 right-0 h-6 md:h-8 bg-gradient-to-b from-gray-200 to-gray-100 rounded-b-lg" />
+            <div className="absolute top-2 left-2 right-2 h-1 bg-white/40 rounded-full" />
+          </div>
+          
+          {progress > 0.1 && progress < 0.95 && (
+            <motion.div
+              className="absolute -left-4 top-1/2 -translate-y-1/2"
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1, 0.5] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            >
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full bg-white/30"
+                  initial={{ x: 0, y: 0 }}
+                  animate={{ 
+                    x: -20 - Math.random() * 30,
+                    y: (Math.random() - 0.5) * 40,
+                    opacity: 0
+                  }}
+                  transition={{ duration: 0.4, delay: i * 0.05 }}
+                />
+              ))}
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
 
-      {phase === 'scatter' && (
-        <motion.div
-          className="absolute inset-0 bg-white"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 1] }}
-          transition={{ duration: 0.3, delay: 0.4 }}
-        />
-      )}
+      <motion.div
+        className="absolute bottom-10 left-0 right-0 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: progress > 0.3 && progress < 0.9 ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <p className="text-white/60 text-sm font-medium tracking-wider">
+          جارٍ الدخول...
+        </p>
+      </motion.div>
     </motion.div>
   );
 }
@@ -324,7 +281,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   return (
     <>
       <AnimatePresence>
-        {showTransition && <CreativeParticlesTransition onComplete={handleTransitionComplete} />}
+        {showTransition && <EraserTransition onComplete={handleTransitionComplete} />}
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
