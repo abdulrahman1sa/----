@@ -1,7 +1,6 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Lock, ArrowLeft, Crown, Terminal } from "lucide-react";
+import { Lock, Crown } from "lucide-react";
 import logo from "@assets/logo.png";
 
 import portfolio1 from "@assets/portfolio_perfume_match.jpg";
@@ -625,25 +624,6 @@ export default function AccessGate({ children }: AccessGateProps) {
                 )}
               </div>
 
-              <Button
-                type="submit"
-                size="lg"
-                disabled={digits.some(d => !d) || isUnlocking}
-                className="w-full h-14 text-lg font-bold rounded-xl bg-white text-black hover:bg-white/90 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                data-testid="button-submit-code"
-              >
-                {isUnlocking ? (
-                  <span className="flex items-center gap-2">
-                    <Terminal className="w-5 h-5 animate-pulse" />
-                    جارٍ الدخول...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <ArrowLeft className="w-5 h-5" />
-                    دخول
-                  </span>
-                )}
-              </Button>
             </motion.form>
 
           </motion.div>
