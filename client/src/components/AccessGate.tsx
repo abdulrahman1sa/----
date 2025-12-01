@@ -94,16 +94,16 @@ function PortfolioGallery() {
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 0.2, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0"
+          className="absolute inset-0 flex items-center justify-center bg-black"
         >
           <img 
             src={portfolioImages[currentIndex]} 
             alt="" 
-            className="w-full h-full object-cover"
+            className="max-w-full max-h-full w-auto h-auto object-contain"
           />
         </motion.div>
       </AnimatePresence>
