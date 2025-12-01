@@ -381,15 +381,15 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <Badge variant="outline" className="mb-6 px-6 py-2 text-sm border-primary/30 text-primary bg-primary/5 backdrop-blur-sm rounded-full">
-              ✨ شريكك الإبداعي الأول في عالم الذكاء الاصطناعي
+              ✨ صور احترافية بدون استديو
             </Badge>
             <h1 className="text-5xl md:text-7xl font-bold font-heading mb-8 leading-tight">
-              حوّل صور منتجاتك إلى <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">مبيعات حقيقية</span>
+              صوّر منتجك بجوالك <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">ونحولها لإعلان</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              نبتكر محتوى بصرياً مذهلاً باستخدام أحدث تقنيات الذكاء الاصطناعي. 
-              جودة سينمائية، سرعة فائقة، وتكلفة تناسب طموحك.
+              ارسل لنا صورة منتجك العادية، ونرجعها لك صورة إعلانية احترافية.
+              بسيط، سريع، وبسعر يناسبك.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 text-primary-foreground">
@@ -409,9 +409,9 @@ export default function Home() {
             className="grid grid-cols-3 gap-4 md:gap-6 mt-16 md:mt-20 max-w-4xl mx-auto"
           >
             {[
-              { icon: <Zap size={24} />, title: "سريع", desc: "خلال ساعات" },
-              { icon: <Sparkles size={24} />, title: "أسعار", desc: "تنافسية جداً" },
-              { icon: <Crown size={24} />, title: "احترافي", desc: "100% جودة" },
+              { icon: <Zap size={24} />, title: "سريع", desc: "تسليم خلال يومين" },
+              { icon: <Sparkles size={24} />, title: "بسيط", desc: "بدون تعقيد" },
+              { icon: <Crown size={24} />, title: "واضح", desc: "سعر ثابت" },
             ].map((stat, i) => (
               <div key={i} className="group relative">
                 {!isMobile && <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />}
@@ -436,8 +436,8 @@ export default function Home() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">كل منتج عظيم خلفه قصة أعظم</h2>
-            <p className="text-xl text-muted-foreground">الفرق بين "منتج جيد" و "منتج لا يُقاوم" هو طريقة السرد.. كيف تروي قصتك؟</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">المشكلة والحل</h2>
+            <p className="text-xl text-muted-foreground">كثير ناس عندهم منتجات ممتازة، بس صورها ما تعطيها حقها</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
@@ -454,14 +454,14 @@ export default function Home() {
                 <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 mb-6 shadow-inner">
                   <span className="text-2xl">📉</span>
                 </div>
-                <h3 className="text-2xl font-bold font-heading mb-4 text-red-900/80">الواقع الصامت</h3>
+                <h3 className="text-2xl font-bold font-heading mb-4 text-red-900/80">المشكلة</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  منتجك ذو جودة عالية، وتعبت في تصنيعه واختياره. لكنك تضعه أمام العميل بصورة "عادية". 
-                  العميل يمر عليه مرور الكرام، لا يشعر بقيمته، ولا يتخيل كيف سيغير حياته. 
-                  <br /><span className="font-bold text-red-500/80">النتيجة؟</span> مجهود ضائع ومبيعات أقل من الطموح.
+                  منتجك ممتاز، بس الصور اللي تنزلها ما توصل الفكرة للناس.
+                  تصوير احترافي في استديو يكلف كثير ويحتاج وقت.
+                  <br /><span className="font-bold text-red-500/80">النتيجة؟</span> الناس تمر على منتجك ولا توقف.
                 </p>
                 <div className="space-y-3">
-                  {["انطباع أول باهت", "حرق ميزانية الإعلانات", "منافسة شرسة بلا تميز"].map((item, i) => (
+                  {["صور عادية ما تجذب", "تكلفة التصوير عالية", "ما عندك وقت"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-muted-foreground/80">
                       <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
                       {item}
@@ -486,21 +486,21 @@ export default function Home() {
                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 shadow-inner">
                   <span className="text-2xl">🚀</span>
                 </div>
-                <h3 className="text-2xl font-bold font-heading mb-4 text-primary">قصة النجاح مع BADII</h3>
+                <h3 className="text-2xl font-bold font-heading mb-4 text-primary">الحل مع بديع</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  نحن لا نلتقط صورة، بل نخلق "حالة". نضع منتجك في السياق الذي يجعله البطل.
-                  نجعل العميل يشعر بطعم القهوة قبل أن يطلبها، ويشم رائحة العطر من خلف الشاشة.
-                  <br /><span className="font-bold text-primary">النتيجة؟</span> رغبة لا تُقاوم وقرار شراء فوري.
+                  ارسل لنا صورة منتجك من جوالك، ونرجعها لك صورة إعلانية احترافية.
+                  بدون استديو، بدون تكلفة عالية، وبسرعة.
+                  <br /><span className="font-bold text-primary">كيف؟</span> نستخدم الذكاء الاصطناعي لتحويل صورك.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
-                    <h4 className="font-bold text-2xl text-primary mb-1">+300%</h4>
-                    <p className="text-xs text-muted-foreground font-medium">تفاعل العملاء</p>
+                    <h4 className="font-bold text-2xl text-primary mb-1">48 ساعة</h4>
+                    <p className="text-xs text-muted-foreground font-medium">وقت التسليم</p>
                   </div>
                   <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
-                    <h4 className="font-bold text-2xl text-primary mb-1">x2</h4>
-                    <p className="text-xs text-muted-foreground font-medium">معدل المبيعات</p>
+                    <h4 className="font-bold text-2xl text-primary mb-1">من 99 ر.س</h4>
+                    <p className="text-xs text-muted-foreground font-medium">يبدأ السعر</p>
                   </div>
                 </div>
               </div>
@@ -516,9 +516,9 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">خدماتنا</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">حلول بصرية تصنع الفارق</h2>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">وش نقدر نسوي لك؟</h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              نقدم لك باقة متكاملة من الخدمات الإبداعية المصممة خصيصاً لتعزيز حضورك الرقمي ومضاعفة مبيعاتك
+              ثلاث خدمات بسيطة تخلي منتجك يبين بشكل احترافي
             </p>
           </div>
 
@@ -527,23 +527,23 @@ export default function Home() {
               {
                 icon: <Camera className="w-12 h-12 text-white" />,
                 color: "bg-zinc-900",
-                title: "تصوير منتجات بالذكاء الاصطناعي",
-                desc: "وداعاً لجلسات التصوير المكلفة. نحول صور الجوال البسيطة إلى لقطات إعلانية مذهلة بدقة 4K تناسب أرقى العلامات التجارية.",
-                features: ["خلفيات مخصصة لا نهائية", "إضاءة سينمائية واقعية", "توفير 90% من تكلفة التصوير التقليدي"]
+                title: "صور منتجات",
+                desc: "صوّر منتجك بجوالك وارسله لنا. نحوله لصورة إعلانية احترافية بخلفيات وإضاءة مميزة.",
+                features: ["خلفيات حسب طلبك", "جودة عالية 4K", "تسليم خلال 48 ساعة"]
               },
               {
                 icon: <PenTool className="w-12 h-12 text-white" />,
                 color: "bg-zinc-800",
-                title: "صناعة محتوى إبداعي",
-                desc: "الصورة تجذب، والكلمة تبيع. نكتب لك نصوصاً إعلانية ساحرة تخاطب مشاعر عميلك وتقنعه باتخاذ قرار الشراء فوراً.",
-                features: ["كابشن منصات التواصل", "وصف منتجات متوافق مع SEO", "سيناريوهات ريلز قصيرة"]
+                title: "كتابة محتوى",
+                desc: "نكتب لك وصف المنتج وكابشنات السوشال ميديا بطريقة تجذب الناس وتخليهم يشترون.",
+                features: ["وصف منتجات جذاب", "كابشنات انستقرام وتويتر", "هاشتاقات مناسبة"]
               },
               {
                 icon: <Video className="w-12 h-12 text-white" />,
                 color: "bg-zinc-700",
-                title: "فيديو ريلز (Reels)",
-                desc: "المستقبل للفيديو القصير. نصمم لك مقاطع ريلز حيوية وجذابة تجعل منتجك 'تريند' وتزيد من وصولك وتفاعل جمهورك.",
-                features: ["تحريك احترافي للصور", "مونتاج ومؤثرات بصرية", "موسيقى مرخصة وتناسب الهوية"]
+                title: "فيديو ريلز",
+                desc: "نحول صور منتجاتك لفيديوهات قصيرة جذابة تنفع للانستقرام وتيك توك.",
+                features: ["فيديو 15-30 ثانية", "موسيقى مناسبة", "تصميم احترافي"]
               }
             ].map((service, i) => (
               <motion.div
@@ -1163,29 +1163,29 @@ export default function Home() {
       <section id="pricing" className="py-24 bg-secondary/20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">باقات مصممة لتناسب احتياجاتك</h2>
-            <p className="text-xl text-muted-foreground">اختر الباقة المناسبة وابدأ رحلتك الإبداعية معنا</p>
+            <h2 className="text-4xl font-bold font-heading mb-4">الأسعار واضحة</h2>
+            <p className="text-xl text-muted-foreground">اختر اللي يناسبك، بدون رسوم خفية</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
-            {/* باقة الانطلاق */}
+            {/* باقة البداية */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">🟢 باقة الانطلاق</CardTitle>
-                <CardDescription>التجربة، الأساسيات، المشاريع الفردية</CardDescription>
+                <CardTitle className="text-2xl font-heading">🟢 باقة البداية</CardTitle>
+                <CardDescription>للي يبي يجرب الخدمة</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">299</span>
+                  <span className="text-4xl font-bold">99</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "10 تصاميم صور احترافية بالـ AI (4K)", 
-                    "10 أوصاف احترافية قصيرة", 
-                    "خطة محتوى أساسية مقترحة", 
-                    "تسليم خلال 72 ساعة",
-                    "حقوق استخدام تجاري كامل"
+                    "3 صور منتجات احترافية", 
+                    "3 أوصاف للمنتجات", 
+                    "تسليم خلال 48 ساعة",
+                    "تعديل واحد مجاني",
+                    "حقوق الاستخدام كاملة لك"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
@@ -1194,33 +1194,33 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الانطلاق', '299 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة البداية', '99 ريال')}>اطلب الآن</Button>
               </CardFooter>
             </Card>
 
-            {/* باقة النمو الذكي */}
+            {/* باقة الأعمال */}
             <Card className="relative overflow-hidden border-primary shadow-2xl shadow-primary/10 scale-105 z-10 bg-primary/5">
               <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
               <div className="absolute top-4 left-4">
                 <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر طلباً</Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading text-primary">🌟 باقة النمو الذكي</CardTitle>
-                <CardDescription>النمو السريع، الشركات المتوسطة، الحملات المركزة</CardDescription>
+                <CardTitle className="text-2xl font-heading text-primary">🌟 باقة الأعمال</CardTitle>
+                <CardDescription>للمتاجر والمطاعم</CardDescription>
                 <div className="mt-4">
-                  <span className="text-5xl font-bold">999</span>
+                  <span className="text-5xl font-bold">299</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "30 تصميماً إبداعياً بالـ AI (4K)", 
-                    "25 وصفاً متكاملاً للمنشورات", 
-                    "تحليل SEO + 5 كلمات مفتاحية قوية",
-                    "خطة محتوى نصف شهرية (15 يوم)", 
-                    "تسليم سريع (24-48 ساعة) - أولوية",
-                    "استشارة تسويقية سريعة (AI Analysis)"
+                    "10 صور منتجات احترافية", 
+                    "10 أوصاف جاهزة للنشر", 
+                    "ريلز واحد (15 ثانية)",
+                    "تسليم خلال 48 ساعة", 
+                    "تعديلين مجاناً",
+                    "دعم واتساب"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 font-medium">
                       <CheckCircle2 size={18} className="text-primary" /> {f}
@@ -1229,32 +1229,32 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة النمو الذكي', '999 ريال')}>احجز الآن</Button>
+                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة الأعمال', '299 ريال')}>اطلب الآن</Button>
               </CardFooter>
             </Card>
 
-            {/* باقة الريادة الاستراتيجية */}
+            {/* باقة VIP */}
             <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
               <div className="absolute top-4 left-4">
-                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 border-none">القيمة الأعلى</Badge>
+                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 border-none">قيمة عالية</Badge>
               </div>
               <CardHeader>
-                <CardTitle className="text-2xl font-heading">🏆 باقة الريادة</CardTitle>
-                <CardDescription>الاستدامة، العلامات التجارية الكبيرة، الرؤية الشهرية</CardDescription>
+                <CardTitle className="text-2xl font-heading">🏆 باقة VIP</CardTitle>
+                <CardDescription>للي يبي محتوى شهر كامل</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">1,799</span>
+                  <span className="text-4xl font-bold">799</span>
                   <span className="text-muted-foreground mr-1">ريال</span>
                 </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
                   {[
-                    "30 تصميماً + 2 بنر إعلاني (AI)", 
-                    "خطة محتوى كاملة (30 منشور)",
-                    "3 فيديوهات قصيرة (Reels/Shorts)", 
-                    "تحليل SEO متقدم للمحتوى بالكامل",
-                    "أولوية قصوى في التسليم",
-                    "استشارة شهرية مفصلة (AI + Human)"
+                    "30 صورة منتج احترافية", 
+                    "30 وصف ومحتوى جاهز",
+                    "3 فيديوهات ريلز", 
+                    "تسليم خلال 5 أيام",
+                    "تعديلات غير محدودة",
+                    "أولوية في الرد والدعم"
                   ].map((f, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm">
                       <CheckCircle2 size={16} className="text-green-500" /> {f}
@@ -1263,7 +1263,7 @@ export default function Home() {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الريادة الاستراتيجية', '1,799 ريال')}>احجز الآن</Button>
+                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة VIP', '799 ريال')}>اطلب الآن</Button>
               </CardFooter>
             </Card>
           </div>
@@ -1274,31 +1274,31 @@ export default function Home() {
       <section id="faq" className="py-24 bg-secondary/30">
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">الأسئلة الشائعة</h2>
-            <p className="text-xl text-muted-foreground">كل ما تحتاج معرفته عن خدماتنا</p>
+            <h2 className="text-4xl font-bold font-heading mb-4">أسئلة متوقعة</h2>
+            <p className="text-xl text-muted-foreground">الأجوبة على اللي يسألون عنه كثير</p>
           </div>
           
           <Accordion type="single" collapsible className="w-full space-y-4">
             {[
               {
-                q: "ليش أختار BADII عن أي مصمم آخر؟",
-                a: "لأننا لا نلعب دور 'المنفذ' فقط، بل نحن شريكك الاستراتيجي. نحن نفهم لغة السوق والمبيعات، ونستخدم تقنياتنا الخاصة لضمان أن كل صورة نصممها تخدم هدفاً واحداً: زيادة مبيعاتك وإبهار عملائك. نجاحك هو المعيار الوحيد لنجاحنا."
+                q: "كيف الطريقة؟",
+                a: "بسيطة جداً: 1) ترسل لنا صور منتجك من جوالك على الواتساب. 2) نشتغل عليها ونحولها لصور احترافية. 3) نرسلها لك جاهزة خلال يومين. خلاص!"
               },
               {
-                q: "خايف النتيجة ما تعجبني أو المنتج يتغير شكله..",
-                a: "مخاوفك في محلها مع الهواة، لكن معنا الأمر مختلف. نحن نضمن لك دقة 100% في هوية منتجك. لن نغلق المشروع حتى تقول 'هذا بالضبط ما كنت أحلم به'. نحن في صفك، ولن نتركك حتى تكون راضياً تماماً."
+                q: "طيب لو ما عجبتني النتيجة؟",
+                a: "كل باقة فيها تعديلات مجانية. لو حاب تغير الخلفية أو الإضاءة أو أي شي، قول لنا ونعدل. هدفنا إنك ترضى 100%."
               },
               {
-                q: "هل الصور والملفات ملكي بالكامل؟",
-                a: "بكل تأكيد وبلا أي شروط خفية. بمجرد استلام العمل، تصبح جميع الحقوق الفكرية والتجارية ملكاً لك وحدك. نحن هنا لتمكين علامتك التجارية، ولك كامل الحرية في التصرف بمحتواك كما تشاء."
+                q: "الصور تصير ملكي؟",
+                a: "أكيد! كل الصور والمحتوى اللي نسويه لك يصير ملكك الكامل. تقدر تستخدمه في أي مكان تبيه - موقعك، سوشال ميديا، إعلانات، أي شي."
               },
               {
-                q: "هل التعديلات معقدة أو بمبالغ إضافية؟",
-                a: "أبداً! نحن نؤمن بالمرونة. هدفنا هو الجودة وليس عدّ التعديلات. نقدم جولات مراجعة مرنة وسريعة، ونتعامل مع ملاحظاتك بصدر رحب واحترافية عالية لأننا نرى المشروع بعينك أنت."
+                q: "احتاج أرسل لكم المنتج الفعلي؟",
+                a: "لا أبداً! بس صوّر منتجك بجوالك بإضاءة واضحة وارسل لنا الصور. ما تحتاج ترسل شي، كل شي يتم أونلاين."
               },
               {
-                q: "هل أحتاج أرسل لكم المنتجات فعلياً؟",
-                a: "لا، وفر تكاليف الشحن والانتظار! فقط صور منتجك بجوالك بإضاءة واضحة وأرسلها لنا. سحرنا التقني سيتكفل بالباقي ليحولها إلى إعلانات عالمية وكأنها صُورت في أضخم الاستديوهات."
+                q: "كم ياخذ الوقت؟",
+                a: "التسليم خلال 48 ساعة لأغلب الباقات. لو عندك طلب مستعجل، كلمنا وننسق معك."
               }
             ].map((item, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border border-muted bg-card rounded-xl px-4 shadow-sm hover:shadow-md transition-all duration-300">
@@ -1317,9 +1317,9 @@ export default function Home() {
       {/* CTA Footer */}
       <section className="py-20 bg-primary text-white text-center">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-8">جاهز لبدء رحلتك الإبداعية؟</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-heading mb-8">جاهز تبدأ؟</h2>
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
-            لا تضيع المزيد من الوقت في البحث. دعنا نساعدك في إنشاء محتوى احترافي يميز علامتك التجارية.
+            كلمنا على الواتساب وخلنا نشتغل على منتجاتك
           </p>
           <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966509567267', '_blank')}>
             <MessageCircle className="ml-2" />
