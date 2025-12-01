@@ -84,20 +84,23 @@ function PortfolioGallery() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % portfolioImages.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10" />
-      <AnimatePresence mode="wait">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50 z-10" />
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.15, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1.5 }}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 0.25, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.02 }}
+          transition={{ 
+            duration: 1.8,
+            ease: "easeInOut"
+          }}
           className="absolute inset-0"
         >
           <img 
@@ -363,6 +366,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [isGranted, setIsGranted] = useState(false);
   const [digits, setDigits] = useState<string[]>(["", "", ""]);
   const [error, setError] = useState(false);
+  const [shakeError, setShakeError] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const [showTransition, setShowTransition] = useState(false);
@@ -456,11 +460,13 @@ export default function AccessGate({ children }: AccessGateProps) {
       }, 1000);
     } else {
       setError(true);
+      setShakeError(true);
       triggerHaptic('error');
       setDigits(["", "", ""]);
       inputRefs.current[0]?.focus();
       setTimeout(() => {
         setError(false);
+        setShakeError(false);
       }, 1500);
     }
   };
@@ -564,7 +570,14 @@ export default function AccessGate({ children }: AccessGateProps) {
               className="space-y-6"
             >
               <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex justify-center gap-3" dir="ltr">
+                <motion.div 
+                  className="flex justify-center gap-3" 
+                  dir="ltr"
+                  animate={shakeError ? { 
+                    x: [0, -12, 12, -12, 12, -8, 8, -4, 4, 0] 
+                  } : { x: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
                   {[0, 1, 2].map((index) => (
                     <div key={index} className="relative">
                       <input
@@ -595,6 +608,13 @@ export default function AccessGate({ children }: AccessGateProps) {
                                 : "border-white/15 hover:border-white/25 focus:border-white/40 focus:bg-white/5"
                           }
                         `}
+                        style={{
+                          boxShadow: digits[index] && !error && successIndex < index
+                            ? '0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)'
+                            : successIndex >= index
+                              ? '0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.2)'
+                              : 'none'
+                        }}
                         data-testid={`input-code-${index}`}
                       />
                       
@@ -611,7 +631,7 @@ export default function AccessGate({ children }: AccessGateProps) {
                       )}
                     </div>
                   ))}
-                </div>
+                </motion.div>
                 
                 {error && (
                   <motion.p 
