@@ -47,114 +47,152 @@ function FloatingParticles() {
   );
 }
 
-function EraserTransition({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
+function LogoGlowTransition({ onComplete }: { onComplete: () => void }) {
+  const [phase, setPhase] = useState<'appear' | 'glow' | 'ripple' | 'reveal'>('appear');
+
+  const rings = useMemo(() => 
+    Array.from({ length: 6 }, (_, i) => ({
+      id: i,
+      delay: i * 0.15,
+      duration: 0.8,
+    })), []
+  );
 
   useEffect(() => {
-    const duration = 1200;
-    const startTime = Date.now();
+    const timers = [
+      setTimeout(() => setPhase('glow'), 600),
+      setTimeout(() => setPhase('ripple'), 1400),
+      setTimeout(() => setPhase('reveal'), 2400),
+      setTimeout(() => onComplete(), 3000),
+    ];
     
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const newProgress = Math.min(elapsed / duration, 1);
-      setProgress(newProgress);
-      
-      if (newProgress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setTimeout(onComplete, 200);
-      }
-    };
-    
-    requestAnimationFrame(animate);
+    return () => timers.forEach(clearTimeout);
   }, [onComplete]);
-
-  const eraserX = progress * 120 - 10;
-  const eraserY = 50 + Math.sin(progress * Math.PI * 2) * 5;
 
   return (
     <motion.div 
-      className="fixed inset-0 z-[200] pointer-events-none"
+      className="fixed inset-0 z-[200] bg-black flex items-center justify-center overflow-hidden"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5 }}
     >
-      <div 
-        className="absolute inset-0 bg-black"
-        style={{
-          clipPath: `polygon(
-            ${Math.max(0, eraserX - 5)}% 0%, 
-            100% 0%, 
-            100% 100%, 
-            ${Math.max(0, eraserX - 5)}% 100%,
-            ${Math.max(0, eraserX - 15)}% 50%
-          )`,
-          transition: 'clip-path 0.05s linear'
-        }}
-      />
-
-      <motion.div
-        className="absolute"
-        style={{
-          left: `${eraserX}%`,
-          top: `${eraserY}%`,
-          transform: 'translate(-50%, -50%)',
-        }}
-        animate={{
-          rotate: [0, -5, 5, -3, 0],
-        }}
-        transition={{
-          duration: 0.3,
-          repeat: Infinity,
-        }}
-      >
-        <div className="relative">
-          <div 
-            className="w-16 h-24 md:w-20 md:h-28 rounded-lg bg-gradient-to-b from-pink-300 to-pink-400 shadow-2xl"
-            style={{
-              transform: 'rotate(-15deg)',
-              boxShadow: '0 10px 40px rgba(0,0,0,0.5), inset 0 2px 10px rgba(255,255,255,0.3)'
-            }}
+      <div className="relative flex items-center justify-center">
+        <motion.div
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={
+            phase === 'appear' ? { scale: 1, opacity: 1 } :
+            phase === 'glow' ? { scale: 1, opacity: 1 } :
+            phase === 'ripple' ? { scale: 1.1, opacity: 1 } :
+            { scale: 0.8, opacity: 0 }
+          }
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative z-10"
+        >
+          <motion.div
+            animate={phase === 'glow' || phase === 'ripple' ? {
+              boxShadow: [
+                "0 0 0px rgba(255, 255, 255, 0)",
+                "0 0 60px rgba(255, 255, 255, 0.8)",
+                "0 0 120px rgba(255, 255, 255, 0.6)",
+                "0 0 60px rgba(255, 255, 255, 0.8)",
+              ]
+            } : {}}
+            transition={{ duration: 1.2, repeat: phase === 'glow' ? Infinity : 0 }}
+            className="rounded-full p-8"
           >
-            <div className="absolute bottom-0 left-0 right-0 h-6 md:h-8 bg-gradient-to-b from-gray-200 to-gray-100 rounded-b-lg" />
-            <div className="absolute top-2 left-2 right-2 h-1 bg-white/40 rounded-full" />
-          </div>
-          
-          {progress > 0.1 && progress < 0.95 && (
-            <motion.div
-              className="absolute -left-4 top-1/2 -translate-y-1/2"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1, 0.5] }}
-              transition={{ duration: 0.5, repeat: Infinity }}
-            >
-              {[...Array(5)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-2 h-2 rounded-full bg-white/30"
-                  initial={{ x: 0, y: 0 }}
-                  animate={{ 
-                    x: -20 - Math.random() * 30,
-                    y: (Math.random() - 0.5) * 40,
-                    opacity: 0
-                  }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                />
-              ))}
-            </motion.div>
-          )}
-        </div>
-      </motion.div>
+            <img 
+              src={logo} 
+              alt="BADII" 
+              className="h-28 md:h-36 w-auto drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]"
+            />
+          </motion.div>
 
-      <motion.div
-        className="absolute bottom-10 left-0 right-0 text-center"
+          {phase === 'glow' && (
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0, 0.3, 0],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              style={{
+                background: "radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%)"
+              }}
+            />
+          )}
+        </motion.div>
+
+        {(phase === 'ripple' || phase === 'reveal') && rings.map((ring) => (
+          <motion.div
+            key={ring.id}
+            className="absolute rounded-full border-2 border-white/40"
+            initial={{ 
+              width: 100, 
+              height: 100, 
+              opacity: 0.8,
+            }}
+            animate={{ 
+              width: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 2.5 : 2000,
+              height: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 2.5 : 2000,
+              opacity: 0,
+              borderWidth: 20,
+            }}
+            transition={{ 
+              duration: ring.duration + 0.5,
+              delay: ring.delay,
+              ease: "easeOut"
+            }}
+            style={{
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          />
+        ))}
+
+        {phase === 'reveal' && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
+            <motion.div
+              className="absolute rounded-full bg-white"
+              initial={{ 
+                width: 50, 
+                height: 50,
+                left: '50%',
+                top: '50%',
+                x: '-50%',
+                y: '-50%',
+                opacity: 1
+              }}
+              animate={{ 
+                width: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 3 : 3000,
+                height: typeof window !== 'undefined' ? Math.max(window.innerWidth, window.innerHeight) * 3 : 3000,
+                opacity: 1
+              }}
+              transition={{ 
+                duration: 0.6,
+                ease: "easeIn"
+              }}
+            />
+          </motion.div>
+        )}
+      </div>
+
+      <motion.p
+        className="absolute bottom-16 text-white/50 text-sm font-medium tracking-wider"
         initial={{ opacity: 0 }}
-        animate={{ opacity: progress > 0.3 && progress < 0.9 ? 1 : 0 }}
+        animate={{ 
+          opacity: phase === 'glow' || phase === 'ripple' ? 1 : 0 
+        }}
         transition={{ duration: 0.3 }}
       >
-        <p className="text-white/60 text-sm font-medium tracking-wider">
-          جارٍ الدخول...
-        </p>
-      </motion.div>
+        {phase === 'ripple' ? 'مرحباً بك...' : 'جارٍ التحقق...'}
+      </motion.p>
     </motion.div>
   );
 }
@@ -281,7 +319,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   return (
     <>
       <AnimatePresence>
-        {showTransition && <EraserTransition onComplete={handleTransitionComplete} />}
+        {showTransition && <LogoGlowTransition onComplete={handleTransitionComplete} />}
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
