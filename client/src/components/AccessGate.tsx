@@ -507,7 +507,6 @@ export default function AccessGate({ children }: AccessGateProps) {
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
-        <PortfolioGallery />
         
         {!isMobile && (
           <>
