@@ -256,77 +256,6 @@ function LogoGlowTransition({ onComplete, isMobile, reducedMotion }: {
   );
 }
 
-function WelcomeOverlay({ onComplete }: { onComplete: () => void }) {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 2500);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-[150] bg-white flex items-center justify-center"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-center px-6"
-      >
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.3, type: "spring" }}
-          className="w-20 h-20 bg-black rounded-full flex items-center justify-center mx-auto mb-6"
-        >
-          <Crown className="w-10 h-10 text-white" />
-        </motion.div>
-        
-        <motion.h1 
-          className="text-3xl md:text-5xl font-bold font-heading text-black mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          ارحب تو نور المكان
-        </motion.h1>
-        
-        <motion.p
-          className="text-lg text-gray-500"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.7 }}
-        >
-          مرحباً بك في عالم بديع
-        </motion.p>
-
-        <motion.div
-          className="mt-8 flex justify-center gap-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-        >
-          {[0, 1, 2].map((i) => (
-            <motion.div
-              key={i}
-              className="w-2 h-2 bg-black rounded-full"
-              animate={{ scale: [1, 1.5, 1] }}
-              transition={{ 
-                duration: 0.6, 
-                delay: i * 0.15,
-                repeat: Infinity,
-                repeatDelay: 0.3
-              }}
-            />
-          ))}
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 function playSuccessSound() {
   try {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -370,7 +299,6 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const [showTransition, setShowTransition] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   
   const isMobile = useIsMobile();
@@ -478,11 +406,6 @@ export default function AccessGate({ children }: AccessGateProps) {
 
   const handleTransitionComplete = useCallback(() => {
     setShowTransition(false);
-    setShowWelcome(true);
-  }, []);
-
-  const handleWelcomeComplete = useCallback(() => {
-    setShowWelcome(false);
     setIsGranted(true);
   }, []);
 
@@ -499,12 +422,6 @@ export default function AccessGate({ children }: AccessGateProps) {
             isMobile={isMobile}
             reducedMotion={reducedMotion}
           />
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showWelcome && (
-          <WelcomeOverlay onComplete={handleWelcomeComplete} />
         )}
       </AnimatePresence>
 
