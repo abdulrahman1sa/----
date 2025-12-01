@@ -490,7 +490,7 @@ export default function Home() {
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                   ارسل لنا صورة منتجك من جوالك، ونرجعها لك صورة إعلانية احترافية.
                   بدون استديو، بدون تكلفة عالية، وبسرعة.
-                  <br /><span className="font-bold text-primary">كيف؟</span> نستخدم الذكاء الاصطناعي لتحويل صورك.
+                  <br /><span className="font-bold text-primary">كيف؟</span> مع خبراء توليد الصور بالـ AI.
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 mt-8">
