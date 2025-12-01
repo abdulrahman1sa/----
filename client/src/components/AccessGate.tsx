@@ -540,11 +540,16 @@ export default function AccessGate({ children }: AccessGateProps) {
               transition={{ delay: 0.2 }}
               className="mb-8"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs mb-5">
-                <Crown className="w-3.5 h-3.5" />
-                <span>دخول VIP حصري</span>
-                <Lock className="w-3.5 h-3.5" />
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.15 }}
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-white/90 text-xs mb-5 shadow-lg"
+              >
+                <Crown className="w-4 h-4" />
+                <span className="font-medium tracking-wide">دخول VIP حصري</span>
+                <Lock className="w-4 h-4" />
+              </motion.div>
               
               <h1 className="text-3xl md:text-4xl font-bold font-heading mb-3 text-white">
                 مرحباً بك في
@@ -563,65 +568,86 @@ export default function AccessGate({ children }: AccessGateProps) {
               onSubmit={handleSubmit}
               className="space-y-6"
             >
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <div className="flex justify-center gap-3" dir="ltr">
-                  {[0, 1, 2].map((index) => (
-                    <div key={index} className="relative">
-                      <input
-                        ref={(el) => { inputRefs.current[index] = el; }}
-                        type="text"
-                        inputMode="text"
-                        autoComplete="off"
-                        value={digits[index]}
-                        onChange={(e) => handleInputChange(index, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(index, e)}
-                        onPaste={index === 0 ? handlePaste : undefined}
-                        disabled={isUnlocking}
-                        autoFocus={index === 0}
-                        className={`
-                          w-16 h-20 md:w-18 md:h-22
-                          text-center text-3xl md:text-4xl font-bold 
-                          bg-white/5
-                          border-2 rounded-xl
-                          outline-none
-                          transition-all duration-200
-                          text-white
-                          ${error 
-                            ? "border-red-500/70 bg-red-500/10 text-red-400" 
-                            : successIndex >= index
-                              ? "border-white bg-white/20" 
-                              : digits[index]
-                                ? "border-white/40 bg-white/10"
-                                : "border-white/15 hover:border-white/25 focus:border-white/40 focus:bg-white/5"
-                          }
-                        `}
-                        data-testid={`input-code-${index}`}
-                      />
-                      
-                      {successIndex >= index && (
-                        <motion.div 
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full flex items-center justify-center"
-                        >
-                          <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </motion.div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+              <div className="relative">
+                {/* Glass card effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
+                <div className="absolute inset-0 backdrop-blur-xl rounded-3xl" />
+                <div className="absolute inset-[1px] bg-gradient-to-br from-white/[0.08] to-transparent rounded-3xl" />
                 
-                {error && (
-                  <motion.p 
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 text-red-400 text-xs font-medium text-center"
-                  >
-                    الكود غير صحيح
-                  </motion.p>
-                )}
+                {/* Glass border glow */}
+                <div className="absolute -inset-[1px] bg-gradient-to-br from-white/30 via-white/10 to-white/5 rounded-3xl opacity-50" />
+                
+                <div className="relative border border-white/20 rounded-3xl p-8 shadow-2xl">
+                  {/* Inner glow effect */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                  
+                  <div className="flex justify-center gap-4" dir="ltr">
+                    {[0, 1, 2].map((index) => (
+                      <motion.div 
+                        key={index} 
+                        className="relative"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4 + index * 0.1 }}
+                      >
+                        <input
+                          ref={(el) => { inputRefs.current[index] = el; }}
+                          type="text"
+                          inputMode="text"
+                          autoComplete="off"
+                          value={digits[index]}
+                          onChange={(e) => handleInputChange(index, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(index, e)}
+                          onPaste={index === 0 ? handlePaste : undefined}
+                          disabled={isUnlocking}
+                          autoFocus={index === 0}
+                          className={`
+                            w-[72px] h-[88px] md:w-20 md:h-24
+                            text-center text-3xl md:text-4xl font-bold 
+                            bg-black/40 backdrop-blur-sm
+                            border-2 rounded-2xl
+                            outline-none
+                            transition-all duration-300
+                            text-white
+                            shadow-lg shadow-black/20
+                            ${error 
+                              ? "border-white/50 bg-white/10 animate-pulse" 
+                              : successIndex >= index
+                                ? "border-white bg-white/25 shadow-white/20" 
+                                : digits[index]
+                                  ? "border-white/50 bg-white/10"
+                                  : "border-white/20 hover:border-white/35 focus:border-white/50 focus:bg-white/10 focus:shadow-white/10"
+                            }
+                          `}
+                          data-testid={`input-code-${index}`}
+                        />
+                        
+                        {successIndex >= index && (
+                          <motion.div 
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                            className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg shadow-white/30"
+                          >
+                            <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </motion.div>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                  
+                  {error && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-5 text-white/70 text-sm font-medium text-center"
+                    >
+                      الكود غير صحيح
+                    </motion.p>
+                  )}
+                </div>
               </div>
 
             </motion.form>
