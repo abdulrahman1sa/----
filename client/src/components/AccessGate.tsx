@@ -1,17 +1,15 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Crown } from "lucide-react";
+import { Lock, Shield, Sparkles, Camera, FileText, Video } from "lucide-react";
 import logo from "@assets/logo.png";
 
-import portfolio1 from "@assets/portfolio_perfume_match.jpg";
-import portfolio2 from "@assets/portfolio_coffee_mud.jpg";
-import portfolio3 from "@assets/portfolio_ninja_delivery.jpg";
-import portfolio4 from "@assets/portfolio_shrimp_tempura.jpg";
-import portfolio5 from "@assets/portfolio_honey_nuts.jpg";
-import portfolio6 from "@assets/portfolio_golden_fries.jpg";
-
 const ACCESS_CODE = ["K", "F", "O"];
-const portfolioImages = [portfolio1, portfolio2, portfolio3, portfolio4, portfolio5, portfolio6];
+
+const services = [
+  { icon: Camera, label: "تصوير منتجات 4K" },
+  { icon: FileText, label: "محتوى تسويقي" },
+  { icon: Video, label: "فيديو ريلز" },
+];
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -78,38 +76,67 @@ function FloatingParticles({ count = 10 }: { count?: number }) {
   );
 }
 
-function PortfolioGallery() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % portfolioImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
+function LogoWithLightSweep() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50 z-10" />
-      <AnimatePresence mode="popLayout">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.25, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.02 }}
-          transition={{ 
-            duration: 1.8,
-            ease: "easeInOut"
-          }}
-          className="absolute inset-0"
-        >
-          <img 
-            src={portfolioImages[currentIndex]} 
-            alt="" 
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <div className="relative mb-6">
+      <motion.div
+        className="absolute inset-0 -inset-x-8 -inset-y-4"
+        style={{
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)',
+          backgroundSize: '200% 100%',
+        }}
+        animate={{
+          backgroundPosition: ['200% 0%', '-200% 0%'],
+        }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          repeatDelay: 2,
+          ease: "easeInOut",
+        }}
+      />
+      <img 
+        src={logo} 
+        alt="BADII" 
+        className="h-20 md:h-24 w-auto mx-auto relative z-10"
+      />
+    </div>
+  );
+}
+
+function ServicesTimeline() {
+  return (
+    <div className="flex justify-center items-center gap-2 md:gap-4 mt-6">
+      {services.map((service, index) => (
+        <div key={index} className="flex items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 + index * 0.15 }}
+            className="flex flex-col items-center gap-2"
+          >
+            <motion.div 
+              className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center"
+              whileHover={{ scale: 1.1, borderColor: 'rgba(255,255,255,0.3)' }}
+            >
+              <service.icon className="w-4 h-4 md:w-5 md:h-5 text-white/70" />
+            </motion.div>
+            <span className="text-[10px] md:text-xs text-white/50 text-center whitespace-nowrap">
+              {service.label}
+            </span>
+          </motion.div>
+          
+          {index < services.length - 1 && (
+            <motion.div 
+              className="hidden md:block w-8 h-px mx-2 bg-gradient-to-r from-white/20 via-white/10 to-white/20"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.7 + index * 0.15 }}
+              style={{ marginTop: '-20px' }}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
 }
@@ -426,12 +453,10 @@ export default function AccessGate({ children }: AccessGateProps) {
       </AnimatePresence>
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
-        <PortfolioGallery />
-        
         {!isMobile && (
           <>
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-[80px] z-20" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/[0.03] rounded-full blur-[60px] z-20" />
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/[0.02] rounded-full blur-[100px] z-20" />
+            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/[0.02] rounded-full blur-[80px] z-20" />
           </>
         )}
         
@@ -442,41 +467,36 @@ export default function AccessGate({ children }: AccessGateProps) {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="text-center w-full max-w-sm"
+            className="text-center w-full max-w-md"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="mb-8"
             >
-              <img 
-                src={logo} 
-                alt="BADII" 
-                className="h-20 md:h-24 w-auto mx-auto"
-              />
+              <LogoWithLightSweep />
             </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="mb-8"
+              className="mb-6"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs mb-5">
-                <Crown className="w-3.5 h-3.5" />
-                <span>دخول VIP حصري</span>
-                <Lock className="w-3.5 h-3.5" />
+              <h1 className="text-2xl md:text-3xl font-bold font-heading mb-2 text-white">
+                استوديو الذكاء الاصطناعي
+              </h1>
+              <p className="text-lg md:text-xl text-white/60 font-medium">
+                للمحتوى الفاخر
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-2 mt-4 text-[11px] md:text-xs text-white/40">
+                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">صور احترافية</span>
+                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">محتوى مبدع</span>
+                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">فيديو جذاب</span>
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-bold font-heading mb-3 text-white">
-                مرحباً بك في
-                <span className="block text-white/70 mt-1">عالم بديع</span>
-              </h1>
-              
-              <p className="text-white/40 text-sm">
-                أدخل كود الدخول للوصول
-              </p>
+              <ServicesTimeline />
             </motion.div>
 
             <motion.form
@@ -486,87 +506,119 @@ export default function AccessGate({ children }: AccessGateProps) {
               onSubmit={handleSubmit}
               className="space-y-6"
             >
-              <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-sm">
-                <motion.div 
-                  className="flex justify-center gap-3" 
-                  dir="ltr"
-                  animate={shakeError ? { 
-                    x: [0, -12, 12, -12, 12, -8, 8, -4, 4, 0] 
-                  } : { x: 0 }}
-                  transition={{ duration: 0.5 }}
+              <div 
+                  className="relative rounded-2xl p-6 md:p-8"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                    boxShadow: '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+                  }}
                 >
-                  {[0, 1, 2].map((index) => (
-                    <div key={index} className="relative">
-                      <input
-                        ref={(el) => { inputRefs.current[index] = el; }}
-                        type="text"
-                        inputMode="text"
-                        autoComplete="off"
-                        value={digits[index]}
-                        onChange={(e) => handleInputChange(index, e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(index, e)}
-                        onPaste={index === 0 ? handlePaste : undefined}
-                        disabled={isUnlocking}
-                        autoFocus={index === 0}
-                        className={`
-                          w-16 h-20 md:w-18 md:h-22
-                          text-center text-3xl md:text-4xl font-bold 
-                          bg-white/5
-                          border-2 rounded-xl
-                          outline-none
-                          transition-all duration-200
-                          text-white
-                          ${error 
-                            ? "border-red-500/70 bg-red-500/10 text-red-400" 
-                            : successIndex >= index
-                              ? "border-white bg-white/20" 
-                              : digits[index]
-                                ? "border-white/40 bg-white/10"
-                                : "border-white/15 hover:border-white/25 focus:border-white/40 focus:bg-white/5"
-                          }
-                        `}
-                        style={{
-                          boxShadow: digits[index] && !error && successIndex < index
-                            ? '0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)'
-                            : successIndex >= index
-                              ? '0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.2)'
-                              : 'none'
-                        }}
-                        data-testid={`input-code-${index}`}
-                      />
-                      
-                      {successIndex >= index && (
-                        <motion.div 
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full flex items-center justify-center"
-                        >
-                          <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
-                        </motion.div>
-                      )}
-                    </div>
-                  ))}
-                </motion.div>
-                
-                {error && (
-                  <motion.p 
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 text-red-400 text-xs font-medium text-center"
+                  <p className="text-white/50 text-xs mb-4 text-center">أدخل كود الدخول الخاص بك</p>
+                  
+                  <motion.div 
+                    className="flex justify-center gap-3" 
+                    dir="ltr"
+                    animate={shakeError ? { 
+                      x: [0, -12, 12, -12, 12, -8, 8, -4, 4, 0] 
+                    } : { x: 0 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    الكود غير صحيح
-                  </motion.p>
-                )}
-              </div>
+                    {[0, 1, 2].map((index) => (
+                      <div key={index} className="relative">
+                        <input
+                          ref={(el) => { inputRefs.current[index] = el; }}
+                          type="text"
+                          inputMode="text"
+                          autoComplete="off"
+                          value={digits[index]}
+                          onChange={(e) => handleInputChange(index, e.target.value)}
+                          onKeyDown={(e) => handleKeyDown(index, e)}
+                          onPaste={index === 0 ? handlePaste : undefined}
+                          disabled={isUnlocking}
+                          autoFocus={index === 0}
+                          className={`
+                            w-16 h-20 md:w-18 md:h-22
+                            text-center text-3xl md:text-4xl font-bold 
+                            bg-white/5
+                            border-2 rounded-xl
+                            outline-none
+                            transition-all duration-200
+                            text-white
+                            ${error 
+                              ? "border-red-500/70 bg-red-500/10 text-red-400" 
+                              : successIndex >= index
+                                ? "border-white bg-white/20" 
+                                : digits[index]
+                                  ? "border-white/40 bg-white/10"
+                                  : "border-white/15 hover:border-white/25 focus:border-white/40 focus:bg-white/5"
+                            }
+                          `}
+                          style={{
+                            boxShadow: digits[index] && !error && successIndex < index
+                              ? '0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.1)'
+                              : successIndex >= index
+                                ? '0 0 25px rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 255, 255, 0.2)'
+                                : 'none'
+                          }}
+                          data-testid={`input-code-${index}`}
+                        />
+                        
+                        {successIndex >= index && (
+                          <motion.div 
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full flex items-center justify-center"
+                          >
+                            <svg className="w-3 h-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </motion.div>
+                        )}
+                      </div>
+                    ))}
+                  </motion.div>
+                  
+                  {error && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-4 text-center"
+                    >
+                      <p className="text-red-400 text-sm font-medium">الكود غير صحيح</p>
+                      <p className="text-red-400/60 text-xs mt-1">تأكد من الكود وحاول مرة أخرى</p>
+                    </motion.div>
+                  )}
+                </div>
 
             </motion.form>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="mt-6 flex flex-wrap justify-center gap-3"
+            >
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs text-white/50">
+                <Sparkles className="w-3 h-3" />
+                <span>مدعوم بالذكاء الاصطناعي</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs text-white/50">
+                <Shield className="w-3 h-3" />
+                <span>دخول آمن</span>
+              </div>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] md:text-xs text-white/50">
+                <Lock className="w-3 h-3" />
+                <span>SSL مشفر</span>
+              </div>
+            </motion.div>
 
           </motion.div>
 
           <div className="absolute bottom-6 left-0 right-0 text-center">
-            <p className="text-white/40 text-sm font-medium">hello@badii.cloud</p>
+            <p className="text-white/30 text-xs font-medium">hello@badii.cloud</p>
           </div>
         </div>
       </div>
