@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Lock, ArrowLeft, Crown, Terminal, MessageCircle } from "lucide-react";
+import { Lock, ArrowLeft, Crown, Terminal } from "lucide-react";
 import logo from "@assets/logo.png";
 
 import portfolio1 from "@assets/portfolio_perfume_match.jpg";
@@ -454,7 +454,7 @@ export default function AccessGate({ children }: AccessGateProps) {
           setIsUnlocking(true);
           setShowTransition(true);
         }
-      }, 120);
+      }, 1000);
     } else {
       setError(true);
       triggerHaptic('error');
@@ -646,27 +646,6 @@ export default function AccessGate({ children }: AccessGateProps) {
               </Button>
             </motion.form>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-6 space-y-4"
-            >
-              <a 
-                href="https://wa.me/966509567267?text=مرحباً، أريد الحصول على كود الدخول لموقع BADII"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-3 w-full py-3 bg-green-500/20 border border-green-500/30 rounded-xl text-green-400 hover:bg-green-500/30 hover:text-green-300 transition-all text-sm font-medium"
-                data-testid="button-whatsapp-gate"
-              >
-                <MessageCircle className="w-5 h-5" />
-                تواصل معنا عبر واتساب
-              </a>
-              
-              <p className="text-xs text-white/30">
-                ليس لديك كود؟ تواصل معنا للحصول على دخول VIP
-              </p>
-            </motion.div>
           </motion.div>
 
           <div className="absolute bottom-6 left-0 right-0 text-center">
