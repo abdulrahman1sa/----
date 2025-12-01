@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Lock, Crown } from "lucide-react";
 import logo from "@assets/logo.png";
 import wrongCodeImage from "@assets/ابو سعيد_1764631024854.jpg";
+import redemptionImage from "@assets/D4sWOGmWkAArMVN_1764631581664.jpg";
 
 import portfolio1 from "@assets/portfolio_perfume_match.jpg";
 import portfolio2 from "@assets/portfolio_coffee_mud.jpg";
@@ -369,6 +370,8 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [digits, setDigits] = useState<string[]>(["", "", ""]);
   const [error, setError] = useState(false);
   const [showWrongCodeImage, setShowWrongCodeImage] = useState(false);
+  const [showRedemptionImage, setShowRedemptionImage] = useState(false);
+  const [hadWrongAttempt, setHadWrongAttempt] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const [showTransition, setShowTransition] = useState(false);
@@ -442,6 +445,19 @@ export default function AccessGate({ children }: AccessGateProps) {
     }
   };
 
+  const proceedWithSuccess = () => {
+    let idx = 0;
+    const interval = setInterval(() => {
+      setSuccessIndex(idx);
+      idx++;
+      if (idx > 3) {
+        clearInterval(interval);
+        setIsUnlocking(true);
+        setShowTransition(true);
+      }
+    }, 1000);
+  };
+
   const validateCode = (codeDigits: string[]) => {
     const isCorrect = codeDigits.every((d, i) => d === ACCESS_CODE[i]);
     
@@ -450,19 +466,19 @@ export default function AccessGate({ children }: AccessGateProps) {
       triggerHaptic('success');
       playSuccessSound();
       
-      let idx = 0;
-      const interval = setInterval(() => {
-        setSuccessIndex(idx);
-        idx++;
-        if (idx > 3) {
-          clearInterval(interval);
-          setIsUnlocking(true);
-          setShowTransition(true);
-        }
-      }, 1000);
+      if (hadWrongAttempt) {
+        setShowRedemptionImage(true);
+        setTimeout(() => {
+          setShowRedemptionImage(false);
+          proceedWithSuccess();
+        }, 3000);
+      } else {
+        proceedWithSuccess();
+      }
     } else {
       setError(true);
       setShowWrongCodeImage(true);
+      setHadWrongAttempt(true);
       triggerHaptic('error');
       setDigits(["", "", ""]);
       
@@ -523,6 +539,24 @@ export default function AccessGate({ children }: AccessGateProps) {
             <img 
               src={wrongCodeImage} 
               alt="يبن الحلال الكود KFO" 
+              className="max-w-full max-h-full object-contain"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showRedemptionImage && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.1 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[250] bg-white flex items-center justify-center"
+          >
+            <img 
+              src={redemptionImage} 
+              alt="براڤو! أحسنت!" 
               className="max-w-full max-h-full object-contain"
             />
           </motion.div>
