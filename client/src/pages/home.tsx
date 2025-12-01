@@ -798,92 +798,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Creativity Without Limits */}
-      <section className="py-24 bg-secondary/30 relative overflow-hidden">
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], x: [0, 30, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" 
-        />
-        
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">نخدم كل المجالات</Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">الإبداع بلا حدود</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              من المطاعم للعطور، من الكافيهات للمتاجر - نحول أي منتج إلى تحفة بصرية
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-            {[
-              { img: portfolio11, category: "مطاعم وكافيهات", title: "حلويات العيد", icon: "🍰" },
-              { img: portfolio1, category: "عطور ومنتجات فاخرة", title: "عطر فاخر", icon: "✨" },
-              { img: portfolio9, category: "مطاعم وكافيهات", title: "ماتشا بارد", icon: "🍵" },
-              { img: portfolio10, category: "منتجات وتجارة", title: "كرسي قيمنق", icon: "🎮" },
-              { img: portfolio7, category: "تصاميم إبداعية", title: "العلا", icon: "🐆" },
-              { img: portfolio6, category: "مطاعم وكافيهات", title: "بطاطس ذهبية", icon: "🍟" },
-              { img: portfolio5, category: "أطعمة صحية", title: "عسل ومكسرات", icon: "🍯" },
-              { img: portfolio3, category: "تصاميم إبداعية", title: "توصيل نينجا", icon: "🥷" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer"
-              >
-                <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-                <div className="relative h-full bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl overflow-hidden shadow-xl shadow-black/5 group-hover:border-primary/40 group-hover:shadow-primary/10 transition-all duration-300">
-                  <img 
-                    src={item.img} 
-                    alt={item.title} 
-                    loading="lazy" 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                  />
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                      <span className="text-2xl mb-1 block">{item.icon}</span>
-                      <h3 className="text-white font-bold text-lg">{item.title}</h3>
-                      <p className="text-white/70 text-sm">{item.category}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-lg text-muted-foreground mb-6">
-              مهما كان مجالك، عندنا الحل الإبداعي المناسب
-            </p>
-            <Button 
-              size="lg"
-              className="bg-primary hover:bg-primary/90 rounded-xl gap-2 px-8 shadow-lg shadow-primary/20"
-              onClick={() => window.location.href = '#booking'}
-            >
-              <Sparkles className="w-5 h-5" />
-              ابدأ مشروعك الآن
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Booking Form Section */}
       <section id="booking" className="py-24 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-background to-secondary/20 -z-10" />
