@@ -69,9 +69,22 @@ const fadeInUp = {
   transition: { duration: 0.5 }
 };
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  
+  return isMobile;
+}
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("الكل");
+  const isMobile = useIsMobile();
   
   const bookingFormRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
@@ -232,7 +245,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-primary/5 shadow-sm">
+      <nav className={`fixed top-0 w-full z-50 border-b border-primary/5 shadow-sm ${isMobile ? 'bg-background' : 'bg-background/80 backdrop-blur-lg'}`}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <img src={logo} alt="BADII Logo" className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform duration-300" />
@@ -279,7 +292,7 @@ export default function Home() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[85vw] max-w-[320px] bg-background/95 backdrop-blur-lg border-r-0 p-0">
+              <SheetContent side="right" className="w-[85vw] max-w-[320px] bg-background border-r-0 p-0">
                 <div className="flex flex-col h-full">
                   <div className="p-6 border-b border-muted">
                     <img src={logo} alt="BADII Logo" className="h-12 w-auto" />
@@ -341,19 +354,25 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
+        {!isMobile && (
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
+        )}
         
-        {/* Animated Background Blobs */}
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" 
-        />
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
-        />
+        {/* Animated Background Blobs - Desktop Only */}
+        {!isMobile && (
+          <>
+            <motion.div 
+              animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" 
+            />
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
+              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+              className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
+            />
+          </>
+        )}
 
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -384,47 +403,29 @@ export default function Home() {
 
           {/* Stats */}
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-20 max-w-4xl mx-auto"
+            transition={{ delay: 0.4, duration: isMobile ? 0.3 : 0.6 }}
+            className="grid grid-cols-3 gap-4 md:gap-6 mt-16 md:mt-20 max-w-4xl mx-auto"
           >
-            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Card className="relative glass glass-hover border-none rounded-2xl">
-                <CardContent className="flex flex-col items-center p-6">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-                    <Zap size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-1">سريع</h3>
-                  <p className="text-muted-foreground">خلال ساعات</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Card className="relative glass glass-hover border-none rounded-2xl">
-                <CardContent className="flex flex-col items-center p-6">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-                    <Sparkles size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-1">أسعار</h3>
-                  <p className="text-muted-foreground">تنافسية جداً</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div whileHover={{ y: -5, scale: 1.02 }} className="group relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <Card className="relative glass glass-hover border-none rounded-2xl">
-                <CardContent className="flex flex-col items-center p-6">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-                    <Crown size={24} />
-                  </div>
-                  <h3 className="text-xl font-bold mb-1">احترافي</h3>
-                  <p className="text-muted-foreground">100% جودة</p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {[
+              { icon: <Zap size={24} />, title: "سريع", desc: "خلال ساعات" },
+              { icon: <Sparkles size={24} />, title: "أسعار", desc: "تنافسية جداً" },
+              { icon: <Crown size={24} />, title: "احترافي", desc: "100% جودة" },
+            ].map((stat, i) => (
+              <div key={i} className="group relative">
+                {!isMobile && <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />}
+                <Card className={`relative border-none rounded-2xl ${isMobile ? 'bg-card' : 'glass glass-hover'}`}>
+                  <CardContent className="flex flex-col items-center p-4 md:p-6">
+                    <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-3 md:mb-4 text-primary">
+                      {stat.icon}
+                    </div>
+                    <h3 className="text-base md:text-xl font-bold mb-1">{stat.title}</h3>
+                    <p className="text-muted-foreground text-xs md:text-base">{stat.desc}</p>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -449,7 +450,7 @@ export default function Home() {
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
-              <div className="h-full bg-card/50 backdrop-blur-sm border border-red-100/50 p-8 md:p-10 rounded-3xl hover:border-red-200/50 transition-all duration-500">
+              <div className={`h-full border border-red-100/50 p-6 md:p-10 rounded-2xl md:rounded-3xl hover:border-red-200/50 transition-all duration-500 ${isMobile ? 'bg-card' : 'bg-card/50 backdrop-blur-sm'}`}>
                 <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 mb-6 shadow-inner">
                   <span className="text-2xl">📉</span>
                 </div>
@@ -553,9 +554,9 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="group relative h-full"
               >
-                <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />
+                {!isMobile && <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />}
                 
-                <div className="h-full border border-white/[0.12] bg-white/[0.06] backdrop-blur-2xl p-8 rounded-[2rem] flex flex-col transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.1] hover:shadow-xl hover:shadow-primary/5 shadow-lg shadow-black/5">
+                <div className={`h-full border border-white/[0.12] p-6 md:p-8 rounded-2xl md:rounded-[2rem] flex flex-col shadow-lg ${isMobile ? 'bg-card' : 'bg-white/[0.06] backdrop-blur-2xl transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.1] hover:shadow-xl hover:shadow-primary/5 shadow-black/5'}`}>
                   <div className={`${service.color} w-20 h-20 rounded-2xl rotate-3 flex items-center justify-center mb-8 shadow-xl shadow-current/30 transform transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     {service.icon}
                   </div>
@@ -638,7 +639,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className="bg-white/[0.06] backdrop-blur-2xl border border-white/[0.1] rounded-3xl p-8 hover:border-primary/30 transition-all duration-300 hover:bg-white/[0.1] shadow-xl shadow-black/10 hover:shadow-primary/10 text-center h-full flex flex-col items-center">
+                  <div className={`border border-white/[0.1] rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl text-center h-full flex flex-col items-center ${isMobile ? 'bg-zinc-900' : 'bg-white/[0.06] backdrop-blur-2xl hover:border-primary/30 transition-all duration-300 hover:bg-white/[0.1] shadow-black/10 hover:shadow-primary/10'}`}>
                     
                     {/* Step Number Badge */}
                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-zinc-950 border border-zinc-800 text-zinc-500 font-mono text-sm px-3 py-1 rounded-full">
@@ -743,44 +744,40 @@ export default function Home() {
           
           {/* Horizontal Scroll Gallery */}
           <div className="relative">
-            <div className="flex gap-6 overflow-x-auto pb-8 px-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="flex gap-4 md:gap-6 overflow-x-auto pb-6 px-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {portfolioItems.map((item, i) => (
-                <motion.div 
+                <div 
                   key={item.title + i}
-                  initial={{ opacity: 0, x: 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className="flex-shrink-0 snap-center"
                 >
-                  <div className="relative w-[300px] md:w-[400px] group">
-                    {/* Glass Card */}
-                    <div className="relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl">
+                  <div className="relative w-[260px] md:w-[400px] group">
+                    {/* Card */}
+                    <div className={`relative rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-xl ${isMobile ? 'bg-zinc-900' : 'bg-white/5 backdrop-blur-sm shadow-2xl'}`}>
                       {/* Image Container - Full Display */}
-                      <div className="relative h-[400px] md:h-[500px] bg-gradient-to-b from-white/5 to-transparent p-4 flex items-center justify-center">
+                      <div className="relative h-[320px] md:h-[500px] p-3 md:p-4 flex items-center justify-center">
                         <img 
                           src={item.img} 
                           alt={item.title} 
                           loading="lazy" 
-                          className="max-w-full max-h-full w-auto h-auto object-contain rounded-2xl shadow-lg transition-transform duration-500 group-hover:scale-105"
+                          className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl md:rounded-2xl shadow-lg"
                         />
                       </div>
                       
                       {/* Info Footer */}
-                      <div className="p-6 bg-gradient-to-t from-black/80 to-transparent">
+                      <div className="p-4 md:p-6 bg-gradient-to-t from-black/80 to-transparent">
                         <div className="flex items-center justify-between">
                           <div>
-                            <Badge className="mb-2 bg-white/20 text-white border-none text-xs">{item.category}</Badge>
-                            <h3 className="text-white font-bold text-lg">{item.title}</h3>
+                            <Badge className="mb-1 md:mb-2 bg-white/20 text-white border-none text-xs">{item.category}</Badge>
+                            <h3 className="text-white font-bold text-base md:text-lg">{item.title}</h3>
                           </div>
-                          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 group-hover:bg-white group-hover:text-black transition-all duration-300">
-                            <Sparkles size={18} />
+                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60">
+                            <Sparkles size={isMobile ? 14 : 18} />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
             
@@ -864,7 +861,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div ref={bookingFormRef}>
-                <Card className="border-white/[0.15] shadow-2xl shadow-primary/10 bg-white/[0.08] backdrop-blur-2xl overflow-hidden min-h-[600px] hover:border-primary/30 transition-all duration-300">
+                <Card className={`border-white/[0.15] shadow-2xl overflow-hidden min-h-[500px] md:min-h-[600px] ${isMobile ? 'bg-card' : 'shadow-primary/10 bg-white/[0.08] backdrop-blur-2xl hover:border-primary/30 transition-all duration-300'}`}>
                   <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
                   <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
                   <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
