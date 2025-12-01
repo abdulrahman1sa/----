@@ -69,13 +69,6 @@ const fadeInUp = {
   transition: { duration: 0.5 }
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
 export default function Home() {
   const [activeCategory, setActiveCategory] = useState("الكل");
