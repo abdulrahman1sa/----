@@ -48,19 +48,6 @@ import coffeeAfter from "@assets/1_1764338115865.png";
 import perfumeBefore from "@assets/5_1764338633790.png";
 import perfumeAfter from "@assets/6_1764338636072.png";
 
-// Portfolio Images
-import portfolio1 from "@assets/portfolio_perfume_match.jpg";
-import portfolio2 from "@assets/portfolio_coffee_mud.jpg";
-import portfolio3 from "@assets/portfolio_ninja_delivery.jpg";
-import portfolio4 from "@assets/portfolio_shrimp_tempura.jpg";
-import portfolio5 from "@assets/portfolio_honey_nuts.jpg";
-import portfolio6 from "@assets/portfolio_golden_fries.jpg";
-import portfolio7 from "@assets/portfolio_leopard_alula.jpg";
-import portfolio8 from "@assets/portfolio_coffee_berry.jpg";
-import portfolio9 from "@assets/portfolio_matcha.jpg";
-import portfolio10 from "@assets/portfolio_gaming_chair.jpg";
-import portfolio11 from "@assets/portfolio_eid_sweets.jpg";
-
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 
 const fadeInUp = {
@@ -83,7 +70,6 @@ function useIsMobile() {
 }
 
 export default function Home() {
-  const [activeCategory, setActiveCategory] = useState("الكل");
   const isMobile = useIsMobile();
   
   const bookingFormRef = useRef<HTMLDivElement>(null);
@@ -200,23 +186,6 @@ export default function Home() {
     window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
   };
 
-  const portfolioItems = [
-    { img: portfolio11, category: "أطعمة ومشروبات", title: "حلويات العيد", size: "large" },
-    { img: portfolio10, category: "منتجات", title: "كرسي قيمنق", size: "small" },
-    { img: portfolio9, category: "أطعمة ومشروبات", title: "ماتشا بارد", size: "small" },
-    { img: portfolio8, category: "أطعمة ومشروبات", title: "قهوة بيري", size: "small" },
-    { img: portfolio7, category: "إبداعي", title: "العلا - النمر العربي", size: "small" },
-    { img: portfolio6, category: "أطعمة ومشروبات", title: "بطاطس ذهبية", size: "small" },
-    { img: portfolio5, category: "أطعمة ومشروبات", title: "عسل ومكسرات", size: "small" },
-    { img: portfolio4, category: "أطعمة ومشروبات", title: "تمبورا روبيان", size: "small" },
-    { img: portfolio3, category: "إبداعي", title: "توصيل نينجا", size: "small" },
-    { img: portfolio2, category: "أطعمة ومشروبات", title: "قهوة الطين", size: "small" },
-    { img: portfolio1, category: "منتجات", title: "عطر فاخر", size: "large" },
-  ];
-
-  const filteredPortfolio = activeCategory === "الكل" 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeCategory);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden" dir="rtl">
@@ -723,89 +692,59 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfolio Gallery - Interactive Showcase */}
-      <section className="py-24 overflow-hidden bg-black relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+      {/* Trust Section - Try Before You Pay */}
+      <section id="portfolio" className="py-24 overflow-hidden bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
         
         <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Badge className="mb-6 bg-white/10 text-white hover:bg-white/20 border-white/20 px-4 py-1 text-base">
-                ✨ معرض الأعمال
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white">شاهد السحر بنفسك</h2>
-              <p className="text-xl text-white/60 max-w-2xl mx-auto">نماذج حقيقية تم توليدها بالذكاء الاصطناعي</p>
-            </motion.div>
-          </div>
-          
-          {/* Horizontal Scroll Gallery */}
-          <div className="relative">
-            <div className="flex gap-4 md:gap-6 overflow-x-auto pb-6 px-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {portfolioItems.map((item, i) => (
-                <div 
-                  key={item.title + i}
-                  className="flex-shrink-0 snap-center"
-                >
-                  <div className="relative w-[260px] md:w-[400px] group">
-                    {/* Card */}
-                    <div className={`relative rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 shadow-xl ${isMobile ? 'bg-zinc-900' : 'bg-white/5 backdrop-blur-sm shadow-2xl'}`}>
-                      {/* Image Container - Full Display */}
-                      <div className="relative h-[320px] md:h-[500px] p-3 md:p-4 flex items-center justify-center">
-                        <img 
-                          src={item.img} 
-                          alt={item.title} 
-                          loading="lazy" 
-                          className="max-w-full max-h-full w-auto h-auto object-contain rounded-xl md:rounded-2xl shadow-lg"
-                        />
-                      </div>
-                      
-                      {/* Info Footer */}
-                      <div className="p-4 md:p-6 bg-gradient-to-t from-black/80 to-transparent">
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <Badge className="mb-1 md:mb-2 bg-white/20 text-white border-none text-xs">{item.category}</Badge>
-                            <h3 className="text-white font-bold text-base md:text-lg">{item.title}</h3>
-                          </div>
-                          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60">
-                            <Sparkles size={isMobile ? 14 : 18} />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Scroll Indicator */}
-            <div className="flex justify-center mt-6 gap-2">
-              <div className="flex items-center gap-2 text-white/40 text-sm">
-                <span>← اسحب للمزيد →</span>
-              </div>
-            </div>
-          </div>
-          
-          {/* Stats Row */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto"
+            className="max-w-3xl mx-auto text-center"
           >
-            {[
-              { value: "4K", label: "جودة الصور" },
-              { value: "24h", label: "وقت التسليم" },
-              { value: "100%", label: "رضا العملاء" },
-            ].map((stat, i) => (
-              <div key={i} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-white/50 text-sm">{stat.label}</div>
-              </div>
-            ))}
+            <Badge className="mb-6 bg-white/10 text-white hover:bg-white/20 border-white/20 px-4 py-1 text-base">
+              🎁 عرض خاص
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-white">جرّب قبل ما تدفع</h2>
+            <p className="text-xl md:text-2xl text-white/70 mb-8 leading-relaxed">
+              ارسل لنا صورة منتجك على الواتساب، ونوريك النتيجة مجاناً.
+              <br />
+              <span className="text-primary font-bold">لو عجبتك، كمّل معنا. لو لا، ما عليك شي.</span>
+            </p>
+            
+            {/* Trust Points */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {[
+                { icon: "🆓", title: "مجاناً", desc: "أول صورة علينا" },
+                { icon: "⚡", title: "سريع", desc: "رد خلال ساعات" },
+                { icon: "🤝", title: "بدون التزام", desc: "تشوف قبل تقرر" },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
+                >
+                  <div className="text-4xl mb-3">{item.icon}</div>
+                  <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
+                  <p className="text-white/50 text-sm">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* WhatsApp CTA */}
+            <Button 
+              size="lg" 
+              className="bg-green-600 hover:bg-green-700 text-white text-xl px-12 py-8 rounded-full shadow-2xl shadow-green-500/30 transition-all hover:scale-105"
+              onClick={() => window.open('https://wa.me/966509567267?text=السلام عليكم، أبي أجرب الخدمة مجاناً', '_blank')}
+            >
+              <MessageCircle className="ml-3" size={28} />
+              ارسل صورة منتجك الآن
+            </Button>
+            <p className="text-white/40 text-sm mt-4">الرد خلال ساعات العمل</p>
           </motion.div>
         </div>
       </section>
@@ -825,11 +764,11 @@ export default function Home() {
                 ابدأ الآن 🚀
               </Badge>
               <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 leading-tight">
-                دعنا نحول فكرتك إلى <br />
-                <span className="text-gradient">واقع مذهل</span>
+                خلنا نشتغل على <br />
+                <span className="text-gradient">منتجاتك</span>
               </h2>
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                املأ النموذج البسيط وسنقوم بتحضير عرض مخصص يناسب احتياجاتك التجارية. نحن نفهم لغة الأعمال ونقدر وقتك.
+                عبّي النموذج البسيط هذا ونتواصل معك على الواتساب. ما ياخذ دقيقتين.
               </p>
               
               <div className="space-y-6">
@@ -838,8 +777,8 @@ export default function Home() {
                     <MessageCircle size={24} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2">استشارة مجانية</h3>
-                    <p className="text-muted-foreground">نناقش أهدافك ونقترح الحلول الأنسب لعلامتك التجارية.</p>
+                    <h3 className="text-xl font-bold mb-2">نرد بسرعة</h3>
+                    <p className="text-muted-foreground">نتواصل معك على الواتساب خلال ساعات.</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4 group">
@@ -847,8 +786,8 @@ export default function Home() {
                     <Zap size={24} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2">تنفيذ سريع واحترافي</h3>
-                    <p className="text-muted-foreground">نلتزم بالمواعيد ونضمن جودة تليق بسمعة نشاطك التجاري.</p>
+                    <h3 className="text-xl font-bold mb-2">نسلّم بسرعة</h3>
+                    <p className="text-muted-foreground">تسليم خلال 48 ساعة لأغلب الطلبات.</p>
                   </div>
                 </div>
               </div>
