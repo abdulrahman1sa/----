@@ -722,72 +722,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Portfolio Gallery */}
-      <section className="py-24 overflow-hidden bg-background relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary/5 via-background to-background -z-10" />
+      {/* Portfolio Gallery - Interactive Showcase */}
+      <section className="py-24 overflow-hidden bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
         
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold font-heading mb-4">أعمالنا تتحدث عن نفسها</h2>
-            <p className="text-xl text-muted-foreground mb-8">نماذج حقيقية تم توليدها وتصميمها بواسطة BADII</p>
-            
-            {/* Filter Bar */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {["الكل", "منتجات", "أطعمة ومشروبات", "إبداعي"].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-6 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
-                    activeCategory === cat 
-                      ? "bg-primary text-white shadow-lg shadow-primary/25 scale-105" 
-                      : "bg-secondary/50 text-muted-foreground hover:bg-secondary hover:text-foreground"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+          <div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Badge className="mb-6 bg-white/10 text-white hover:bg-white/20 border-white/20 px-4 py-1 text-base">
+                ✨ معرض الأعمال
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4 text-white">شاهد السحر بنفسك</h2>
+              <p className="text-xl text-white/60 max-w-2xl mx-auto">نماذج حقيقية تم توليدها بالذكاء الاصطناعي</p>
+            </motion.div>
           </div>
           
-          <motion.div 
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredPortfolio.map((item, i) => (
+          {/* Horizontal Scroll Gallery */}
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto pb-8 px-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {portfolioItems.map((item, i) => (
                 <motion.div 
-                  layout
-                  key={item.img}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.4 }}
-                  className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 bg-secondary/30 ${
-                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 aspect-square' : 'aspect-square'
-                  }`}
+                  key={item.title + i}
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="flex-shrink-0 snap-center"
                 >
-                  <img src={item.img} alt={item.title} loading="lazy" className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
-                  
-                  {/* Enhanced Hover Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6">
-                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
-                      <Badge className="mb-2 bg-primary text-white border-none">{item.category}</Badge>
-                      <h3 className="text-white font-bold text-xl mb-1">{item.title}</h3>
-                      <p className="text-gray-300 text-sm flex items-center gap-1">
-                        عرض التفاصيل <ArrowRight size={14} />
-                      </p>
+                  <div className="relative w-[300px] md:w-[400px] group">
+                    {/* Glass Card */}
+                    <div className="relative rounded-3xl overflow-hidden bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl">
+                      {/* Image Container - Full Display */}
+                      <div className="relative h-[400px] md:h-[500px] bg-gradient-to-b from-white/5 to-transparent p-4 flex items-center justify-center">
+                        <img 
+                          src={item.img} 
+                          alt={item.title} 
+                          loading="lazy" 
+                          className="max-w-full max-h-full w-auto h-auto object-contain rounded-2xl shadow-lg transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </div>
+                      
+                      {/* Info Footer */}
+                      <div className="p-6 bg-gradient-to-t from-black/80 to-transparent">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <Badge className="mb-2 bg-white/20 text-white border-none text-xs">{item.category}</Badge>
+                            <h3 className="text-white font-bold text-lg">{item.title}</h3>
+                          </div>
+                          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/60 group-hover:bg-white group-hover:text-black transition-all duration-300">
+                            <Sparkles size={18} />
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
               ))}
-            </AnimatePresence>
-          </motion.div>
-
-          <div className="mt-12 text-center">
-             <Button variant="outline" className="px-8 py-6 text-lg border-primary/20 hover:bg-primary/5">
-               مشاهدة المزيد من الأعمال
-             </Button>
+            </div>
+            
+            {/* Scroll Indicator */}
+            <div className="flex justify-center mt-6 gap-2">
+              <div className="flex items-center gap-2 text-white/40 text-sm">
+                <span>← اسحب للمزيد →</span>
+              </div>
+            </div>
           </div>
+          
+          {/* Stats Row */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto"
+          >
+            {[
+              { value: "4K", label: "جودة الصور" },
+              { value: "24h", label: "وقت التسليم" },
+              { value: "100%", label: "رضا العملاء" },
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-white/50 text-sm">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
