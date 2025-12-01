@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, Crown } from "lucide-react";
 import logo from "@assets/logo.png";
+import wrongCodeImage from "@assets/ابو سعيد_1764631024854.jpg";
 
 import portfolio1 from "@assets/portfolio_perfume_match.jpg";
 import portfolio2 from "@assets/portfolio_coffee_mud.jpg";
@@ -367,6 +368,7 @@ export default function AccessGate({ children }: AccessGateProps) {
   const [isGranted, setIsGranted] = useState(false);
   const [digits, setDigits] = useState<string[]>(["", "", ""]);
   const [error, setError] = useState(false);
+  const [showWrongCodeImage, setShowWrongCodeImage] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
   const [successIndex, setSuccessIndex] = useState<number>(-1);
   const [showTransition, setShowTransition] = useState(false);
@@ -460,12 +462,15 @@ export default function AccessGate({ children }: AccessGateProps) {
       }, 1000);
     } else {
       setError(true);
+      setShowWrongCodeImage(true);
       triggerHaptic('error');
       setDigits(["", "", ""]);
-      inputRefs.current[0]?.focus();
+      
       setTimeout(() => {
+        setShowWrongCodeImage(false);
         setError(false);
-      }, 1500);
+        inputRefs.current[0]?.focus();
+      }, 3000);
     }
   };
 
@@ -503,6 +508,24 @@ export default function AccessGate({ children }: AccessGateProps) {
       <AnimatePresence>
         {showWelcome && (
           <WelcomeOverlay onComplete={handleWelcomeComplete} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showWrongCodeImage && (
+          <motion.div
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[250] bg-black flex items-center justify-center"
+          >
+            <img 
+              src={wrongCodeImage} 
+              alt="يبن الحلال الكود KFO" 
+              className="max-w-full max-h-full object-contain"
+            />
+          </motion.div>
         )}
       </AnimatePresence>
 
