@@ -757,16 +757,16 @@ export default function Home() {
               {filteredPortfolio.map((item, i) => (
                 <motion.div 
                   layout
-                  key={item.img} // Using img src as key since it's unique enough here
+                  key={item.img}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ duration: 0.4 }}
-                  className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 ${
-                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 h-[300px] md:h-[500px]' : 'h-60 md:h-64'
+                  className={`relative rounded-2xl overflow-hidden group cursor-pointer shadow-md hover:shadow-xl hover:shadow-primary/10 transition-all duration-500 bg-secondary/30 ${
+                    item.size === 'large' ? 'md:col-span-2 md:row-span-2 aspect-square' : 'aspect-square'
                   }`}
                 >
-                  <img src={item.img} alt={item.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img src={item.img} alt={item.title} loading="lazy" className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" />
                   
                   {/* Enhanced Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-6">
