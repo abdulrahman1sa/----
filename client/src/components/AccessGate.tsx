@@ -84,26 +84,30 @@ function PortfolioGallery() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % portfolioImages.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/60 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50 z-10" />
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 0.2, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 1.5 }}
-          className="absolute inset-0 flex items-center justify-center bg-black"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.35 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 flex items-center justify-center"
         >
           <img 
             src={portfolioImages[currentIndex]} 
             alt="" 
-            className="max-w-full max-h-full w-auto h-auto object-contain"
+            className="min-w-full min-h-full object-contain"
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+            }}
           />
         </motion.div>
       </AnimatePresence>
