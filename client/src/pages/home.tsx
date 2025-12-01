@@ -20,7 +20,9 @@ import {
   Wand2,
   Share2,
   FileCheck,
-  ChevronUp
+  ChevronUp,
+  Clock,
+  Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -693,58 +695,86 @@ export default function Home() {
       </section>
 
       {/* Trust Section - Try Before You Pay */}
-      <section id="portfolio" className="py-24 overflow-hidden bg-black relative">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+      <section id="portfolio" className="py-32 overflow-hidden bg-black relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)]" />
         
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto text-center"
+            className="max-w-4xl mx-auto text-center"
           >
-            <Badge className="mb-6 bg-white/10 text-white hover:bg-white/20 border-white/20 px-4 py-1 text-base">
-              🎁 عرض خاص
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-white">جرّب قبل ما تدفع</h2>
-            <p className="text-xl md:text-2xl text-white/70 mb-8 leading-relaxed">
-              ارسل لنا صورة منتجك على الواتساب، ونوريك النتيجة مجاناً.
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              className="inline-block mb-8"
+            >
+              <div className="bg-gradient-to-r from-white/10 via-white/20 to-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2">
+                <span className="text-white/90 text-lg font-medium">عرض حصري للعملاء الجدد</span>
+              </div>
+            </motion.div>
+            
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading mb-8 text-white leading-tight">
+              جرّب <span className="text-gradient">مجاناً</span>
               <br />
-              <span className="text-primary font-bold">لو عجبتك، كمّل معنا. لو لا، ما عليك شي.</span>
+              <span className="text-3xl md:text-4xl lg:text-5xl text-white/60 font-normal">قبل ما تدفع ريال</span>
+            </h2>
+            
+            <p className="text-xl md:text-2xl text-white/50 mb-12 leading-relaxed max-w-2xl mx-auto">
+              ارسل صورة منتجك العادية، ونرجعها لك صورة احترافية خلال ٢٤ ساعة.
+              <br className="hidden md:block" />
+              عجبتك؟ كمّل معنا. ما عجبتك؟ <span className="text-white/70 font-medium">ولا ريال.</span>
             </p>
             
             {/* Trust Points */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-14 max-w-3xl mx-auto">
               {[
-                { icon: "🆓", title: "مجاناً", desc: "أول صورة علينا" },
-                { icon: "⚡", title: "سريع", desc: "رد خلال ساعات" },
-                { icon: "🤝", title: "بدون التزام", desc: "تشوف قبل تقرر" },
+                { icon: <Sparkles className="w-7 h-7" />, title: "صورة مجانية", desc: "أول تجربة علينا بدون أي تكلفة" },
+                { icon: <Clock className="w-7 h-7" />, title: "رد سريع", desc: "نرد عليك خلال ٢٤ ساعة كحد أقصى" },
+                { icon: <Shield className="w-7 h-7" />, title: "بدون التزام", desc: "لو ما عجبتك النتيجة، ما تدفع شي" },
               ].map((item, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.15 }}
                   viewport={{ once: true }}
-                  className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center"
+                  className="group relative bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 rounded-2xl p-8 text-center hover:border-white/20 transition-all duration-300"
                 >
-                  <div className="text-4xl mb-3">{item.icon}</div>
-                  <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
-                  <p className="text-white/50 text-sm">{item.desc}</p>
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="relative">
+                    <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-white/80 group-hover:text-white group-hover:bg-white/15 transition-all duration-300">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-white font-bold text-xl mb-2">{item.title}</h3>
+                    <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
                 </motion.div>
               ))}
             </div>
             
             {/* WhatsApp CTA */}
-            <Button 
-              size="lg" 
-              className="bg-green-600 hover:bg-green-700 text-white text-xl px-12 py-8 rounded-full shadow-2xl shadow-green-500/30 transition-all hover:scale-105"
-              onClick={() => window.open('https://wa.me/966509567267?text=السلام عليكم، أبي أجرب الخدمة مجاناً', '_blank')}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="space-y-4"
             >
-              <MessageCircle className="ml-3" size={28} />
-              ارسل صورة منتجك الآن
-            </Button>
-            <p className="text-white/40 text-sm mt-4">الرد خلال ساعات العمل</p>
+              <Button 
+                size="lg" 
+                className="bg-white hover:bg-white/90 text-black text-xl font-bold px-14 py-8 rounded-full shadow-2xl shadow-white/20 transition-all hover:scale-105 hover:shadow-white/30"
+                onClick={() => window.open('https://wa.me/966509567267?text=السلام عليكم، حاب أجرب الصورة المجانية لمنتجي', '_blank')}
+                data-testid="button-free-trial-whatsapp"
+              >
+                <MessageCircle className="ml-3" size={26} />
+                جرّب الآن مجاناً
+              </Button>
+              <p className="text-white/30 text-sm">نرد عليك على الواتساب خلال ساعات العمل</p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
