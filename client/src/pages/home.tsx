@@ -1215,7 +1215,7 @@ export default function Home() {
 
                   {/* Left Side - Features */}
                   <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-8">
-                    <p className="text-sm text-white/40 uppercase tracking-wider mb-6">ماذا تشمل الباقة</p>
+                    <p className="text-sm text-white/50 uppercase tracking-wider mb-6">ماذا تشمل الباقة</p>
                     <ul className="space-y-4">
                       {[
                         "30 تصميم احترافي (20 منشور + 10 ستوري)",
@@ -1226,9 +1226,9 @@ export default function Home() {
                         "استشارة مجانية 15 دقيقة",
                         "هاشتاقات مقترحة لكل منشور"
                       ].map((f, i) => (
-                        <li key={i} className="flex items-start gap-3 text-base text-white/70">
-                          <div className="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center mt-0.5 shrink-0">
-                            <CheckCircle2 size={12} className="text-white" />
+                        <li key={i} className="flex items-start gap-3 text-base text-white/60">
+                          <div className="w-5 h-5 rounded-full border border-white/20 flex items-center justify-center mt-0.5 shrink-0">
+                            <CheckCircle2 size={12} className="text-white/50" />
                           </div>
                           <span>{f}</span>
                         </li>
@@ -1258,13 +1258,13 @@ export default function Home() {
                     
                     <div>
                       <h3 className="text-2xl font-semibold font-heading text-white mb-2">باقة الانطلاق</h3>
-                      <p className="text-sm text-white/40">للتجربة والمشاريع الصغيرة</p>
+                      <p className="text-sm text-white/50">للتجربة والمشاريع الصغيرة</p>
                     </div>
                     
                     <div className="pt-6 border-t border-white/10">
                       <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-bold text-white">149</span>
-                        <span className="text-white/40">ريال</span>
+                        <span className="text-white/50">ريال</span>
                       </div>
                     </div>
                     
@@ -1277,7 +1277,7 @@ export default function Home() {
                         "تسليم خلال 3-5 أيام"
                       ].map((f, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-white/60">
-                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <CheckCircle2 size={14} className="text-white/50 mt-0.5 shrink-0" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -1313,13 +1313,13 @@ export default function Home() {
                     
                     <div>
                       <h3 className="text-2xl font-semibold font-heading text-white mb-2">باقة الاحتراف</h3>
-                      <p className="text-sm text-white/40">للمشاريع الجادة والحملات</p>
+                      <p className="text-sm text-white/50">للمشاريع الجادة والحملات</p>
                     </div>
                     
                     <div className="pt-6 border-t border-white/10">
                       <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-bold text-white">699</span>
-                        <span className="text-white/40">ريال</span>
+                        <span className="text-white/50">ريال</span>
                       </div>
                     </div>
                     
@@ -1328,12 +1328,12 @@ export default function Home() {
                         "50 تصميم شامل متنوع",
                         "3 ريلز احترافية",
                         "نصوص لـ 20 منشور",
-                        "هوية بصرية مبسطة",
                         "4 جولات تعديل",
-                        "استشارة 30 دقيقة"
+                        "استشارة 30 دقيقة",
+                        "دعم واتساب مباشر"
                       ].map((f, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-white/60">
-                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <CheckCircle2 size={14} className="text-white/50 mt-0.5 shrink-0" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -1375,13 +1375,13 @@ export default function Home() {
                     
                     <div>
                       <h3 className="text-2xl font-semibold font-heading text-white mb-2">الباقة الشهرية</h3>
-                      <p className="text-sm text-white/40">حل متكامل لكل الشهر</p>
+                      <p className="text-sm text-white/50">حل متكامل لكل الشهر</p>
                     </div>
                     
                     <div className="pt-6 border-t border-white/10">
                       <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-bold text-white">1,199</span>
-                        <span className="text-white/40">ر.س/شهر</span>
+                        <span className="text-white/50">ر.س/شهر</span>
                       </div>
                     </div>
                     
@@ -1395,7 +1395,7 @@ export default function Home() {
                         "أولوية في التنفيذ"
                       ].map((f, i) => (
                         <li key={i} className="flex items-start gap-3 text-sm text-white/60">
-                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <CheckCircle2 size={14} className="text-white/50 mt-0.5 shrink-0" />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -1426,17 +1426,16 @@ export default function Home() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
                 <div>
                   <h3 className="text-xl font-semibold font-heading text-white mb-1">خدمات إضافية</h3>
-                  <p className="text-sm text-white/40">أضف لباقتك حسب احتياجك</p>
+                  <p className="text-sm text-white/50">أضف لباقتك حسب احتياجك</p>
                 </div>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                 {[
                   { name: "ريلز إضافي", price: "49", Icon: Film },
                   { name: "10 تصاميم", price: "99", Icon: Layers },
                   { name: "10 نصوص", price: "79", Icon: FileText },
                   { name: "فيديو ترويجي", price: "149", Icon: Clapperboard },
-                  { name: "تصميم شعار", price: "199", Icon: Star },
                   { name: "منيو كامل", price: "249", Icon: FileCheck },
                   { name: "تسليم سريع", price: "+79", Icon: Timer },
                 ].map((service, i) => (
@@ -1447,9 +1446,9 @@ export default function Home() {
                     className="group rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300"
                     onClick={() => handlePackageClick(service.name, `${service.price} ريال`)}
                   >
-                    <service.Icon className="w-5 h-5 mx-auto mb-3 text-white/40 group-hover:text-white/60 transition-colors" />
-                    <p className="text-white/50 text-xs mb-2 group-hover:text-white/70 transition-colors">{service.name}</p>
-                    <p className="text-white font-bold">{service.price}<span className="text-xs text-white/40 mr-0.5">ر.س</span></p>
+                    <service.Icon className="w-5 h-5 mx-auto mb-3 text-white/50 group-hover:text-white/70 transition-colors" />
+                    <p className="text-white/60 text-xs mb-2 group-hover:text-white/80 transition-colors">{service.name}</p>
+                    <p className="text-white font-bold">{service.price}<span className="text-xs text-white/50 mr-0.5">ر.س</span></p>
                   </motion.button>
                 ))}
               </div>
