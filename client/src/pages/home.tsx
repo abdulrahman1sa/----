@@ -1137,314 +1137,323 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section id="pricing" className="py-24 bg-black/50">
-        <div className="container mx-auto px-4 md:px-6">
+      {/* Pricing - Premium Layout */}
+      <section id="pricing" className="py-32 bg-black">
+        <div className="container mx-auto px-6">
+          
+          {/* Layer 1: Editorial Header */}
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center max-w-4xl mx-auto mb-20"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-white/60 mb-4">
-              الأسعار شفافة وواضحة
+            <span className="inline-block text-sm tracking-[0.25em] uppercase text-white/50 mb-6 font-heading">
+              باقات الخدمات
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold font-heading mb-4">اختر الباقة المناسبة لمشروعك</h2>
-            <p className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto">تصاميم احترافية بأسعار واضحة، بدون رسوم خفية أو مفاجآت</p>
+            <h2 className="text-4xl md:text-6xl font-extrabold font-heading leading-tight mb-6">
+              استثمر في صورة<br />مشروعك
+            </h2>
+            <p className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto leading-relaxed">
+              أسعار واضحة وشفافة، بدون رسوم خفية. اختر الباقة المناسبة وابدأ رحلتك معنا
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-5 items-stretch max-w-7xl mx-auto">
-            {/* باقة الانطلاق */}
+          {/* Layer 2: Packages Grid - Hero Layout */}
+          <div className="max-w-6xl mx-auto">
+            
+            {/* Hero Growth Package - Full Width Top */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0, duration: 0.4 }}
-              whileHover={{ y: -6 }}
-              className="group"
+              transition={{ duration: 0.6 }}
+              className="mb-8"
             >
-              <Card className="relative overflow-hidden border border-white/10 hover:border-white/25 transition-all duration-300 h-full flex flex-col bg-white/[0.02]">
-                <CardHeader className="pb-4 space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors">
-                    <Package className="w-6 h-6 text-white/70" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg font-heading text-white/90 mb-1">باقة الانطلاق</CardTitle>
-                    <CardDescription className="text-sm text-white/40">مثالية للتجربة والمشاريع الصغيرة</CardDescription>
-                  </div>
-                  <div className="pt-4 border-t border-white/10">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-white/90">149</span>
-                      <span className="text-white/40 text-sm">ريال</span>
-                    </div>
-                    <p className="text-xs text-white/30 mt-1">14.9 ريال لكل تصميم</p>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 pt-2">
-                  <ul className="space-y-2.5">
-                    {[
-                      "10 تصاميم احترافية",
-                      "صور منتجات أو منشورات",
-                      "مقاسات لجميع المنصات",
-                      "جولتين تعديل لكل تصميم",
-                      "تسليم خلال 3-5 أيام",
-                      "صيغ PNG و JPG عالية الجودة"
-                    ].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-white/60">
-                        <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter className="pt-6 pb-6">
-                  <Button 
-                    className="w-full h-11 text-sm border-white/15 text-white/80 hover:bg-white hover:text-black hover:border-white transition-all duration-300" 
-                    variant="outline" 
-                    onClick={() => handlePackageClick('باقة الانطلاق', '149 ريال')} 
-                    data-testid="button-package-start"
-                  >
-                    اطلب الآن
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-
-            {/* باقة النمو - الأكثر شعبية */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-              whileHover={{ y: -6 }}
-              className="group xl:scale-[1.03] z-10"
-            >
-              <Card className="relative overflow-hidden border-2 border-white/80 h-full flex flex-col bg-white/[0.04] shadow-xl shadow-white/5">
-                <div className="absolute top-0 inset-x-0 h-px bg-white/80" />
-                <div className="absolute -top-px left-1/2 -translate-x-1/2">
-                  <div className="bg-white text-black px-4 py-1 rounded-b-lg text-xs font-bold">
-                    الأكثر شعبية
-                  </div>
-                </div>
-                <CardHeader className="pb-4 pt-10 space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                    <Rocket className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg font-heading text-white mb-1">باقة النمو</CardTitle>
-                    <CardDescription className="text-sm text-white/50">أفضل قيمة مقابل السعر</CardDescription>
-                  </div>
-                  <div className="pt-4 border-t border-white/20">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-white">399</span>
-                      <span className="text-white/50 text-sm">ريال</span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-white/40">13.3 ريال لكل تصميم</p>
-                      <span className="text-xs bg-white/15 text-white/70 px-2 py-0.5 rounded">وفّر 50</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 pt-2">
-                  <ul className="space-y-2.5">
-                    {[
-                      "30 تصميم (20 منشور + 10 قصص)",
-                      "ريلز واحد (15-20 ثانية)",
-                      "كتابة نصوص لـ 10 منشورات",
-                      "3 جولات تعديل لكل تصميم",
-                      "تسليم خلال 5-7 أيام",
-                      "استشارة مجانية 15 دقيقة",
-                      "هاشتاقات مقترحة"
-                    ].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-white/70">
-                        <CheckCircle2 size={14} className="text-white/60 mt-0.5 shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter className="pt-6 pb-6">
-                  <Button 
-                    className="w-full h-11 bg-white hover:bg-white/90 text-black text-sm font-bold transition-all duration-300" 
-                    onClick={() => handlePackageClick('باقة النمو', '399 ريال')} 
-                    data-testid="button-package-growth"
-                  >
-                    اطلب الآن
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-
-            {/* باقة الاحتراف */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.4 }}
-              whileHover={{ y: -6 }}
-              className="group"
-            >
-              <Card className="relative overflow-hidden border border-white/10 hover:border-white/25 transition-all duration-300 h-full flex flex-col bg-white/[0.02]">
-                <CardHeader className="pb-4 space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors">
-                    <Crown className="w-6 h-6 text-white/70" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg font-heading text-white/90 mb-1">باقة الاحتراف</CardTitle>
-                    <CardDescription className="text-sm text-white/40">للمشاريع الجادة والحملات الإعلانية</CardDescription>
-                  </div>
-                  <div className="pt-4 border-t border-white/10">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-white/90">699</span>
-                      <span className="text-white/40 text-sm">ريال</span>
-                    </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-white/30">14 ريال لكل تصميم</p>
-                      <span className="text-xs bg-white/10 text-white/50 px-2 py-0.5 rounded">وفّر 150</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 pt-2">
-                  <ul className="space-y-2.5">
-                    {[
-                      "50 تصميم شامل متنوع",
-                      "3 ريلز احترافية (20-30 ث)",
-                      "نصوص لـ 20 منشور + هاشتاقات",
-                      "هوية بصرية مبسطة",
-                      "4 جولات تعديل لكل تصميم",
-                      "تسليم خلال 7-10 أيام",
-                      "استشارة 30 دقيقة",
-                      "دعم واتساب مباشر"
-                    ].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-white/60">
-                        <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter className="pt-6 pb-6">
-                  <Button 
-                    className="w-full h-11 text-sm border-white/15 text-white/80 hover:bg-white hover:text-black hover:border-white transition-all duration-300" 
-                    variant="outline" 
-                    onClick={() => handlePackageClick('باقة الاحتراف', '699 ريال')} 
-                    data-testid="button-package-pro"
-                  >
-                    اطلب الآن
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-
-            {/* الباقة الشهرية VIP */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              whileHover={{ y: -6 }}
-              className="group"
-            >
-              <Card className="relative overflow-hidden border border-white/10 hover:border-white/25 transition-all duration-300 h-full flex flex-col bg-white/[0.02]">
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white/10 text-white/60 px-3 py-1 rounded text-xs font-medium border border-white/10">
-                    حل متكامل
+              <div className="relative rounded-[32px] border border-white/20 bg-white/[0.04] p-10 md:p-14 overflow-hidden group hover:border-white/30 transition-all duration-500">
+                <div className="absolute top-0 inset-x-0 h-px bg-white/20" />
+                
+                {/* Badge */}
+                <div className="absolute top-6 left-6 md:top-8 md:left-8">
+                  <span className="inline-flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full text-sm font-bold">
+                    <span className="w-2 h-2 bg-black rounded-full" />
+                    الأكثر طلباً
                   </span>
                 </div>
-                <CardHeader className="pb-4 pt-12 space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-white/15 transition-colors">
-                    <Briefcase className="w-6 h-6 text-white/70" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg font-heading text-white/90 mb-1">الباقة الشهرية VIP</CardTitle>
-                    <CardDescription className="text-sm text-white/40">اشتراك شهري لاحتياجاتك الكاملة</CardDescription>
-                  </div>
-                  <div className="pt-4 border-t border-white/10">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-3xl font-bold text-white/90">1,199</span>
-                      <span className="text-white/40 text-sm">ريال/شهر</span>
-                    </div>
-                    <p className="text-xs text-white/30 mt-1">وفّر أكثر من 300 ريال شهرياً</p>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 pt-2">
-                  <ul className="space-y-2">
-                    {[
-                      "60 تصميم شهرياً",
-                      "8 ريلز احترافية شهرياً",
-                      "خطة محتوى + تقويم نشر كامل",
-                      "تحليل منافسين (2-3)",
-                      "كتابة محتوى شامل",
-                      "تعديلات مفتوحة حتى الرضا",
-                      "تسليم أسبوعي (15 تصميم)",
-                      "دعم يومي + استشارات دورية",
-                      "أولوية قصوى في التنفيذ"
-                    ].map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-white/60">
-                        <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
-                        <span>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="mt-4 p-2.5 bg-white/5 rounded-lg border border-white/10">
-                    <p className="text-xs text-white/50 text-center">خصم 25% على أي خدمات إضافية</p>
-                  </div>
-                </CardContent>
-                <CardFooter className="pt-6 pb-6">
-                  <Button 
-                    className="w-full h-11 text-sm border-white/15 text-white/80 hover:bg-white hover:text-black hover:border-white transition-all duration-300" 
-                    variant="outline" 
-                    onClick={() => handlePackageClick('الباقة الشهرية VIP', '1,199 ريال/شهر')} 
-                    data-testid="button-package-vip"
-                  >
-                    اشترك الآن
-                  </Button>
-                </CardFooter>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Additional Services */}
-      <section className="py-16 bg-black/80">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10"
-          >
-            <h3 className="text-2xl md:text-3xl font-bold font-heading mb-2 text-white">خدمات إضافية</h3>
-            <p className="text-white/40 text-sm">أضف لباقتك حسب احتياجك</p>
-          </motion.div>
-          
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
-            {[
-              { name: "ريلز إضافي", price: "49", Icon: Film },
-              { name: "10 تصاميم إضافية", price: "99", Icon: Layers },
-              { name: "كتابة 10 منشورات", price: "79", Icon: FileText },
-              { name: "فيديو ترويجي", price: "149", Icon: Clapperboard },
-              { name: "تصميم شعار", price: "199", Icon: Star },
-              { name: "تصميم منيو كامل", price: "249", Icon: FileCheck },
-              { name: "تسليم سريع 48س", price: "+79", Icon: Timer },
-            ].map((service, i) => (
-              <motion.button
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center pt-8 md:pt-4">
+                  {/* Right Side - Info */}
+                  <div className="space-y-8">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-2xl border border-white/30 bg-white/[0.08] flex items-center justify-center">
+                        <Rocket className="w-8 h-8 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-3xl md:text-4xl font-bold font-heading text-white">باقة النمو</h3>
+                        <p className="text-white/50 mt-1">الأفضل للمتاجر والمطاعم الصاعدة</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-6xl md:text-7xl font-bold text-white tracking-tight">399</span>
+                      <span className="text-xl text-white/50">ريال</span>
+                    </div>
+                    
+                    <p className="text-white/60 text-lg leading-relaxed">
+                      كل اللي تحتاجه لإطلاق حملتك التسويقية: تصاميم احترافية، ريلز جذاب، ونصوص مؤثرة
+                    </p>
+
+                    <Button 
+                      className="h-14 px-10 bg-white hover:bg-white/90 text-black text-base font-bold rounded-xl transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/10" 
+                      onClick={() => handlePackageClick('باقة النمو', '399 ريال')} 
+                      data-testid="button-package-growth"
+                    >
+                      اطلب الآن
+                      <ArrowRight className="mr-2 w-5 h-5 rotate-180" />
+                    </Button>
+                  </div>
+
+                  {/* Left Side - Features */}
+                  <div className="bg-white/[0.04] rounded-2xl border border-white/10 p-8">
+                    <p className="text-sm text-white/40 uppercase tracking-wider mb-6">ماذا تشمل الباقة</p>
+                    <ul className="space-y-4">
+                      {[
+                        "30 تصميم احترافي (20 منشور + 10 ستوري)",
+                        "ريلز واحد (15-20 ثانية)",
+                        "كتابة نصوص لـ 10 منشورات",
+                        "3 جولات تعديل لكل تصميم",
+                        "تسليم خلال 5-7 أيام عمل",
+                        "استشارة مجانية 15 دقيقة",
+                        "هاشتاقات مقترحة لكل منشور"
+                      ].map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-base text-white/70">
+                          <div className="w-5 h-5 rounded-full border border-white/30 flex items-center justify-center mt-0.5 shrink-0">
+                            <CheckCircle2 size={12} className="text-white" />
+                          </div>
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Three Packages Row */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* باقة الانطلاق */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                whileHover={{ y: -3 }}
-                whileTap={{ scale: 0.98 }}
-                className="group bg-white/[0.03] border border-white/10 rounded-xl px-5 py-4 text-center hover:bg-white/[0.06] hover:border-white/20 transition-all duration-300 min-w-[130px]"
-                onClick={() => handlePackageClick(service.name, `${service.price} ريال`)}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="group"
               >
-                <service.Icon className="w-5 h-5 mx-auto mb-2 text-white/50 group-hover:text-white/70 transition-colors" />
-                <p className="text-white/50 text-xs mb-1.5 group-hover:text-white/70 transition-colors">{service.name}</p>
-                <p className="text-white/90 font-bold text-lg">{service.price}<span className="text-xs text-white/40 mr-0.5">ر.س</span></p>
-              </motion.button>
-            ))}
+                <div className="h-full rounded-[28px] border border-white/15 bg-white/[0.03] p-8 flex flex-col hover:border-white/25 hover:bg-white/[0.05] transition-all duration-500">
+                  <div className="flex flex-col gap-6 flex-1">
+                    <div className="w-14 h-14 rounded-2xl border border-white/20 bg-white/[0.04] flex items-center justify-center">
+                      <Package className="w-7 h-7 text-white/70" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl font-semibold font-heading text-white mb-2">باقة الانطلاق</h3>
+                      <p className="text-sm text-white/40">للتجربة والمشاريع الصغيرة</p>
+                    </div>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold text-white">149</span>
+                        <span className="text-white/40">ريال</span>
+                      </div>
+                    </div>
+                    
+                    <ul className="space-y-3 flex-1">
+                      {[
+                        "10 تصاميم احترافية",
+                        "صور منتجات أو منشورات",
+                        "مقاسات لجميع المنصات",
+                        "جولتين تعديل لكل تصميم",
+                        "تسليم خلال 3-5 أيام"
+                      ].map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-white/60">
+                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <Button 
+                        className="w-full h-12 border border-white/30 text-white/80 hover:bg-white hover:text-black hover:border-white rounded-xl transition-all duration-300" 
+                        variant="outline" 
+                        onClick={() => handlePackageClick('باقة الانطلاق', '149 ريال')} 
+                        data-testid="button-package-start"
+                      >
+                        اطلب الآن
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* باقة الاحتراف */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="group"
+              >
+                <div className="h-full rounded-[28px] border border-white/15 bg-white/[0.03] p-8 flex flex-col hover:border-white/25 hover:bg-white/[0.05] transition-all duration-500">
+                  <div className="flex flex-col gap-6 flex-1">
+                    <div className="w-14 h-14 rounded-2xl border border-white/20 bg-white/[0.04] flex items-center justify-center">
+                      <Crown className="w-7 h-7 text-white/70" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl font-semibold font-heading text-white mb-2">باقة الاحتراف</h3>
+                      <p className="text-sm text-white/40">للمشاريع الجادة والحملات</p>
+                    </div>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold text-white">699</span>
+                        <span className="text-white/40">ريال</span>
+                      </div>
+                    </div>
+                    
+                    <ul className="space-y-3 flex-1">
+                      {[
+                        "50 تصميم شامل متنوع",
+                        "3 ريلز احترافية",
+                        "نصوص لـ 20 منشور",
+                        "هوية بصرية مبسطة",
+                        "4 جولات تعديل",
+                        "استشارة 30 دقيقة"
+                      ].map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-white/60">
+                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <Button 
+                        className="w-full h-12 border border-white/30 text-white/80 hover:bg-white hover:text-black hover:border-white rounded-xl transition-all duration-300" 
+                        variant="outline" 
+                        onClick={() => handlePackageClick('باقة الاحتراف', '699 ريال')} 
+                        data-testid="button-package-pro"
+                      >
+                        اطلب الآن
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* الباقة الشهرية VIP */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="group"
+              >
+                <div className="h-full rounded-[28px] border border-white/15 bg-white/[0.03] p-8 flex flex-col hover:border-white/25 hover:bg-white/[0.05] transition-all duration-500 relative">
+                  <div className="absolute top-4 left-4">
+                    <span className="text-xs text-white/50 bg-white/10 px-3 py-1 rounded-full border border-white/10">
+                      اشتراك شهري
+                    </span>
+                  </div>
+                  
+                  <div className="flex flex-col gap-6 flex-1 pt-6">
+                    <div className="w-14 h-14 rounded-2xl border border-white/20 bg-white/[0.04] flex items-center justify-center">
+                      <Briefcase className="w-7 h-7 text-white/70" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-2xl font-semibold font-heading text-white mb-2">الباقة الشهرية</h3>
+                      <p className="text-sm text-white/40">حل متكامل لكل الشهر</p>
+                    </div>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-bold text-white">1,199</span>
+                        <span className="text-white/40">ر.س/شهر</span>
+                      </div>
+                    </div>
+                    
+                    <ul className="space-y-3 flex-1">
+                      {[
+                        "60 تصميم شهرياً",
+                        "8 ريلز احترافية",
+                        "خطة محتوى كاملة",
+                        "تعديلات مفتوحة",
+                        "دعم يومي مباشر",
+                        "أولوية في التنفيذ"
+                      ].map((f, i) => (
+                        <li key={i} className="flex items-start gap-3 text-sm text-white/60">
+                          <CheckCircle2 size={14} className="text-white/40 mt-0.5 shrink-0" />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="pt-6 border-t border-white/10">
+                      <Button 
+                        className="w-full h-12 border border-white/30 text-white/80 hover:bg-white hover:text-black hover:border-white rounded-xl transition-all duration-300" 
+                        variant="outline" 
+                        onClick={() => handlePackageClick('الباقة الشهرية VIP', '1,199 ريال/شهر')} 
+                        data-testid="button-package-vip"
+                      >
+                        اشترك الآن
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Additional Services - Integrated Strip */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mt-16 pt-12 border-t border-white/10"
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8">
+                <div>
+                  <h3 className="text-xl font-semibold font-heading text-white mb-1">خدمات إضافية</h3>
+                  <p className="text-sm text-white/40">أضف لباقتك حسب احتياجك</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+                {[
+                  { name: "ريلز إضافي", price: "49", Icon: Film },
+                  { name: "10 تصاميم", price: "99", Icon: Layers },
+                  { name: "10 نصوص", price: "79", Icon: FileText },
+                  { name: "فيديو ترويجي", price: "149", Icon: Clapperboard },
+                  { name: "تصميم شعار", price: "199", Icon: Star },
+                  { name: "منيو كامل", price: "249", Icon: FileCheck },
+                  { name: "تسليم سريع", price: "+79", Icon: Timer },
+                ].map((service, i) => (
+                  <motion.button
+                    key={i}
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="group rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-5 text-center hover:bg-white/[0.05] hover:border-white/20 transition-all duration-300"
+                    onClick={() => handlePackageClick(service.name, `${service.price} ريال`)}
+                  >
+                    <service.Icon className="w-5 h-5 mx-auto mb-3 text-white/40 group-hover:text-white/60 transition-colors" />
+                    <p className="text-white/50 text-xs mb-2 group-hover:text-white/70 transition-colors">{service.name}</p>
+                    <p className="text-white font-bold">{service.price}<span className="text-xs text-white/40 mr-0.5">ر.س</span></p>
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
