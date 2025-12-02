@@ -1132,109 +1132,315 @@ export default function Home() {
       <section id="pricing" className="py-24 bg-secondary/20">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold font-heading mb-4">الأسعار واضحة</h2>
-            <p className="text-xl text-muted-foreground">اختر اللي يناسبك، بدون رسوم خفية</p>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">اختر الباقة المناسبة لمشروعك</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">تصاميم احترافية بأسعار واضحة، بدون رسوم خفية أو مفاجآت</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 items-start max-w-6xl mx-auto">
-            {/* باقة البداية */}
-            <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
-              <CardHeader>
-                <CardTitle className="text-2xl font-heading">🟢 باقة البداية</CardTitle>
-                <CardDescription>للي يبي يجرب الخدمة</CardDescription>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">99</span>
-                  <span className="text-muted-foreground mr-1">ريال</span>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {[
-                    "3 صور منتجات احترافية", 
-                    "3 أوصاف للمنتجات", 
-                    "تسليم خلال 48 ساعة",
-                    "تعديل واحد مجاني",
-                    "حقوق الاستخدام كاملة لك"
-                  ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm">
-                      <CheckCircle2 size={16} className="text-green-500" /> {f}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة البداية', '99 ريال')}>اطلب الآن</Button>
-              </CardFooter>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch max-w-7xl mx-auto">
+            {/* باقة الانطلاق */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0 }}
+            >
+              <Card className="relative overflow-hidden border-muted/50 hover:border-white/30 transition-all duration-300 h-full flex flex-col bg-card/50">
+                <CardHeader className="pb-4">
+                  <div className="text-3xl mb-2">📦</div>
+                  <CardTitle className="text-xl font-heading">باقة الانطلاق</CardTitle>
+                  <CardDescription className="text-sm">مثالية للتجربة والمشاريع الصغيرة</CardDescription>
+                  <div className="mt-4 pt-4 border-t border-muted/30">
+                    <span className="text-4xl font-bold">149</span>
+                    <span className="text-muted-foreground mr-1">ريال</span>
+                    <p className="text-xs text-muted-foreground mt-1">14.9 ريال/تصميم</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-2.5">
+                    {[
+                      "10 تصاميم احترافية",
+                      "صور منتجات أو منشورات",
+                      "مقاسات لجميع المنصات",
+                      "جولتين تعديل لكل تصميم",
+                      "تسليم خلال 3-5 أيام",
+                      "صيغ PNG و JPG عالية الجودة"
+                    ].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <CheckCircle2 size={16} className="text-white/70 mt-0.5 shrink-0" /> 
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter className="pt-4">
+                  <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الانطلاق', '149 ريال')} data-testid="button-package-start">
+                    اطلب الآن
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
 
-            {/* باقة الأعمال */}
-            <Card className="relative overflow-hidden border-primary shadow-2xl shadow-primary/10 scale-105 z-10 bg-primary/5">
-              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 to-blue-500" />
-              <div className="absolute top-4 left-4">
-                <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 border-none">الأكثر طلباً</Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="text-2xl font-heading text-primary">🌟 باقة الأعمال</CardTitle>
-                <CardDescription>للمتاجر والمطاعم</CardDescription>
-                <div className="mt-4">
-                  <span className="text-5xl font-bold">299</span>
-                  <span className="text-muted-foreground mr-1">ريال</span>
+            {/* باقة النمو - الأكثر شعبية */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Card className="relative overflow-hidden border-white shadow-2xl shadow-white/10 h-full flex flex-col bg-white/5">
+                <div className="absolute top-0 inset-x-0 h-1 bg-white" />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-white text-black border-none font-bold">⭐ الأكثر شعبية</Badge>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {[
-                    "10 صور منتجات احترافية", 
-                    "10 أوصاف جاهزة للنشر", 
-                    "ريلز واحد (15 ثانية)",
-                    "تسليم خلال 48 ساعة", 
-                    "تعديلين مجاناً",
-                    "دعم واتساب"
-                  ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 font-medium">
-                      <CheckCircle2 size={18} className="text-primary" /> {f}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6" onClick={() => handlePackageClick('باقة الأعمال', '299 ريال')}>اطلب الآن</Button>
-              </CardFooter>
-            </Card>
+                <CardHeader className="pb-4 pt-10">
+                  <div className="text-3xl mb-2">🚀</div>
+                  <CardTitle className="text-xl font-heading text-white">باقة النمو</CardTitle>
+                  <CardDescription className="text-sm">أفضل قيمة مقابل السعر</CardDescription>
+                  <div className="mt-4 pt-4 border-t border-white/20">
+                    <span className="text-4xl font-bold text-white">399</span>
+                    <span className="text-white/70 mr-1">ريال</span>
+                    <p className="text-xs text-white/50 mt-1">13.3 ريال/تصميم • وفّر 50 ريال</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-2.5">
+                    {[
+                      "30 تصميم (20 منشور + 10 قصص)",
+                      "ريلز واحد (15-20 ثانية)",
+                      "كتابة نصوص لـ 10 منشورات",
+                      "3 جولات تعديل لكل تصميم",
+                      "تسليم خلال 5-7 أيام",
+                      "استشارة مجانية 15 دقيقة",
+                      "هاشتاقات مقترحة"
+                    ].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm font-medium">
+                        <CheckCircle2 size={16} className="text-white mt-0.5 shrink-0" /> 
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter className="pt-4">
+                  <Button className="w-full bg-white hover:bg-white/90 text-black text-base py-6 font-bold" onClick={() => handlePackageClick('باقة النمو', '399 ريال')} data-testid="button-package-growth">
+                    اطلب الآن
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
 
-            {/* باقة VIP */}
-            <Card className="relative overflow-hidden border-muted hover:border-primary/30 transition-colors">
-              <div className="absolute top-4 left-4">
-                <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 border-none">قيمة عالية</Badge>
-              </div>
-              <CardHeader>
-                <CardTitle className="text-2xl font-heading">🏆 باقة VIP</CardTitle>
-                <CardDescription>للي يبي محتوى شهر كامل</CardDescription>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold">799</span>
-                  <span className="text-muted-foreground mr-1">ريال</span>
+            {/* باقة الاحتراف */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="relative overflow-hidden border-muted/50 hover:border-white/30 transition-all duration-300 h-full flex flex-col bg-card/50">
+                <CardHeader className="pb-4">
+                  <div className="text-3xl mb-2">👑</div>
+                  <CardTitle className="text-xl font-heading">باقة الاحتراف</CardTitle>
+                  <CardDescription className="text-sm">للمشاريع الجادة والحملات الإعلانية</CardDescription>
+                  <div className="mt-4 pt-4 border-t border-muted/30">
+                    <span className="text-4xl font-bold">699</span>
+                    <span className="text-muted-foreground mr-1">ريال</span>
+                    <p className="text-xs text-muted-foreground mt-1">14 ريال/تصميم • وفّر 150 ريال</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-2.5">
+                    {[
+                      "50 تصميم شامل متنوع",
+                      "3 ريلز احترافية (20-30 ث)",
+                      "نصوص لـ 20 منشور + هاشتاقات",
+                      "هوية بصرية مبسطة",
+                      "4 جولات تعديل لكل تصميم",
+                      "تسليم خلال 7-10 أيام",
+                      "استشارة 30 دقيقة",
+                      "دعم واتساب مباشر"
+                    ].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm">
+                        <CheckCircle2 size={16} className="text-white/70 mt-0.5 shrink-0" /> 
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter className="pt-4">
+                  <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة الاحتراف', '699 ريال')} data-testid="button-package-pro">
+                    اطلب الآن
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+
+            {/* الباقة الشهرية VIP */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Card className="relative overflow-hidden border-white/20 h-full flex flex-col bg-black">
+                <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-white/20 text-white border-white/30">💎 حل متكامل</Badge>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {[
-                    "30 صورة منتج احترافية", 
-                    "30 وصف ومحتوى جاهز",
-                    "3 فيديوهات ريلز", 
-                    "تسليم خلال 5 أيام",
-                    "تعديلات غير محدودة",
-                    "أولوية في الرد والدعم"
-                  ].map((f, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm">
-                      <CheckCircle2 size={16} className="text-green-500" /> {f}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full" variant="outline" onClick={() => handlePackageClick('باقة VIP', '799 ريال')}>اطلب الآن</Button>
-              </CardFooter>
-            </Card>
+                <CardHeader className="pb-4 pt-10 relative">
+                  <div className="text-3xl mb-2">💼</div>
+                  <CardTitle className="text-xl font-heading text-white">الباقة الشهرية VIP</CardTitle>
+                  <CardDescription className="text-sm text-white/60">اشتراك شهري لاحتياجاتك الكاملة</CardDescription>
+                  <div className="mt-4 pt-4 border-t border-white/20">
+                    <span className="text-4xl font-bold text-white">1,199</span>
+                    <span className="text-white/70 mr-1">ريال/شهر</span>
+                    <p className="text-xs text-white/50 mt-1">وفّر أكثر من 300 ريال شهرياً</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1 relative">
+                  <ul className="space-y-2.5">
+                    {[
+                      "60 تصميم شهرياً",
+                      "8 ريلز احترافية شهرياً",
+                      "خطة محتوى + تقويم نشر كامل",
+                      "تحليل منافسين (2-3)",
+                      "كتابة محتوى شامل",
+                      "تعديلات مفتوحة حتى الرضا",
+                      "تسليم أسبوعي (15 تصميم)",
+                      "دعم يومي + استشارات دورية",
+                      "أولوية قصوى في التنفيذ"
+                    ].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-white/90">
+                        <CheckCircle2 size={16} className="text-white mt-0.5 shrink-0" /> 
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 p-3 bg-white/10 rounded-lg border border-white/20">
+                    <p className="text-xs text-white/80 text-center">🎁 خصم 25% على أي خدمات إضافية</p>
+                  </div>
+                </CardContent>
+                <CardFooter className="pt-4 relative">
+                  <Button className="w-full bg-white hover:bg-white/90 text-black font-bold" onClick={() => handlePackageClick('الباقة الشهرية VIP', '1,199 ريال/شهر')} data-testid="button-package-vip">
+                    اشترك الآن
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Additional Services */}
+      <section className="py-16 bg-black">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold font-heading mb-3 text-white">🎁 خدمات إضافية</h3>
+            <p className="text-white/50">أضف لباقتك حسب احتياجك</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
+            {[
+              { name: "ريلز إضافي", price: "49" },
+              { name: "10 تصاميم إضافية", price: "99" },
+              { name: "كتابة 10 منشورات", price: "79" },
+              { name: "فيديو ترويجي", price: "149" },
+              { name: "تصميم شعار", price: "199" },
+              { name: "تصميم منيو كامل", price: "249" },
+              { name: "تسليم سريع 48س", price: "+79" },
+            ].map((service, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05 }}
+                className="bg-white/5 border border-white/10 rounded-xl p-4 text-center hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer"
+                onClick={() => handlePackageClick(service.name, `${service.price} ريال`)}
+              >
+                <p className="text-white/70 text-xs mb-2">{service.name}</p>
+                <p className="text-white font-bold text-lg">{service.price}<span className="text-xs text-white/50 mr-0.5">ر.س</span></p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* First 20 Customers Offer */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <div className="inline-block mb-4 px-4 py-1 bg-black text-white rounded-full text-sm font-bold">
+              🎯 عرض خاص - أول 20 عميل
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold font-heading mb-6 text-black">خصومات حصرية للعملاء الأوائل</h3>
+            
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
+              {[
+                { name: "باقة الانطلاق", oldPrice: "149", newPrice: "129" },
+                { name: "باقة النمو", oldPrice: "399", newPrice: "349" },
+                { name: "باقة الاحتراف", oldPrice: "699", newPrice: "599" },
+              ].map((offer, i) => (
+                <div key={i} className="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                  <p className="text-gray-600 text-sm mb-2">{offer.name}</p>
+                  <div className="flex items-center justify-center gap-3">
+                    <span className="text-gray-400 line-through text-lg">{offer.oldPrice}</span>
+                    <span className="text-black font-bold text-2xl">{offer.newPrice}<span className="text-sm text-gray-500 mr-1">ر.س</span></span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600">
+              <span className="flex items-center gap-1"><CheckCircle2 size={16} className="text-black" /> تصميمين إضافيين مجاناً</span>
+              <span className="flex items-center gap-1"><CheckCircle2 size={16} className="text-black" /> استشارة مجانية 30 دقيقة</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Guarantees */}
+      <section className="py-20 bg-secondary/20">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-bold font-heading mb-3">ضماناتنا لك</h3>
+            <p className="text-muted-foreground">نشتغل لين ترضى 100%</p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                icon: "🛡️",
+                title: "ضمان الجودة",
+                desc: "إذا ما عجبك التصميم، نعيده من الصفر بدون أسئلة، بدون تعقيدات"
+              },
+              {
+                icon: "💯",
+                title: "ضمان التسليم",
+                desc: "نسلّم في الموعد المحدد، أو نعطيك تصميمين إضافيين مجاناً"
+              },
+              {
+                icon: "🔄",
+                title: "ضمان الرضا",
+                desc: "إذا ما كنت راضي 100%، نواصل التعديل لين تكون سعيد بالنتيجة"
+              }
+            ].map((guarantee, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="text-center p-8 bg-card border border-muted/50 rounded-2xl hover:border-white/20 transition-all"
+              >
+                <div className="text-5xl mb-4">{guarantee.icon}</div>
+                <h4 className="text-xl font-bold mb-3">{guarantee.title}</h4>
+                <p className="text-muted-foreground text-sm leading-relaxed">{guarantee.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
