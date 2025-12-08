@@ -267,9 +267,6 @@ export default function Home() {
               <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 text-primary-foreground">
                 ابدأ مشروعك الآن <ArrowRight className="mr-2" />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-10 py-7 border-2 rounded-full hover:bg-secondary transition-all">
-                تصفح أعمالنا
-              </Button>
             </div>
           </motion.div>
 
