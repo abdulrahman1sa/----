@@ -161,19 +161,21 @@ export default function Home() {
     try {
       await createBookingMutation.mutateAsync(formData);
       
-      const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:%0A%0A` +
-        `👤 الاسم: ${formData.name}%0A` +
-        `📱 الجوال: ${formData.phone}%0A` +
-        `🛠 نوع المشروع: ${formData.projectType}%0A` +
-        `👥 الجمهور المستهدف: ${formData.audience}%0A` +
-        `🎯 الهدف الرئيسي: ${formData.goal}%0A` +
-        `🎨 الطابع البصري: ${formData.mood}%0A` +
-        `📝 تفاصيل إضافية: ${formData.description}%0A` +
-        `💰 الميزانية: ${formData.budget}%0A` +
-        `⏱ الموعد: ${formData.timeline}%0A%0A` +
-        `أرجو مراجعة طلبي والرد علي. شكراً!`;
+      const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:
+
+👤 الاسم: ${formData.name}
+📱 الجوال: ${formData.phone}
+🛠 نوع المشروع: ${formData.projectType}
+👥 الجمهور المستهدف: ${formData.audience}
+🎯 الهدف الرئيسي: ${formData.goal}
+🎨 الطابع البصري: ${formData.mood}
+📝 تفاصيل إضافية: ${formData.description}
+💰 الميزانية: ${formData.budget}
+⏱ الموعد: ${formData.timeline}
+
+أرجو مراجعة طلبي والرد علي. شكراً!`;
         
-      window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+      window.open(`https://wa.me/966509567267?text=${encodeURIComponent(message)}`, '_blank');
     } catch (error) {
       console.error('Failed to save booking:', error);
       alert('حدث خطأ أثناء حفظ الطلب. يرجى المحاولة مرة أخرى.');
@@ -187,11 +189,12 @@ export default function Home() {
   ];
 
   const handlePackageClick = (pkgName: string, price: string) => {
-    const message = `*استفسار عن باقة* 💎%0A%0A` +
-      `مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.%0A` +
-      `ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
+    const message = `*استفسار عن باقة* 💎
+
+مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.
+ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
       
-    window.open(`https://wa.me/966509567267?text=${message}`, '_blank');
+    window.open(`https://wa.me/966509567267?text=${encodeURIComponent(message)}`, '_blank');
   };
 
 
@@ -318,21 +321,21 @@ export default function Home() {
               variants={fadeInUp}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
-              <div className={`h-full border border-red-100/50 p-6 md:p-10 rounded-2xl md:rounded-3xl hover:border-red-200/50 transition-all duration-500 ${isMobile ? 'bg-card' : 'bg-card/50 backdrop-blur-sm'}`}>
-                <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-red-500 mb-6 shadow-inner">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
+              <div className={`h-full border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-500 ${isMobile ? 'bg-card' : 'bg-card/50 backdrop-blur-sm'}`}>
+                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white/70 mb-6 shadow-inner">
                   <span className="text-2xl">📉</span>
                 </div>
-                <h3 className="text-2xl font-bold font-heading mb-4 text-red-900/80">المشكلة</h3>
+                <h3 className="text-2xl font-bold font-heading mb-4 text-foreground/80">المشكلة</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                   منتجك ممتاز، بس الصور اللي تنزلها ما توصل الفكرة للناس.
                   تصوير احترافي في استديو يكلف كثير ويحتاج وقت.
-                  <br /><span className="font-bold text-red-500/80">النتيجة؟</span> الناس تمر على منتجك ولا توقف.
+                  <br /><span className="font-bold text-foreground/80">النتيجة؟</span> الناس تمر على منتجك ولا توقف.
                 </p>
                 <div className="space-y-3">
                   {["صور عادية ما تجذب", "تكلفة التصوير عالية", "ما عندك وقت"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-muted-foreground/80">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
                       {item}
                     </div>
                   ))}
@@ -583,7 +586,7 @@ export default function Home() {
                   <p className="text-base text-muted-foreground leading-relaxed">{item.desc}</p>
                   <div className="flex justify-between px-8 mt-6 text-xs font-bold uppercase tracking-wider opacity-80">
                     <span className="text-primary flex items-center gap-1">✨ بعد</span>
-                    <span className="text-red-500/70 flex items-center gap-1">📷 قبل</span>
+                    <span className="text-muted-foreground flex items-center gap-1">📷 قبل</span>
                   </div>
                 </div>
               </motion.div>
@@ -915,33 +918,33 @@ export default function Home() {
                                id: 'minimal', 
                                label: 'بسيط (Minimal)', 
                                desc: 'نظيف، مساحات بيضاء، عصري',
-                               gradient: 'from-gray-50 to-gray-100', 
+                               gradient: 'from-gray-100 to-gray-200', 
                                border: 'group-hover:border-gray-400',
-                               icon: <Sparkles size={20} className="text-gray-600" />
+                               icon: <Sparkles size={20} className="text-gray-700" />
                              },
                              { 
                                id: 'luxury', 
                                label: 'فاخر (Luxury)', 
-                               desc: 'ذهبي، أسود، أنيق وراقي',
-                               gradient: 'from-amber-50 to-amber-100', 
-                               border: 'group-hover:border-amber-400',
-                               icon: <Crown size={20} className="text-amber-700" />
+                               desc: 'أسود، أنيق وراقي',
+                               gradient: 'from-gray-200 to-gray-300', 
+                               border: 'group-hover:border-gray-500',
+                               icon: <Crown size={20} className="text-gray-800" />
                              },
                              { 
                                id: 'vibrant', 
                                label: 'حيوي (Vibrant)', 
-                               desc: 'ألوان زاهية، طاقة، مرح',
-                               gradient: 'from-pink-50 to-rose-100', 
-                               border: 'group-hover:border-pink-400',
-                               icon: <Zap size={20} className="text-pink-600" />
+                               desc: 'طاقة عالية، مرح',
+                               gradient: 'from-gray-100 to-gray-200', 
+                               border: 'group-hover:border-gray-400',
+                               icon: <Zap size={20} className="text-gray-700" />
                              },
                              { 
                                id: 'dark', 
                                label: 'داكن (Dark)', 
                                desc: 'غامق، درامي، سينمائي',
-                               gradient: 'from-slate-800 to-slate-900 text-white', 
-                               border: 'group-hover:border-slate-500',
-                               icon: <ImageIcon size={20} className="text-slate-300" />
+                               gradient: 'from-gray-800 to-gray-900 text-white', 
+                               border: 'group-hover:border-gray-500',
+                               icon: <ImageIcon size={20} className="text-gray-300" />
                              },
                           ].map((m) => (
                             <div 
@@ -1178,9 +1181,9 @@ export default function Home() {
         href="https://wa.me/966509567267"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 animate-bounce-slow"
+        className="fixed bottom-6 left-6 z-50 bg-white hover:bg-gray-100 text-black p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
       >
-        <MessageCircle size={32} fill="currentColor" className="text-white" />
+        <MessageCircle size={32} fill="currentColor" className="text-black" />
       </a>
     </div>
   );
