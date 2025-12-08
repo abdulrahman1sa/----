@@ -7,7 +7,6 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Admin from "@/pages/admin";
-import AccessGate from "@/components/AccessGate";
 
 function Router() {
   return (
@@ -25,9 +24,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <AccessGate>
-          <Router />
-        </AccessGate>
+        <Router />
       </TooltipProvider>
     </QueryClientProvider>
   );
