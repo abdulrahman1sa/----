@@ -776,7 +776,7 @@ export default function Home() {
               <Button 
                 size="lg" 
                 className="bg-white hover:bg-white/90 text-black text-xl font-bold px-14 py-8 rounded-full shadow-2xl shadow-white/20 transition-all hover:scale-105 hover:shadow-white/30"
-                onClick={() => window.open('https://wa.me/966509567267?text=السلام عليكم، حاب أجرب الصورة المجانية لمنتجي', '_blank')}
+                onClick={() => window.open(`https://wa.me/966509567267?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`, '_blank')}
                 data-testid="button-free-trial-whatsapp"
               >
                 <MessageCircle className="ml-3" size={26} />
