@@ -1,7 +1,6 @@
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "wouter";
 import { 
   Sparkles, 
   Zap, 
@@ -14,7 +13,6 @@ import {
   MessageCircle,
   Image as ImageIcon,
   Send,
-  Menu,
   Video,
   UploadCloud,
   Wand2,
@@ -34,7 +32,6 @@ import {
   Timer
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
   Accordion,
   AccordionContent,
@@ -224,116 +221,8 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Navbar */}
-      <nav className={`fixed top-0 w-full z-50 border-b border-primary/5 shadow-sm ${isMobile ? 'bg-background' : 'bg-background/80 backdrop-blur-lg'}`}>
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <img src={logo} alt="BADII Logo" className="h-12 md:h-14 w-auto object-contain hover:scale-105 transition-transform duration-300" />
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex gap-8 font-bold text-sm items-center">
-            <a href="#services" className="hover:text-primary transition-colors relative group">
-              الخدمات
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#process" className="hover:text-primary transition-colors relative group">
-              كيف نعمل
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#booking" className="hover:text-primary transition-colors relative group">
-              اطلب الآن
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </a>
-            <a href="#faq" className="hover:text-primary transition-colors relative group">
-              الأسئلة الشائعة
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </a>
-            <Link href="/about" className="hover:text-primary transition-colors relative group">
-              من نحن
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-            </Link>
-          </div>
-          
-          <div className="hidden md:block">
-            <Button 
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 rounded-full px-8"
-              onClick={() => window.location.href = '#booking'}
-            >
-              ابدأ الآن 🚀
-            </Button>
-          </div>
-
-          {/* Mobile Menu */}
-          <div className="md:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/10">
-                  <Menu className="h-6 w-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[85vw] max-w-[320px] bg-background border-r-0 p-0">
-                <div className="flex flex-col h-full">
-                  <div className="p-6 border-b border-muted">
-                    <img src={logo} alt="BADII Logo" className="h-12 w-auto" />
-                  </div>
-                  <nav className="flex flex-col gap-2 p-4 flex-1">
-                    {[
-                      { href: "#services", label: "الخدمات", icon: "🎨" },
-                      { href: "#process", label: "كيف نعمل", icon: "⚡" },
-                      { href: "#portfolio", label: "أعمالنا", icon: "📸" },
-                      { href: "#booking", label: "اطلب الآن", icon: "🚀" },
-                      { href: "#faq", label: "الأسئلة الشائعة", icon: "❓" },
-                    ].map((item) => (
-                      <a 
-                        key={item.href}
-                        href={item.href} 
-                        className="flex items-center gap-4 text-lg font-medium hover:text-primary hover:bg-primary/10 transition-all p-4 rounded-xl"
-                        onClick={(e) => {
-                          const sheet = document.querySelector('[data-state="open"]');
-                          if (sheet) {
-                            sheet.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }));
-                          }
-                        }}
-                      >
-                        <span className="text-xl">{item.icon}</span>
-                        {item.label}
-                      </a>
-                    ))}
-                    <Link 
-                      href="/about"
-                      className="flex items-center gap-4 text-lg font-medium hover:text-primary hover:bg-primary/10 transition-all p-4 rounded-xl"
-                    >
-                      <span className="text-xl">👥</span>
-                      من نحن
-                    </Link>
-                  </nav>
-                  <div className="p-6 border-t border-muted">
-                    <Button 
-                      className="bg-primary hover:bg-primary/90 text-white w-full py-6 text-lg rounded-xl shadow-lg shadow-primary/20"
-                      onClick={() => {
-                        window.location.href = '#booking';
-                        const sheet = document.querySelector('[data-state="open"]');
-                        if (sheet) {
-                          sheet.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'Escape' }));
-                        }
-                      }}
-                    >
-                      🚀 ابدأ الآن
-                    </Button>
-                    <p className="text-center text-sm text-muted-foreground mt-4">
-                      تواصل معنا: hello@badii.cloud
-                    </p>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background">
+      <section className="relative pt-16 pb-20 lg:pt-24 lg:pb-32 overflow-hidden bg-gradient-to-b from-background via-primary/5 to-background">
         {!isMobile && (
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
         )}
