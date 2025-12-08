@@ -773,15 +773,16 @@ export default function Home() {
               transition={{ delay: 0.3 }}
               className="space-y-4"
             >
-              <Button 
-                size="lg" 
-                className="bg-white hover:bg-white/90 text-black text-xl font-bold px-14 py-8 rounded-full shadow-2xl shadow-white/20 transition-all hover:scale-105 hover:shadow-white/30"
-                onClick={() => window.open(`https://wa.me/966509567267?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`, '_blank')}
+              <a 
+                href={`https://wa.me/966509567267?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-black text-xl font-bold px-14 py-8 rounded-full shadow-2xl shadow-white/20 transition-all hover:scale-105 hover:shadow-white/30"
                 data-testid="button-free-trial-whatsapp"
               >
                 <MessageCircle className="ml-3" size={26} />
                 جرّب الآن مجاناً
-              </Button>
+              </a>
               <p className="text-white/30 text-sm">نرد عليك على الواتساب خلال ساعات العمل</p>
             </motion.div>
           </motion.div>
