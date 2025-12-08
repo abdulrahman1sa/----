@@ -703,89 +703,162 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust Section - Try Before You Pay */}
-      <section id="portfolio" className="py-32 overflow-hidden bg-black relative">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)]" />
-        
+      {/* Trust Section - Try Before You Pay - Premium Redesign */}
+      <section id="portfolio" className="py-32 bg-black relative overflow-hidden">
         <div className="container mx-auto px-6">
+          
+          {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
+            className="text-center max-w-5xl mx-auto mb-20"
           >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              className="inline-block mb-8"
-            >
-              <div className="bg-gradient-to-r from-white/10 via-white/20 to-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-2">
-                <span className="text-white/90 text-lg font-medium">عرض حصري للعملاء الجدد</span>
-              </div>
-            </motion.div>
-            
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading mb-8 text-white leading-tight">
-              جرّب <span className="text-gradient">مجاناً</span>
+            <span className="inline-block text-sm tracking-[0.3em] uppercase text-white/40 mb-6 font-heading">
+              عرض خاص
+            </span>
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-heading text-white leading-[0.9] mb-8">
+              جرّب قبل
               <br />
-              <span className="text-3xl md:text-4xl lg:text-5xl text-white/60 font-normal">قبل ما تدفع ريال</span>
+              <span className="text-white/30">ما تدفع</span>
             </h2>
-            
-            <p className="text-xl md:text-2xl text-white/50 mb-12 leading-relaxed max-w-2xl mx-auto">
-              ارسل صورة منتجك العادية، ونرجعها لك صورة احترافية خلال ٢٤ ساعة.
-              <br className="hidden md:block" />
-              عجبتك؟ كمّل معنا. ما عجبتك؟ <span className="text-white/70 font-medium">ولا ريال.</span>
+            <p className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto leading-relaxed">
+              أول صورة علينا. عجبتك النتيجة؟ كمّل معنا.
+              <br />
+              ما عجبتك؟ <span className="text-white font-medium">ولا ريال واحد.</span>
             </p>
-            
-            {/* Trust Points */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-14 max-w-3xl mx-auto">
+          </motion.div>
+
+          {/* 3 Steps Process */}
+          <div className="max-w-5xl mx-auto mb-24">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
               {[
-                { icon: <Sparkles className="w-7 h-7" />, title: "صورة مجانية", desc: "أول تجربة علينا بدون أي تكلفة" },
-                { icon: <Clock className="w-7 h-7" />, title: "رد سريع", desc: "نرد عليك خلال ٢٤ ساعة كحد أقصى" },
-                { icon: <Shield className="w-7 h-7" />, title: "بدون التزام", desc: "لو ما عجبتك النتيجة، ما تدفع شي" },
+                { 
+                  step: "01", 
+                  title: "أرسل صورتك",
+                  desc: "صوّر منتجك بجوالك وأرسله لنا على الواتساب",
+                  icon: <Camera className="w-8 h-8" />
+                },
+                { 
+                  step: "02", 
+                  title: "نشتغل عليها",
+                  desc: "نحولها لصورة احترافية خلال ٢٤ ساعة",
+                  icon: <Sparkles className="w-8 h-8" />
+                },
+                { 
+                  step: "03", 
+                  title: "قرر بنفسك",
+                  desc: "عجبتك؟ كمّل معنا. ما عجبتك؟ خلاص انتهينا",
+                  icon: <CheckCircle2 className="w-8 h-8" />
+                },
               ].map((item, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.15 }}
                   viewport={{ once: true }}
-                  className="group relative bg-gradient-to-b from-white/[0.08] to-white/[0.02] border border-white/10 rounded-2xl p-8 text-center hover:border-white/20 transition-all duration-300"
+                  className="relative group"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative">
-                    <div className="w-14 h-14 mx-auto mb-4 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-white/80 group-hover:text-white group-hover:bg-white/15 transition-all duration-300">
+                  {/* Connector Line */}
+                  {i < 2 && (
+                    <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 z-0" />
+                  )}
+                  
+                  <div className="relative z-10 bg-black p-8 md:p-10 text-center">
+                    {/* Step Number */}
+                    <div className="text-7xl md:text-8xl font-black text-white/[0.03] absolute top-0 left-1/2 -translate-x-1/2 font-heading select-none">
+                      {item.step}
+                    </div>
+                    
+                    {/* Icon */}
+                    <div className="relative w-20 h-20 mx-auto mb-6 rounded-full border-2 border-white/20 bg-white/[0.03] flex items-center justify-center text-white/70 group-hover:border-white/40 group-hover:text-white transition-all duration-300">
                       {item.icon}
                     </div>
-                    <h3 className="text-white font-bold text-xl mb-2">{item.title}</h3>
-                    <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                    
+                    {/* Content */}
+                    <div className="relative">
+                      <span className="text-xs text-white/30 tracking-widest uppercase mb-2 block">الخطوة {item.step}</span>
+                      <h3 className="text-2xl font-bold font-heading text-white mb-3">{item.title}</h3>
+                      <p className="text-white/50 text-sm leading-relaxed max-w-[200px] mx-auto">{item.desc}</p>
+                    </div>
                   </div>
                 </motion.div>
               ))}
             </div>
-            
-            {/* WhatsApp CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="space-y-4"
-            >
+          </div>
+
+          {/* Customer Testimonials */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto mb-20"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                {
+                  quote: "جربت الصورة المجانية وانبهرت من الجودة. الحين كل صور منتجاتي عندهم",
+                  name: "أحمد الشمري",
+                  business: "متجر إلكتروني - الرياض"
+                },
+                {
+                  quote: "ما توقعت الفرق يكون كذا كبير. صور مطعمي صارت تجذب الزباين أكثر",
+                  name: "محمد العتيبي",
+                  business: "مطعم - جدة"
+                },
+              ].map((testimonial, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  viewport={{ once: true }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 hover:border-white/20 transition-all duration-300"
+                >
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-white fill-white" />
+                    ))}
+                  </div>
+                  <p className="text-white/70 text-lg leading-relaxed mb-6">"{testimonial.quote}"</p>
+                  <div>
+                    <p className="text-white font-bold">{testimonial.name}</p>
+                    <p className="text-white/40 text-sm">{testimonial.business}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Big CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <div className="inline-block rounded-[32px] border border-white/20 bg-white/[0.03] p-10 md:p-14">
+              <h3 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
+                جاهز تجرب؟
+              </h3>
+              <p className="text-white/50 mb-8 max-w-md mx-auto">
+                أرسل صورة منتجك الآن ونرجعها لك صورة احترافية خلال ٢٤ ساعة - مجاناً
+              </p>
               <a 
                 href={`https://wa.me/966509567267?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-white hover:bg-white/90 text-black text-xl font-bold px-14 py-8 rounded-full shadow-2xl shadow-white/20 transition-all hover:scale-105 hover:shadow-white/30"
+                className="inline-flex items-center justify-center gap-3 bg-white hover:bg-white/90 text-black text-xl font-bold px-12 py-6 rounded-full transition-all duration-300 hover:scale-105"
                 data-testid="button-free-trial-whatsapp"
               >
-                <MessageCircle className="ml-3" size={26} />
-                جرّب الآن مجاناً
+                <MessageCircle size={24} />
+                ابدأ التجربة المجانية
               </a>
-              <p className="text-white/30 text-sm">نرد عليك على الواتساب خلال ساعات العمل</p>
-            </motion.div>
+              <p className="text-white/30 text-sm mt-4">نرد خلال ساعات العمل</p>
+            </div>
           </motion.div>
+
         </div>
       </section>
 
