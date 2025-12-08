@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, Crown } from "lucide-react";
+import { Lock, Crown, Sparkles, Star } from "lucide-react";
 import logo from "@assets/logo.png";
 import wrongCodeImage from "@assets/ابو سعيد_1764631024854.jpg";
 import redemptionImage from "@assets/D4sWOGmWkAArMVN_1764631581664.jpg";
@@ -42,77 +42,74 @@ function useReducedMotion() {
   return reduced;
 }
 
-function FloatingParticles({ count = 10 }: { count?: number }) {
-  const particles = useMemo(() => 
-    Array.from({ length: count }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      delay: Math.random() * 8,
-      duration: 15 + Math.random() * 10,
-      size: 2 + Math.random() * 2,
-      opacity: 0.15 + Math.random() * 0.15,
-    })), [count]
-  );
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full bg-white"
-          style={{
-            left: `${particle.x}%`,
-            width: particle.size,
-            height: particle.size,
-            opacity: particle.opacity,
-          }}
-          initial={{ y: '100vh' }}
-          animate={{ y: '-10vh' }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
-function PortfolioGallery() {
+function PortfolioBackground() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % portfolioImages.length);
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/50 z-10" />
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10" />
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.35 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          className="absolute inset-0 flex items-center justify-center"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 0.25, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0"
         >
           <img 
             src={portfolioImages[currentIndex]} 
             alt="" 
-            className="min-w-full min-h-full object-contain"
-            style={{
-              maxWidth: '100%',
-              maxHeight: '100%',
-            }}
+            className="w-full h-full object-cover"
           />
         </motion.div>
       </AnimatePresence>
+    </div>
+  );
+}
+
+function FloatingElements({ count = 8 }: { count?: number }) {
+  const elements = useMemo(() => 
+    Array.from({ length: count }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      delay: Math.random() * 10,
+      duration: 20 + Math.random() * 15,
+      size: 1 + Math.random() * 2,
+      opacity: 0.1 + Math.random() * 0.1,
+    })), [count]
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-20">
+      {elements.map((el) => (
+        <motion.div
+          key={el.id}
+          className="absolute rounded-full bg-white"
+          style={{
+            left: `${el.x}%`,
+            width: el.size,
+            height: el.size,
+            opacity: el.opacity,
+          }}
+          initial={{ y: '100vh' }}
+          animate={{ y: '-10vh' }}
+          transition={{
+            duration: el.duration,
+            delay: el.delay,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
     </div>
   );
 }
@@ -482,157 +479,244 @@ export default function AccessGate({ children }: AccessGateProps) {
 
       <div className="fixed inset-0 z-[100] bg-black overflow-hidden">
         
-        {!isMobile && (
-          <>
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/[0.03] rounded-full blur-[80px] z-20" />
-            <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-white/[0.03] rounded-full blur-[60px] z-20" />
-          </>
-        )}
+        <PortfolioBackground />
         
-        {!reducedMotion && <FloatingParticles count={isMobile ? 6 : 12} />}
+        {!reducedMotion && <FloatingElements count={isMobile ? 5 : 10} />}
 
-        <div className="relative min-h-screen flex flex-col items-center justify-center px-6 py-12 z-30">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="text-center w-full max-w-sm"
-          >
+        <div className="relative min-h-screen flex z-30">
+          
+          {/* Left Side - Branding (Desktop Only) */}
+          <div className="hidden lg:flex w-1/2 items-center justify-center p-12">
             <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="mb-8"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="max-w-lg"
             >
-              <img 
-                src={logo} 
-                alt="BADII" 
-                className="h-20 md:h-24 w-auto mx-auto"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="mb-8"
-            >
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.15 }}
-                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/[0.08] backdrop-blur-md border border-white/15 text-white/90 text-xs mb-5 shadow-lg"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="mb-10"
               >
-                <Crown className="w-4 h-4" />
-                <span className="font-medium tracking-wide">دخول VIP حصري</span>
-                <Lock className="w-4 h-4" />
+                <img src={logo} alt="BADII" className="h-20 w-auto" />
               </motion.div>
               
-              <h1 className="text-3xl md:text-4xl font-bold font-heading mb-3 text-white">
-                مرحباً بك في
-                <span className="block text-white/70 mt-1">عالم بديع</span>
-              </h1>
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-5xl xl:text-6xl font-black font-heading text-white leading-[1.1] mb-6"
+              >
+                محتوى بصري
+                <br />
+                <span className="text-white/40">يرفع مبيعاتك</span>
+              </motion.h2>
               
-              <p className="text-white/40 text-sm">
-                أدخل كود الدخول للوصول
-              </p>
-            </motion.div>
-
-            <motion.form
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              onSubmit={handleSubmit}
-              className="space-y-6"
-            >
-              <div className="relative">
-                {/* Glass card effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/5 to-transparent rounded-3xl" />
-                <div className="absolute inset-0 backdrop-blur-xl rounded-3xl" />
-                <div className="absolute inset-[1px] bg-gradient-to-br from-white/[0.08] to-transparent rounded-3xl" />
-                
-                {/* Glass border glow */}
-                <div className="absolute -inset-[1px] bg-gradient-to-br from-white/30 via-white/10 to-white/5 rounded-3xl opacity-50" />
-                
-                <div className="relative border border-white/20 rounded-3xl p-8 shadow-2xl">
-                  {/* Inner glow effect */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                  
-                  <div className="flex justify-center gap-4" dir="ltr">
-                    {[0, 1, 2].map((index) => (
-                      <motion.div 
-                        key={index} 
-                        className="relative"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 + index * 0.1 }}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="text-xl text-white/50 leading-relaxed mb-10"
+              >
+                نحوّل صور منتجاتك العادية لمحتوى تسويقي احترافي
+                <br />
+                باستخدام الذكاء الاصطناعي
+              </motion.p>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="flex items-center gap-6"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex -space-x-2 rtl:space-x-reverse">
+                    {[...Array(4)].map((_, i) => (
+                      <div 
+                        key={i}
+                        className="w-10 h-10 rounded-full bg-white/10 border-2 border-black flex items-center justify-center"
                       >
-                        <input
-                          ref={(el) => { inputRefs.current[index] = el; }}
-                          type="text"
-                          inputMode="text"
-                          autoComplete="off"
-                          value={digits[index]}
-                          onChange={(e) => handleInputChange(index, e.target.value)}
-                          onKeyDown={(e) => handleKeyDown(index, e)}
-                          onPaste={index === 0 ? handlePaste : undefined}
-                          disabled={isUnlocking}
-                          autoFocus={index === 0}
-                          className={`
-                            w-[72px] h-[88px] md:w-20 md:h-24
-                            text-center text-3xl md:text-4xl font-bold 
-                            bg-black/40 backdrop-blur-sm
-                            border-2 rounded-2xl
-                            outline-none
-                            transition-all duration-300
-                            text-white
-                            shadow-lg shadow-black/20
-                            ${error 
-                              ? "border-white/50 bg-white/10 animate-pulse" 
-                              : successIndex >= index
-                                ? "border-white bg-white/25 shadow-white/20" 
-                                : digits[index]
-                                  ? "border-white/50 bg-white/10"
-                                  : "border-white/20 hover:border-white/35 focus:border-white/50 focus:bg-white/10 focus:shadow-white/10"
-                            }
-                          `}
-                          data-testid={`input-code-${index}`}
-                        />
-                        
-                        {successIndex >= index && (
-                          <motion.div 
-                            initial={{ scale: 0, rotate: -180 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                            className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-lg shadow-white/30"
-                          >
-                            <svg className="w-3.5 h-3.5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          </motion.div>
-                        )}
-                      </motion.div>
+                        <Star className="w-4 h-4 text-white/70" />
+                      </div>
                     ))}
                   </div>
-                  
-                  {error && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-5 text-white/70 text-sm font-medium text-center"
-                    >
-                      الكود غير صحيح
-                    </motion.p>
-                  )}
                 </div>
-              </div>
+                <div>
+                  <p className="text-white font-bold">+50 عميل</p>
+                  <p className="text-white/40 text-sm">يثقون فينا</p>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
 
-            </motion.form>
+          {/* Right Side - Login Form */}
+          <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="w-full max-w-md"
+            >
+              {/* Mobile Logo */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1 }}
+                className="lg:hidden text-center mb-10"
+              >
+                <img src={logo} alt="BADII" className="h-16 w-auto mx-auto mb-4" />
+                <p className="text-white/50 text-sm">محتوى بصري يرفع مبيعاتك</p>
+              </motion.div>
 
-          </motion.div>
+              {/* Premium Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="relative"
+              >
+                {/* Outer glow */}
+                <div className="absolute -inset-1 bg-white/5 rounded-[2.5rem] blur-xl" />
+                
+                {/* Main card */}
+                <div className="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10">
+                  
+                  {/* Top accent line */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-white/20 rounded-full" />
+                  
+                  {/* VIP Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="flex justify-center mb-8"
+                  >
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10">
+                      <Crown className="w-4 h-4 text-white/70" />
+                      <span className="text-white/70 text-sm font-medium">دخول VIP</span>
+                      <Sparkles className="w-4 h-4 text-white/70" />
+                    </div>
+                  </motion.div>
 
-          <div className="absolute bottom-6 left-0 right-0 text-center">
-            <p className="text-white/40 text-sm font-medium">hello@badii.cloud</p>
+                  {/* Title */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-center mb-8"
+                  >
+                    <h1 className="text-3xl md:text-4xl font-bold font-heading text-white mb-3">
+                      أهلاً وسهلاً
+                    </h1>
+                    <p className="text-white/40 text-sm">
+                      أدخل كود الوصول للمتابعة
+                    </p>
+                  </motion.div>
+
+                  {/* Code Input Form */}
+                  <motion.form
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    onSubmit={handleSubmit}
+                  >
+                    <div className="flex justify-center gap-4 mb-8" dir="ltr">
+                      {[0, 1, 2].map((index) => (
+                        <motion.div 
+                          key={index} 
+                          className="relative"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.6 + index * 0.1 }}
+                        >
+                          <input
+                            ref={(el) => { inputRefs.current[index] = el; }}
+                            type="text"
+                            inputMode="text"
+                            autoComplete="off"
+                            value={digits[index]}
+                            onChange={(e) => handleInputChange(index, e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(index, e)}
+                            onPaste={index === 0 ? handlePaste : undefined}
+                            disabled={isUnlocking}
+                            autoFocus={index === 0}
+                            className={`
+                              w-[70px] h-[85px] md:w-20 md:h-24
+                              text-center text-3xl md:text-4xl font-bold 
+                              bg-white/[0.03]
+                              border-2 rounded-2xl
+                              outline-none
+                              transition-all duration-300
+                              text-white
+                              ${error 
+                                ? "border-white/60 bg-white/10 animate-pulse" 
+                                : successIndex >= index
+                                  ? "border-white bg-white/20" 
+                                  : digits[index]
+                                    ? "border-white/40 bg-white/[0.08]"
+                                    : "border-white/15 hover:border-white/30 focus:border-white/50 focus:bg-white/[0.06]"
+                              }
+                            `}
+                            data-testid={`input-code-${index}`}
+                          />
+                          
+                          {/* Success checkmark */}
+                          {successIndex >= index && (
+                            <motion.div 
+                              initial={{ scale: 0, rotate: -180 }}
+                              animate={{ scale: 1, rotate: 0 }}
+                              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                              className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center"
+                            >
+                              <svg className="w-4 h-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                              </svg>
+                            </motion.div>
+                          )}
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Error message */}
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center mb-6"
+                      >
+                        <p className="text-white/60 text-sm font-medium">
+                          الكود غير صحيح، حاول مرة ثانية
+                        </p>
+                      </motion.div>
+                    )}
+
+                    {/* Hint */}
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.8 }}
+                      className="text-center"
+                    >
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/5">
+                        <Lock className="w-3.5 h-3.5 text-white/30" />
+                        <span className="text-white/30 text-xs">كود الدخول مكون من ٣ أحرف</span>
+                      </div>
+                    </motion.div>
+                  </motion.form>
+                </div>
+              </motion.div>
+
+              {/* Footer */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9 }}
+                className="mt-8 text-center"
+              >
+                <p className="text-white/30 text-sm">hello@badii.cloud</p>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </div>
