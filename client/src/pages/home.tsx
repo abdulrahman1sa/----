@@ -175,7 +175,7 @@ export default function Home() {
 
 أرجو مراجعة طلبي والرد علي. شكراً!`;
         
-      window.open(`https://wa.me/966509567267?text=${encodeURIComponent(message)}`, '_blank');
+      window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
     } catch (error) {
       console.error('Failed to save booking:', error);
       alert('حدث خطأ أثناء حفظ الطلب. يرجى المحاولة مرة أخرى.');
@@ -194,7 +194,7 @@ export default function Home() {
 مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.
 ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
       
-    window.open(`https://wa.me/966509567267?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
   };
 
 
@@ -735,7 +735,7 @@ export default function Home() {
                 أرسل صورة منتجك الآن ونرجعها لك صورة احترافية خلال ٢٤ ساعة - مجاناً
               </p>
               <a 
-                href={`https://wa.me/966509567267?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`}
+                href={`https://wa.me/966507553404?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 bg-white hover:bg-white/90 text-black text-xl font-bold px-12 py-6 rounded-full transition-all duration-300 hover:scale-105"
@@ -1151,7 +1151,7 @@ export default function Home() {
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
             كلمنا على الواتساب وخلنا نشتغل على منتجاتك
           </p>
-          <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966509567267', '_blank')}>
+          <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966507553404', '_blank')}>
             <MessageCircle className="ml-2" />
             تحدث معنا عبر واتساب
           </Button>
@@ -1175,7 +1175,7 @@ export default function Home() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href="https://wa.me/966509567267"
+        href="https://wa.me/966507553404"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 left-6 z-50 bg-white hover:bg-gray-100 text-black p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300"
