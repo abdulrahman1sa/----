@@ -283,10 +283,10 @@ export default function Home() {
               { icon: <Crown size={24} />, title: "واضح", desc: "سعر ثابت" },
             ].map((stat, i) => (
               <div key={i} className="group relative">
-                {!isMobile && <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />}
-                <Card className={`relative border-none rounded-2xl ${isMobile ? 'bg-card' : 'glass glass-hover'}`}>
+                <div className="absolute inset-0 bg-white/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <Card className="relative border border-white/[0.1] rounded-2xl bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/10 hover:bg-white/[0.08] hover:border-white/[0.2] transition-all duration-500">
                   <CardContent className="flex flex-col items-center p-4 md:p-6">
-                    <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 rounded-xl flex items-center justify-center mb-3 md:mb-4 text-primary">
+                    <div className="w-10 h-10 md:w-14 md:h-14 bg-white/[0.1] backdrop-blur-xl border border-white/[0.15] rounded-xl flex items-center justify-center mb-3 md:mb-4 text-primary">
                       {stat.icon}
                     </div>
                     <h3 className="text-base md:text-xl font-bold mb-1">{stat.title}</h3>
@@ -318,8 +318,8 @@ export default function Home() {
               variants={fadeInUp}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
-              <div className={`h-full border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl hover:border-white/20 transition-all duration-500 ${isMobile ? 'bg-card' : 'bg-card/50 backdrop-blur-sm'}`}>
+              <div className="absolute inset-0 bg-white/5 rounded-3xl blur-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="h-full border border-white/[0.08] p-6 md:p-10 rounded-2xl md:rounded-3xl hover:border-white/[0.15] transition-all duration-500 bg-white/[0.03] backdrop-blur-2xl shadow-xl shadow-black/10">
                 <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-white/70 mb-6 shadow-inner">
                   <span className="text-2xl">📉</span>
                 </div>
@@ -425,7 +425,7 @@ export default function Home() {
               >
                 {!isMobile && <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />}
                 
-                <div className={`h-full border border-white/[0.12] p-6 md:p-8 rounded-2xl md:rounded-[2rem] flex flex-col shadow-lg ${isMobile ? 'bg-card' : 'bg-white/[0.06] backdrop-blur-2xl transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.1] hover:shadow-xl hover:shadow-primary/5 shadow-black/5'}`}>
+                <div className="h-full border border-white/[0.08] p-6 md:p-8 rounded-2xl md:rounded-[2rem] flex flex-col shadow-2xl bg-white/[0.03] backdrop-blur-3xl transition-all duration-500 hover:border-white/[0.2] hover:bg-white/[0.08] hover:shadow-white/5 shadow-black/20">
                   <div className={`${service.color} w-20 h-20 rounded-2xl rotate-3 flex items-center justify-center mb-8 shadow-xl shadow-current/30 transform transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     {service.icon}
                   </div>
@@ -508,7 +508,7 @@ export default function Home() {
                   viewport={{ once: true }}
                   className="group relative"
                 >
-                  <div className={`border border-white/[0.1] rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl text-center h-full flex flex-col items-center ${isMobile ? 'bg-zinc-900' : 'bg-white/[0.06] backdrop-blur-2xl hover:border-primary/30 transition-all duration-300 hover:bg-white/[0.1] shadow-black/10 hover:shadow-primary/10'}`}>
+                  <div className="border border-white/[0.08] rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl text-center h-full flex flex-col items-center bg-white/[0.03] backdrop-blur-3xl hover:border-white/[0.2] transition-all duration-500 hover:bg-white/[0.08] shadow-black/20 hover:shadow-white/5">
                     
                     {/* Step Number Badge */}
                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-zinc-950 border border-zinc-800 text-zinc-500 font-mono text-sm px-3 py-1 rounded-full">
@@ -567,7 +567,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-card rounded-2xl overflow-hidden shadow-xl border border-muted/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300"
+                className="bg-white/[0.03] backdrop-blur-2xl rounded-2xl overflow-hidden shadow-2xl border border-white/[0.1] hover:shadow-white/5 hover:border-white/[0.2] transition-all duration-500"
               >
                 <div className="h-[300px] w-full">
                   <ReactCompareSlider
@@ -775,7 +775,7 @@ export default function Home() {
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4 group">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10">
+                  <div className="w-14 h-14 rounded-xl bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-black/10">
                     <MessageCircle size={24} />
                   </div>
                   <div>
@@ -784,7 +784,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4 group">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-primary/10">
+                  <div className="w-14 h-14 rounded-xl bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-black/10">
                     <Zap size={24} />
                   </div>
                   <div>
@@ -802,7 +802,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <div ref={bookingFormRef}>
-                <Card className={`border-white/[0.15] shadow-2xl overflow-hidden min-h-[500px] md:min-h-[600px] ${isMobile ? 'bg-card' : 'shadow-primary/10 bg-white/[0.08] backdrop-blur-2xl hover:border-primary/30 transition-all duration-300'}`}>
+                <Card className="border border-white/[0.1] shadow-2xl overflow-hidden min-h-[500px] md:min-h-[600px] shadow-black/20 bg-white/[0.03] backdrop-blur-3xl hover:border-white/[0.2] transition-all duration-500">
                   <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
                   <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
                   <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
