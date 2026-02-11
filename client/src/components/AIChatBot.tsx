@@ -10,6 +10,13 @@ interface Message {
     content: string;
 }
 
+const QUICK_OPTIONS = [
+    "وش خدماتكم؟",
+    "بكم الأسعار؟",
+    "أبي الصورة المجانية",
+    "كيف أطلب؟"
+];
+
 export default function AIChatBot() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
@@ -23,19 +30,20 @@ export default function AIChatBot() {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [messages, isLoading]);
 
-    const handleSend = async () => {
-        if (!input.trim() || isLoading) return;
+    const handleSend = async (customMessage?: string) => {
+        const textToSend = customMessage || input;
+        if (!textToSend.trim() || isLoading) return;
 
-        const userMessage: Message = { role: "user", content: input };
+        const userMessage: Message = { role: "user", content: textToSend };
         setMessages(prev => [...prev, userMessage]);
         setInput("");
         setIsLoading(true);
 
         try {
             const { getGeminiResponse } = await import("@/lib/gemini");
-            const aiResponse = await getGeminiResponse(input);
+            const aiResponse = await getGeminiResponse(textToSend);
 
             const assistantMessage: Message = {
                 role: "assistant",
@@ -44,6 +52,11 @@ export default function AIChatBot() {
             setMessages(prev => [...prev, assistantMessage]);
         } catch (error) {
             console.error("Chat Error:", error);
+            const errorMessage: Message = {
+                role: "assistant",
+                content: "أعتذر منك، حصل خطأ بسيط. جرب مرة ثانية؟"
+            };
+            setMessages(prev => [...prev, errorMessage]);
         } finally {
             setIsLoading(false);
         }
@@ -59,7 +72,7 @@ export default function AIChatBot() {
                         exit={{ opacity: 0, scale: 0.8, y: 20 }}
                         className="mb-4"
                     >
-                        <Card className="w-[350px] sm:w-[400px] h-[500px] flex flex-col border-white/20 bg-black/80 backdrop-blur-2xl shadow-2xl shadow-primary/20 overflow-hidden">
+                        <Card className="w-[350px] sm:w-[400px] h-[550px] flex flex-col border-white/20 bg-black/90 backdrop-blur-2xl shadow-2xl shadow-primary/20 overflow-hidden">
                             <CardHeader className="p-4 border-b border-white/10 bg-gradient-to-r from-primary/20 to-transparent">
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center gap-3">
@@ -80,8 +93,8 @@ export default function AIChatBot() {
                                 </div>
                             </CardHeader>
 
-                            <CardContent className="flex-1 overflow-hidden p-0 relative">
-                                <div className="h-full p-4 overflow-y-auto" ref={scrollRef}>
+                            <CardContent className="flex-1 overflow-hidden p-0 relative flex flex-col">
+                                <div className="flex-1 p-4 overflow-y-auto" ref={scrollRef}>
                                     <div className="space-y-4">
                                         {messages.map((m, i) => (
                                             <motion.div
@@ -91,9 +104,9 @@ export default function AIChatBot() {
                                                 className={`flex ${m.role === "user" ? "justify-start" : "justify-end"}`}
                                             >
                                                 <div
-                                                    className={`max-w-[80%] p-3 rounded-2xl text-sm leading-relaxed ${m.role === "user"
-                                                        ? "bg-primary text-primary-foreground rounded-br-none"
-                                                        : "bg-white/10 text-zinc-200 border border-white/10 rounded-bl-none"
+                                                    className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${m.role === "user"
+                                                            ? "bg-primary text-primary-foreground rounded-br-none"
+                                                            : "bg-white/10 text-zinc-200 border border-white/10 rounded-bl-none"
                                                         }`}
                                                 >
                                                     {m.content}
@@ -101,7 +114,7 @@ export default function AIChatBot() {
                                             </motion.div>
                                         ))}
                                         {isLoading && (
-                                            <div className="flex justify-end">
+                                            <div className="flex justify-start">
                                                 <div className="bg-white/10 p-3 rounded-2xl border border-white/10 rounded-bl-none">
                                                     <Loader2 className="w-4 h-4 text-primary animate-spin" />
                                                 </div>
@@ -109,6 +122,21 @@ export default function AIChatBot() {
                                         )}
                                     </div>
                                 </div>
+
+                                {/* Quick Options Area */}
+                                {!isLoading && (
+                                    <div className="p-3 border-t border-white/5 flex gap-2 flex-wrap bg-white/[0.02]">
+                                        {QUICK_OPTIONS.map((option) => (
+                                            <button
+                                                key={option}
+                                                onClick={() => handleSend(option)}
+                                                className="text-[11px] bg-white/5 hover:bg-primary/20 hover:text-primary border border-white/10 rounded-full px-3 py-1.5 transition-all text-zinc-400"
+                                            >
+                                                {option}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
                             </CardContent>
 
                             <CardFooter className="p-4 border-t border-white/10 bg-black/40">
@@ -118,9 +146,9 @@ export default function AIChatBot() {
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
                                         onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                                        className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-primary/50"
+                                        className="flex-1 bg-white/5 border-white/10 text-white placeholder:text-zinc-500 focus:border-primary/50 text-xs sm:text-sm"
                                     />
-                                    <Button size="icon" onClick={handleSend} disabled={isLoading} className="bg-primary hover:bg-primary/90 rounded-xl shrink-0">
+                                    <Button size="icon" onClick={() => handleSend()} disabled={isLoading} className="bg-primary hover:bg-primary/90 rounded-xl shrink-0">
                                         <Send className="w-4 h-4" />
                                     </Button>
                                 </div>
@@ -134,7 +162,7 @@ export default function AIChatBot() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 relative group ${isOpen ? "bg-zinc-800 rotate-90" : "bg-primary"
+                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 relative group ${isOpen ? "bg-zinc-800" : "bg-primary"
                     }`}
             >
                 <div className="absolute inset-0 rounded-full bg-primary/20 blur-md group-hover:blur-xl transition-all duration-300 animate-pulse" />
