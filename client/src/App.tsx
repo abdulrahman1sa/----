@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Admin from "@/pages/admin";
+import AIChatBot from "@/components/AIChatBot";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <TooltipProvider>
         <Toaster />
         <Router />
+        <AIChatBot />
       </TooltipProvider>
     </QueryClientProvider>
   );
