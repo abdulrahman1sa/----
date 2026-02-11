@@ -1,14 +1,14 @@
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { 
-  Sparkles, 
-  Zap, 
-  Crown, 
-  Camera, 
-  PenTool, 
-  Palette, 
-  CheckCircle2, 
+import {
+  Sparkles,
+  Zap,
+  Crown,
+  Camera,
+  PenTool,
+  Palette,
+  CheckCircle2,
   ArrowRight,
   MessageCircle,
   Image as ImageIcon,
@@ -45,6 +45,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import logo from "@assets/logo.png";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+
 
 // Comparison Images (Uploaded Before vs Generated After)
 import workerBefore from "@assets/3_1764338125289.png";
@@ -66,20 +69,20 @@ const fadeInUp = {
 
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
-  
+
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
-  
+
   return isMobile;
 }
 
 export default function Home() {
   const isMobile = useIsMobile();
-  
+
   const bookingFormRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(1);
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -100,19 +103,19 @@ export default function Home() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  
+
   useEffect(() => {
     // Skip scroll on initial page load
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
-    
+
     // Scroll to booking form only when step changes (not on page load)
     if (bookingFormRef.current) {
       const rect = bookingFormRef.current.getBoundingClientRect();
       const isInView = rect.top >= 0 && rect.bottom <= window.innerHeight;
-      
+
       if (!isInView) {
         bookingFormRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
@@ -147,20 +150,23 @@ export default function Home() {
 
   const createBookingMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      const response = await fetch('/api/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) throw new Error('Failed to create booking');
-      return response.json();
+      try {
+        const docRef = await addDoc(collection(db, "bookings"), {
+          ...data,
+          createdAt: serverTimestamp(),
+        });
+        return { id: docRef.id };
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        throw new Error('Failed to create booking');
+      }
     },
   });
 
   const handleFinalSubmit = async () => {
     try {
       await createBookingMutation.mutateAsync(formData);
-      
+
       const message = `مرحباً، أرغب في بدء مشروع جديد مع BADII:
 
 👤 الاسم: ${formData.name}
@@ -174,7 +180,7 @@ export default function Home() {
 ⏱ الموعد: ${formData.timeline}
 
 أرجو مراجعة طلبي والرد علي. شكراً!`;
-        
+
       window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
     } catch (error) {
       console.error('Failed to save booking:', error);
@@ -193,7 +199,7 @@ export default function Home() {
 
 مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.
 ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
-      
+
     window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
   };
 
@@ -229,19 +235,19 @@ export default function Home() {
         {!isMobile && (
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
         )}
-        
+
         {/* Animated Background Blobs - Desktop Only */}
         {!isMobile && (
           <>
-            <motion.div 
+            <motion.div
               animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10" 
+              className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10"
             />
-            <motion.div 
+            <motion.div
               animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
               transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
+              className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10"
             />
           </>
         )}
@@ -271,7 +277,7 @@ export default function Home() {
           </motion.div>
 
           {/* Stats */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: isMobile ? 20 : 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: isMobile ? 0.3 : 0.6 }}
@@ -302,7 +308,7 @@ export default function Home() {
       {/* Problem / Solution (Storytelling) */}
       <section className="py-24 bg-secondary/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop')] bg-cover bg-center opacity-[0.02]" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">المشكلة والحل</h2>
@@ -311,7 +317,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
             {/* The Struggle */}
-            <motion.div 
+            <motion.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
@@ -341,7 +347,7 @@ export default function Home() {
             </motion.div>
 
             {/* The Transformation */}
-            <motion.div 
+            <motion.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
@@ -351,7 +357,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-3xl -z-10 transition-opacity group-hover:opacity-100" />
               <div className="h-full bg-card border-2 border-primary/10 p-8 md:p-10 rounded-3xl shadow-2xl shadow-primary/5 hover:border-primary/30 transition-all duration-500 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -z-10" />
-                
+
                 <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6 shadow-inner">
                   <span className="text-2xl">🚀</span>
                 </div>
@@ -361,7 +367,7 @@ export default function Home() {
                   بدون استديو، بدون تكلفة عالية، وبسرعة.
                   <br /><span className="font-bold text-primary">كيف؟</span> مع خبراء توليد الصور بالـ AI.
                 </p>
-                
+
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
                     <h4 className="font-bold text-2xl text-primary mb-1">48 ساعة</h4>
@@ -381,7 +387,7 @@ export default function Home() {
       {/* Services */}
       <section id="services" className="py-24 relative bg-background">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">خدماتنا</Badge>
@@ -424,17 +430,17 @@ export default function Home() {
                 className="group relative h-full"
               >
                 {!isMobile && <div className="absolute inset-0 bg-gradient-to-b from-secondary/50 to-background rounded-[2rem] transform transition-transform duration-500 group-hover:scale-[1.02] -z-10 shadow-2xl shadow-black/5" />}
-                
+
                 <div className="h-full border border-white/[0.08] p-6 md:p-8 rounded-2xl md:rounded-[2rem] flex flex-col shadow-2xl bg-white/[0.03] backdrop-blur-3xl transition-all duration-500 hover:border-white/[0.2] hover:bg-white/[0.08] hover:shadow-white/5 shadow-black/20">
                   <div className={`${service.color} w-20 h-20 rounded-2xl rotate-3 flex items-center justify-center mb-8 shadow-xl shadow-current/30 transform transition-all duration-500 group-hover:rotate-6 group-hover:scale-110`}>
                     {service.icon}
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold font-heading mb-4">{service.title}</h3>
                   <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">
                     {service.desc}
                   </p>
-                  
+
                   <ul className="space-y-4 mt-auto pt-6 border-t border-white/5">
                     {service.features.map((f, j) => (
                       <li key={j} className="flex items-start gap-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
@@ -455,7 +461,7 @@ export default function Home() {
       {/* Process */}
       <section id="process" className="py-32 bg-zinc-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-800/20 via-zinc-950 to-zinc-950" />
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-24 max-w-3xl mx-auto">
             <Badge variant="outline" className="mb-6 border-white/10 text-white/60 px-4 py-1">كيف نعمل؟</Badge>
@@ -468,39 +474,39 @@ export default function Home() {
           <div className="relative">
             {/* Connecting Line (Desktop) */}
             <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-zinc-700 to-transparent -translate-y-1/2 z-0" />
-            
+
             <div className="grid md:grid-cols-4 gap-12 relative z-10">
               {[
-                { 
-                  step: "01", 
-                  icon: <UploadCloud className="w-8 h-8" />, 
-                  title: "أرسل صورك", 
+                {
+                  step: "01",
+                  icon: <UploadCloud className="w-8 h-8" />,
+                  title: "أرسل صورك",
                   desc: "ارفع صور منتجاتك (حتى لو من الجوال). لا تحتاج لاستوديو.",
                   delay: 0
                 },
-                { 
-                  step: "02", 
-                  icon: <Wand2 className="w-8 h-8" />, 
-                  title: "سحر الذكاء", 
+                {
+                  step: "02",
+                  icon: <Wand2 className="w-8 h-8" />,
+                  title: "سحر الذكاء",
                   desc: "تقنياتنا تعالج الصور وتضيف الخلفيات والإضاءة السينمائية.",
                   delay: 0.2
                 },
-                { 
-                  step: "03", 
-                  icon: <FileCheck className="w-8 h-8" />, 
-                  title: "راجع واعتمد", 
+                {
+                  step: "03",
+                  icon: <FileCheck className="w-8 h-8" />,
+                  title: "راجع واعتمد",
                   desc: "نرسل لك النتائج. نعدل حتى تصل لمرحلة الانبهار التام.",
                   delay: 0.4
                 },
-                { 
-                  step: "04", 
-                  icon: <Share2 className="w-8 h-8" />, 
-                  title: "استلم وانشر", 
+                {
+                  step: "04",
+                  icon: <Share2 className="w-8 h-8" />,
+                  title: "استلم وانشر",
                   desc: "ملفات عالية الدقة جاهزة لتكتسح بها منصات التواصل.",
                   delay: 0.6
                 }
               ].map((item, i) => (
-                <motion.div 
+                <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -509,7 +515,7 @@ export default function Home() {
                   className="group relative"
                 >
                   <div className="border border-white/[0.08] rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-2xl text-center h-full flex flex-col items-center bg-white/[0.03] backdrop-blur-3xl hover:border-white/[0.2] transition-all duration-500 hover:bg-white/[0.08] shadow-black/20 hover:shadow-white/5">
-                    
+
                     {/* Step Number Badge */}
                     <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-zinc-950 border border-zinc-800 text-zinc-500 font-mono text-sm px-3 py-1 rounded-full">
                       STEP {item.step}
@@ -518,7 +524,7 @@ export default function Home() {
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-zinc-800 to-black border border-white/10 flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg group-hover:shadow-white/10">
                       {item.icon}
                     </div>
-                    
+
                     <h3 className="text-xl font-bold mb-3 text-white group-hover:text-primary transition-colors">{item.title}</h3>
                     <p className="text-zinc-400 text-sm leading-relaxed">
                       {item.desc}
@@ -539,23 +545,23 @@ export default function Home() {
             <h2 className="text-4xl font-bold font-heading mb-4">لا تصدق الكلمات.. صدق عينيك</h2>
             <p className="text-xl text-muted-foreground">انقل المؤشر لترى كيف نحول الصور العادية إلى مغناطيس للمبيعات</p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { 
-                before: workerBefore, 
+              {
+                before: workerBefore,
                 after: workerAfter,
                 title: "إبداع بلا حدود",
                 desc: "نحول الأفكار المجنونة إلى واقع بصري يخطف الأنظار"
               },
-              { 
-                before: coffeeBefore, 
+              {
+                before: coffeeBefore,
                 after: coffeeAfter,
                 title: "لذة تراها العين",
                 desc: "نجعل منتجك يبدو شهياً لدرجة أن العميل سيشعر بطعمه"
               },
-              { 
-                before: perfumeBefore, 
+              {
+                before: perfumeBefore,
                 after: perfumeAfter,
                 title: "فخامة تليق ببراندك",
                 desc: "نبرز أدق التفاصيل التي تعكس قيمة وجودة منتجك الحقيقية"
@@ -595,7 +601,7 @@ export default function Home() {
       {/* Trust Section - Try Before You Pay - Premium Redesign */}
       <section id="portfolio" className="py-32 bg-black relative overflow-hidden">
         <div className="container mx-auto px-6">
-          
+
           {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -622,20 +628,20 @@ export default function Home() {
           <div className="max-w-5xl mx-auto mb-24">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-0">
               {[
-                { 
-                  step: "01", 
+                {
+                  step: "01",
                   title: "أرسل صورتك",
                   desc: "صوّر منتجك بجوالك وأرسله لنا على الواتساب",
                   icon: <Camera className="w-8 h-8" />
                 },
-                { 
-                  step: "02", 
+                {
+                  step: "02",
                   title: "نشتغل عليها",
                   desc: "نحولها لصورة احترافية خلال ٢٤ ساعة",
                   icon: <Sparkles className="w-8 h-8" />
                 },
-                { 
-                  step: "03", 
+                {
+                  step: "03",
                   title: "قرر بنفسك",
                   desc: "عجبتك؟ كمّل معنا. ما عجبتك؟ خلاص انتهينا",
                   icon: <CheckCircle2 className="w-8 h-8" />
@@ -653,18 +659,18 @@ export default function Home() {
                   {i < 2 && (
                     <div className="hidden md:block absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 z-0" />
                   )}
-                  
+
                   <div className="relative z-10 bg-black p-8 md:p-10 text-center">
                     {/* Step Number */}
                     <div className="text-7xl md:text-8xl font-black text-white/[0.03] absolute top-0 left-1/2 -translate-x-1/2 font-heading select-none">
                       {item.step}
                     </div>
-                    
+
                     {/* Icon */}
                     <div className="relative w-20 h-20 mx-auto mb-6 rounded-full border-2 border-white/20 bg-white/[0.03] flex items-center justify-center text-white/70 group-hover:border-white/40 group-hover:text-white transition-all duration-300">
                       {item.icon}
                     </div>
-                    
+
                     {/* Content */}
                     <div className="relative">
                       <span className="text-xs text-white/30 tracking-widest uppercase mb-2 block">الخطوة {item.step}</span>
@@ -734,7 +740,7 @@ export default function Home() {
               <p className="text-white/50 mb-8 max-w-md mx-auto">
                 أرسل صورة منتجك الآن ونرجعها لك صورة احترافية خلال ٢٤ ساعة - مجاناً
               </p>
-              <a 
+              <a
                 href={`https://wa.me/966507553404?text=${encodeURIComponent('السلام عليكم، حاب أجرب الصورة المجانية لمنتجي')}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -772,7 +778,7 @@ export default function Home() {
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
                 عبّي النموذج البسيط هذا ونتواصل معك على الواتساب. ما ياخذ دقيقتين.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start gap-4 group">
                   <div className="w-14 h-14 rounded-xl bg-white/[0.08] backdrop-blur-xl border border-white/[0.15] flex items-center justify-center text-primary shrink-0 group-hover:scale-110 transition-transform shadow-lg shadow-black/10">
@@ -804,296 +810,289 @@ export default function Home() {
               <div ref={bookingFormRef}>
                 <Card className="border border-white/[0.1] shadow-2xl overflow-hidden min-h-[500px] md:min-h-[600px] shadow-black/20 bg-white/[0.03] backdrop-blur-3xl hover:border-white/[0.2] transition-all duration-500">
                   <CardHeader className="bg-primary/5 border-b border-primary/10 pb-8">
-                  <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
-                  <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
-                  
-                  {/* Progress Steps */}
-                  <div className="flex justify-center gap-2 mt-6 relative">
-                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-muted -z-10"></div>
-                    {[1, 2, 3, 4].map((step) => (
-                      <div 
-                        key={step}
-                        className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-500 border-2 ${
-                          step <= currentStep 
-                            ? "bg-primary border-primary text-white scale-110 shadow-lg shadow-primary/30" 
-                            : "bg-background border-muted text-muted-foreground"
-                        }`}
-                      >
-                        {step < currentStep ? <CheckCircle2 size={16} /> : <span className="text-xs font-bold">{step}</span>}
-                      </div>
-                    ))}
-                  </div>
-                </CardHeader>
-                <CardContent className="p-8 flex flex-col justify-between">
-                  
-                  {/* Step 1: Project Type */}
-                  {currentStep === 1 && (
-                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                      <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
-                      <div className="grid grid-cols-3 gap-4">
-                        {projectTypes.map((type) => (
-                          <div 
-                            key={type.id}
-                            onClick={() => { updateField('projectType', type.label); nextStep(); }}
-                            className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${
-                              formData.projectType === type.label 
-                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20" 
-                                : "border-muted hover:border-primary/50 bg-background/50"
+                    <CardTitle className="text-2xl font-heading text-center">ابدأ مشروعك الآن</CardTitle>
+                    <CardDescription className="text-center text-lg">خطوات بسيطة تفصلك عن النتيجة المذهلة</CardDescription>
+
+                    {/* Progress Steps */}
+                    <div className="flex justify-center gap-2 mt-6 relative">
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-muted -z-10"></div>
+                      {[1, 2, 3, 4].map((step) => (
+                        <div
+                          key={step}
+                          className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-500 border-2 ${step <= currentStep
+                              ? "bg-primary border-primary text-white scale-110 shadow-lg shadow-primary/30"
+                              : "bg-background border-muted text-muted-foreground"
                             }`}
-                          >
-                            <div className={`p-4 rounded-full transition-colors duration-300 ${formData.projectType === type.label ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" : "bg-muted text-muted-foreground group-hover:text-primary"}`}>
-                              {type.icon}
-                            </div>
-                            <span className="font-bold text-lg">{type.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Step 2: Project Details & Understanding */}
-                  {currentStep === 2 && (
-                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                      <h3 className="text-xl font-bold text-center mb-2">لنفهم مشروعك أكثر</h3>
-                      <p className="text-center text-muted-foreground mb-6">ساعدنا في التعرف على جمهورك وأهدافك لتقديم الأفضل</p>
-                      
-                      {/* Audience Selection */}
-                      <div className="space-y-3">
-                        <Label className="text-base font-bold">من هو جمهورك المستهدف؟</Label>
-                        <div className="flex flex-wrap gap-2">
-                          {["شباب وجيل Z", "عائلات", "نخبة (VIP)", "شركات (B2B)", "نساء", "أطفال", "عام"].map((aud) => (
-                            <Badge 
-                              key={aud}
-                              variant="outline" 
-                              className={`cursor-pointer px-4 py-2 text-sm border-2 transition-all ${
-                                formData.audience.includes(aud) 
-                                  ? "bg-primary text-white border-primary shadow-md" 
-                                  : "hover:border-primary/50 bg-background"
-                              }`}
-                              onClick={() => updateField('audience', aud)} // For simple single select, or toggle logic for multi
-                            >
-                              {aud}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Goal Selection */}
-                      <div className="space-y-3">
-                        <Label className="text-base font-bold">ما هو هدفك الرئيسي؟</Label>
-                        <div className="grid grid-cols-2 gap-3">
-                          {[
-                            { id: 'sales', label: 'زيادة المبيعات 📈' },
-                            { id: 'brand', label: 'الوعي بالعلامة التجارية 🌟' },
-                            { id: 'launch', label: 'إطلاق منتج جديد 🚀' },
-                            { id: 'content', label: 'تحسين مظهر الحساب ✨' },
-                          ].map((g) => (
-                            <div 
-                              key={g.id}
-                              onClick={() => updateField('goal', g.label)}
-                              className={`cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${
-                                formData.goal === g.label 
-                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20" 
-                                  : "border-muted hover:border-primary/30 bg-background/50"
-                              }`}
-                            >
-                              {g.label}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Visual Mood Selector (Redesigned) */}
-                      <div className="space-y-4">
-                         <Label className="text-base font-bold flex items-center gap-2">
-                           <Palette size={18} className="text-primary" />
-                           الطابع البصري المفضل
-                         </Label>
-                         <div className="grid grid-cols-2 gap-4">
-                          {[
-                             { 
-                               id: 'minimal', 
-                               label: 'بسيط (Minimal)', 
-                               desc: 'نظيف، مساحات بيضاء، عصري',
-                               gradient: 'from-gray-100 to-gray-200', 
-                               border: 'group-hover:border-gray-400',
-                               icon: <Sparkles size={20} className="text-gray-700" />
-                             },
-                             { 
-                               id: 'luxury', 
-                               label: 'فاخر (Luxury)', 
-                               desc: 'أسود، أنيق وراقي',
-                               gradient: 'from-gray-200 to-gray-300', 
-                               border: 'group-hover:border-gray-500',
-                               icon: <Crown size={20} className="text-gray-800" />
-                             },
-                             { 
-                               id: 'vibrant', 
-                               label: 'حيوي (Vibrant)', 
-                               desc: 'طاقة عالية، مرح',
-                               gradient: 'from-gray-100 to-gray-200', 
-                               border: 'group-hover:border-gray-400',
-                               icon: <Zap size={20} className="text-gray-700" />
-                             },
-                             { 
-                               id: 'dark', 
-                               label: 'داكن (Dark)', 
-                               desc: 'غامق، درامي، سينمائي',
-                               gradient: 'from-gray-800 to-gray-900 text-white', 
-                               border: 'group-hover:border-gray-500',
-                               icon: <ImageIcon size={20} className="text-gray-300" />
-                             },
-                          ].map((m) => (
-                            <div 
-                              key={m.id}
-                              onClick={() => updateField('mood', m.label)}
-                              className={`group cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between ${
-                                formData.mood === m.label 
-                                  ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]` 
-                                  : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
-                              }`}
-                            >
-                              <div className="flex justify-between items-start">
-                                <div className={`p-2 rounded-full bg-white/20 backdrop-blur-md ${formData.mood === m.label ? 'scale-110' : ''} transition-transform`}>
-                                  {m.icon}
-                                </div>
-                                {formData.mood === m.label && (
-                                  <div className="bg-primary text-white rounded-full p-1 shadow-sm">
-                                    <CheckCircle2 size={14} />
-                                  </div>
-                                )}
-                              </div>
-                              <div>
-                                <h4 className="font-bold text-sm mb-0.5">{m.label}</h4>
-                                <p className="text-[10px] opacity-70 font-medium">{m.desc}</p>
-                              </div>
-                            </div>
-                          ))}
-                         </div>
-                      </div>
-
-                      {/* Additional Details */}
-                      <div className="space-y-2">
-                        <Label className="text-base font-bold">ملاحظات إضافية</Label>
-                        <Textarea 
-                          placeholder="أي تفاصيل أخرى تود إخبارنا بها..."
-                          className="min-h-[80px] bg-background/50 resize-none border-muted focus:border-primary"
-                          value={formData.description}
-                          onChange={(e) => updateField('description', e.target.value)}
-                        />
-                      </div>
-
-                      <div className="flex gap-4 mt-6">
-                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal || !formData.mood}>التالي</Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Step 3: Budget & Timeline */}
-                  {currentStep === 3 && (
-                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
-                      <h3 className="text-xl font-bold text-center mb-8">الميزانية والوقت</h3>
-                      
-                      <div className="space-y-4">
-                        <Label className="text-base font-bold">الميزانية المتوقعة</Label>
-                        <div className="grid grid-cols-3 gap-4">
-                          {[
-                            { id: 'اقتصادية', label: 'اقتصادية', icon: '💰', desc: 'مناسبة للبدايات' }, 
-                            { id: 'متوسطة', label: 'متوسطة', icon: '⚖️', desc: 'أفضل قيمة' }, 
-                            { id: 'مفتوحة', label: 'مفتوحة', icon: '💎', desc: 'أعلى جودة' }
-                          ].map((b) => (
-                            <div 
-                              key={b.id}
-                              onClick={() => updateField('budget', b.id)}
-                              className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 text-center flex flex-col items-center gap-2 ${
-                                formData.budget === b.id 
-                                  ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg" 
-                                  : "border-muted hover:border-primary/30 bg-background/50"
-                              }`}
-                            >
-                              <div className="text-3xl mb-1">{b.icon}</div>
-                              <div className="font-bold">{b.label}</div>
-                              <div className="text-xs text-muted-foreground">{b.desc}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <Label className="text-base font-bold">موعد التسليم المفضل</Label>
-                        <div className="grid grid-cols-2 gap-3">
-                          {[
-                            { id: 'عاجل جداً (24 ساعة)', label: '⚡️ عاجل (24 ساعة)' },
-                            { id: 'خلال أسبوع', label: '📅 خلال أسبوع' },
-                            { id: 'خلال شهر', label: '🗓 خلال شهر' },
-                            { id: 'غير محدد', label: '⏳ غير محدد' },
-                          ].map((t) => (
-                            <div 
-                              key={t.id}
-                              onClick={() => updateField('timeline', t.id)}
-                              className={`cursor-pointer p-3 rounded-lg border text-center font-medium transition-all ${
-                                formData.timeline === t.id 
-                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20" 
-                                  : "border-muted hover:border-primary/30 bg-background/50"
-                              }`}
-                            >
-                              {t.label}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
-                        <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.budget || !formData.timeline}>التالي</Button>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Step 4: Contact Info */}
-                  {currentStep === 4 && (
-                    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
-                      <h3 className="text-xl font-bold text-center mb-8">كيف نتواصل معك؟</h3>
-                      
-                      <div className="space-y-6">
-                        <div className="space-y-2">
-                          <Label className="text-lg">الاسم الكريم</Label>
-                          <Input 
-                            placeholder="أدخل اسمك" 
-                            className="h-14 text-lg bg-background/50"
-                            value={formData.name}
-                            onChange={(e) => updateField('name', e.target.value)}
-                          />
-                        </div>
-                        <div className="space-y-2">
-                          <Label className="text-lg">رقم الجوال (واتساب)</Label>
-                          <Input 
-                            placeholder="05xxxxxxxx" 
-                            className="h-14 text-lg bg-background/50"
-                            value={formData.phone}
-                            onChange={(e) => updateField('phone', e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      <div className="flex gap-4 mt-8">
-                        <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg">رجوع</Button>
-                        <Button 
-                          onClick={handleFinalSubmit} 
-                          type="button" 
-                          className="flex-1 h-12 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/30 animate-pulse hover:animate-none transform hover:scale-105 transition-all duration-300" 
-                          disabled={!formData.name || !formData.phone}
                         >
-                          <Send className="ml-2 w-5 h-5" />
-                          إرسال الآن عبر واتساب
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
+                          {step < currentStep ? <CheckCircle2 size={16} /> : <span className="text-xs font-bold">{step}</span>}
+                        </div>
+                      ))}
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-8 flex flex-col justify-between">
 
-                </CardContent>
-              </Card>
+                    {/* Step 1: Project Type */}
+                    {currentStep === 1 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                        <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
+                        <div className="grid grid-cols-3 gap-4">
+                          {projectTypes.map((type) => (
+                            <div
+                              key={type.id}
+                              onClick={() => { updateField('projectType', type.label); nextStep(); }}
+                              className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
+                                  ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20"
+                                  : "border-muted hover:border-primary/50 bg-background/50"
+                                }`}
+                            >
+                              <div className={`p-4 rounded-full transition-colors duration-300 ${formData.projectType === type.label ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" : "bg-muted text-muted-foreground group-hover:text-primary"}`}>
+                                {type.icon}
+                              </div>
+                              <span className="font-bold text-lg">{type.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 2: Project Details & Understanding */}
+                    {currentStep === 2 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                        <h3 className="text-xl font-bold text-center mb-2">لنفهم مشروعك أكثر</h3>
+                        <p className="text-center text-muted-foreground mb-6">ساعدنا في التعرف على جمهورك وأهدافك لتقديم الأفضل</p>
+
+                        {/* Audience Selection */}
+                        <div className="space-y-3">
+                          <Label className="text-base font-bold">من هو جمهورك المستهدف؟</Label>
+                          <div className="flex flex-wrap gap-2">
+                            {["شباب وجيل Z", "عائلات", "نخبة (VIP)", "شركات (B2B)", "نساء", "أطفال", "عام"].map((aud) => (
+                              <Badge
+                                key={aud}
+                                variant="outline"
+                                className={`cursor-pointer px-4 py-2 text-sm border-2 transition-all ${formData.audience.includes(aud)
+                                    ? "bg-primary text-white border-primary shadow-md"
+                                    : "hover:border-primary/50 bg-background"
+                                  }`}
+                                onClick={() => updateField('audience', aud)} // For simple single select, or toggle logic for multi
+                              >
+                                {aud}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Goal Selection */}
+                        <div className="space-y-3">
+                          <Label className="text-base font-bold">ما هو هدفك الرئيسي؟</Label>
+                          <div className="grid grid-cols-2 gap-3">
+                            {[
+                              { id: 'sales', label: 'زيادة المبيعات 📈' },
+                              { id: 'brand', label: 'الوعي بالعلامة التجارية 🌟' },
+                              { id: 'launch', label: 'إطلاق منتج جديد 🚀' },
+                              { id: 'content', label: 'تحسين مظهر الحساب ✨' },
+                            ].map((g) => (
+                              <div
+                                key={g.id}
+                                onClick={() => updateField('goal', g.label)}
+                                className={`cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${formData.goal === g.label
+                                    ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
+                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  }`}
+                              >
+                                {g.label}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Visual Mood Selector (Redesigned) */}
+                        <div className="space-y-4">
+                          <Label className="text-base font-bold flex items-center gap-2">
+                            <Palette size={18} className="text-primary" />
+                            الطابع البصري المفضل
+                          </Label>
+                          <div className="grid grid-cols-2 gap-4">
+                            {[
+                              {
+                                id: 'minimal',
+                                label: 'بسيط (Minimal)',
+                                desc: 'نظيف، مساحات بيضاء، عصري',
+                                gradient: 'from-gray-100 to-gray-200',
+                                border: 'group-hover:border-gray-400',
+                                icon: <Sparkles size={20} className="text-gray-700" />
+                              },
+                              {
+                                id: 'luxury',
+                                label: 'فاخر (Luxury)',
+                                desc: 'أسود، أنيق وراقي',
+                                gradient: 'from-gray-200 to-gray-300',
+                                border: 'group-hover:border-gray-500',
+                                icon: <Crown size={20} className="text-gray-800" />
+                              },
+                              {
+                                id: 'vibrant',
+                                label: 'حيوي (Vibrant)',
+                                desc: 'طاقة عالية، مرح',
+                                gradient: 'from-gray-100 to-gray-200',
+                                border: 'group-hover:border-gray-400',
+                                icon: <Zap size={20} className="text-gray-700" />
+                              },
+                              {
+                                id: 'dark',
+                                label: 'داكن (Dark)',
+                                desc: 'غامق، درامي، سينمائي',
+                                gradient: 'from-gray-800 to-gray-900 text-white',
+                                border: 'group-hover:border-gray-500',
+                                icon: <ImageIcon size={20} className="text-gray-300" />
+                              },
+                            ].map((m) => (
+                              <div
+                                key={m.id}
+                                onClick={() => updateField('mood', m.label)}
+                                className={`group cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between ${formData.mood === m.label
+                                    ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]`
+                                    : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
+                                  }`}
+                              >
+                                <div className="flex justify-between items-start">
+                                  <div className={`p-2 rounded-full bg-white/20 backdrop-blur-md ${formData.mood === m.label ? 'scale-110' : ''} transition-transform`}>
+                                    {m.icon}
+                                  </div>
+                                  {formData.mood === m.label && (
+                                    <div className="bg-primary text-white rounded-full p-1 shadow-sm">
+                                      <CheckCircle2 size={14} />
+                                    </div>
+                                  )}
+                                </div>
+                                <div>
+                                  <h4 className="font-bold text-sm mb-0.5">{m.label}</h4>
+                                  <p className="text-[10px] opacity-70 font-medium">{m.desc}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Additional Details */}
+                        <div className="space-y-2">
+                          <Label className="text-base font-bold">ملاحظات إضافية</Label>
+                          <Textarea
+                            placeholder="أي تفاصيل أخرى تود إخبارنا بها..."
+                            className="min-h-[80px] bg-background/50 resize-none border-muted focus:border-primary"
+                            value={formData.description}
+                            onChange={(e) => updateField('description', e.target.value)}
+                          />
+                        </div>
+
+                        <div className="flex gap-4 mt-6">
+                          <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
+                          <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.audience || !formData.goal || !formData.mood}>التالي</Button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 3: Budget & Timeline */}
+                    {currentStep === 3 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
+                        <h3 className="text-xl font-bold text-center mb-8">الميزانية والوقت</h3>
+
+                        <div className="space-y-4">
+                          <Label className="text-base font-bold">الميزانية المتوقعة</Label>
+                          <div className="grid grid-cols-3 gap-4">
+                            {[
+                              { id: 'اقتصادية', label: 'اقتصادية', icon: '💰', desc: 'مناسبة للبدايات' },
+                              { id: 'متوسطة', label: 'متوسطة', icon: '⚖️', desc: 'أفضل قيمة' },
+                              { id: 'مفتوحة', label: 'مفتوحة', icon: '💎', desc: 'أعلى جودة' }
+                            ].map((b) => (
+                              <div
+                                key={b.id}
+                                onClick={() => updateField('budget', b.id)}
+                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 text-center flex flex-col items-center gap-2 ${formData.budget === b.id
+                                    ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg"
+                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  }`}
+                              >
+                                <div className="text-3xl mb-1">{b.icon}</div>
+                                <div className="font-bold">{b.label}</div>
+                                <div className="text-xs text-muted-foreground">{b.desc}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          <Label className="text-base font-bold">موعد التسليم المفضل</Label>
+                          <div className="grid grid-cols-2 gap-3">
+                            {[
+                              { id: 'عاجل جداً (24 ساعة)', label: '⚡️ عاجل (24 ساعة)' },
+                              { id: 'خلال أسبوع', label: '📅 خلال أسبوع' },
+                              { id: 'خلال شهر', label: '🗓 خلال شهر' },
+                              { id: 'غير محدد', label: '⏳ غير محدد' },
+                            ].map((t) => (
+                              <div
+                                key={t.id}
+                                onClick={() => updateField('timeline', t.id)}
+                                className={`cursor-pointer p-3 rounded-lg border text-center font-medium transition-all ${formData.timeline === t.id
+                                    ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
+                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  }`}
+                              >
+                                {t.label}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex gap-4 mt-8">
+                          <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg rounded-xl border-2 hover:bg-secondary/80">رجوع</Button>
+                          <Button onClick={nextStep} type="button" className="flex-1 h-12 text-lg bg-primary hover:bg-primary/90 rounded-xl shadow-lg shadow-primary/20" disabled={!formData.budget || !formData.timeline}>التالي</Button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                    {/* Step 4: Contact Info */}
+                    {currentStep === 4 && (
+                      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
+                        <h3 className="text-xl font-bold text-center mb-8">كيف نتواصل معك؟</h3>
+
+                        <div className="space-y-6">
+                          <div className="space-y-2">
+                            <Label className="text-lg">الاسم الكريم</Label>
+                            <Input
+                              placeholder="أدخل اسمك"
+                              className="h-14 text-lg bg-background/50"
+                              value={formData.name}
+                              onChange={(e) => updateField('name', e.target.value)}
+                            />
+                          </div>
+                          <div className="space-y-2">
+                            <Label className="text-lg">رقم الجوال (واتساب)</Label>
+                            <Input
+                              placeholder="05xxxxxxxx"
+                              className="h-14 text-lg bg-background/50"
+                              value={formData.phone}
+                              onChange={(e) => updateField('phone', e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        <div className="flex gap-4 mt-8">
+                          <Button variant="outline" onClick={prevStep} type="button" className="flex-1 h-12 text-lg">رجوع</Button>
+                          <Button
+                            onClick={handleFinalSubmit}
+                            type="button"
+                            className="flex-1 h-12 text-lg bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg shadow-green-500/30 animate-pulse hover:animate-none transform hover:scale-105 transition-all duration-300"
+                            disabled={!formData.name || !formData.phone}
+                          >
+                            <Send className="ml-2 w-5 h-5" />
+                            إرسال الآن عبر واتساب
+                          </Button>
+                        </div>
+                      </motion.div>
+                    )}
+
+                  </CardContent>
+                </Card>
               </div>
             </motion.div>
           </div>
@@ -1107,7 +1106,7 @@ export default function Home() {
             <h2 className="text-4xl font-bold font-heading mb-4">أسئلة متوقعة</h2>
             <p className="text-xl text-muted-foreground">الأجوبة على اللي يسألون عنه كثير</p>
           </div>
-          
+
           <Accordion type="single" collapsible className="w-full space-y-4">
             {[
               {

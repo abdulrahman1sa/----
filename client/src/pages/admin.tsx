@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { 
+import {
   ArrowLeft,
   Calendar,
   Phone,
@@ -19,6 +19,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import logo from "@assets/logo.png";
 import type { Booking } from "@shared/schema";
+import { db } from "@/lib/firebase";
+import { collection, query, getDocs, orderBy } from "firebase/firestore";
+
 
 const projectTypeLabels: Record<string, string> = {
   photography: "تصوير منتجات",
@@ -35,20 +38,24 @@ const budgetLabels: Record<string, string> = {
 
 export default function Admin() {
   const { data: bookings, isLoading, refetch, isRefetching } = useQuery<Booking[]>({
-    queryKey: ["/api/bookings"],
+    queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch("/api/bookings");
-      if (!res.ok) throw new Error("Failed to fetch bookings");
-      return res.json();
+      const q = query(collection(db, "bookings"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id as any, // Cast id to maintain compatibility
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate ? doc.data().createdAt.toDate().toISOString() : new Date().toISOString()
+      })) as Booking[];
     }
   });
 
   return (
     <div className="min-h-screen bg-background text-foreground" dir="rtl">
-      <motion.div 
+      <motion.div
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="fixed top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10" 
+        className="fixed top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] -z-10"
       />
 
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-primary/5">
@@ -61,9 +68,9 @@ export default function Admin() {
             <h1 className="font-heading font-bold text-lg">لوحة التحكم</h1>
           </div>
           <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               className="gap-2"
               onClick={() => refetch()}
               disabled={isRefetching}
@@ -83,7 +90,7 @@ export default function Admin() {
 
       <main className="pt-28 pb-20 px-6">
         <div className="container mx-auto max-w-6xl">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
@@ -143,7 +150,7 @@ export default function Admin() {
                         <Phone className="w-4 h-4" />
                         <span dir="ltr">{booking.phone}</span>
                       </div>
-                      
+
                       <div className="flex items-center gap-2">
                         <Briefcase className="w-4 h-4 text-muted-foreground" />
                         <Badge variant="secondary" className="font-normal">
@@ -187,8 +194,8 @@ export default function Admin() {
                         </div>
                       )}
 
-                      <Button 
-                        size="sm" 
+                      <Button
+                        size="sm"
                         className="w-full mt-3 gap-2"
                         onClick={() => window.open(`https://wa.me/${booking.phone.replace(/[^0-9]/g, '')}?text=مرحباً ${booking.name}، شكراً لتواصلك مع بديع!`, '_blank')}
                       >
@@ -201,7 +208,7 @@ export default function Admin() {
               ))}
             </div>
           ) : (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="text-center py-20"
