@@ -29,7 +29,12 @@ import {
   FileText,
   Clapperboard,
   Layers,
-  Timer
+  Timer,
+  Globe,
+  Plus,
+  Minus,
+  Calculator,
+  ShoppingCart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -78,6 +83,37 @@ function useIsMobile() {
   }, []);
 
   return isMobile;
+}
+
+// Static Geometric Pattern Background
+function StaticGeometricBackground() {
+  return (
+    <div className="absolute inset-0 pointer-events-none opacity-30">
+      <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="geometric-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+            {/* Circles */}
+            <circle cx="20" cy="20" r="8" fill="none" stroke="white" strokeWidth="1" opacity="0.3" />
+            <circle cx="80" cy="80" r="12" fill="none" stroke="white" strokeWidth="1" opacity="0.2" />
+
+            {/* Squares */}
+            <rect x="55" y="10" width="15" height="15" fill="none" stroke="white" strokeWidth="1" opacity="0.25" transform="rotate(45 62.5 17.5)" />
+            <rect x="10" y="60" width="20" height="20" fill="none" stroke="white" strokeWidth="1" opacity="0.2" />
+
+            {/* Triangles */}
+            <polygon points="85,15 95,30 75,30" fill="none" stroke="white" strokeWidth="1" opacity="0.3" />
+            <polygon points="40,75 50,90 30,90" fill="none" stroke="white" strokeWidth="1" opacity="0.25" />
+
+            {/* Lines */}
+            <line x1="0" y1="50" x2="30" y2="50" stroke="white" strokeWidth="1" opacity="0.2" />
+            <line x1="70" y1="0" x2="70" y2="25" stroke="white" strokeWidth="1" opacity="0.25" />
+            <line x1="45" y1="45" x2="65" y2="65" stroke="white" strokeWidth="1" opacity="0.2" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#geometric-pattern)" />
+      </svg>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -190,9 +226,26 @@ export default function Home() {
 
   const projectTypes = [
     { id: 'products', label: 'تصوير منتجات', icon: <Camera size={24} /> },
+    { id: 'web', label: 'تصميم مواقع', icon: <Globe size={24} /> },
     { id: 'content', label: 'كتابة محتوى', icon: <PenTool size={24} /> },
     { id: 'full', label: 'باكج كامل', icon: <Crown size={24} /> },
   ];
+
+  const [calculatorItems, setCalculatorItems] = useState([
+    { id: 'photo', label: 'صور احترافية', price: 15, count: 0, icon: <Camera size={22} /> },
+    { id: 'content', label: 'كتابة محتوى (بوست)', price: 30, count: 0, icon: <PenTool size={22} /> },
+    { id: 'reel', label: 'فيديو ريلز', price: 99, count: 0, icon: <Film size={22} /> },
+    { id: 'web', label: 'صفحة موقع', price: 350, count: 0, icon: <Globe size={22} /> },
+  ]);
+
+  const updateCalcCount = (id: string, delta: number) => {
+    setCalculatorItems(prev => prev.map(item =>
+      item.id === id ? { ...item, count: Math.max(0, item.count + delta) } : item
+    ));
+  };
+
+  const calcTotal = calculatorItems.reduce((sum, item) => sum + (item.price * item.count), 0);
+
 
   const handlePackageClick = (pkgName: string, price: string) => {
     const message = `*استفسار عن باقة* 💎
@@ -236,21 +289,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2874&auto=format&fit=crop')] bg-cover bg-center opacity-[0.03]" />
         )}
 
-        {/* Animated Background Blobs - Desktop Only */}
-        {!isMobile && (
-          <>
-            <motion.div
-              animate={{ scale: [1, 1.1, 1], rotate: [0, 10, 0] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="absolute top-20 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-10"
-            />
-            <motion.div
-              animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 0] }}
-              transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-              className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-zinc-500/10 rounded-full blur-[120px] -z-10"
-            />
-          </>
-        )}
+        {/* Static Geometric Background */}
+        {!isMobile && <StaticGeometricBackground />}
 
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.div
@@ -258,22 +298,37 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="outline" className="mb-6 px-6 py-2 text-sm border-primary/30 text-primary bg-primary/5 backdrop-blur-sm rounded-full">
-              ✨ صور احترافية بدون استديو
-            </Badge>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Badge variant="outline" className="mb-6 px-6 py-2 text-sm border-primary/30 text-primary bg-primary/5 backdrop-blur-sm rounded-full">
+                ✨ حلول إبداعية رقمية متكاملة
+              </Badge>
+            </motion.div>
             <h1 className="text-5xl md:text-7xl font-bold font-heading mb-8 leading-tight">
-              صوّر منتجك بجوالك <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">ونحولها لإعلان</span>
+              نطور مشروعك <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">ونبني حضورك الرقمي</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12 leading-relaxed">
-              ارسل لنا صورة منتجك العادية، ونرجعها لك صورة إعلانية احترافية.
-              بسيط، سريع، وبسعر يناسبك.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <motion.p
+              className="text-xl md:text-2xl text-zinc-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.2, duration: 0.7 }}
+            >
+              من التصوير الاحترافي إلى تصميم المواقع العصرية، "بديع" شريكك الإبداعي لتقديم مشروعك بأبهى صورة تجذب العملاء وتزيد المبيعات.
+            </motion.p>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 0.5 }}
+            >
               <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 text-primary-foreground">
                 ابدأ مشروعك الآن <ArrowRight className="mr-2" />
               </Button>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* Stats */}
@@ -312,7 +367,7 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">المشكلة والحل</h2>
-            <p className="text-xl text-muted-foreground">كثير ناس عندهم منتجات ممتازة، بس صورها ما تعطيها حقها</p>
+            <p className="text-xl text-muted-foreground">كثير من المشاريع الرائعة تفتقر للحضور البصري الذي يعكس جودتها الحقيقية</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
@@ -331,12 +386,12 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold font-heading mb-4 text-foreground/80">المشكلة</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  منتجك ممتاز، بس الصور اللي تنزلها ما توصل الفكرة للناس.
-                  تصوير احترافي في استديو يكلف كثير ويحتاج وقت.
-                  <br /><span className="font-bold text-foreground/80">النتيجة؟</span> الناس تمر على منتجك ولا توقف.
+                  مشروعك ممتاز، بس حضورك الرقمي وقوة براندك ما تعكس جودتك الحقيقية.
+                  المواقع التقليدية والمحتوى العادي ما صاروا يسوون فرق في سوق المنافسة اليوم.
+                  <br /><span className="font-bold text-foreground/80">النتيجة؟</span> العملاء يفضلون المنافس اللي برانده يبين احترافي أكثر.
                 </p>
                 <div className="space-y-3">
-                  {["صور عادية ما تجذب", "تكلفة التصوير عالية", "ما عندك وقت"].map((item, i) => (
+                  {["موقع قديم أو بدون حضور هادف", "محتوى بصري متواضع", "صعوبة في الوصول لعملاء جدد"].map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-muted-foreground/80">
                       <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
                       {item}
@@ -363,9 +418,9 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold font-heading mb-4 text-primary">الحل مع بديع</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  ارسل لنا صورة منتجك من جوالك، ونرجعها لك صورة إعلانية احترافية.
-                  بدون استديو، بدون تكلفة عالية، وبسرعة.
-                  <br /><span className="font-bold text-primary">كيف؟</span> مع خبراء توليد الصور بالـ AI.
+                  نقدم لك حزم إبداعية متكاملة تبدأ من بناء موقعك وتطوير تجربة المستخدم، وصولاً لإنتاج محتوى بصري احترافي يخطف الأنظار.
+                  حلول رقمية ذكية تناسب ميزانيتك وتختصر عليك الوقت.
+                  <br /><span className="font-bold text-primary">كيف؟</span> ندمج الخبرة الإبداعية مع أحدث تقنيات AI.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
@@ -393,7 +448,7 @@ export default function Home() {
             <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">خدماتنا</Badge>
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">وش نقدر نسوي لك؟</h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              ثلاث خدمات بسيطة تخلي منتجك يبين بشكل احترافي
+              حلول إبداعية متكاملة تضمن حضوراً استثنائياً لمشروعك
             </p>
           </div>
 
@@ -419,6 +474,13 @@ export default function Home() {
                 title: "فيديو ريلز",
                 desc: "نحول صور منتجاتك لفيديوهات قصيرة جذابة تنفع للانستقرام وتيك توك.",
                 features: ["فيديو 15-30 ثانية", "موسيقى مناسبة", "تصميم احترافي"]
+              },
+              {
+                icon: <Globe className="w-12 h-12 text-white" />,
+                color: "bg-zinc-600",
+                title: "تصميم مواقع",
+                desc: "نبني لك موقع إلكتروني عصري يعكس هوية براندك ويحول الزوار إلى عملاء.",
+                features: ["تصميم عصري ومتجاوب", "تجربة مستخدم سلسة", "سرعة في التحميل"]
               }
             ].map((service, i) => (
               <motion.div
@@ -455,6 +517,16 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+          {/* Note: Grid columns should be adjusted for 4 items if needed, or keep it responsive */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+            @media (min-width: 768px) {
+              #services .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            }
+            @media (min-width: 1024px) {
+              #services .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            }
+          `}} />
         </div>
       </section>
 
@@ -467,7 +539,7 @@ export default function Home() {
             <Badge variant="outline" className="mb-6 border-white/10 text-white/60 px-4 py-1">كيف نعمل؟</Badge>
             <h2 className="text-4xl md:text-6xl font-bold font-heading mb-6 tracking-tight">رحلتك مع <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/40">BADII</span></h2>
             <p className="text-xl text-zinc-400 leading-relaxed">
-              نحول التعقيد إلى بساطة. 4 خطوات فقط تفصلك عن المحتوى الذي تحلم به.
+              نحول التعقيد إلى بساطة. 4 خطوات فقط تفصلك عن المشروع الذي تحلم به.
             </p>
           </div>
 
@@ -480,15 +552,15 @@ export default function Home() {
                 {
                   step: "01",
                   icon: <UploadCloud className="w-8 h-8" />,
-                  title: "أرسل صورك",
-                  desc: "ارفع صور منتجاتك (حتى لو من الجوال). لا تحتاج لاستوديو.",
+                  title: "شاركنا رؤيتك",
+                  desc: "أخبرنا عن مشروعك (موقع، هوية، أو تصوير) وأرسل ملفاتك الأولية.",
                   delay: 0
                 },
                 {
                   step: "02",
                   icon: <Wand2 className="w-8 h-8" />,
-                  title: "سحر الذكاء",
-                  desc: "تقنياتنا تعالج الصور وتضيف الخلفيات والإضاءة السينمائية.",
+                  title: "الإبداع والذكاء",
+                  desc: "ندمج خبرتنا الإبداعية مع تقنيات الذكاء الاصطناعي لبناء مشروعك.",
                   delay: 0.2
                 },
                 {
@@ -501,8 +573,8 @@ export default function Home() {
                 {
                   step: "04",
                   icon: <Share2 className="w-8 h-8" />,
-                  title: "استلم وانشر",
-                  desc: "ملفات عالية الدقة جاهزة لتكتسح بها منصات التواصل.",
+                  title: "الانطلاق والنجاح",
+                  desc: "استلم ملفاتك بجودة عالية وانطلق ببراندك في فضاء المنافسة.",
                   delay: 0.6
                 }
               ].map((item, i) => (
@@ -542,8 +614,8 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="mb-4 bg-primary/10 text-primary border-none">الفرق مذهل</Badge>
-            <h2 className="text-4xl font-bold font-heading mb-4">لا تصدق الكلمات.. صدق عينيك</h2>
-            <p className="text-xl text-muted-foreground">انقل المؤشر لترى كيف نحول الصور العادية إلى مغناطيس للمبيعات</p>
+            <h2 className="text-4xl font-bold font-heading mb-4">النتائج تتحدث عن نفسها</h2>
+            <p className="text-xl text-muted-foreground">استخدم المؤشر لتشاهد كيف نحول المحتوى البسيط إلى أداة جذب قوية للمبيعات</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -613,14 +685,14 @@ export default function Home() {
               عرض خاص
             </span>
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-heading text-white leading-[0.9] mb-8">
-              جرّب قبل
+              التجربة الأولى
               <br />
-              <span className="text-white/30">ما تدفع</span>
+              <span className="text-white/30">برهان الجودة</span>
             </h2>
             <p className="text-xl md:text-2xl text-white/50 max-w-2xl mx-auto leading-relaxed">
-              أول صورة علينا. عجبتك النتيجة؟ كمّل معنا.
+              نقدم لك عينة مجانية لتحكم بنفسك على مستوى احترافنا.
               <br />
-              ما عجبتك؟ <span className="text-white font-medium">ولا ريال واحد.</span>
+              إذا لم تكن النتيجة مذهلة، <span className="text-white font-medium">فلن تتحمل أي تكلفة.</span>
             </p>
           </motion.div>
 
@@ -756,6 +828,255 @@ export default function Home() {
 
         </div>
       </section>
+      {/* Pricing Packages */}
+      <section id="pricing" className="py-24 bg-[#080808] relative overflow-hidden">
+        {/* Extreme Decorative background elements */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] -z-10 translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] -z-10 -translate-x-1/3 translate-y-1/3" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              <Badge className="mb-4 bg-primary/10 text-primary border-none text-sm px-4 py-1.5 font-bold">باقاتنا المدروسة</Badge>
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-white">اختر الباقة المناسبة لمشروعك</h2>
+            <p className="text-xl text-zinc-300">خيارات متنوعة مصممة لتناسب مختلف الاحتياجات والميزانيات</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "باكيج الانطلاقة",
+                price: "199",
+                priceText: "ر.س",
+                desc: "مثالية للمشاريع الناشئة التي تحتاج حضوراً بصرياً أساسياً.",
+                features: ["7 صور منتجات احترافية", "كتابة 3 أوصاف جذابة", "تعديل ألوان سينمائي", "تسليم خلال 48 ساعة"],
+                popular: false,
+                color: "border-white/10",
+                glow: "hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.08)]"
+              },
+              {
+                name: "باكيج الحضور الرقمي",
+                price: "749",
+                priceText: "ر.س",
+                desc: "باقة متكاملة لبناء هويتك الرقمية وجذب العملاء.",
+                features: ["صفحة هبوط (Landing Page)", "15 صورة منتج إعلانية", "5 فيديوهات ريلز قصيرة", "دعم فني لمدة شهر"],
+                popular: true,
+                color: "border-primary/40",
+                glow: "shadow-[0_0_50px_-15px_rgba(var(--primary),0.35)]"
+              },
+              {
+                name: "الباقة الشاملة",
+                price: "1999",
+                priceText: "ر.س",
+                desc: "الحل النهائي لتحويل مشروعك إلى قصة نجاح باهرة.",
+                features: ["موقع تعريفي متكامل", "محتوى بصري لـ 30 يوم", "إدارة حسابات السوشيال", "استشارة تسويقية مجانية"],
+                popular: false,
+                color: "border-white/10",
+                glow: "group-hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.1)]"
+              }
+            ].map((pkg, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: i * 0.1,
+                  duration: 0.5,
+                }}
+                viewport={{ once: true }}
+                whileHover={{
+                  y: -15,
+                  transition: { duration: 0.3 }
+                }}
+                animate={pkg.popular ? {
+                  y: [0, -10, 0],
+                  transition: {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }
+                } : {}}
+                className={`group relative p-8 md:p-10 rounded-[2.5rem] border ${pkg.color} bg-zinc-900/90 flex flex-col h-full transition-all duration-500 ${pkg.glow} ${pkg.popular ? 'bg-gradient-to-b from-primary/[0.06] to-zinc-900/90' : ''}`}
+              >
+                {pkg.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-black px-6 py-1.5 rounded-full shadow-lg shadow-primary/30 z-20">
+                    الأكثر طلباً
+                  </div>
+                )}
+
+                {/* Internal glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2rem] -z-10" />
+
+                <div className="mb-8 relative">
+                  <h3 className="text-2xl font-bold mb-3 text-white">{pkg.name}</h3>
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <span className="text-sm text-zinc-400">تبدأ من</span>
+                    <span className="text-5xl font-black tracking-tighter text-white">
+                      {pkg.price}
+                    </span>
+                    <span className="text-sm text-zinc-400">{pkg.priceText}</span>
+                  </div>
+                  <p className="text-sm text-zinc-300 leading-relaxed min-h-[3rem]">{pkg.desc}</p>
+                </div>
+
+                <div className="h-px w-full bg-white/10 mb-8" />
+
+                <ul className="space-y-4 mb-10 flex-grow">
+                  {pkg.features.map((feat, j) => (
+                    <li key={j} className="flex items-center gap-3 text-sm group/item">
+                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+                      </div>
+                      <span className="text-zinc-300">{feat}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button
+                  onClick={() => handlePackageClick(pkg.name, `${pkg.price} ${pkg.priceText}`)}
+                  variant={pkg.popular ? "default" : "outline"}
+                  className={`w-full h-14 rounded-2xl font-bold text-lg transition-all duration-300 ${pkg.popular
+                    ? 'bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/30'
+                    : 'border-white/10 text-white hover:bg-white/5'
+                    }`}
+                >
+                  اطلب الباقة الآن
+                </Button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Flexible Calculator */}
+      <section id="calculator" className="py-24 bg-[#050505] relative overflow-hidden">
+        {/* Background glow for calculator */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[700px] bg-primary/10 rounded-full blur-[180px] -z-10" />
+
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 70 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-6xl mx-auto bg-zinc-900 border border-white/10 overflow-hidden shadow-[0_50px_150px_-30px_rgba(0,0,0,0.7)] rounded-[4rem]"
+          >
+            <div className="grid lg:grid-cols-2">
+              <div className="p-10 md:p-14 border-b lg:border-b-0 lg:border-l border-white/5 bg-zinc-950/30">
+                <div className="flex items-center gap-4 mb-12">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center text-primary shadow-inner border border-white/5">
+                    <Calculator size={28} />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold tracking-tight text-white">حاسبة الطلبات المرنة</h2>
+                    <p className="text-sm text-zinc-400">صمم باقتك الخاصة بلمسة واحدة</p>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  {calculatorItems.map((item) => (
+                    <motion.div
+                      key={item.id}
+                      layout
+                      className="flex items-center justify-between p-5 bg-black/60 border border-white/5 rounded-[1.25rem] group hover:border-primary/20 hover:bg-black/80 transition-all duration-300"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-zinc-200 group-hover:text-primary group-hover:bg-primary/10 transition-all">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-base text-white">{item.label}</h4>
+                          <p className="text-xs text-zinc-400 mt-0.5">{item.price} ر.س / للوحدة</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-5">
+                        <button
+                          onClick={() => updateCalcCount(item.id, -1)}
+                          className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 hover:border-white/20 transition-all active:scale-90 disabled:opacity-5 text-white shadow-xl shadow-black/20"
+                          disabled={item.count === 0}
+                        >
+                          <Minus size={18} strokeWidth={3} />
+                        </button>
+                        <AnimatePresence mode="wait">
+                          <motion.span
+                            key={item.count}
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="w-10 text-center font-black text-2xl tabular-nums text-white"
+                          >
+                            {item.count}
+                          </motion.span>
+                        </AnimatePresence>
+                        <button
+                          onClick={() => updateCalcCount(item.id, 1)}
+                          className="w-11 h-11 rounded-full border border-primary/40 bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/30 transition-all active:scale-90 shadow-[0_0_20px_rgba(var(--primary),0.2)]"
+                        >
+                          <Plus size={18} strokeWidth={3} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="p-10 md:p-14 bg-gradient-to-br from-primary/[0.03] to-transparent flex flex-col justify-center items-center text-center relative">
+                {/* Decorative circle behind total */}
+                <div className="absolute w-64 h-64 bg-primary/5 rounded-full blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10" />
+
+                <div className="mb-10 w-full">
+                  <div className="w-20 h-20 bg-gradient-to-tr from-primary to-primary/60 rounded-3xl flex items-center justify-center text-white mx-auto mb-8 shadow-2xl shadow-primary/40 rotate-3 border border-white/10">
+                    <ShoppingCart size={40} />
+                  </div>
+                  <h3 className="text-lg font-bold mb-4 text-zinc-200 uppercase tracking-widest">التكلفة التقديرية</h3>
+                  <div className="flex items-baseline justify-center gap-3">
+                    <span className="text-sm text-zinc-400 font-bold">ريال</span>
+                    <AnimatePresence mode="wait">
+                      <motion.span
+                        key={calcTotal}
+                        initial={{ opacity: 0, scale: 0.7, y: 20, filter: "blur(15px)" }}
+                        animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+                        className="text-8xl md:text-9xl font-black text-white transition-all duration-300 tracking-tighter tabular-nums drop-shadow-[0_0_30px_rgba(var(--primary),0.3)] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
+                      >
+                        {calcTotal}
+                      </motion.span>
+                    </AnimatePresence>
+                    <span className="text-lg text-primary uppercase font-black mb-1">يبدأ من</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 px-6 py-2.5 bg-white/5 rounded-full mb-10 border border-white/10 shadow-inner">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                  <p className="text-xs text-zinc-400">دقة الحسبة تعتمد على التفاصيل النهائية</p>
+                </div>
+
+                <Button
+                  size="lg"
+                  disabled={calcTotal === 0}
+                  onClick={() => {
+                    const breakdown = calculatorItems
+                      .filter(i => i.count > 0)
+                      .map(i => `- ${i.label}: ${i.count}`)
+                      .join('\n');
+                    const message = `مرحباً، أرغب في طلب باقة مخصصة عبر الحاسبة:\n\n${breakdown}\n\nالتكلفة التقديرية: ${calcTotal} ريال`;
+                    window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
+                  }}
+                  className="w-full h-20 rounded-[1.5rem] text-2xl font-black bg-primary text-white shadow-[0_20px_40px_-10px_rgba(var(--primary),0.3)] hover:shadow-[0_25px_50px_-12px_rgba(var(--primary),0.5)] transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                >
+                  <MessageCircle size={28} className="ml-3" />
+                  اطلب هذه الحسبة الآن
+                </Button>
+
+                <p className="text-xs text-zinc-400 mt-6 font-medium">سيتم توجيهك للمحادثة المباشرة مع فريق التنفيذ</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Booking Form Section */}
       <section id="booking" className="py-24 relative overflow-hidden">
@@ -820,8 +1141,8 @@ export default function Home() {
                         <div
                           key={step}
                           className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full transition-all duration-500 border-2 ${step <= currentStep
-                              ? "bg-primary border-primary text-white scale-110 shadow-lg shadow-primary/30"
-                              : "bg-background border-muted text-muted-foreground"
+                            ? "bg-primary border-primary text-white scale-110 shadow-lg shadow-primary/30"
+                            : "bg-background border-muted text-muted-foreground"
                             }`}
                         >
                           {step < currentStep ? <CheckCircle2 size={16} /> : <span className="text-xs font-bold">{step}</span>}
@@ -841,8 +1162,8 @@ export default function Home() {
                               key={type.id}
                               onClick={() => { updateField('projectType', type.label); nextStep(); }}
                               className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
-                                  ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20"
-                                  : "border-muted hover:border-primary/50 bg-background/50"
+                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20"
+                                : "border-muted hover:border-primary/50 bg-background/50"
                                 }`}
                             >
                               <div className={`p-4 rounded-full transition-colors duration-300 ${formData.projectType === type.label ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" : "bg-muted text-muted-foreground group-hover:text-primary"}`}>
@@ -870,8 +1191,8 @@ export default function Home() {
                                 key={aud}
                                 variant="outline"
                                 className={`cursor-pointer px-4 py-2 text-sm border-2 transition-all ${formData.audience.includes(aud)
-                                    ? "bg-primary text-white border-primary shadow-md"
-                                    : "hover:border-primary/50 bg-background"
+                                  ? "bg-primary text-white border-primary shadow-md"
+                                  : "hover:border-primary/50 bg-background"
                                   }`}
                                 onClick={() => updateField('audience', aud)} // For simple single select, or toggle logic for multi
                               >
@@ -895,8 +1216,8 @@ export default function Home() {
                                 key={g.id}
                                 onClick={() => updateField('goal', g.label)}
                                 className={`cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${formData.goal === g.label
-                                    ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
-                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
+                                  : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
                               >
                                 {g.label}
@@ -950,8 +1271,8 @@ export default function Home() {
                                 key={m.id}
                                 onClick={() => updateField('mood', m.label)}
                                 className={`group cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between ${formData.mood === m.label
-                                    ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]`
-                                    : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
+                                  ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]`
+                                  : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
                                   }`}
                               >
                                 <div className="flex justify-between items-start">
@@ -1008,8 +1329,8 @@ export default function Home() {
                                 key={b.id}
                                 onClick={() => updateField('budget', b.id)}
                                 className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 text-center flex flex-col items-center gap-2 ${formData.budget === b.id
-                                    ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg"
-                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg"
+                                  : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
                               >
                                 <div className="text-3xl mb-1">{b.icon}</div>
@@ -1033,8 +1354,8 @@ export default function Home() {
                                 key={t.id}
                                 onClick={() => updateField('timeline', t.id)}
                                 className={`cursor-pointer p-3 rounded-lg border text-center font-medium transition-all ${formData.timeline === t.id
-                                    ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
-                                    : "border-muted hover:border-primary/30 bg-background/50"
+                                  ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
+                                  : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
                               >
                                 {t.label}

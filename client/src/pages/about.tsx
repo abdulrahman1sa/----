@@ -1,10 +1,10 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "wouter";
 import { useRef, useState, useEffect } from "react";
-import { 
-  Sparkles, 
-  Target, 
-  Eye, 
+import {
+  Sparkles,
+  Target,
+  Eye,
   Heart,
   ArrowLeft,
   ArrowUp,
@@ -78,12 +78,12 @@ export default function About() {
   const timeline = [
     {
       title: "الفكرة",
-      description: "لاحظنا أن أصحاب المشاريع يملكون منتجات رائعة لكن يفتقرون لأدوات التسويق البصري",
+      description: "لاحظنا أن أصحاب المشاريع يملكون منتجات رائعة لكنهم يفتقرون لأدوات التسويق البصري والحضور الرقمي الاحترافي",
       icon: Lightbulb,
     },
     {
       title: "الحل",
-      description: "استخدام الذكاء الاصطناعي لتحويل صور بسيطة إلى محتوى تسويقي احترافي",
+      description: "دمج الذكاء الاصطناعي مع الخبرة الإبداعية لتقديم حلول متكاملة تشمل الموقع، المحتوى، والتصوير",
       icon: Sparkles,
     },
     {
@@ -101,7 +101,7 @@ export default function About() {
     },
     {
       icon: Rocket,
-      title: "السرعة", 
+      title: "السرعة",
       description: "نسلّم المشاريع بسرعة استثنائية"
     },
     {
@@ -119,16 +119,16 @@ export default function About() {
   return (
     <div className="min-h-screen bg-background text-foreground" dir="rtl">
       <ScrollToTop />
-      
-      <motion.div 
+
+      <motion.div
         animate={{ scale: [1, 1.2, 1], x: [0, 50, 0] }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="fixed top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] -z-10" 
+        className="fixed top-0 right-0 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[150px] -z-10"
       />
-      <motion.div 
+      <motion.div
         animate={{ scale: [1, 1.3, 1], x: [0, -30, 0] }}
         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-zinc-500/10 rounded-full blur-[120px] -z-10" 
+        className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-zinc-500/10 rounded-full blur-[120px] -z-10"
       />
 
       <nav className="fixed top-0 w-full z-50 bg-background/60 backdrop-blur-xl border-b border-white/5">
@@ -148,7 +148,7 @@ export default function About() {
       <main>
         <section ref={heroRef} className="relative min-h-[80vh] flex items-center justify-center pt-24 pb-16 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-background" />
-          
+
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <motion.div
@@ -160,33 +160,33 @@ export default function About() {
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-primary font-medium text-sm">من نحن</span>
               </motion.div>
-              
-              <motion.h1 
+
+              <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 }}
                 className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading mb-6 leading-tight"
               >
-                نحول <span className="text-primary">الرؤية</span> إلى <span className="text-primary">واقع</span>
+                نحول <span className="text-primary">رؤيتك</span> إلى <span className="text-primary">واقع ملموس</span>
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.2 }}
                 className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10"
               >
-                نؤمن بأن كل منتج يستحق أن يُروى بطريقة استثنائية تلمس القلوب وتحرك المبيعات
+                نؤمن بأن كل مشروع يستحق حضوراً رقمياً استثنائياً يدمج بين التصميم المبتكر والمحتوى البصري القوي لرفع القيمة السوقية وتحقيق المبيعات
               </motion.p>
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.3 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   className="bg-primary hover:bg-primary/90 rounded-xl gap-2 px-6"
                   onClick={() => window.open('https://wa.me/966509567267?text=مرحباً، أريد معرفة المزيد عن خدماتكم', '_blank')}
                   data-testid="button-whatsapp-hero"
@@ -215,9 +215,9 @@ export default function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-                لماذا <span className="text-primary">بديع</span>؟
+                لماذا يختارنا <span className="text-primary">المبدعون</span>؟
               </h2>
-              <p className="text-lg text-muted-foreground">ما يميزنا عن غيرنا</p>
+              <p className="text-lg text-muted-foreground">القيمة التي نصنعها لمشروعك</p>
             </motion.div>
 
             <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -247,7 +247,7 @@ export default function About() {
 
         <section className="py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-          
+
           <div className="container mx-auto px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -264,7 +264,7 @@ export default function About() {
 
             <div className="max-w-3xl mx-auto relative">
               <div className="absolute right-6 top-0 bottom-0 w-px bg-primary/30 hidden md:block" />
-              
+
               {timeline.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -277,7 +277,7 @@ export default function About() {
                   <div className="absolute right-0 top-0 w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/30 hidden md:flex">
                     <item.icon className="w-6 h-6 text-white" />
                   </div>
-                  
+
                   <div className="bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-2xl p-6 shadow-xl shadow-black/5 hover:border-primary/40 hover:shadow-primary/10 transition-all duration-300">
                     <div className="flex items-center gap-3 mb-3 md:hidden">
                       <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shadow-lg shadow-primary/30">
@@ -318,7 +318,7 @@ export default function About() {
                     <h2 className="text-2xl font-bold font-heading">رؤيتنا</h2>
                   </div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    أن نكون الشريك الإبداعي الأول لكل صاحب مشروع يريد أن يروي قصة منتجه بطريقة تلمس القلوب وتحرك المبيعات.
+                    أن نكون الشريك الإبداعي الرقمي الأول لكل صاحب مشروع يريد بناء حضوره الإلكتروني وتطوير خدماته الرقمية بطريقة تلمس القلوب وتحرك المبيعات.
                   </p>
                 </div>
               </motion.div>
@@ -340,7 +340,7 @@ export default function About() {
                     <h2 className="text-2xl font-bold font-heading">مهمتنا</h2>
                   </div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    تمكين أصحاب المشاريع من المنافسة بمحتوى بصري عالي الجودة دون الحاجة لميزانيات ضخمة أو خبرة تقنية.
+                    تمكين أصحاب المشاريع من المنافسة بمحتوى بصري وحضور رقمي عالي الجودة دون الحاجة لميزانيات ضخمة.
                   </p>
                 </div>
               </motion.div>
@@ -350,7 +350,7 @@ export default function About() {
 
         <section className="py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
-          
+
           <div className="container mx-auto px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -423,7 +423,7 @@ export default function About() {
 
         <section className="py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-primary/10 via-primary/5 to-transparent" />
-          
+
           <div className="container mx-auto px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -435,14 +435,14 @@ export default function About() {
               <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/30">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              
+
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
                 مستعد تبدأ <span className="text-primary">رحلتك</span> معنا؟
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                تواصل معنا اليوم ودعنا نحول صور منتجاتك إلى قصص نجاح
+                تواصل معنا اليوم ولنحول حضورك الرقمي إلى قصة نجاح باهرة
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/#booking">
                   <Button size="lg" className="bg-primary hover:bg-primary/90 rounded-xl gap-2 px-6 shadow-lg shadow-primary/30" data-testid="button-book-consultation">
@@ -450,9 +450,9 @@ export default function About() {
                     احجز استشارة مجانية
                   </Button>
                 </Link>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
+                  size="lg"
+                  variant="outline"
                   className="rounded-xl gap-2 px-6 border-white/20 hover:bg-white/5"
                   onClick={() => window.open('https://wa.me/966509567267?text=مرحباً، أريد معرفة المزيد عن خدماتكم', '_blank')}
                   data-testid="button-whatsapp-cta"
