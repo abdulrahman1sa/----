@@ -6,35 +6,25 @@ import {
   Zap,
   Crown,
   Camera,
-  PenTool,
   Palette,
   CheckCircle2,
   ArrowRight,
   MessageCircle,
   Image as ImageIcon,
   Send,
-  Video,
   UploadCloud,
   Wand2,
   Share2,
   FileCheck,
   ChevronUp,
-  Clock,
-  Shield,
-  Package,
   Rocket,
-  Briefcase,
   Star,
-  Film,
-  FileText,
-  Clapperboard,
-  Layers,
-  Timer,
-  Globe,
-  Plus,
-  Minus,
-  Calculator,
-  ShoppingCart
+  Code2,
+  Smartphone,
+  Building2,
+  Bot,
+  Compass,
+  Workflow,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -212,7 +202,7 @@ export default function Home() {
 🎯 الهدف الرئيسي: ${formData.goal}
 🎨 الطابع البصري: ${formData.mood}
 📝 تفاصيل إضافية: ${formData.description}
-💰 الميزانية: ${formData.budget}
+📐 نطاق الاستثمار: ${formData.budget}
 ⏱ الموعد: ${formData.timeline}
 
 أرجو مراجعة طلبي والرد علي. شكراً!`;
@@ -225,36 +215,13 @@ export default function Home() {
   };
 
   const projectTypes = [
-    { id: 'products', label: 'تصوير منتجات', icon: <Camera size={24} /> },
-    { id: 'web', label: 'تصميم مواقع', icon: <Globe size={24} /> },
-    { id: 'content', label: 'كتابة محتوى', icon: <PenTool size={24} /> },
-    { id: 'full', label: 'باكج كامل', icon: <Crown size={24} /> },
+    { id: 'web', label: 'موقع إلكتروني', icon: <Code2 size={24} /> },
+    { id: 'app', label: 'تطبيق', icon: <Smartphone size={24} /> },
+    { id: 'business', label: 'حل للشركات', icon: <Building2 size={24} /> },
+    { id: 'automation', label: 'ذكاء اصطناعي وأتمتة', icon: <Bot size={24} /> },
+    { id: 'brand', label: 'هوية ومحتوى', icon: <Palette size={24} /> },
+    { id: 'other', label: 'فكرة أخرى', icon: <Sparkles size={24} /> },
   ];
-
-  const [calculatorItems, setCalculatorItems] = useState([
-    { id: 'photo', label: 'صور احترافية', price: 15, count: 0, icon: <Camera size={22} /> },
-    { id: 'content', label: 'كتابة محتوى (بوست)', price: 30, count: 0, icon: <PenTool size={22} /> },
-    { id: 'reel', label: 'فيديو ريلز', price: 99, count: 0, icon: <Film size={22} /> },
-    { id: 'web', label: 'صفحة موقع', price: 350, count: 0, icon: <Globe size={22} /> },
-  ]);
-
-  const updateCalcCount = (id: string, delta: number) => {
-    setCalculatorItems(prev => prev.map(item =>
-      item.id === id ? { ...item, count: Math.max(0, item.count + delta) } : item
-    ));
-  };
-
-  const calcTotal = calculatorItems.reduce((sum, item) => sum + (item.price * item.count), 0);
-
-
-  const handlePackageClick = (pkgName: string, price: string) => {
-    const message = `*استفسار عن باقة* 💎
-
-مرحباً، أنا مهتم بـ *${pkgName}* بسعر ${price}.
-ممكن تفاصيل أكثر عن الباقة وآلية العمل؟`;
-
-    window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
-  };
 
 
   return (
@@ -312,18 +279,18 @@ export default function Home() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-zinc-500">ونبني حضورك الرقمي</span>
             </h1>
             <motion.p
-              className="text-xl md:text-2xl text-zinc-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+              className="text-xl md:text-2xl text-foreground/70 max-w-3xl mx-auto mb-12 leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.2, duration: 0.7 }}
+              transition={{ delay: 0.2, duration: 0.7 }}
             >
-              من التصوير الاحترافي إلى تصميم المواقع العصرية، "بديع" شريكك الإبداعي لتقديم مشروعك بأبهى صورة تجذب العملاء وتزيد المبيعات.
+              من الفكرة إلى الإطلاق، نصمم ونبرمج مواقع وتطبيقات وحلولاً رقمية تساعد مشروعك على النمو وتسهّل أعمال شركتك.
             </motion.p>
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2.5, duration: 0.5 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
             >
               <Button size="lg" onClick={() => window.location.href = '#booking'} className="text-lg px-10 py-7 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 rounded-full transition-all hover:scale-105 text-primary-foreground">
                 ابدأ مشروعك الآن <ArrowRight className="mr-2" />
@@ -339,9 +306,9 @@ export default function Home() {
             className="grid grid-cols-3 gap-4 md:gap-6 mt-16 md:mt-20 max-w-4xl mx-auto"
           >
             {[
-              { icon: <Zap size={24} />, title: "سريع", desc: "تسليم خلال يومين" },
-              { icon: <Sparkles size={24} />, title: "بسيط", desc: "بدون تعقيد" },
-              { icon: <Crown size={24} />, title: "واضح", desc: "سعر ثابت" },
+              { icon: <Compass size={24} />, title: "نفهم", desc: "نبدأ من احتياجك" },
+              { icon: <Workflow size={24} />, title: "نصمم", desc: "تجربة واضحة وسلسة" },
+              { icon: <Rocket size={24} />, title: "ننفذ", desc: "حل قابل للنمو" },
             ].map((stat, i) => (
               <div key={i} className="group relative">
                 <div className="absolute inset-0 bg-white/10 rounded-2xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -367,7 +334,7 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16 max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">المشكلة والحل</h2>
-            <p className="text-xl text-muted-foreground">كثير من المشاريع الرائعة تفتقر للحضور البصري الذي يعكس جودتها الحقيقية</p>
+            <p className="text-xl text-muted-foreground">كثير من الأفكار الجيدة تتعطل لأن الحل الرقمي لا يخدم الهدف الحقيقي للمشروع</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16 items-stretch">
@@ -386,13 +353,12 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold font-heading mb-4 text-foreground/80">المشكلة</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  مشروعك ممتاز، بس حضورك الرقمي وقوة براندك ما تعكس جودتك الحقيقية.
-                  المواقع التقليدية والمحتوى العادي ما صاروا يسوون فرق في سوق المنافسة اليوم.
-                  <br /><span className="font-bold text-foreground/80">النتيجة؟</span> العملاء يفضلون المنافس اللي برانده يبين احترافي أكثر.
+                  عندك فكرة أو تحدٍ واضح، لكن الأدوات المشتتة والحلول الجاهزة ما تناسب طريقة عملك ولا تعطي عميلك تجربة متماسكة.
+                  <br /><span className="font-bold text-foreground/80">النتيجة؟</span> وقت ضائع، نمو أبطأ، وفرص ما تتحول إلى نتائج.
                 </p>
                 <div className="space-y-3">
-                  {["موقع قديم أو بدون حضور هادف", "محتوى بصري متواضع", "صعوبة في الوصول لعملاء جدد"].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-muted-foreground/80">
+                  {["موقع أو تطبيق لا يخدم الهدف", "عمليات يدوية تستهلك الفريق", "أنظمة متفرقة يصعب تطويرها"].map((item) => (
+                    <div key={item} className="flex items-center gap-3 text-muted-foreground/80">
                       <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
                       {item}
                     </div>
@@ -418,19 +384,19 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold font-heading mb-4 text-primary">الحل مع بديع</h3>
                 <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                  نقدم لك حزم إبداعية متكاملة تبدأ من بناء موقعك وتطوير تجربة المستخدم، وصولاً لإنتاج محتوى بصري احترافي يخطف الأنظار.
-                  حلول رقمية ذكية تناسب ميزانيتك وتختصر عليك الوقت.
-                  <br /><span className="font-bold text-primary">كيف؟</span> ندمج الخبرة الإبداعية مع أحدث تقنيات AI.
+                  نبني لك حلاً متكاملاً يبدأ من فهم التحدي، ثم تصميم التجربة وبرمجة المنتج، وصولاً إلى الإطلاق والتطوير المستمر.
+                  مواقع وتطبيقات وأنظمة ذكية تتوافق مع احتياج شركتك اليوم وتستعد لنموها غداً.
+                  <br /><span className="font-bold text-primary">كيف؟</span> نجمع التصميم، البرمجة والذكاء الاصطناعي في فريق واحد.
                 </p>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
-                    <h4 className="font-bold text-2xl text-primary mb-1">48 ساعة</h4>
-                    <p className="text-xs text-muted-foreground font-medium">وقت التسليم</p>
+                    <h4 className="font-bold text-xl text-primary mb-1">من الفكرة للإطلاق</h4>
+                    <p className="text-xs text-muted-foreground font-medium">رحلة عمل واضحة</p>
                   </div>
                   <div className="bg-primary/5 p-4 rounded-2xl border border-primary/10 text-center">
-                    <h4 className="font-bold text-2xl text-primary mb-1">من 99 ر.س</h4>
-                    <p className="text-xs text-muted-foreground font-medium">يبدأ السعر</p>
+                    <h4 className="font-bold text-xl text-primary mb-1">حل يناسبك</h4>
+                    <p className="text-xs text-muted-foreground font-medium">نطاق مرن وقابل للتوسع</p>
                   </div>
                 </div>
               </div>
@@ -448,43 +414,57 @@ export default function Home() {
             <Badge className="mb-4 bg-primary/10 text-primary border-none px-4 py-1 text-sm">خدماتنا</Badge>
             <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">وش نقدر نسوي لك؟</h2>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              حلول إبداعية متكاملة تضمن حضوراً استثنائياً لمشروعك
+              فريق واحد يحوّل فكرتك أو تحدي شركتك إلى منتج رقمي متكامل
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
             {[
+              {
+                icon: <Code2 className="w-12 h-12 text-white" />,
+                color: "bg-zinc-900",
+                title: "برمجة وتصميم المواقع",
+                desc: "نصمم ونطور مواقع سريعة وواضحة تعكس علامتك وتحوّل الزيارة إلى خطوة مفيدة لعملك.",
+                features: ["مواقع شركات ومتاجر", "تجربة مستخدم متجاوبة", "ربط الأنظمة والخدمات"]
+              },
+              {
+                icon: <Smartphone className="w-12 h-12 text-white" />,
+                color: "bg-zinc-800",
+                title: "تطوير التطبيقات",
+                desc: "نحوّل فكرتك إلى تطبيق عملي وسهل الاستخدام، من رسم التجربة حتى النسخة الجاهزة للإطلاق.",
+                features: ["تطبيقات جوال وويب", "نماذج أولية قابلة للاختبار", "تطوير وتحسين مستمر"]
+              },
+              {
+                icon: <Building2 className="w-12 h-12 text-white" />,
+                color: "bg-zinc-700",
+                title: "حلول رقمية للشركات",
+                desc: "نحل تحديات التشغيل والمبيعات وخدمة العملاء بأنظمة مخصصة تتوافق مع طريقة عمل فريقك.",
+                features: ["لوحات تحكم داخلية", "بوابات العملاء والموظفين", "تكامل وربط البيانات"]
+              },
+              {
+                icon: <Bot className="w-12 h-12 text-white" />,
+                color: "bg-zinc-600",
+                title: "الذكاء الاصطناعي والأتمتة",
+                desc: "نختصر الأعمال المتكررة ونبني أدوات ذكية تساعد فريقك على الإنجاز واتخاذ القرار.",
+                features: ["مساعدات ذكية", "أتمتة سير العمل", "حلول مبنية على بياناتك"]
+              },
+              {
+                icon: <Palette className="w-12 h-12 text-white" />,
+                color: "bg-zinc-800",
+                title: "الهوية والمحتوى",
+                desc: "نبني لغة بصرية ومحتوى متماسكاً يجعل حضورك الرقمي واضحاً وسهل التذكر.",
+                features: ["هوية بصرية", "محتوى تسويقي", "تصميم واجهات رقمية"]
+              },
               {
                 icon: <Camera className="w-12 h-12 text-white" />,
                 color: "bg-zinc-900",
-                title: "صور منتجات",
-                desc: "صوّر منتجك بجوالك وارسله لنا. نحوله لصورة إعلانية احترافية بخلفيات وإضاءة مميزة.",
-                features: ["خلفيات حسب طلبك", "جودة عالية 4K", "تسليم خلال 48 ساعة"]
-              },
-              {
-                icon: <PenTool className="w-12 h-12 text-white" />,
-                color: "bg-zinc-800",
-                title: "كتابة محتوى",
-                desc: "نكتب لك وصف المنتج وكابشنات السوشال ميديا بطريقة تجذب الناس وتخليهم يشترون.",
-                features: ["وصف منتجات جذاب", "كابشنات انستقرام وتويتر", "هاشتاقات مناسبة"]
-              },
-              {
-                icon: <Video className="w-12 h-12 text-white" />,
-                color: "bg-zinc-700",
-                title: "فيديو ريلز",
-                desc: "نحول صور منتجاتك لفيديوهات قصيرة جذابة تنفع للانستقرام وتيك توك.",
-                features: ["فيديو 15-30 ثانية", "موسيقى مناسبة", "تصميم احترافي"]
-              },
-              {
-                icon: <Globe className="w-12 h-12 text-white" />,
-                color: "bg-zinc-600",
-                title: "تصميم مواقع",
-                desc: "نبني لك موقع إلكتروني عصري يعكس هوية براندك ويحول الزوار إلى عملاء.",
-                features: ["تصميم عصري ومتجاوب", "تجربة مستخدم سلسة", "سرعة في التحميل"]
+                title: "الإنتاج البصري",
+                desc: "نحوّل منتجاتك وأفكارك إلى صور وفيديوهات احترافية جاهزة للحملات والمنصات الرقمية.",
+                features: ["صور منتجات", "فيديوهات قصيرة", "مواد إعلانية متكاملة"]
               }
             ].map((service, i) => (
               <motion.div
-                key={i}
+                key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
@@ -553,14 +533,14 @@ export default function Home() {
                   step: "01",
                   icon: <UploadCloud className="w-8 h-8" />,
                   title: "شاركنا رؤيتك",
-                  desc: "أخبرنا عن مشروعك (موقع، هوية، أو تصوير) وأرسل ملفاتك الأولية.",
+                  desc: "أخبرنا عن فكرتك أو تحدي شركتك، وشاركنا ما لديك من معلومات أو ملفات أولية.",
                   delay: 0
                 },
                 {
                   step: "02",
                   icon: <Wand2 className="w-8 h-8" />,
                   title: "الإبداع والذكاء",
-                  desc: "ندمج خبرتنا الإبداعية مع تقنيات الذكاء الاصطناعي لبناء مشروعك.",
+                  desc: "نجمع التصميم والبرمجة والتقنية لبناء الحل المناسب لمشروعك.",
                   delay: 0.2
                 },
                 {
@@ -574,7 +554,7 @@ export default function Home() {
                   step: "04",
                   icon: <Share2 className="w-8 h-8" />,
                   title: "الانطلاق والنجاح",
-                  desc: "استلم ملفاتك بجودة عالية وانطلق ببراندك في فضاء المنافسة.",
+                  desc: "نطلق الحل معك، ونجهزه للتطوير حسب النتائج ونمو مشروعك.",
                   delay: 0.6
                 }
               ].map((item, i) => (
@@ -828,251 +808,88 @@ export default function Home() {
 
         </div>
       </section>
-      {/* Pricing Packages */}
-      <section id="pricing" className="py-24 bg-[#080808] relative overflow-hidden">
-        {/* Extreme Decorative background elements */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[140px] -z-10 translate-x-1/3 -translate-y-1/3" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] -z-10 -translate-x-1/3 translate-y-1/3" />
+      {/* Tailored Solutions */}
+      <section id="solutions" className="py-24 bg-[#070707] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[560px] h-[560px] bg-primary/10 rounded-full blur-[150px] -z-10 translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute bottom-0 left-0 w-[480px] h-[480px] bg-white/[0.04] rounded-full blur-[130px] -z-10 -translate-x-1/3 translate-y-1/3" />
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-            >
-              <Badge className="mb-4 bg-primary/10 text-primary border-none text-sm px-4 py-1.5 font-bold">باقاتنا المدروسة</Badge>
-            </motion.div>
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 text-white">اختر الباقة المناسبة لمشروعك</h2>
-            <p className="text-xl text-zinc-300">خيارات متنوعة مصممة لتناسب مختلف الاحتياجات والميزانيات</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "باكيج الانطلاقة",
-                price: "199",
-                priceText: "ر.س",
-                desc: "مثالية للمشاريع الناشئة التي تحتاج حضوراً بصرياً أساسياً.",
-                features: ["7 صور منتجات احترافية", "كتابة 3 أوصاف جذابة", "تعديل ألوان سينمائي", "تسليم خلال 48 ساعة"],
-                popular: false,
-                color: "border-white/10",
-                glow: "hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.08)]"
-              },
-              {
-                name: "باكيج الحضور الرقمي",
-                price: "749",
-                priceText: "ر.س",
-                desc: "باقة متكاملة لبناء هويتك الرقمية وجذب العملاء.",
-                features: ["صفحة هبوط (Landing Page)", "15 صورة منتج إعلانية", "5 فيديوهات ريلز قصيرة", "دعم فني لمدة شهر"],
-                popular: true,
-                color: "border-primary/40",
-                glow: "shadow-[0_0_50px_-15px_rgba(var(--primary),0.35)]"
-              },
-              {
-                name: "الباقة الشاملة",
-                price: "1999",
-                priceText: "ر.س",
-                desc: "الحل النهائي لتحويل مشروعك إلى قصة نجاح باهرة.",
-                features: ["موقع تعريفي متكامل", "محتوى بصري لـ 30 يوم", "إدارة حسابات السوشيال", "استشارة تسويقية مجانية"],
-                popular: false,
-                color: "border-white/10",
-                glow: "group-hover:shadow-[0_0_30px_-10px_rgba(255,255,255,0.1)]"
-              }
-            ].map((pkg, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: i * 0.1,
-                  duration: 0.5,
-                }}
-                viewport={{ once: true }}
-                whileHover={{
-                  y: -15,
-                  transition: { duration: 0.3 }
-                }}
-                animate={pkg.popular ? {
-                  y: [0, -10, 0],
-                  transition: {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }
-                } : {}}
-                className={`group relative p-8 md:p-10 rounded-[2.5rem] border ${pkg.color} bg-zinc-900/90 flex flex-col h-full transition-all duration-500 ${pkg.glow} ${pkg.popular ? 'bg-gradient-to-b from-primary/[0.06] to-zinc-900/90' : ''}`}
-              >
-                {pkg.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-black px-6 py-1.5 rounded-full shadow-lg shadow-primary/30 z-20">
-                    الأكثر طلباً
-                  </div>
-                )}
-
-                {/* Internal glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[2rem] -z-10" />
-
-                <div className="mb-8 relative">
-                  <h3 className="text-2xl font-bold mb-3 text-white">{pkg.name}</h3>
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-sm text-zinc-400">تبدأ من</span>
-                    <span className="text-5xl font-black tracking-tighter text-white">
-                      {pkg.price}
-                    </span>
-                    <span className="text-sm text-zinc-400">{pkg.priceText}</span>
-                  </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed min-h-[3rem]">{pkg.desc}</p>
-                </div>
-
-                <div className="h-px w-full bg-white/10 mb-8" />
-
-                <ul className="space-y-4 mb-10 flex-grow">
-                  {pkg.features.map((feat, j) => (
-                    <li key={j} className="flex items-center gap-3 text-sm group/item">
-                      <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
-                      </div>
-                      <span className="text-zinc-300">{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Button
-                  onClick={() => handlePackageClick(pkg.name, `${pkg.price} ${pkg.priceText}`)}
-                  variant={pkg.popular ? "default" : "outline"}
-                  className={`w-full h-14 rounded-2xl font-bold text-lg transition-all duration-300 ${pkg.popular
-                    ? 'bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/30'
-                    : 'border-white/10 text-white hover:bg-white/5'
-                    }`}
-                >
-                  اطلب الباقة الآن
-                </Button>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Flexible Calculator */}
-      <section id="calculator" className="py-24 bg-[#050505] relative overflow-hidden">
-        {/* Background glow for calculator */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[700px] bg-primary/10 rounded-full blur-[180px] -z-10" />
-
-        <div className="container mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 70 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-6xl mx-auto bg-zinc-900 border border-white/10 overflow-hidden shadow-[0_50px_150px_-30px_rgba(0,0,0,0.7)] rounded-[4rem]"
+            className="max-w-4xl mx-auto text-center mb-16"
           >
-            <div className="grid lg:grid-cols-2">
-              <div className="p-10 md:p-14 border-b lg:border-b-0 lg:border-l border-white/5 bg-zinc-950/30">
-                <div className="flex items-center gap-4 mb-12">
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl flex items-center justify-center text-primary shadow-inner border border-white/5">
-                    <Calculator size={28} />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold tracking-tight text-white">حاسبة الطلبات المرنة</h2>
-                    <p className="text-sm text-zinc-400">صمم باقتك الخاصة بلمسة واحدة</p>
-                  </div>
-                </div>
+            <Badge className="mb-5 bg-primary/10 text-primary border border-primary/20 px-5 py-2 text-sm">
+              طريقة عمل مرنة
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-bold font-heading text-white mb-6">
+              حلول مصممة حسب احتياجك
+            </h2>
+            <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-3xl mx-auto">
+              كل مشروع له تحدياته وأهدافه. نحدد معك الأولويات ونبني نطاقاً واضحاً يبدأ بما تحتاجه فعلاً،
+              مع إمكانية التطوير والتوسع لاحقاً.
+            </p>
+          </motion.div>
 
-                <div className="space-y-5">
-                  {calculatorItems.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      layout
-                      className="flex items-center justify-between p-5 bg-black/60 border border-white/5 rounded-[1.25rem] group hover:border-primary/20 hover:bg-black/80 transition-all duration-300"
-                    >
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-zinc-200 group-hover:text-primary group-hover:bg-primary/10 transition-all">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-base text-white">{item.label}</h4>
-                          <p className="text-xs text-zinc-400 mt-0.5">{item.price} ر.س / للوحدة</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-5">
-                        <button
-                          onClick={() => updateCalcCount(item.id, -1)}
-                          className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center bg-zinc-800 hover:bg-zinc-700 hover:border-white/20 transition-all active:scale-90 disabled:opacity-5 text-white shadow-xl shadow-black/20"
-                          disabled={item.count === 0}
-                        >
-                          <Minus size={18} strokeWidth={3} />
-                        </button>
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key={item.count}
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="w-10 text-center font-black text-2xl tabular-nums text-white"
-                          >
-                            {item.count}
-                          </motion.span>
-                        </AnimatePresence>
-                        <button
-                          onClick={() => updateCalcCount(item.id, 1)}
-                          className="w-11 h-11 rounded-full border border-primary/40 bg-primary/10 text-primary flex items-center justify-center hover:bg-primary/30 transition-all active:scale-90 shadow-[0_0_20px_rgba(var(--primary),0.2)]"
-                        >
-                          <Plus size={18} strokeWidth={3} />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
+          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {[
+              {
+                step: "01",
+                icon: <Compass className="w-7 h-7" />,
+                title: "نفهم التحدي",
+                desc: "جلسة مركزة لفهم الفكرة، المستخدمين، طريقة العمل والنتيجة التي تريد الوصول لها."
+              },
+              {
+                step: "02",
+                icon: <Workflow className="w-7 h-7" />,
+                title: "نصمم الحل",
+                desc: "نحوّل الاحتياج إلى تجربة واضحة وخطة تنفيذ قابلة للقياس، من دون تعقيد غير ضروري."
+              },
+              {
+                step: "03",
+                icon: <Rocket className="w-7 h-7" />,
+                title: "نبني ونطوّر",
+                desc: "ننفّذ الحل، نختبره معك، ثم نجهزه للإطلاق والتطوير حسب نمو المشروع."
+              }
+            ].map((item, index) => (
+              <motion.article
+                key={item.step}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative rounded-3xl border border-white/10 bg-white/[0.035] p-8 hover:border-primary/30 hover:bg-white/[0.055] transition-all duration-300"
+              >
+                <div className="flex items-center justify-between mb-10">
+                  <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center group-hover:scale-105 transition-transform">
+                    {item.icon}
+                  </div>
+                  <span className="text-5xl font-black text-white/[0.06]">{item.step}</span>
                 </div>
+                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                <p className="text-zinc-400 leading-relaxed">{item.desc}</p>
+              </motion.article>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto mt-12 rounded-[2rem] border border-white/10 bg-gradient-to-l from-primary/10 via-white/[0.04] to-transparent p-8 md:p-10"
+          >
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-right">
+              <div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">عندك فكرة أو تحدٍ داخل شركتك؟</h3>
+                <p className="text-zinc-400">شاركنا التفاصيل، ونرتب معك أفضل نقطة بداية للمشروع.</p>
               </div>
-
-              <div className="p-10 md:p-14 bg-gradient-to-br from-primary/[0.03] to-transparent flex flex-col justify-center items-center text-center relative">
-                {/* Decorative circle behind total */}
-                <div className="absolute w-64 h-64 bg-primary/5 rounded-full blur-[60px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10" />
-
-                <div className="mb-10 w-full">
-                  <div className="w-20 h-20 bg-gradient-to-tr from-primary to-primary/60 rounded-3xl flex items-center justify-center text-white mx-auto mb-8 shadow-2xl shadow-primary/40 rotate-3 border border-white/10">
-                    <ShoppingCart size={40} />
-                  </div>
-                  <h3 className="text-lg font-bold mb-4 text-zinc-200 uppercase tracking-widest">التكلفة التقديرية</h3>
-                  <div className="flex items-baseline justify-center gap-3">
-                    <span className="text-sm text-zinc-400 font-bold">ريال</span>
-                    <AnimatePresence mode="wait">
-                      <motion.span
-                        key={calcTotal}
-                        initial={{ opacity: 0, scale: 0.7, y: 20, filter: "blur(15px)" }}
-                        animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
-                        transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
-                        className="text-8xl md:text-9xl font-black text-white transition-all duration-300 tracking-tighter tabular-nums drop-shadow-[0_0_30px_rgba(var(--primary),0.3)] bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-white/40"
-                      >
-                        {calcTotal}
-                      </motion.span>
-                    </AnimatePresence>
-                    <span className="text-lg text-primary uppercase font-black mb-1">يبدأ من</span>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 px-6 py-2.5 bg-white/5 rounded-full mb-10 border border-white/10 shadow-inner">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                  <p className="text-xs text-zinc-400">دقة الحسبة تعتمد على التفاصيل النهائية</p>
-                </div>
-
-                <Button
-                  size="lg"
-                  disabled={calcTotal === 0}
-                  onClick={() => {
-                    const breakdown = calculatorItems
-                      .filter(i => i.count > 0)
-                      .map(i => `- ${i.label}: ${i.count}`)
-                      .join('\n');
-                    const message = `مرحباً، أرغب في طلب باقة مخصصة عبر الحاسبة:\n\n${breakdown}\n\nالتكلفة التقديرية: ${calcTotal} ريال`;
-                    window.open(`https://wa.me/966507553404?text=${encodeURIComponent(message)}`, '_blank');
-                  }}
-                  className="w-full h-20 rounded-[1.5rem] text-2xl font-black bg-primary text-white shadow-[0_20px_40px_-10px_rgba(var(--primary),0.3)] hover:shadow-[0_25px_50px_-12px_rgba(var(--primary),0.5)] transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
-                >
-                  <MessageCircle size={28} className="ml-3" />
-                  اطلب هذه الحسبة الآن
-                </Button>
-
-                <p className="text-xs text-zinc-400 mt-6 font-medium">سيتم توجيهك للمحادثة المباشرة مع فريق التنفيذ</p>
-              </div>
+              <Button asChild size="lg" className="h-14 px-9 rounded-full text-lg font-bold bg-primary hover:bg-primary/90 text-white shrink-0">
+                <a href="#booking">
+                  ناقش مشروعك معنا
+                  <ArrowRight className="mr-2 w-5 h-5" />
+                </a>
+              </Button>
             </div>
           </motion.div>
         </div>
@@ -1093,11 +910,11 @@ export default function Home() {
                 ابدأ الآن 🚀
               </Badge>
               <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6 leading-tight">
-                خلنا نشتغل على <br />
-                <span className="text-gradient">منتجاتك</span>
+                خلنا نبني <br />
+                <span className="text-gradient">الحل المناسب لك</span>
               </h2>
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-                عبّي النموذج البسيط هذا ونتواصل معك على الواتساب. ما ياخذ دقيقتين.
+                شاركنا فكرتك أو التحدي اللي تواجهه، ونتواصل معك على الواتساب لترتيب الخطوة التالية.
               </p>
 
               <div className="space-y-6">
@@ -1115,8 +932,8 @@ export default function Home() {
                     <Zap size={24} />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2">نسلّم بسرعة</h3>
-                    <p className="text-muted-foreground">تسليم خلال 48 ساعة لأغلب الطلبات.</p>
+                    <h3 className="text-xl font-bold mb-2">نقترح بوضوح</h3>
+                    <p className="text-muted-foreground">نحدد النطاق والمراحل المناسبة قبل بدء التنفيذ.</p>
                   </div>
                 </div>
               </div>
@@ -1156,12 +973,12 @@ export default function Home() {
                     {currentStep === 1 && (
                       <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-6">
                         <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                           {projectTypes.map((type) => (
                             <div
                               key={type.id}
                               onClick={() => { updateField('projectType', type.label); nextStep(); }}
-                              className={`cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
+                              className={`cursor-pointer p-4 md:p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
                                 ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20"
                                 : "border-muted hover:border-primary/50 bg-background/50"
                                 }`}
@@ -1186,7 +1003,7 @@ export default function Home() {
                         <div className="space-y-3">
                           <Label className="text-base font-bold">من هو جمهورك المستهدف؟</Label>
                           <div className="flex flex-wrap gap-2">
-                            {["شباب وجيل Z", "عائلات", "نخبة (VIP)", "شركات (B2B)", "نساء", "أطفال", "عام"].map((aud) => (
+                            {["عملاء أفراد", "شركات (B2B)", "موظفون وفِرق عمل", "شركاء وموردون", "جمهور عام", "غير محدد بعد"].map((aud) => (
                               <Badge
                                 key={aud}
                                 variant="outline"
@@ -1208,9 +1025,9 @@ export default function Home() {
                           <div className="grid grid-cols-2 gap-3">
                             {[
                               { id: 'sales', label: 'زيادة المبيعات 📈' },
-                              { id: 'brand', label: 'الوعي بالعلامة التجارية 🌟' },
-                              { id: 'launch', label: 'إطلاق منتج جديد 🚀' },
-                              { id: 'content', label: 'تحسين مظهر الحساب ✨' },
+                              { id: 'experience', label: 'تحسين تجربة العملاء ✨' },
+                              { id: 'launch', label: 'إطلاق منتج رقمي 🚀' },
+                              { id: 'efficiency', label: 'رفع الكفاءة والأتمتة ⚙️' },
                             ].map((g) => (
                               <div
                                 key={g.id}
@@ -1312,18 +1129,18 @@ export default function Home() {
                       </motion.div>
                     )}
 
-                    {/* Step 3: Budget & Timeline */}
+                    {/* Step 3: Scope & Timeline */}
                     {currentStep === 3 && (
                       <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-8">
-                        <h3 className="text-xl font-bold text-center mb-8">الميزانية والوقت</h3>
+                        <h3 className="text-xl font-bold text-center mb-8">نطاق المشروع والوقت</h3>
 
                         <div className="space-y-4">
-                          <Label className="text-base font-bold">الميزانية المتوقعة</Label>
+                          <Label className="text-base font-bold">حجم الاستثمار المتوقع</Label>
                           <div className="grid grid-cols-3 gap-4">
                             {[
-                              { id: 'اقتصادية', label: 'اقتصادية', icon: '💰', desc: 'مناسبة للبدايات' },
-                              { id: 'متوسطة', label: 'متوسطة', icon: '⚖️', desc: 'أفضل قيمة' },
-                              { id: 'مفتوحة', label: 'مفتوحة', icon: '💎', desc: 'أعلى جودة' }
+                              { id: 'بداية مركزة', label: 'بداية مركزة', icon: '🎯', desc: 'أولوية واحدة واضحة' },
+                              { id: 'مشروع متكامل', label: 'مشروع متكامل', icon: '🧩', desc: 'عدة أجزاء مترابطة' },
+                              { id: 'حل قابل للتوسع', label: 'حل قابل للتوسع', icon: '🚀', desc: 'تنفيذ على مراحل' }
                             ].map((b) => (
                               <div
                                 key={b.id}
@@ -1345,9 +1162,9 @@ export default function Home() {
                           <Label className="text-base font-bold">موعد التسليم المفضل</Label>
                           <div className="grid grid-cols-2 gap-3">
                             {[
-                              { id: 'عاجل جداً (24 ساعة)', label: '⚡️ عاجل (24 ساعة)' },
-                              { id: 'خلال أسبوع', label: '📅 خلال أسبوع' },
-                              { id: 'خلال شهر', label: '🗓 خلال شهر' },
+                              { id: 'خلال شهر', label: '📅 خلال شهر' },
+                              { id: 'من شهر إلى ثلاثة', label: '🗓 من شهر إلى ثلاثة' },
+                              { id: 'تنفيذ على مراحل', label: '🧭 تنفيذ على مراحل' },
                               { id: 'غير محدد', label: '⏳ غير محدد' },
                             ].map((t) => (
                               <div
@@ -1432,23 +1249,23 @@ export default function Home() {
             {[
               {
                 q: "كيف الطريقة؟",
-                a: "بسيطة جداً: 1) ترسل لنا صور منتجك من جوالك على الواتساب. 2) نشتغل عليها ونحولها لصور احترافية. 3) نرسلها لك جاهزة خلال يومين. خلاص!"
+                a: "نبدأ بفهم الفكرة أو التحدي والنتيجة المطلوبة، ثم نحدد نطاقاً واضحاً ومراحل مناسبة قبل بدء التصميم والتنفيذ."
               },
               {
-                q: "طيب لو ما عجبتني النتيجة؟",
-                a: "كل باقة فيها تعديلات مجانية. لو حاب تغير الخلفية أو الإضاءة أو أي شي، قول لنا ونعدل. هدفنا إنك ترضى 100%."
+                q: "هل تنفذون مواقع وتطبيقات مخصصة؟",
+                a: "نعم. نصمم ونبرمج مواقع وتطبيقات ومنتجات رقمية مخصصة حسب المستخدمين واحتياج العمل، مع قابلية التطوير لاحقاً."
               },
               {
-                q: "الصور تصير ملكي؟",
-                a: "أكيد! كل الصور والمحتوى اللي نسويه لك يصير ملكك الكامل. تقدر تستخدمه في أي مكان تبيه - موقعك، سوشال ميديا، إعلانات، أي شي."
+                q: "هل يمكنكم تطوير نظام قائم؟",
+                a: "نعم، نراجع الوضع الحالي أولاً ثم نقترح التحسين أو إعادة البناء على مراحل بما يحافظ على ما يعمل ويعالج نقاط التعطّل."
               },
               {
-                q: "احتاج أرسل لكم المنتج الفعلي؟",
-                a: "لا أبداً! بس صوّر منتجك بجوالك بإضاءة واضحة وارسل لنا الصور. ما تحتاج ترسل شي، كل شي يتم أونلاين."
+                q: "من يملك الملفات والكود بعد التسليم؟",
+                a: "تكون مخرجات المشروع المتفق عليها لك، ونوضح من البداية ما يشمله التسليم من ملفات وتصاميم وكود ووثائق."
               },
               {
                 q: "كم ياخذ الوقت؟",
-                a: "التسليم خلال 48 ساعة لأغلب الباقات. لو عندك طلب مستعجل، كلمنا وننسق معك."
+                a: "تعتمد المدة على نطاق الحل وتعقيده. بعد جلسة الفهم نعطيك مراحل واضحة وموعداً واقعياً لكل مرحلة."
               }
             ].map((item, i) => (
               <AccordionItem key={i} value={`item-${i}`} className="border border-muted bg-card rounded-xl px-4 shadow-sm hover:shadow-md transition-all duration-300">
@@ -1469,7 +1286,7 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-bold font-heading mb-8">جاهز تبدأ؟</h2>
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
-            كلمنا على الواتساب وخلنا نشتغل على منتجاتك
+            كلمنا على الواتساب وخلنا نحوّل فكرتك أو تحدي شركتك إلى حل رقمي واضح
           </p>
           <Button size="lg" className="bg-white text-primary hover:bg-gray-100 text-lg px-10 py-7 rounded-full shadow-2xl transition-transform hover:scale-105" onClick={() => window.open('https://wa.me/966507553404', '_blank')}>
             <MessageCircle className="ml-2" />

@@ -60,8 +60,8 @@ export default function About() {
   const whyChooseUs = [
     {
       icon: Sparkles,
-      title: "تقنية ذكاء اصطناعي متقدمة",
-      description: "نستخدم أحدث تقنيات AI لتحويل صورك"
+      title: "تقنية تخدم الهدف",
+      description: "نختار التقنية المناسبة للمشكلة، من البرمجة إلى الذكاء الاصطناعي"
     },
     {
       icon: Zap,
@@ -70,25 +70,25 @@ export default function About() {
     },
     {
       icon: Shield,
-      title: "أسعار واضحة",
-      description: "لا رسوم مخفية - تعرف التكلفة مقدماً"
+      title: "حلول مرنة حسب الاحتياج",
+      description: "نبدأ بنطاق واضح ونبني حلاً قابلاً للتطوير مع نمو مشروعك"
     }
   ];
 
   const timeline = [
     {
       title: "الفكرة",
-      description: "لاحظنا أن أصحاب المشاريع يملكون منتجات رائعة لكنهم يفتقرون لأدوات التسويق البصري والحضور الرقمي الاحترافي",
+      description: "لاحظنا أن كثيراً من الأفكار والشركات تحتاج شريكاً يجمع فهم العمل مع التصميم والبرمجة في مكان واحد",
       icon: Lightbulb,
     },
     {
       title: "الحل",
-      description: "دمج الذكاء الاصطناعي مع الخبرة الإبداعية لتقديم حلول متكاملة تشمل الموقع، المحتوى، والتصوير",
+      description: "جمع التصميم والبرمجة والذكاء الاصطناعي لبناء مواقع وتطبيقات وحلول رقمية متكاملة للشركات",
       icon: Sparkles,
     },
     {
       title: "الانطلاق",
-      description: "أطلقنا بديع لتمكين كل صاحب مشروع من المنافسة بمحتوى عالي الجودة",
+      description: "أطلقنا بديع لبناء منتجات رقمية عملية تساعد المشاريع والشركات على النمو والتطور",
       icon: Rocket,
     },
   ];
@@ -176,7 +176,7 @@ export default function About() {
                 transition={{ duration: 0.4, delay: 0.2 }}
                 className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-10"
               >
-                نؤمن بأن كل مشروع يستحق حضوراً رقمياً استثنائياً يدمج بين التصميم المبتكر والمحتوى البصري القوي لرفع القيمة السوقية وتحقيق المبيعات
+                نؤمن بأن كل فكرة تستحق حلاً رقمياً واضحاً يجمع التصميم والبرمجة والتقنية ليصنع قيمة حقيقية للمستخدم والعمل
               </motion.p>
 
               <motion.div
@@ -215,7 +215,7 @@ export default function About() {
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold font-heading mb-4">
-                لماذا يختارنا <span className="text-primary">المبدعون</span>؟
+                لماذا تختار <span className="text-primary">بديع</span>؟
               </h2>
               <p className="text-lg text-muted-foreground">القيمة التي نصنعها لمشروعك</p>
             </motion.div>
@@ -318,7 +318,7 @@ export default function About() {
                     <h2 className="text-2xl font-bold font-heading">رؤيتنا</h2>
                   </div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    أن نكون الشريك الإبداعي الرقمي الأول لكل صاحب مشروع يريد بناء حضوره الإلكتروني وتطوير خدماته الرقمية بطريقة تلمس القلوب وتحرك المبيعات.
+                    أن نكون الشريك الرقمي الذي يحوّل أفكار المشاريع وتحديات الشركات إلى منتجات سهلة الاستخدام وقابلة للنمو.
                   </p>
                 </div>
               </motion.div>
@@ -340,7 +340,7 @@ export default function About() {
                     <h2 className="text-2xl font-bold font-heading">مهمتنا</h2>
                   </div>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    تمكين أصحاب المشاريع من المنافسة بمحتوى بصري وحضور رقمي عالي الجودة دون الحاجة لميزانيات ضخمة.
+                    تمكين المشاريع والشركات بحلول تجمع بين فهم العمل، تجربة المستخدم، البرمجة والذكاء الاصطناعي.
                   </p>
                 </div>
               </motion.div>
@@ -404,7 +404,7 @@ export default function About() {
                 <div className="relative bg-white/[0.08] backdrop-blur-2xl border border-white/[0.15] rounded-3xl p-8 md:p-12 text-center shadow-2xl shadow-black/10 hover:border-primary/30 transition-all duration-300">
                   <Quote className="w-12 h-12 text-primary/50 mx-auto mb-6 rotate-180" />
                   <p className="text-xl md:text-2xl font-heading leading-relaxed mb-8 text-foreground/90">
-                    "نحن لا نصنع صوراً فقط... نحن نروي قصصاً تُحرّك المشاعر وتصنع المبيعات"
+                    "لا نبدأ من التقنية؛ نبدأ من المشكلة، ثم نبني الحل الذي يصنع فرقاً حقيقياً."
                   </p>
                   <div className="flex items-center justify-center gap-3">
                     <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-primary/30">
@@ -440,7 +440,7 @@ export default function About() {
                 مستعد تبدأ <span className="text-primary">رحلتك</span> معنا؟
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                تواصل معنا اليوم ولنحول حضورك الرقمي إلى قصة نجاح باهرة
+                شاركنا فكرتك أو تحدي شركتك، ونرتب معك أول خطوة واضحة نحو الحل
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
