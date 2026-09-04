@@ -497,16 +497,6 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-          {/* Note: Grid columns should be adjusted for 4 items if needed, or keep it responsive */}
-          <style dangerouslySetInnerHTML={{
-            __html: `
-            @media (min-width: 768px) {
-              #services .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            }
-            @media (min-width: 1024px) {
-              #services .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-            }
-          `}} />
         </div>
       </section>
 
@@ -975,10 +965,12 @@ export default function Home() {
                         <h3 className="text-xl font-bold text-center mb-8">ما هو نوع مشروعك؟</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                           {projectTypes.map((type) => (
-                            <div
+                            <button
+                              type="button"
                               key={type.id}
                               onClick={() => { updateField('projectType', type.label); nextStep(); }}
-                              className={`cursor-pointer p-4 md:p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
+                              aria-pressed={formData.projectType === type.label}
+                              className={`w-full cursor-pointer p-4 md:p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 flex flex-col items-center gap-4 text-center ${formData.projectType === type.label
                                 ? "border-primary bg-primary/5 shadow-lg shadow-primary/10 ring-2 ring-primary/20"
                                 : "border-muted hover:border-primary/50 bg-background/50"
                                 }`}
@@ -987,7 +979,7 @@ export default function Home() {
                                 {type.icon}
                               </div>
                               <span className="font-bold text-lg">{type.label}</span>
-                            </div>
+                            </button>
                           ))}
                         </div>
                       </motion.div>
@@ -1004,17 +996,18 @@ export default function Home() {
                           <Label className="text-base font-bold">من هو جمهورك المستهدف؟</Label>
                           <div className="flex flex-wrap gap-2">
                             {["عملاء أفراد", "شركات (B2B)", "موظفون وفِرق عمل", "شركاء وموردون", "جمهور عام", "غير محدد بعد"].map((aud) => (
-                              <Badge
+                              <button
+                                type="button"
                                 key={aud}
-                                variant="outline"
-                                className={`cursor-pointer px-4 py-2 text-sm border-2 transition-all ${formData.audience.includes(aud)
+                                className={`cursor-pointer rounded-full px-4 py-2 text-sm border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${formData.audience === aud
                                   ? "bg-primary text-white border-primary shadow-md"
-                                  : "hover:border-primary/50 bg-background"
+                                  : "text-foreground border-muted hover:border-primary/50 bg-background"
                                   }`}
-                                onClick={() => updateField('audience', aud)} // For simple single select, or toggle logic for multi
+                                aria-pressed={formData.audience === aud}
+                                onClick={() => updateField('audience', aud)}
                               >
                                 {aud}
-                              </Badge>
+                              </button>
                             ))}
                           </div>
                         </div>
@@ -1029,16 +1022,18 @@ export default function Home() {
                               { id: 'launch', label: 'إطلاق منتج رقمي 🚀' },
                               { id: 'efficiency', label: 'رفع الكفاءة والأتمتة ⚙️' },
                             ].map((g) => (
-                              <div
+                              <button
+                                type="button"
                                 key={g.id}
                                 onClick={() => updateField('goal', g.label)}
-                                className={`cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${formData.goal === g.label
+                                aria-pressed={formData.goal === g.label}
+                                className={`w-full cursor-pointer p-3 rounded-xl border-2 text-center font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${formData.goal === g.label
                                   ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                                   : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
                               >
                                 {g.label}
-                              </div>
+                              </button>
                             ))}
                           </div>
                         </div>
@@ -1084,10 +1079,12 @@ export default function Home() {
                                 icon: <ImageIcon size={20} className="text-gray-300" />
                               },
                             ].map((m) => (
-                              <div
+                              <button
+                                type="button"
                                 key={m.id}
                                 onClick={() => updateField('mood', m.label)}
-                                className={`group cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between ${formData.mood === m.label
+                                aria-pressed={formData.mood === m.label}
+                                className={`group w-full cursor-pointer relative overflow-hidden rounded-2xl border-2 transition-all duration-300 p-4 h-28 flex flex-col justify-between text-right focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${formData.mood === m.label
                                   ? `ring-2 ring-primary ring-offset-2 border-transparent bg-gradient-to-br ${m.gradient} shadow-xl scale-[1.02]`
                                   : `border-muted bg-gradient-to-br ${m.gradient} hover:shadow-lg hover:scale-[1.02] opacity-80 hover:opacity-100`
                                   }`}
@@ -1106,7 +1103,7 @@ export default function Home() {
                                   <h4 className="font-bold text-sm mb-0.5">{m.label}</h4>
                                   <p className="text-[10px] opacity-70 font-medium">{m.desc}</p>
                                 </div>
-                              </div>
+                              </button>
                             ))}
                           </div>
                         </div>
@@ -1142,10 +1139,12 @@ export default function Home() {
                               { id: 'مشروع متكامل', label: 'مشروع متكامل', icon: '🧩', desc: 'عدة أجزاء مترابطة' },
                               { id: 'حل قابل للتوسع', label: 'حل قابل للتوسع', icon: '🚀', desc: 'تنفيذ على مراحل' }
                             ].map((b) => (
-                              <div
+                              <button
+                                type="button"
                                 key={b.id}
                                 onClick={() => updateField('budget', b.id)}
-                                className={`cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 text-center flex flex-col items-center gap-2 ${formData.budget === b.id
+                                aria-pressed={formData.budget === b.id}
+                                className={`w-full cursor-pointer p-4 rounded-xl border-2 transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 text-center flex flex-col items-center gap-2 ${formData.budget === b.id
                                   ? "border-primary bg-primary/5 ring-2 ring-primary/20 shadow-lg"
                                   : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
@@ -1153,7 +1152,7 @@ export default function Home() {
                                 <div className="text-3xl mb-1">{b.icon}</div>
                                 <div className="font-bold">{b.label}</div>
                                 <div className="text-xs text-muted-foreground">{b.desc}</div>
-                              </div>
+                              </button>
                             ))}
                           </div>
                         </div>
@@ -1167,16 +1166,18 @@ export default function Home() {
                               { id: 'تنفيذ على مراحل', label: '🧭 تنفيذ على مراحل' },
                               { id: 'غير محدد', label: '⏳ غير محدد' },
                             ].map((t) => (
-                              <div
+                              <button
+                                type="button"
                                 key={t.id}
                                 onClick={() => updateField('timeline', t.id)}
-                                className={`cursor-pointer p-3 rounded-lg border text-center font-medium transition-all ${formData.timeline === t.id
+                                aria-pressed={formData.timeline === t.id}
+                                className={`w-full cursor-pointer p-3 rounded-lg border text-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${formData.timeline === t.id
                                   ? "border-primary bg-primary/5 text-primary ring-1 ring-primary/20"
                                   : "border-muted hover:border-primary/30 bg-background/50"
                                   }`}
                               >
                                 {t.label}
-                              </div>
+                              </button>
                             ))}
                           </div>
                         </div>

@@ -52,3 +52,14 @@ test("hero description keeps readable contrast on the light background", () => {
     /text-xl md:text-2xl text-foreground\/70 max-w-3xl/,
   );
 });
+
+test("service cards keep the declared responsive grid", () => {
+  assert.match(homeSource, /grid md:grid-cols-2 xl:grid-cols-3 gap-8/);
+  assert.doesNotMatch(homeSource, /dangerouslySetInnerHTML/);
+});
+
+test("booking choices expose keyboard-accessible pressed states", () => {
+  const pressedStates = homeSource.match(/aria-pressed=/g) ?? [];
+
+  assert.ok(pressedStates.length >= 6);
+});
