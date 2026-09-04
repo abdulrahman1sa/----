@@ -27,13 +27,13 @@ const projectTypeLabels: Record<string, string> = {
   photography: "تصوير منتجات",
   content: "كتابة محتوى",
   video: "إنتاج فيديو",
-  full: "باقة متكاملة"
+  full: "خدمات متكاملة"
 };
 
 const budgetLabels: Record<string, string> = {
-  starter: "انطلاقة (299 ر.س)",
-  growth: "نمو ذكي (999 ر.س)",
-  premium: "قيادة استراتيجية (1,799 ر.س)"
+  starter: "بداية مركزة",
+  growth: "مشروع متكامل",
+  premium: "حل قابل للتوسع"
 };
 
 export default function Admin() {

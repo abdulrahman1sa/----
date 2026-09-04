@@ -12,8 +12,13 @@ const aboutSource = await readFile(
   "utf8",
 );
 
+const adminSource = await readFile(
+  new URL("../client/src/pages/admin.tsx", import.meta.url),
+  "utf8",
+);
+
 test("public pages do not advertise fixed packages or prices", () => {
-  const publicSource = `${homeSource}\n${aboutSource}`;
+  const publicSource = `${homeSource}\n${aboutSource}\n${adminSource}`;
 
   assert.doesNotMatch(homeSource, /id="pricing"|id="calculator"/);
   assert.doesNotMatch(publicSource, /ر\.س|ريال|أسعار واضحة/);
